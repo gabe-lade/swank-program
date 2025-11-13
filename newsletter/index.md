@@ -16,105 +16,59 @@ Stay informed with our newsletter covering rural-urban policy insights, data ana
 {% include section.html %}
 
 {%
-  include figure.html
-  image="https://substackcdn.com/image/fetch/f_auto,q_auto:best,fl_progressive:steep/https%3A%2F%2Fgelade1.substack.com%2Fapi%2Fv1%2Fpress_kit%2F177484025.jpg"
-  width="400px"
-%}
-
-### [The Great Ethanol Boom—and Eventual Bust](https://gelade1.substack.com/p/the-great-ethanol-boomand-eventual)
-
-Exploring the rise and fall of the ethanol industry and its impact on rural America.
-
-{%
-  include button.html
+  include newsletter-post.html
+  image="images/newsletter/ethanol-boom.jpg"
+  title="The Great Ethanol Boom—and Eventual Bust"
   link="https://gelade1.substack.com/p/the-great-ethanol-boomand-eventual"
-  text="Read More"
-  icon="fa-solid fa-arrow-right"
-  flip=true
+  description="Exploring the rise and fall of the ethanol industry and its impact on rural America."
 %}
 
-{% include section.html %}
-
-### [The Paper Market That Determined the Renewable Fuel Standard](https://gelade1.substack.com/p/the-paper-market-that-determined)
-
-An analysis of the market mechanisms behind renewable fuel policy.
-
 {%
-  include button.html
+  include newsletter-post.html
+  image="images/newsletter/paper-market.jpg"
+  title="The Paper Market That Determined the Renewable Fuel Standard"
   link="https://gelade1.substack.com/p/the-paper-market-that-determined"
-  text="Read More"
-  icon="fa-solid fa-arrow-right"
-  flip=true
+  description="An analysis of the market mechanisms behind renewable fuel policy."
 %}
 
-{% include section.html %}
-
-### [How Gas Changed the Renewable Fuel Standard](https://gelade1.substack.com/p/how-gas-changed-the-renewable-fuel)
-
-Examining the impact of gasoline market dynamics on renewable fuel policy.
-
 {%
-  include button.html
+  include newsletter-post.html
+  image="images/newsletter/gas-rfs.jpg"
+  title="How Gas Changed the Renewable Fuel Standard"
   link="https://gelade1.substack.com/p/how-gas-changed-the-renewable-fuel"
-  text="Read More"
-  icon="fa-solid fa-arrow-right"
-  flip=true
+  description="Examining the impact of gasoline market dynamics on renewable fuel policy."
 %}
 
-{% include section.html %}
-
-### [What Crops Does Ohio Grow?](https://gelade1.substack.com/p/what-crops-does-ohio-grow)
-
-A data-driven look at Ohio's agricultural landscape and crop distribution.
-
 {%
-  include button.html
+  include newsletter-post.html
+  image="images/newsletter/ohio-crops.jpg"
+  title="What Crops Does Ohio Grow?"
   link="https://gelade1.substack.com/p/what-crops-does-ohio-grow"
-  text="Read More"
-  icon="fa-solid fa-arrow-right"
-  flip=true
+  description="A data-driven look at Ohio's agricultural landscape and crop distribution."
 %}
 
-{% include section.html %}
-
-### [How Much of Ohio Has Urbanized?](https://gelade1.substack.com/p/how-much-of-ohio-has-urbanized)
-
-Analyzing urbanization trends and land use patterns across Ohio.
-
 {%
-  include button.html
+  include newsletter-post.html
+  image="images/newsletter/ohio-urbanized.jpg"
+  title="How Much of Ohio Has Urbanized?"
   link="https://gelade1.substack.com/p/how-much-of-ohio-has-urbanized"
-  text="Read More"
-  icon="fa-solid fa-arrow-right"
-  flip=true
+  description="Analyzing urbanization trends and land use patterns across Ohio."
 %}
 
-{% include section.html %}
-
-### [Where is the Rural-Urban Fringe?](https://gelade1.substack.com/p/where-is-the-rural-urban-fringe)
-
-Identifying and mapping the boundary zones between rural and urban areas.
-
 {%
-  include button.html
+  include newsletter-post.html
+  image="images/newsletter/rural-urban-fringe.jpg"
+  title="Where is the Rural-Urban Fringe?"
   link="https://gelade1.substack.com/p/where-is-the-rural-urban-fringe"
-  text="Read More"
-  icon="fa-solid fa-arrow-right"
-  flip=true
+  description="Identifying and mapping the boundary zones between rural and urban areas."
 %}
 
-{% include section.html %}
-
-### [Welcome to the Swank Program Newsletter](https://gelade1.substack.com/p/welcome-to-the-swank-program-newsletter)
-
-Introducing the newsletter and the mission of the C. William Swank Program in Rural-Urban Policy.
-
 {%
-  include button.html
+  include newsletter-post.html
+  image="images/newsletter/welcome.jpg"
+  title="Welcome to the Swank Program Newsletter"
   link="https://gelade1.substack.com/p/welcome-to-the-swank-program-newsletter"
-  text="Read More"
-  icon="fa-solid fa-arrow-right"
-  flip=true
+  description="Introducing the newsletter and the mission of the C. William Swank Program in Rural-Urban Policy."
 %}
 
 {% include section.html %}
