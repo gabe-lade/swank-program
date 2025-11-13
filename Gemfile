@@ -4,6 +4,9 @@ source "https://rubygems.org"
 gem "jekyll", "~> 4.3"
 gem "webrick", "~> 1.7"
 
+# use sassc instead of sass-embedded for better compatibility
+gem "jekyll-sass-converter", "~> 2.2"
+
 gem "html-proofer", "~> 5.0"
 
 # plugins
