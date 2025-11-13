@@ -1,0 +1,12 @@
+{
+	"version": 3,
+	"file": "image.css",
+	"sources": [
+		"image.scss"
+	],
+	"sourcesContent": [
+		"img {\n  max-width: 100%;\n  max-height: 100%;\n}\n"
+	],
+	"names": [],
+	"mappings": "AAAA,AAAA,GAAG,CAAC,EACF,SAAS,EAAE,IAAI,EACf,UAAU,EAAE,IAAI,GACjB"
+}
