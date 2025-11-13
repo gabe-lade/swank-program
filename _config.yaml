@@ -69,3 +69,7 @@ exclude:
   - README.md
   - LICENSE.md
   - CITATION.cff
+
+# keep certain files when building
+keep_files:
+  - .nojekyll
