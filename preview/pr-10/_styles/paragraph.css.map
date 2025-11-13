@@ -1,0 +1,12 @@
+{
+	"version": 3,
+	"file": "paragraph.css",
+	"sources": [
+		"paragraph.scss"
+	],
+	"sourcesContent": [
+		"p {\n  margin: 20px 0;\n  text-align: justify;\n  line-height: var(--spacing);\n}\n"
+	],
+	"names": [],
+	"mappings": "AAAA,AAAA,CAAC,CAAC,EACA,MAAM,EAAE,MAAM,EACd,UAAU,EAAE,OAAO,EACnB,WAAW,EAAE,cAAc,GAC5B"
+}

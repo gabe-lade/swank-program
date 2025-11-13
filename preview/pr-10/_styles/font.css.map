@@ -1,0 +1,12 @@
+{
+	"version": 3,
+	"file": "font.css",
+	"sources": [
+		"font.scss"
+	],
+	"sourcesContent": [
+		"@font-face {\n}\n"
+	],
+	"names": [],
+	"mappings": "AAAA,UAAU"
+}
