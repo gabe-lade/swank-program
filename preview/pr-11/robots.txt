@@ -1,1 +1,0 @@
-Sitemap: /swank-program/preview/pr-11/sitemap.xml
