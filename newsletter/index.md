@@ -15,6 +15,12 @@ Stay informed with our newsletter covering rural-urban policy insights, data ana
 
 {% include section.html %}
 
+{%
+  include figure.html
+  image="https://substackcdn.com/image/fetch/f_auto,q_auto:best,fl_progressive:steep/https%3A%2F%2Fgelade1.substack.com%2Fapi%2Fv1%2Fpress_kit%2F177484025.jpg"
+  width="400px"
+%}
+
 ### [The Great Ethanol Boom—and Eventual Bust](https://gelade1.substack.com/p/the-great-ethanol-boomand-eventual)
 
 Exploring the rise and fall of the ethanol industry and its impact on rural America.
