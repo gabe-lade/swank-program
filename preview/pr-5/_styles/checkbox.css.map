@@ -1,0 +1,12 @@
+{
+	"version": 3,
+	"file": "checkbox.css",
+	"sources": [
+		"checkbox.scss"
+	],
+	"sourcesContent": [
+		"input[type=\"checkbox\"] {\n  cursor: pointer;\n}\n"
+	],
+	"names": [],
+	"mappings": "AAAA,AAAA,KAAK,CAAA,AAAA,IAAC,CAAK,UAAU,AAAf,EAAiB,EACrB,MAAM,EAAE,OAAO,GAChB"
+}

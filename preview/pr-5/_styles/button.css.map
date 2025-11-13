@@ -1,0 +1,12 @@
+{
+	"version": 3,
+	"file": "button.css",
+	"sources": [
+		"button.scss"
+	],
+	"sourcesContent": [
+		"button {\n  cursor: pointer;\n}\n\n.button-wrapper {\n  display: contents;\n}\n\n.button {\n  display: inline-flex;\n  justify-content: center;\n  align-items: center;\n  gap: 10px;\n  max-width: calc(100% - 5px - 5px);\n  margin: 5px;\n  padding: 8px 15px;\n  border: none;\n  border-radius: var(--rounded);\n  background: var(--primary);\n  color: var(--background);\n  text-align: center;\n  font: inherit;\n  font-family: var(--heading);\n  font-weight: var(--semi-bold);\n  text-decoration: none;\n  vertical-align: middle;\n  appearance: none;\n  transition: background var(--transition), color var(--transition);\n}\n\n.button:hover {\n  background: var(--text);\n  color: var(--background);\n}\n\n.button[data-style=\"bare\"] {\n  padding: 5px;\n  background: none;\n  color: var(--primary);\n\n  &:hover {\n    color: var(--text);\n  }\n}\n\n.button[data-flip] {\n  flex-direction: row-reverse;\n}\n"
+	],
+	"names": [],
+	"mappings": "AAAA,AAAA,MAAM,CAAC,EACL,MAAM,EAAE,OAAO,GAChB;;AAED,AAAA,eAAe,CAAC,EACd,OAAO,EAAE,QAAQ,GAClB;;AAED,AAAA,OAAO,CAAC,EACN,OAAO,EAAE,WAAW,EACpB,eAAe,EAAE,MAAM,EACvB,WAAW,EAAE,MAAM,EACnB,GAAG,EAAE,IAAI,EACT,SAAS,EAAE,sBAAsB,EACjC,MAAM,EAAE,GAAG,EACX,OAAO,EAAE,QAAQ,EACjB,MAAM,EAAE,IAAI,EACZ,aAAa,EAAE,cAAc,EAC7B,UAAU,EAAE,cAAc,EAC1B,KAAK,EAAE,iBAAiB,EACxB,UAAU,EAAE,MAAM,EAClB,IAAI,EAAE,OAAO,EACb,WAAW,EAAE,cAAc,EAC3B,WAAW,EAAE,gBAAgB,EAC7B,eAAe,EAAE,IAAI,EACrB,cAAc,EAAE,MAAM,EACtB,UAAU,EAAE,IAAI,EAChB,UAAU,EAAE,UAAU,CAAC,iBAAiB,EAAE,KAAK,CAAC,iBAAiB,GAClE;;AAED,AAAA,OAAO,CAAC,KAAK,CAAC,EACZ,UAAU,EAAE,WAAW,EACvB,KAAK,EAAE,iBAAiB,GACzB;;AAED,AAAA,OAAO,CAAA,AAAA,UAAC,CAAW,MAAM,AAAjB,EAAmB,EACzB,OAAO,EAAE,GAAG,EACZ,UAAU,EAAE,IAAI,EAChB,KAAK,EAAE,cAAc,GAKtB;;AARD,AAKE,OALK,CAAA,AAAA,UAAC,CAAW,MAAM,AAAjB,EAKJ,KAAK,CAAC,EACN,KAAK,EAAE,WAAW,GACnB;;AAGH,AAAA,OAAO,CAAA,AAAA,SAAC,AAAA,EAAW,EACjB,cAAc,EAAE,WAAW,GAC5B"
+}

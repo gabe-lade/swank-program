@@ -1,0 +1,12 @@
+{
+	"version": 3,
+	"file": "icon.css",
+	"sources": [
+		"icon.scss"
+	],
+	"sourcesContent": [
+		".icon {\n  font-size: 1em;\n}\n\nspan.icon {\n  line-height: 1;\n}\n\nspan.icon > svg {\n  position: relative;\n  top: 0.1em;\n  height: 1em;\n}\n"
+	],
+	"names": [],
+	"mappings": "AAAA,AAAA,KAAK,CAAC,EACJ,SAAS,EAAE,GAAG,GACf;;AAED,AAAA,IAAI,AAAA,KAAK,CAAC,EACR,WAAW,EAAE,CAAC,GACf;;AAED,AAAA,IAAI,AAAA,KAAK,GAAG,GAAG,CAAC,EACd,QAAQ,EAAE,QAAQ,EAClB,GAAG,EAAE,KAAK,EACV,MAAM,EAAE,GAAG,GACZ"
+}
