@@ -49,6 +49,10 @@ jobs:
         run: |
           JEKYLL_ENV=production bundle exec jekyll build --baseurl "${{ steps.pages.outputs.base_path || '' }}"
 
+      - name: Add .nojekyll file
+        run: |
+          touch _site/.nojekyll
+
       - name: Commit live site to Pages branch
         uses: JamesIves/github-pages-deploy-action@v4.5.0
         with:

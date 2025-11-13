@@ -53,6 +53,11 @@ jobs:
         run: |
           JEKYLL_ENV=production bundle exec jekyll build --baseurl "${{ steps.pages.outputs.base_path || '' }}/${{ env.PREVIEWS_FOLDER }}/pr-${{ github.event.number }}"
 
+      - name: Add .nojekyll file
+        if: github.event.action != 'closed'
+        run: |
+          touch _site/.nojekyll
+
       - name: Commit preview to Pages branch
         if: github.event.action != 'closed'
         uses: rossjrw/pr-preview-action@v1.4.7
