@@ -1,0 +1,12 @@
+{
+	"version": 3,
+	"file": "link.css",
+	"sources": [
+		"link.scss"
+	],
+	"sourcesContent": [
+		"a {\n  color: var(--primary);\n  transition: color var(--transition);\n  overflow-wrap: break-word;\n}\n\na:hover {\n  color: var(--text);\n}\n\na:not([href]) {\n  color: var(--text);\n}\n"
+	],
+	"names": [],
+	"mappings": "AAAA,AAAA,CAAC,CAAC,EACA,KAAK,EAAE,cAAc,EACrB,UAAU,EAAE,KAAK,CAAC,iBAAiB,EACnC,aAAa,EAAE,UAAU,GAC1B;;AAED,AAAA,CAAC,CAAC,KAAK,CAAC,EACN,KAAK,EAAE,WAAW,GACnB;;AAED,AAAA,CAAC,CAAA,GAAK,EAAA,AAAA,IAAC,AAAA,GAAO,EACZ,KAAK,EAAE,WAAW,GACnB"
+}
