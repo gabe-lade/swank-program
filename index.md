@@ -1,35 +1,32 @@
 ---
 ---
 
-# Lab Website Template
+# C. William Swank Program in Rural-Urban Policy
 
-[Lab Website Template](https://github.com/greenelab/lab-website-template) is an easy-to-use, flexible website template for [labs](https://www.greenelab.com/).
-Spend less time worrying about managing a website and citations, and more time running your lab.
+<!-- Replace this section with content from https://aede.osu.edu/endowed-programs/c-william-swank-program-rural-urban-policy -->
+
+The C. William Swank Program in Rural-Urban Policy at The Ohio State University supports research and outreach on the economic and policy connections between rural and urban areas.
 
 {%
   include button.html
-  type="docs"
-  link="https://greene-lab.gitbook.io/lab-website-template-docs"
-%}
-{%
-  include button.html
-  type="github"
-  text="On GitHub"
-  link="greenelab/lab-website-template"
+  link="mission"
+  text="Learn About Our Mission"
+  icon="fa-solid fa-arrow-right"
+  flip=true
 %}
 
 {% include section.html %}
 
-## Highlights
+## Program Highlights
 
 {% capture text %}
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+Explore research and publications from Swank Program members examining rural-urban policy connections, economic development, and community change.
 
 {%
   include button.html
   link="research"
-  text="See our publications"
+  text="View our research"
   icon="fa-solid fa-arrow-right"
   flip=true
   style="bare"
@@ -41,18 +38,18 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor i
   include feature.html
   image="images/photo.jpg"
   link="research"
-  title="Our Research"
+  title="Research & Publications"
   text=text
 %}
 
 {% capture text %}
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+Stay informed with our newsletter covering rural-urban policy insights, data analysis, and program updates.
 
 {%
   include button.html
-  link="projects"
-  text="Browse our projects"
+  link="newsletter"
+  text="Read our newsletter"
   icon="fa-solid fa-arrow-right"
   flip=true
   style="bare"
@@ -63,8 +60,8 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor i
 {%
   include feature.html
   image="images/photo.jpg"
-  link="projects"
-  title="Our Projects"
+  link="newsletter"
+  title="Newsletter"
   flip=true
   style="bare"
   text=text
@@ -72,12 +69,12 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor i
 
 {% capture text %}
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+Explore interactive data visualizations examining urbanization, economic trends, and policy impacts in Ohio and beyond.
 
 {%
   include button.html
-  link="team"
-  text="Meet our team"
+  link="visualizations"
+  text="Explore visualizations"
   icon="fa-solid fa-arrow-right"
   flip=true
   style="bare"
@@ -88,7 +85,7 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor i
 {%
   include feature.html
   image="images/photo.jpg"
-  link="team"
-  title="Our Team"
+  link="visualizations"
+  title="Data Visualizations"
   text=text
 %}
