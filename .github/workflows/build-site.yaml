@@ -14,6 +14,13 @@ env:
 
 permissions:
   contents: write
+  pages: write
+  id-token: write
+
+# Allow only one concurrent deployment
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
 
 jobs:
   build-site:
@@ -53,9 +60,20 @@ jobs:
         run: |
           touch _site/.nojekyll
 
-      - name: Commit live site to Pages branch
-        uses: JamesIves/github-pages-deploy-action@v4.5.0
+      - name: Upload artifact for Pages
+        uses: actions/upload-pages-artifact@v3
         with:
-          folder: _site
-          clean-exclude: ${{ env.PREVIEWS_FOLDER }}
-          force: false
+          path: _site
+
+  deploy:
+    needs: build-site
+    runs-on: ubuntu-latest
+
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
