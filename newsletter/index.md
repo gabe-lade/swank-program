@@ -17,6 +17,14 @@ Stay informed with our newsletter covering rural-urban policy insights, data ana
 
 {%
   include newsletter-post.html
+  image="images/newsletter/beyond-ethanol.jpg"
+  title="Beyond Ethanol: Renewable Diesel and Sustainable Aviation Fuel"
+  link="https://gelade1.substack.com/p/beyond-ethanol-renewable-diesel-and"
+  description="Exploring the next generation of renewable fuels beyond traditional ethanol production."
+%}
+
+{%
+  include newsletter-post.html
   image="images/newsletter/ethanol-boom.jpg"
   title="The Great Ethanol Boom—and Eventual Bust"
   link="https://gelade1.substack.com/p/the-great-ethanol-boomand-eventual"
