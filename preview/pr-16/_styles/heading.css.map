@@ -1,0 +1,12 @@
+{
+	"version": 3,
+	"file": "heading.css",
+	"sources": [
+		"heading.scss"
+	],
+	"sourcesContent": [
+		"h1,\nh2,\nh3,\nh4,\nh5,\nh6 {\n  margin: 40px 0 20px 0;\n  font-family: var(--heading);\n  font-weight: var(--semi-bold);\n  text-align: left;\n  letter-spacing: 1px;\n}\n\nh1 {\n  margin: 40px 0;\n  font-size: 1.6rem;\n  font-weight: var(--regular);\n  text-transform: uppercase;\n  text-align: center;\n}\n\nh2 {\n  font-size: 1.6rem;\n  padding-bottom: 5px;\n  border-bottom: solid 1px var(--light-gray);\n  font-weight: var(--regular);\n}\n\nh3 {\n  font-size: 1.5rem;\n}\n\nh4 {\n  font-size: 1.3rem;\n}\n\nh5 {\n  font-size: 1.15rem;\n}\n\nh6 {\n  font-size: 1rem;\n}\n\n:where(h1, h2, h3, h4, h5, h6) > .icon {\n  margin-right: 1em;\n  color: var(--light-gray);\n}\n"
+	],
+	"names": [],
+	"mappings": "AAAA,AAAA,EAAE,EACF,EAAE,EACF,EAAE,EACF,EAAE,EACF,EAAE,EACF,EAAE,CAAC,EACD,MAAM,EAAE,aAAa,EACrB,WAAW,EAAE,cAAc,EAC3B,WAAW,EAAE,gBAAgB,EAC7B,UAAU,EAAE,IAAI,EAChB,cAAc,EAAE,GAAG,GACpB;;AAED,AAAA,EAAE,CAAC,EACD,MAAM,EAAE,MAAM,EACd,SAAS,EAAE,MAAM,EACjB,WAAW,EAAE,cAAc,EAC3B,cAAc,EAAE,SAAS,EACzB,UAAU,EAAE,MAAM,GACnB;;AAED,AAAA,EAAE,CAAC,EACD,SAAS,EAAE,MAAM,EACjB,cAAc,EAAE,GAAG,EACnB,aAAa,EAAE,KAAK,CAAC,GAAG,CAAC,iBAAiB,EAC1C,WAAW,EAAE,cAAc,GAC5B;;AAED,AAAA,EAAE,CAAC,EACD,SAAS,EAAE,MAAM,GAClB;;AAED,AAAA,EAAE,CAAC,EACD,SAAS,EAAE,MAAM,GAClB;;AAED,AAAA,EAAE,CAAC,EACD,SAAS,EAAE,OAAO,GACnB;;AAED,AAAA,EAAE,CAAC,EACD,SAAS,EAAE,IAAI,GAChB;;CAEA,AAAD,KAAO,CAAA,sBAAsB,IAAI,KAAK,CAAC,EACrC,YAAY,EAAE,GAAG,EACjB,KAAK,EAAE,iBAAiB,GACzB"
+}
