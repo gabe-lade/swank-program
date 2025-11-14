@@ -1,7 +1,7 @@
 ---
 title: Data Visualizations
 nav:
-  order: 5
+  order: 7
   tooltip: Interactive data visualizations
 ---
 
