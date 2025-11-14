@@ -1,0 +1,12 @@
+{
+	"version": 3,
+	"file": "figure.css",
+	"sources": [
+		"figure.scss"
+	],
+	"sourcesContent": [
+		".figure {\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  flex-direction: column;\n  gap: 10px;\n  margin: 40px 0;\n}\n\n.figure-image {\n  display: contents;\n}\n\n.figure-image img {\n  border-radius: var(--rounded);\n  overflow: hidden;\n  box-shadow: var(--shadow);\n}\n\n.figure-caption {\n  font-style: italic;\n  text-align: center;\n}\n"
+	],
+	"names": [],
+	"mappings": "AAAA,AAAA,OAAO,CAAC,EACN,OAAO,EAAE,IAAI,EACb,eAAe,EAAE,MAAM,EACvB,WAAW,EAAE,MAAM,EACnB,cAAc,EAAE,MAAM,EACtB,GAAG,EAAE,IAAI,EACT,MAAM,EAAE,MAAM,GACf;;AAED,AAAA,aAAa,CAAC,EACZ,OAAO,EAAE,QAAQ,GAClB;;AAED,AAAA,aAAa,CAAC,GAAG,CAAC,EAChB,aAAa,EAAE,cAAc,EAC7B,QAAQ,EAAE,MAAM,EAChB,UAAU,EAAE,aAAa,GAC1B;;AAED,AAAA,eAAe,CAAC,EACd,UAAU,EAAE,MAAM,EAClB,UAAU,EAAE,MAAM,GACnB"
+}
