@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500">
+  <!-- Background circle -->
+  <circle cx="250" cy="250" r="240" fill="#f5f5f5"/>
+
+  <!-- Buckeye leaf shape (simplified 5-palmate leaf) -->
+  <g id="leaf">
+    <!-- Center stem -->
+    <path d="M 250 400 Q 250 350 250 300" stroke="#5d4037" stroke-width="8" fill="none"/>
+
+    <!-- Left side - Rural (green fields) -->
+    <!-- Leaflet 1 (far left) -->
+    <ellipse cx="120" cy="220" rx="55" ry="90" fill="#7cb342" transform="rotate(-30 120 220)"/>
+    <!-- Leaflet 2 (left) -->
+    <ellipse cx="180" cy="180" rx="50" ry="95" fill="#689f38" transform="rotate(-15 180 180)"/>
+    <!-- Center leaflet (left half) -->
+    <path d="M 250 300 Q 235 250 240 150 Q 240 140 235 130 Q 230 150 230 160 Q 225 250 250 300 Z" fill="#558b2f"/>
+
+    <!-- Right side - Urban (buildings/grid) -->
+    <!-- Leaflet 3 (right) -->
+    <ellipse cx="320" cy="180" rx="50" ry="95" fill="#78909c" transform="rotate(15 320 180)"/>
+    <!-- Leaflet 4 (far right) -->
+    <ellipse cx="380" cy="220" rx="55" ry="90" fill="#607d8b" transform="rotate(30 380 220)"/>
+    <!-- Center leaflet (right half) -->
+    <path d="M 250 300 Q 265 250 260 150 Q 260 140 265 130 Q 270 150 270 160 Q 275 250 250 300 Z" fill="#546e7a"/>
+
+    <!-- Urban elements on right leaflets -->
+    <g fill="#37474f" opacity="0.6">
+      <!-- Small building shapes -->
+      <rect x="315" y="170" width="8" height="15" transform="rotate(15 320 180)"/>
+      <rect x="325" y="165" width="6" height="20" transform="rotate(15 320 180)"/>
+      <rect x="310" y="175" width="7" height="12" transform="rotate(15 320 180)"/>
+
+      <rect x="375" y="215" width="8" height="15" transform="rotate(30 380 220)"/>
+      <rect x="385" y="210" width="6" height="20" transform="rotate(30 380 220)"/>
+    </g>
+
+    <!-- Field rows on left leaflets -->
+    <g stroke="#558b2f" stroke-width="2" opacity="0.4">
+      <line x1="115" y1="210" x2="125" y2="230" transform="rotate(-30 120 220)"/>
+      <line x1="110" y1="215" x2="120" y2="235" transform="rotate(-30 120 220)"/>
+      <line x1="120" y1="205" x2="130" y2="225" transform="rotate(-30 120 220)"/>
+    </g>
+
+    <!-- Leaf veins -->
+    <g stroke="#4a5f3a" stroke-width="2" opacity="0.3" fill="none">
+      <path d="M 250 300 L 120 220"/>
+      <path d="M 250 300 L 180 180"/>
+      <path d="M 250 300 L 250 130"/>
+      <path d="M 250 300 L 320 180"/>
+      <path d="M 250 300 L 380 220"/>
+    </g>
+  </g>
+
+  <!-- Border circle -->
+  <circle cx="250" cy="250" r="240" fill="none" stroke="#8d6e63" stroke-width="3"/>
+</svg>
