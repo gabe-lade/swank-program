@@ -1,0 +1,12 @@
+{
+	"version": 3,
+	"file": "search-info.css",
+	"sources": [
+		"search-info.scss"
+	],
+	"sourcesContent": [
+		".search-info {\n  margin: 20px 0;\n  text-align: center;\n  font-style: italic;\n  line-height: var(--spacing);\n}\n"
+	],
+	"names": [],
+	"mappings": "AAAA,AAAA,YAAY,CAAC,EACX,MAAM,EAAE,MAAM,EACd,UAAU,EAAE,MAAM,EAClB,UAAU,EAAE,MAAM,EAClB,WAAW,EAAE,cAAc,GAC5B"
+}
