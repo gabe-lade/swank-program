@@ -1,0 +1,12 @@
+{
+	"version": 3,
+	"file": "quote.css",
+	"sources": [
+		"quote.scss"
+	],
+	"sourcesContent": [
+		"blockquote {\n  margin: 20px 0;\n  padding: 10px 20px;\n  border-left: solid 4px var(--light-gray);\n}\n\nblockquote > :first-child {\n  margin-top: 0;\n}\n\nblockquote > :last-child {\n  margin-bottom: 0;\n}\n"
+	],
+	"names": [],
+	"mappings": "AAAA,AAAA,UAAU,CAAC,EACT,MAAM,EAAE,MAAM,EACd,OAAO,EAAE,SAAS,EAClB,WAAW,EAAE,KAAK,CAAC,GAAG,CAAC,iBAAiB,GACzC;;AAED,AAAA,UAAU,IAAI,WAAW,CAAC,EACxB,UAAU,EAAE,CAAC,GACd;;AAED,AAAA,UAAU,IAAI,UAAU,CAAC,EACvB,aAAa,EAAE,CAAC,GACjB"
+}
