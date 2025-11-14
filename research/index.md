@@ -33,17 +33,15 @@ You can also use the citation component if you have DOIs:
 
 -->
 
+{% include citation.html lookup="DOI:10.1257/aeri.20240258" style="rich" %}
+
 {% include section.html %}
 
-<!-- Example: Remove this and add actual publications -->
+{% include citation.html lookup="DOI:10.1146/annurev-resource-011724-082950" style="rich" %}
 
-### Example Publication Title
-**Authors:** John Doe, Jane Smith
-**Year:** 2024
-**Publication:** Journal of Rural-Urban Studies
-**Link:** [DOI:10.xxxx/xxxxx](https://doi.org/10.xxxx/xxxxx)
+{% include section.html %}
 
-This research examines the economic connections between rural and urban areas...
+{% include citation.html lookup="DOI:10.1111/ajae.70006" style="rich" %}
 
 {% include section.html %}
 
