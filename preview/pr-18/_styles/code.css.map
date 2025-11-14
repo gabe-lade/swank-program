@@ -1,0 +1,12 @@
+{
+	"version": 3,
+	"file": "code.css",
+	"sources": [
+		"code.scss"
+	],
+	"sourcesContent": [
+		"pre,\ncode,\npre *,\ncode * {\n  font-family: var(--code);\n}\n\n// inline code\ncode.highlighter-rouge {\n  padding: 2px 6px;\n  background: var(--light-gray);\n  border-radius: var(--rounded);\n}\n\n// code block\ndiv.highlighter-rouge {\n  width: 100%;\n  margin: 40px 0;\n  border-radius: var(--rounded);\n  overflow-x: auto;\n  overflow-y: auto;\n  text-align: left;\n\n  div.highlight {\n    display: contents;\n\n    pre.highlight {\n      width: fit-content;\n      min-width: 100%;\n      margin: 0;\n      padding: 20px;\n      color: var(--white);\n    }\n  }\n}\n"
+	],
+	"names": [],
+	"mappings": "AAAA,AAAA,GAAG,EACH,IAAI,EACJ,GAAG,CAAC,CAAC,EACL,IAAI,CAAC,CAAC,CAAC,EACL,WAAW,EAAE,WAAW,GACzB;;AAGD,AAAA,IAAI,AAAA,kBAAkB,CAAC,EACrB,OAAO,EAAE,OAAO,EAChB,UAAU,EAAE,iBAAiB,EAC7B,aAAa,EAAE,cAAc,GAC9B;;AAGD,AAAA,GAAG,AAAA,kBAAkB,CAAC,EACpB,KAAK,EAAE,IAAI,EACX,MAAM,EAAE,MAAM,EACd,aAAa,EAAE,cAAc,EAC7B,UAAU,EAAE,IAAI,EAChB,UAAU,EAAE,IAAI,EAChB,UAAU,EAAE,IAAI,GAajB;;AAnBD,AAQE,GARC,AAAA,kBAAkB,CAQnB,GAAG,AAAA,UAAU,CAAC,EACZ,OAAO,EAAE,QAAQ,GASlB;;AAlBH,AAWI,GAXD,AAAA,kBAAkB,CAQnB,GAAG,AAAA,UAAU,CAGX,GAAG,AAAA,UAAU,CAAC,EACZ,KAAK,EAAE,WAAW,EAClB,SAAS,EAAE,IAAI,EACf,MAAM,EAAE,CAAC,EACT,OAAO,EAAE,IAAI,EACb,KAAK,EAAE,YAAY,GACpB"
+}
