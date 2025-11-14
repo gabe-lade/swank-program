@@ -1,0 +1,12 @@
+{
+	"version": 3,
+	"file": "post-info.css",
+	"sources": [
+		"post-info.scss"
+	],
+	"sourcesContent": [
+		".post-info {\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  flex-wrap: wrap;\n  gap: 20px;\n  margin: 20px 0;\n  color: var(--dark-gray);\n}\n\n.post-info .portrait {\n  margin: 0;\n}\n\n.post-info .icon {\n  margin-right: 0.5em;\n}\n\n.post-info a {\n  color: inherit;\n}\n\n.post-info a:hover {\n  color: var(--primary);\n}\n\n.post-info > span {\n  text-align: center;\n  white-space: nowrap;\n}\n"
+	],
+	"names": [],
+	"mappings": "AAAA,AAAA,UAAU,CAAC,EACT,OAAO,EAAE,IAAI,EACb,eAAe,EAAE,MAAM,EACvB,WAAW,EAAE,MAAM,EACnB,SAAS,EAAE,IAAI,EACf,GAAG,EAAE,IAAI,EACT,MAAM,EAAE,MAAM,EACd,KAAK,EAAE,gBAAgB,GACxB;;AAED,AAAA,UAAU,CAAC,SAAS,CAAC,EACnB,MAAM,EAAE,CAAC,GACV;;AAED,AAAA,UAAU,CAAC,KAAK,CAAC,EACf,YAAY,EAAE,KAAK,GACpB;;AAED,AAAA,UAAU,CAAC,CAAC,CAAC,EACX,KAAK,EAAE,OAAO,GACf;;AAED,AAAA,UAAU,CAAC,CAAC,CAAC,KAAK,CAAC,EACjB,KAAK,EAAE,cAAc,GACtB;;AAED,AAAA,UAAU,GAAG,IAAI,CAAC,EAChB,UAAU,EAAE,MAAM,EAClB,WAAW,EAAE,MAAM,GACpB"
+}
