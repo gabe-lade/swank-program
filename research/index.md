@@ -1,7 +1,7 @@
 ---
 title: Research
 nav:
-  order: 3
+  order: 5
   tooltip: Publications and research
 ---
 

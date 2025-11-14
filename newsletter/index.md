@@ -1,7 +1,7 @@
 ---
 title: Newsletter
 nav:
-  order: 4
+  order: 6
   tooltip: Read our newsletter
 ---
 

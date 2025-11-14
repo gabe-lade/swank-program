@@ -1,7 +1,7 @@
 ---
 title: Contact
 nav:
-  order: 6
+  order: 8
   tooltip: Get in touch
 ---
 
