@@ -1,16 +1,12 @@
 ---
 ---
 
-# C. William Swank Program in Rural-Urban Policy
-
-<!-- Replace this section with content from https://aede.osu.edu/endowed-programs/c-william-swank-program-rural-urban-policy -->
-
 The C. William Swank Program in Rural-Urban Policy at The Ohio State University supports research and outreach on the economic and policy connections between rural and urban areas.
 
 {%
   include button.html
   link="mission"
-  text="Learn About Our Mission"
+  text="Learn About the Swank Program"
   icon="fa-solid fa-arrow-right"
   flip=true
 %}
