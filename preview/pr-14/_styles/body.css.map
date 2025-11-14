@@ -1,0 +1,12 @@
+{
+	"version": 3,
+	"file": "body.css",
+	"sources": [
+		"body.scss"
+	],
+	"sourcesContent": [
+		"body {\n  display: flex;\n  flex-direction: column;\n  margin: 0;\n  padding: 0;\n  min-height: 100vh;\n  background: var(--background);\n  color: var(--text);\n  font-family: var(--body);\n  text-align: center;\n  line-height: var(--compact);\n}\n"
+	],
+	"names": [],
+	"mappings": "AAAA,AAAA,IAAI,CAAC,EACH,OAAO,EAAE,IAAI,EACb,cAAc,EAAE,MAAM,EACtB,MAAM,EAAE,CAAC,EACT,OAAO,EAAE,CAAC,EACV,UAAU,EAAE,KAAK,EACjB,UAAU,EAAE,iBAAiB,EAC7B,KAAK,EAAE,WAAW,EAClB,WAAW,EAAE,WAAW,EACxB,UAAU,EAAE,MAAM,EAClB,WAAW,EAAE,cAAc,GAC5B"
+}

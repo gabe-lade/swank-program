@@ -1,0 +1,12 @@
+{
+	"version": 3,
+	"file": "cols.css",
+	"sources": [
+		"cols.scss"
+	],
+	"sourcesContent": [
+		"$two: 750px;\n$one: 500px;\n\n.cols {\n  display: grid;\n  --repeat: min(3, var(--cols));\n  grid-template-columns: repeat(var(--repeat), 1fr);\n  align-items: flex-start;\n  gap: 40px;\n  margin: 40px 0;\n}\n\n.cols > * {\n  min-width: 0;\n  min-height: 0;\n}\n\n.cols > div > :first-child {\n  margin-top: 0 !important;\n}\n\n.cols > div > :last-child {\n  margin-bottom: 0 !important;\n}\n\n@media (max-width: $two) {\n  .cols {\n    --repeat: min(2, var(--cols));\n  }\n}\n\n@media (max-width: $one) {\n  .cols {\n    --repeat: min(1, var(--cols));\n  }\n}\n"
+	],
+	"names": [],
+	"mappings": "AAGA,AAAA,KAAK,CAAC,EACJ,OAAO,EAAE,IAAI,EACb,QAAQ,CAAA,oBAAC,EACT,qBAAqB,EAAE,0BAA0B,EACjD,WAAW,EAAE,UAAU,EACvB,GAAG,EAAE,IAAI,EACT,MAAM,EAAE,MAAM,GACf;;AAED,AAAA,KAAK,GAAG,CAAC,CAAC,EACR,SAAS,EAAE,CAAC,EACZ,UAAU,EAAE,CAAC,GACd;;AAED,AAAA,KAAK,GAAG,GAAG,IAAI,WAAW,CAAC,EACzB,UAAU,EAAE,YAAY,GACzB;;AAED,AAAA,KAAK,GAAG,GAAG,IAAI,UAAU,CAAC,EACxB,aAAa,EAAE,YAAY,GAC5B;;AAED,MAAM,mBACJ,GAAA,AAAA,KAAK,CAAC,EACJ,QAAQ,CAAA,oBAAC,GACV,EAAA;;AAGH,MAAM,mBACJ,GAAA,AAAA,KAAK,CAAC,EACJ,QAAQ,CAAA,oBAAC,GACV,EAAA"
+}
