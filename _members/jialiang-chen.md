@@ -5,4 +5,4 @@ description: Ph.D. Student
 role: phd
 ---
 
-Bio text for Jialiang Chen coming soon.
+Jialiang Chen is a Ph.D. student in the Department of Agricultural, Environmental, and Development Economics (AEDE) at The Ohio State University. His research interests are in agriculture and environmental economics.
