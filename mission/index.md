@@ -7,15 +7,8 @@ nav:
 
 # {% include icon.html icon="fa-solid fa-bullseye" %}About
 
-<div style="margin-bottom: 2rem;">
-  <a href="#history">History</a> |
-  <a href="#mission">Mission</a> |
-  <a href="#director">Program Director</a> |
-  <a href="#team">Team Members</a> |
-  <a href="#affiliates">Affiliates</a> |
-  <a href="#advisory">Advisory Board</a> |
-  <a href="#contact">Contact</a>
-</div>
+[History](#history) | [Mission](#mission) | [Program Director](#director) | [Team Members](#team) | [Affiliates](#affiliates) | [Advisory Board](#advisory) | [Contact](#contact)
+{: style="margin-bottom: 2rem;"}
 
 {% include section.html %}
 

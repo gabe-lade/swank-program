@@ -7,12 +7,8 @@ nav:
 
 # {% include icon.html icon="fa-solid fa-bullhorn" %}Outreach
 
-<div style="margin-bottom: 2rem;">
-  <a href="#newsletter">Newsletter</a> |
-  <a href="#presentations">Presentations</a> |
-  <a href="#policy-briefs">Policy Briefs</a> |
-  <a href="#data-viz">Data Visualizations</a>
-</div>
+[Newsletter](#newsletter) | [Presentations](#presentations) | [Policy Briefs](#policy-briefs) | [Data Visualizations](#data-viz)
+{: style="margin-bottom: 2rem;"}
 
 The Swank Program engages with policymakers, practitioners, and community stakeholders through newsletters, presentations, policy briefs, and data visualizations focused on rural-urban policy challenges.
 
