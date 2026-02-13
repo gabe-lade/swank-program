@@ -17,12 +17,12 @@ The C. William Swank Program in Rural-Urban Policy at The Ohio State University 
 
 {% capture text %}
 
-Explore research and publications from Swank Program members examining rural-urban policy connections, economic development, and community change.
+Learn about the history of the Swank Program, our mission, meet our team, and find contact information.
 
 {%
   include button.html
-  link="research"
-  text="View our research"
+  link="mission"
+  text="About"
   icon="fa-solid fa-arrow-right"
   flip=true
   style="bare"
@@ -33,19 +33,19 @@ Explore research and publications from Swank Program members examining rural-urb
 {%
   include feature.html
   image="images/photo.jpg"
-  link="research"
-  title="Research & Publications"
+  link="mission"
+  title="About"
   text=text
 %}
 
 {% capture text %}
 
-Stay informed with our newsletter covering rural-urban policy insights, data analysis, and program updates.
+Explore peer-reviewed publications and working papers from Swank Program members examining land use, environmental quality, and policy design.
 
 {%
   include button.html
-  link="newsletter"
-  text="Read our newsletter"
+  link="research"
+  text="View Research"
   icon="fa-solid fa-arrow-right"
   flip=true
   style="bare"
@@ -56,21 +56,20 @@ Stay informed with our newsletter covering rural-urban policy insights, data ana
 {%
   include feature.html
   image="images/photo.jpg"
-  link="newsletter"
-  title="Newsletter"
+  link="research"
+  title="Research"
   flip=true
-  style="bare"
   text=text
 %}
 
 {% capture text %}
 
-Explore interactive data visualizations examining urbanization, economic trends, and policy impacts in Ohio and beyond.
+Stay informed through our newsletter, explore data visualizations, and access presentations and policy briefs.
 
 {%
   include button.html
-  link="visualizations"
-  text="Explore visualizations"
+  link="outreach"
+  text="View Outreach"
   icon="fa-solid fa-arrow-right"
   flip=true
   style="bare"
@@ -81,7 +80,7 @@ Explore interactive data visualizations examining urbanization, economic trends,
 {%
   include feature.html
   image="images/photo.jpg"
-  link="visualizations"
-  title="Data Visualizations"
+  link="outreach"
+  title="Outreach"
   text=text
 %}
