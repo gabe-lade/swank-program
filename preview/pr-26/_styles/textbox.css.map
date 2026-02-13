@@ -1,0 +1,12 @@
+{
+	"version": 3,
+	"file": "textbox.css",
+	"sources": [
+		"textbox.scss"
+	],
+	"sourcesContent": [
+		"input[type=\"text\"] {\n  width: 100%;\n  height: 40px;\n  margin: 0;\n  padding: 5px 10px;\n  border: solid 1px var(--light-gray);\n  border-radius: var(--rounded);\n  background: var(--background);\n  color: var(--text);\n  font-family: inherit;\n  font-size: inherit;\n  appearance: none;\n  box-shadow: var(--shadow);\n}\n"
+	],
+	"names": [],
+	"mappings": "AAAA,AAAA,KAAK,CAAA,AAAA,IAAC,CAAK,MAAM,AAAX,EAAa,EACjB,KAAK,EAAE,IAAI,EACX,MAAM,EAAE,IAAI,EACZ,MAAM,EAAE,CAAC,EACT,OAAO,EAAE,QAAQ,EACjB,MAAM,EAAE,KAAK,CAAC,GAAG,CAAC,iBAAiB,EACnC,aAAa,EAAE,cAAc,EAC7B,UAAU,EAAE,iBAAiB,EAC7B,KAAK,EAAE,WAAW,EAClB,WAAW,EAAE,OAAO,EACpB,SAAS,EAAE,OAAO,EAClB,UAAU,EAAE,IAAI,EAChB,UAAU,EAAE,aAAa,GAC1B"
+}
