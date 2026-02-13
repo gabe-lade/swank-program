@@ -1,0 +1,18 @@
+faculty:
+  - name: "Gabriel E. Lade"
+    title: "Associate Professor & C. William Swank Chair in Rural-Urban Policy"
+    department: "Department of Agricultural, Environmental, and Development Economics"
+    university: "The Ohio State University"
+    photo: "/assets/images/people/lade.jpg"
+    website: "https://gabe-lade.github.io"
+    bio: "Gabriel Lade is an environmental and energy economist specializing in the economic and policy connections between rural and urban communities. His research examines energy and environmental policy with a focus on transportation fuels, agriculture, and the rural-urban interface."
+
+students:
+  - name: "TBD"
+    title: "PhD Student"
+    photo: "/assets/images/people/placeholder.svg"
+
+affiliates:
+  - name: "TBD"
+    title: "Affiliate Researcher"
+    photo: "/assets/images/people/placeholder.svg"
