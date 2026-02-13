@@ -1,0 +1,12 @@
+{
+	"version": 3,
+	"file": "highlight.css",
+	"sources": [
+		"highlight.scss"
+	],
+	"sourcesContent": [
+		"mark {\n  background: #fef08a;\n  color: #000000;\n}\n"
+	],
+	"names": [],
+	"mappings": "AAAA,AAAA,IAAI,CAAC,EACH,UAAU,EAAE,OAAO,EACnB,KAAK,EAAE,OAAO,GACf"
+}
