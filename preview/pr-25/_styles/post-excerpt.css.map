@@ -1,0 +1,12 @@
+{
+	"version": 3,
+	"file": "post-excerpt.css",
+	"sources": [
+		"post-excerpt.scss"
+	],
+	"sourcesContent": [
+		"$thumb-size: 200px;\n$wrap: 800px;\n\n.post-excerpt-container {\n  container-type: inline-size;\n}\n\n.post-excerpt {\n  display: flex;\n  margin: 20px 0;\n  border-radius: var(--rounded);\n  background: var(--background);\n  overflow: hidden;\n  box-shadow: var(--shadow);\n}\n\n.post-excerpt-image {\n  position: relative;\n  width: $thumb-size;\n  flex-shrink: 0;\n  // box-shadow: var(--shadow);\n}\n\n.post-excerpt-image img {\n  position: absolute;\n  inset: 0;\n  width: 100%;\n  height: 100%;\n  object-fit: cover;\n}\n\n.post-excerpt-text {\n  display: flex;\n  flex-wrap: wrap;\n  gap: 20px;\n  padding: 20px 30px;\n  text-align: left;\n}\n\n.post-excerpt-text > * {\n  margin: 0 !important;\n}\n\n.post-excerpt-text > a:first-child {\n  width: 100%;\n  font-weight: var(--semi-bold);\n}\n\n.post-excerpt-text > div {\n  justify-content: flex-start;\n}\n\n.post-excerpt-text > p {\n  width: 100%;\n}\n\n@container (max-width: #{$wrap}) {\n  .post-excerpt {\n    flex-direction: column;\n  }\n\n  .post-excerpt-image {\n    width: unset;\n    height: $thumb-size;\n  }\n}\n"
+	],
+	"names": [],
+	"mappings": "AAGA,AAAA,uBAAuB,CAAC,EACtB,cAAc,EAAE,WAAW,GAC5B;;AAED,AAAA,aAAa,CAAC,EACZ,OAAO,EAAE,IAAI,EACb,MAAM,EAAE,MAAM,EACd,aAAa,EAAE,cAAc,EAC7B,UAAU,EAAE,iBAAiB,EAC7B,QAAQ,EAAE,MAAM,EAChB,UAAU,EAAE,aAAa,GAC1B;;AAED,AAAA,mBAAmB,CAAC,EAClB,QAAQ,EAAE,QAAQ,EAClB,KAAK,EAlBM,KAAK,EAmBhB,WAAW,EAAE,CAAC,GAEf;;AAED,AAAA,mBAAmB,CAAC,GAAG,CAAC,EACtB,QAAQ,EAAE,QAAQ,EAClB,KAAK,EAAE,CAAC,EACR,KAAK,EAAE,IAAI,EACX,MAAM,EAAE,IAAI,EACZ,UAAU,EAAE,KAAK,GAClB;;AAED,AAAA,kBAAkB,CAAC,EACjB,OAAO,EAAE,IAAI,EACb,SAAS,EAAE,IAAI,EACf,GAAG,EAAE,IAAI,EACT,OAAO,EAAE,SAAS,EAClB,UAAU,EAAE,IAAI,GACjB;;AAED,AAAA,kBAAkB,GAAG,CAAC,CAAC,EACrB,MAAM,EAAE,YAAY,GACrB;;AAED,AAAA,kBAAkB,GAAG,CAAC,CAAC,WAAW,CAAC,EACjC,KAAK,EAAE,IAAI,EACX,WAAW,EAAE,gBAAgB,GAC9B;;AAED,AAAA,kBAAkB,GAAG,GAAG,CAAC,EACvB,eAAe,EAAE,UAAU,GAC5B;;AAED,AAAA,kBAAkB,GAAG,CAAC,CAAC,EACrB,KAAK,EAAE,IAAI,GACZ;;AAED,UAAU,CAAV,kBAAU,GACR,AAAA,aAAa,CAAC,EACZ,cAAc,EAAE,MAAM,GACvB;EAED,AAAA,mBAAmB,CAAC,EAClB,KAAK,EAAE,KAAK,EACZ,MAAM,EA/DG,KAAK,GAgEf"
+}
