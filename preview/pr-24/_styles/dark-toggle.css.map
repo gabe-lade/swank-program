@@ -1,0 +1,12 @@
+{
+	"version": 3,
+	"file": "dark-toggle.css",
+	"sources": [
+		"dark-toggle.scss"
+	],
+	"sourcesContent": [
+		".dark-toggle {\n  position: relative;\n  width: 40px;\n  height: 25px;\n  margin: 0;\n  border-radius: 999px;\n  background: var(--primary);\n  appearance: none;\n  transition: background var(--transition);\n}\n\n.dark-toggle:after {\n  content: \"\\f185\";\n  position: absolute;\n  left: 12px;\n  top: 50%;\n  color: var(--text);\n  font-size: 15px;\n  font-family: \"Font Awesome 6 Free\";\n  font-weight: 900;\n  transform: translate(-50%, -50%);\n  transition: left var(--transition);\n}\n\n.dark-toggle:checked:after {\n  content: \"\\f186\";\n  left: calc(100% - 12px);\n}\n"
+	],
+	"names": [],
+	"mappings": "AAAA,AAAA,YAAY,CAAC,EACX,QAAQ,EAAE,QAAQ,EAClB,KAAK,EAAE,IAAI,EACX,MAAM,EAAE,IAAI,EACZ,MAAM,EAAE,CAAC,EACT,aAAa,EAAE,KAAK,EACpB,UAAU,EAAE,cAAc,EAC1B,UAAU,EAAE,IAAI,EAChB,UAAU,EAAE,UAAU,CAAC,iBAAiB,GACzC;;AAED,AAAA,YAAY,CAAC,KAAK,CAAC,EACjB,OAAO,EAAE,OAAO,EAChB,QAAQ,EAAE,QAAQ,EAClB,IAAI,EAAE,IAAI,EACV,GAAG,EAAE,GAAG,EACR,KAAK,EAAE,WAAW,EAClB,SAAS,EAAE,IAAI,EACf,WAAW,EAAE,qBAAqB,EAClC,WAAW,EAAE,GAAG,EAChB,SAAS,EAAE,qBAAqB,EAChC,UAAU,EAAE,IAAI,CAAC,iBAAiB,GACnC;;AAED,AAAA,YAAY,CAAC,OAAO,CAAC,KAAK,CAAC,EACzB,OAAO,EAAE,OAAO,EAChB,IAAI,EAAE,iBAAiB,GACxB"
+}
