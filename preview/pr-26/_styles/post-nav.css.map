@@ -1,0 +1,12 @@
+{
+	"version": 3,
+	"file": "post-nav.css",
+	"sources": [
+		"post-nav.scss"
+	],
+	"sourcesContent": [
+		"$wrap: 600px;\n\n.post-nav {\n  display: flex;\n  justify-content: space-between;\n  align-items: flex-start;\n  gap: 10px;\n  color: var(--gray);\n}\n\n.post-nav > :first-child {\n  text-align: left;\n}\n\n.post-nav > :last-child {\n  text-align: right;\n}\n\n.post-nav > :first-child .icon {\n  margin-right: 0.5em;\n}\n\n.post-nav > :last-child .icon {\n  margin-left: 0.5em;\n}\n\n@media (max-width: $wrap) {\n  .post-nav {\n    align-items: center;\n    flex-direction: column;\n  }\n\n  .post-nav > * {\n    text-align: center !important;\n  }\n}\n"
+	],
+	"names": [],
+	"mappings": "AAEA,AAAA,SAAS,CAAC,EACR,OAAO,EAAE,IAAI,EACb,eAAe,EAAE,aAAa,EAC9B,WAAW,EAAE,UAAU,EACvB,GAAG,EAAE,IAAI,EACT,KAAK,EAAE,WAAW,GACnB;;AAED,AAAA,SAAS,IAAI,WAAW,CAAC,EACvB,UAAU,EAAE,IAAI,GACjB;;AAED,AAAA,SAAS,IAAI,UAAU,CAAC,EACtB,UAAU,EAAE,KAAK,GAClB;;AAED,AAAA,SAAS,IAAI,WAAW,CAAC,KAAK,CAAC,EAC7B,YAAY,EAAE,KAAK,GACpB;;AAED,AAAA,SAAS,IAAI,UAAU,CAAC,KAAK,CAAC,EAC5B,WAAW,EAAE,KAAK,GACnB;;AAED,MAAM,mBACJ,GAAA,AAAA,SAAS,CAAC,EACR,WAAW,EAAE,MAAM,EACnB,cAAc,EAAE,MAAM,GACvB,CAED,AAAA,SAAS,GAAG,CAAC,CAAC,EACZ,UAAU,EAAE,iBAAiB,GAC9B,EAJA"
+}

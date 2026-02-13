@@ -1,0 +1,12 @@
+{
+	"version": 3,
+	"file": "main.css",
+	"sources": [
+		"main.scss"
+	],
+	"sourcesContent": [
+		"main {\n  display: flex;\n  flex-direction: column;\n  flex-grow: 1;\n}\n"
+	],
+	"names": [],
+	"mappings": "AAAA,AAAA,IAAI,CAAC,EACH,OAAO,EAAE,IAAI,EACb,cAAc,EAAE,MAAM,EACtB,SAAS,EAAE,CAAC,GACb"
+}

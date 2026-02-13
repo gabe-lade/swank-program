@@ -1,0 +1,12 @@
+{
+	"version": 3,
+	"file": "util.css",
+	"sources": [
+		"util.scss"
+	],
+	"sourcesContent": [
+		".left {\n  text-align: left;\n}\n\n.center {\n  text-align: center;\n}\n\n.right {\n  text-align: right;\n}\n"
+	],
+	"names": [],
+	"mappings": "AAAA,AAAA,KAAK,CAAC,EACJ,UAAU,EAAE,IAAI,GACjB;;AAED,AAAA,OAAO,CAAC,EACN,UAAU,EAAE,MAAM,GACnB;;AAED,AAAA,MAAM,CAAC,EACL,UAAU,EAAE,KAAK,GAClB"
+}
