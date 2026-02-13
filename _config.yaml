@@ -22,24 +22,13 @@ defaults:
       path: ""
     values:
       layout: default
-  # markdown files in /_members
-  - scope:
-      type: "members"
-    values:
-      layout: member
-  # markdown files in /_posts
-  - scope:
-      type: "posts"
-    values:
-      layout: post
 
-collections:
-  # generate page for each member
-  members:
-    output: true
-  # generate page for each post
-  posts:
-    output: true
+# Disabled collections (no longer using separate member/post pages)
+# collections:
+#   members:
+#     output: false
+#   posts:
+#     output: false
 
 # jekyll plugins
 plugins:
