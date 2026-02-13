@@ -1,0 +1,12 @@
+{
+	"version": 3,
+	"file": "all.css",
+	"sources": [
+		"all.scss"
+	],
+	"sourcesContent": [
+		"*,\n::before,\n::after {\n  box-sizing: border-box;\n  -moz-text-size-adjust: none;\n  -webkit-text-size-adjust: none;\n  text-size-adjust: none;\n}\n"
+	],
+	"names": [],
+	"mappings": "AAAA,AAAA,CAAC,IACC,MAAM,IACN,KAAK,CAAC,EACN,UAAU,EAAE,UAAU,EACtB,qBAAqB,EAAE,IAAI,EAC3B,wBAAwB,EAAE,IAAI,EAC9B,gBAAgB,EAAE,IAAI,GACvB"
+}
