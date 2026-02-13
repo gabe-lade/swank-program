@@ -1,0 +1,29 @@
+title: "Swank Program in Rural-Urban Policy"
+description: "Research and outreach on rural-urban policy at The Ohio State University"
+baseurl: "/swank-program"
+url: "https://gabe-lade.github.io"
+
+markdown: kramdown
+highlighter: rouge
+permalink: pretty
+
+plugins:
+  - jekyll-feed
+  - jekyll-sitemap
+  - jekyll-seo-tag
+
+defaults:
+  - scope:
+      path: ""
+      type: "pages"
+    values:
+      layout: "page"
+
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - README.md
+  - LICENSE.md
+
+keep_files:
+  - .nojekyll

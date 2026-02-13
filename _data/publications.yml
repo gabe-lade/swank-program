@@ -1,0 +1,38 @@
+working_papers:
+  - title: "Sample Working Paper Title"
+    authors: "Lade, G. and Coauthor, A."
+    year: 2025
+    url: ""
+    ungated: ""
+    code: ""
+
+published:
+  - title: "Quantifying Threshold Manipulation Under the Renewable Fuel Standard"
+    authors: "Andarge, T., D. Ghanem, D. Keiser, and G. Lade"
+    journal: "American Economic Review: Insights"
+    year: 2025
+    url: ""
+    ungated: ""
+    code: ""
+
+  - title: "Costs of Inefficient Regulation: Evidence from the Bakken"
+    authors: "Lade, G. and I. Rudik"
+    journal: "Journal of Environmental Economics and Management"
+    year: 2020
+    url: ""
+    ungated: ""
+    code: ""
+
+  - title: "The Design and Economics of Low Carbon Fuel Standards"
+    authors: "Lade, G. and C.-Y.C. Lin Lawell"
+    journal: "Research in Transportation Economics"
+    year: 2019
+    url: ""
+    ungated: ""
+    code: ""
+
+policy_briefs:
+  - title: "Policy Brief Placeholder"
+    authors: "Lade, G."
+    year: 2025
+    url: ""
