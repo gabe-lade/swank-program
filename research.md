@@ -1,6 +1,6 @@
 ---
 layout: default
-title: ""
+title: "Research"
 permalink: /research/
 ---
 
@@ -17,7 +17,7 @@ permalink: /research/
         {% for pub in site.data.publications.working_papers %}
         <div class="pub-entry">
           <p class="pub-title">
-            {% if pub.url != "" %}
+            {% if pub.url and pub.url != "" %}
               <a href="{{ pub.url }}">{{ pub.title }}</a>
             {% else %}
               {{ pub.title }}
@@ -29,11 +29,15 @@ permalink: /research/
           {% else %}
           <p class="pub-venue">{{ pub.year }}</p>
           {% endif %}
-          {% if pub.url != "" or pub.ungated != "" or pub.code != "" %}
+          {% assign has_links = false %}
+          {% if pub.url and pub.url != "" %}{% assign has_links = true %}{% endif %}
+          {% if pub.ungated and pub.ungated != "" %}{% assign has_links = true %}{% endif %}
+          {% if pub.code and pub.code != "" %}{% assign has_links = true %}{% endif %}
+          {% if has_links %}
           <div class="pub-links">
-            {% if pub.url != "" %}<a href="{{ pub.url }}" class="pub-link">Paper</a>{% endif %}
-            {% if pub.ungated != "" %}<a href="{{ pub.ungated }}" class="pub-link">Ungated</a>{% endif %}
-            {% if pub.code != "" %}<a href="{{ pub.code }}" class="pub-link">Code</a>{% endif %}
+            {% if pub.url and pub.url != "" %}<a href="{{ pub.url }}" class="pub-link">Paper</a>{% endif %}
+            {% if pub.ungated and pub.ungated != "" %}<a href="{{ pub.ungated }}" class="pub-link">Ungated</a>{% endif %}
+            {% if pub.code and pub.code != "" %}<a href="{{ pub.code }}" class="pub-link">Code</a>{% endif %}
           </div>
           {% endif %}
         </div>
@@ -48,7 +52,7 @@ permalink: /research/
         {% for pub in site.data.publications.published %}
         <div class="pub-entry">
           <p class="pub-title">
-            {% if pub.url != "" %}
+            {% if pub.url and pub.url != "" %}
               <a href="{{ pub.url }}">{{ pub.title }}</a>
             {% else %}
               {{ pub.title }}
@@ -56,11 +60,15 @@ permalink: /research/
           </p>
           <p class="pub-authors">{{ pub.authors }}</p>
           <p class="pub-venue">{{ pub.journal }}, {{ pub.year }}</p>
-          {% if pub.url != "" or pub.ungated != "" or pub.code != "" %}
+          {% assign has_links = false %}
+          {% if pub.url and pub.url != "" %}{% assign has_links = true %}{% endif %}
+          {% if pub.ungated and pub.ungated != "" %}{% assign has_links = true %}{% endif %}
+          {% if pub.code and pub.code != "" %}{% assign has_links = true %}{% endif %}
+          {% if has_links %}
           <div class="pub-links">
-            {% if pub.url != "" %}<a href="{{ pub.url }}" class="pub-link">Paper</a>{% endif %}
-            {% if pub.ungated != "" %}<a href="{{ pub.ungated }}" class="pub-link">Ungated</a>{% endif %}
-            {% if pub.code != "" %}<a href="{{ pub.code }}" class="pub-link">Code</a>{% endif %}
+            {% if pub.url and pub.url != "" %}<a href="{{ pub.url }}" class="pub-link">Paper</a>{% endif %}
+            {% if pub.ungated and pub.ungated != "" %}<a href="{{ pub.ungated }}" class="pub-link">Ungated</a>{% endif %}
+            {% if pub.code and pub.code != "" %}<a href="{{ pub.code }}" class="pub-link">Code</a>{% endif %}
           </div>
           {% endif %}
         </div>
@@ -75,7 +83,7 @@ permalink: /research/
         {% for pub in site.data.publications.policy_briefs %}
         <div class="pub-entry">
           <p class="pub-title">
-            {% if pub.url != "" %}
+            {% if pub.url and pub.url != "" %}
               <a href="{{ pub.url }}">{{ pub.title }}</a>
             {% else %}
               {{ pub.title }}
