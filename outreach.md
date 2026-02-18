@@ -50,6 +50,16 @@ permalink: /outreach/
       </div>
     </section>
 
+    <!-- Presentations Section -->
+    <section class="outreach-section">
+      <h2>Presentations</h2>
+      <div class="outreach-list">
+        <div class="outreach-entry">
+          <p class="outreach-entry-title"><a href="https://gabe-lade.github.io/MyFiles/property-tax-reform-202602.pdf">Ohio's Historic Property Tax Reforms: An Economist's Perspective</a></p>
+        </div>
+      </div>
+    </section>
+
     <!-- Policy Briefs & Media Section -->
     <section class="outreach-section">
       <h2>Policy Briefs &amp; Media</h2>
