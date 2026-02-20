@@ -75,25 +75,5 @@ permalink: /research/
         {% endfor %}
       </div>
     </section>
-
-    <!-- Policy Briefs -->
-    <section class="pub-section">
-      <h2>Policy Briefs</h2>
-      <div class="pub-list">
-        {% for pub in site.data.publications.policy_briefs %}
-        <div class="pub-entry">
-          <p class="pub-title">
-            {% if pub.url and pub.url != "" %}
-              <a href="{{ pub.url }}">{{ pub.title }}</a>
-            {% else %}
-              {{ pub.title }}
-            {% endif %}
-          </p>
-          <p class="pub-authors">{{ pub.authors }}</p>
-          <p class="pub-venue">{{ pub.year }}</p>
-        </div>
-        {% endfor %}
-      </div>
-    </section>
   </div>
 </article>
