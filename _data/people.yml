@@ -47,6 +47,42 @@ affiliates:
     photo: "/assets/images/people/placeholder.svg"
 
 advisory_board:
-  - name: "TBD"
-    title: "Advisory Board Member"
-    photo: "/assets/images/people/placeholder.svg"
+  - name: "Jessica D'Ambrosio "
+    title: "The Nature Conservancy in Ohio"
+    photo: "/assets/images/people/jessica_dambrosio.jpg"
+
+  - name: "Tim Derickson "
+    title: "JobsOhio"
+    photo: "/assets/images/people/tim_derickson.jpg"
+    
+  - name: "Heidi Fought "
+    title: "Ohio Township Association"
+    photo: "/assets/images/people/heidi_fought.jpg"
+    
+  - name: "Leah Hetrick "
+    title: "Ohio Farm Bureau"
+    photo: "/assets/images/people/leah_hetrick.jpg"
+    
+  - name: "Jack Irvin"
+    title: "Ohio Farm Bureau"
+    photo: "/assets/images/people/jack_irvin.jpg"
+
+  - name: "Janelle Mead"
+    title: "Ohio Federation of Soil and Water Conservation Districts"
+    photo: "/assets/images/people/janellemead.svg"   
+    
+  - name: "Tim Phlegar"
+    title: "Nationwide"
+    photo: "/assets/images/people/placeholder.svg"    
+
+  - name: "Cheryl Subler"
+    title: "County Commissioners Association of Ohio"
+    photo: "/assets/images/people/cheryl_subler.jpg"    
+
+  - name: "Taylor Stuckert"
+    title: "Lead for America"
+    photo: "/assets/images/people/taylor_stuckert.jpg"  
+    
+  - name: "Andrew Wecker"
+    title: "Wright & Moore"
+    photo: "/assets/images/people/placeholder.svg"        
