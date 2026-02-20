@@ -16,3 +16,8 @@ affiliates:
   - name: "TBD"
     title: "Affiliate Researcher"
     photo: "/assets/images/people/placeholder.svg"
+
+advisory_board:
+  - name: "TBD"
+    title: "Advisory Board Member"
+    photo: "/assets/images/people/placeholder.svg"
