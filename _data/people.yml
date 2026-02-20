@@ -5,13 +5,42 @@ faculty:
     university: "The Ohio State University"
     photo: "/assets/images/people/lade.jpg"
     website: "https://gabe-lade.github.io"
-    bio: "Gabriel Lade is an environmental and energy economist specializing in the economic and policy connections between rural and urban communities. His research examines energy and environmental policy with a focus on transportation fuels, agriculture, and the rural-urban interface."
+    bio: "Gabriel Lade is an applied economist specializing in the economic and policy connections between rural and urban communities. His research examines energy, environmental, and land-use policy with a focus on policies affecting transportation fuel markets, agriculture, and the rural-urban interface."
 
 students:
-  - name: "TBD"
+  - name: "Jialiang Chen"
     title: "PhD Student"
-    photo: "/assets/images/people/placeholder.svg"
+    department: "Department of Agricultural, Environmental, and Development Economics"
+    university: "The Ohio State University"
+    photo: "/assets/images/people/jialiang_chen.jpg"
+    website: "https://aede.osu.edu/our-people/jialiang-chen"
+    bio: "Jialiang Chen is a Ph.D. student in AEDE at The Ohio State University. His research interests are in agriculture and environmental economics."
 
+  - name: "Alexander Ryan"
+    title: "PhD Student"
+    department: "Department of Agricultural, Environmental, and Development Economics"
+    university: "The Ohio State University"
+    photo: "/assets/images/people/alex_ryan.jpg"
+    website: "https://alexanderryan.site"
+    bio: "Alexander (Alex) Ryan is a Ph.D. student in AEDE at The Ohio State University. His research interests include regional and urban economics."
+    
+  - name: "Jingke Wu"
+    title: "PhD Student"
+    department: "Department of Agricultural, Environmental, and Development Economics"
+    university: "The Ohio State University"
+    photo: "/assets/images/people/jingke_wu.jpg"
+    website: "https://aede.osu.edu/our-people/jingke-wu"
+    bio: "Jingke Wu Chen is a Ph.D. student in AEDE at The Ohio State University. His research interests are environmental economics, urban and regional economics, and the intersection of land use, housing markets, and environmental policy."
+
+  - name: "Zoey Zhao"
+    title: "PhD Student"
+    department: "Department of Agricultural, Environmental, and Development Economics"
+    university: "The Ohio State University"
+    photo: "/assets/images/people/zoey_zhao.jpg"
+    website: "https://yuzhao66.github.io"
+    bio: "Zoey Zhao is a Ph.D. student in AEDE at The Ohio State University. Her research interests are in agriculture economics."
+
+    
 affiliates:
   - name: "TBD"
     title: "Affiliate Researcher"
