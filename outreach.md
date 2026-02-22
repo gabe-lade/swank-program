@@ -18,7 +18,7 @@ permalink: /outreach/
       </p>
       <div class="outreach-list">
         <div class="outreach-entry">
-          <p class="outreach-entry-title"><a href="https://gelade1.substack.com/p/the-rural-urban-fringe-is-growing">The Rural-Urban Fringe Is Growing</a></p>
+          <p class="outreach-entry-title"><a href="https://gelade1.substack.com/p/the-rural-urban-fringe-is-growing">The Rural-Urban Fringe Is Growing. January 2026.</a></p>
         </div>
         <div class="outreach-entry">
           <p class="outreach-entry-title"><a href="https://gelade1.substack.com/p/ohio-property-tax-reforms-an-initial">Ohio Property Tax Reforms: An Initial View</a></p>
