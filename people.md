@@ -36,7 +36,7 @@ permalink: /people/
 
     <!-- Students Section -->
     <section class="people-section">
-      <h2>Students</h2>
+      <h2>Graduate Students</h2>
       <!-- To add new students, edit _data/people.yml and add entries under "students" -->
       <div class="people-grid">
         {% for person in site.data.people.students %}
@@ -71,7 +71,7 @@ permalink: /people/
         {% for person in site.data.people.affiliates %}
           {% if person.name == "TBD" %}
           <div class="placeholder-note" style="grid-column: 1 / -1;">
-            Affiliated researchers and collaborators will be listed here.
+            Updates coming soon!
           </div>
           {% else %}
           <div class="person-card">
