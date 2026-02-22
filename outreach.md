@@ -2,6 +2,7 @@
 layout: default
 title: "Outreach"
 permalink: /outreach/
+description: "Newsletter, presentations, policy briefs, and media coverage from the Swank Program in Rural-Urban Policy."
 ---
 
 <article class="page">
@@ -17,6 +18,7 @@ permalink: /outreach/
         The Swank Program publishes a <a href="https://gelade1.substack.com">regular newsletter on Substack</a> covering research findings, policy developments, and data insights relevant to rural-urban policy in Ohio and across the United States.
       </p>
       <div class="outreach-list">
+        {% for item in site.data.newsletters %}
         <div class="outreach-entry">
           <p class="outreach-entry-title"><a href="https://gelade1.substack.com/p/the-rural-urban-fringe-is-growing">The Rural-Urban Fringe Is Growing. </a> January 2026. </p>
         </div>
@@ -47,6 +49,7 @@ permalink: /outreach/
         <div class="outreach-entry">
           <p class="outreach-entry-title"><a href="https://gelade1.substack.com/p/welcome-to-the-swank-program-newsletter">Welcome to the Swank Program Newsletter</a>. August 2025.</p>
         </div>
+        {% endfor %}
       </div>
     </section>
 
