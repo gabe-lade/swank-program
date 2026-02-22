@@ -21,31 +21,31 @@ permalink: /outreach/
           <p class="outreach-entry-title"><a href="https://gelade1.substack.com/p/the-rural-urban-fringe-is-growing">The Rural-Urban Fringe Is Growing. </a></p>
         </div>
         <div class="outreach-entry">
-          <p class="outreach-entry-title"><a href="https://gelade1.substack.com/p/ohio-property-tax-reforms-an-initial">Ohio Property Tax Reforms: An Initial View</a></p>
+          <p class="outreach-entry-title"><a href="https://gelade1.substack.com/p/ohio-property-tax-reforms-an-initial">Ohio Property Tax Reforms: An Initial View</a>. December 2025.</p>
         </div>
         <div class="outreach-entry">
-          <p class="outreach-entry-title"><a href="https://gelade1.substack.com/p/beyond-ethanol-renewable-diesel-and">Beyond Ethanol: Renewable Diesel and the Future of Biofuels</a></p>
+          <p class="outreach-entry-title"><a href="https://gelade1.substack.com/p/beyond-ethanol-renewable-diesel-and">Beyond Ethanol: Renewable Diesel and the Future of Biofuels</a>. November 2025.</p>
         </div>
         <div class="outreach-entry">
-          <p class="outreach-entry-title"><a href="https://gelade1.substack.com/p/the-great-ethanol-boomand-eventual">The Great Ethanol Boom—and Eventual Bust</a></p>
+          <p class="outreach-entry-title"><a href="https://gelade1.substack.com/p/the-great-ethanol-boomand-eventual">The Great Ethanol Boom—and Eventual Bust</a>. October 2025.</p>
         </div>
         <div class="outreach-entry">
-          <p class="outreach-entry-title"><a href="https://gelade1.substack.com/p/the-paper-market-that-determined">The Paper Market That Determined the Future of Biofuels</a></p>
+          <p class="outreach-entry-title"><a href="https://gelade1.substack.com/p/the-paper-market-that-determined">The Paper Market That Determined the Future of Biofuels</a>. October 2025.</p>
         </div>
         <div class="outreach-entry">
-          <p class="outreach-entry-title"><a href="https://gelade1.substack.com/p/how-gas-changed-the-renewable-fuel">How Gas Changed the Renewable Fuel Standard</a></p>
+          <p class="outreach-entry-title"><a href="https://gelade1.substack.com/p/how-gas-changed-the-renewable-fuel">How Gas Changed the Renewable Fuel Standard</a>. October 2025.</p>
         </div>
         <div class="outreach-entry">
-          <p class="outreach-entry-title"><a href="https://gelade1.substack.com/p/what-crops-does-ohio-grow">What Crops Does Ohio Grow?</a></p>
+          <p class="outreach-entry-title"><a href="https://gelade1.substack.com/p/what-crops-does-ohio-grow">What Crops Does Ohio Grow?</a> October 2025.</p>
         </div>
         <div class="outreach-entry">
-          <p class="outreach-entry-title"><a href="https://gelade1.substack.com/p/how-much-of-ohio-has-urbanized">How Much of Ohio Has Urbanized?</a></p>
+          <p class="outreach-entry-title"><a href="https://gelade1.substack.com/p/how-much-of-ohio-has-urbanized">How Much of Ohio Has Urbanized?</a> September 2025.</p>
         </div>
         <div class="outreach-entry">
-          <p class="outreach-entry-title"><a href="https://gelade1.substack.com/p/where-is-the-rural-urban-fringe">Where Is the Rural-Urban Fringe?</a></p>
+          <p class="outreach-entry-title"><a href="https://gelade1.substack.com/p/where-is-the-rural-urban-fringe">Where Is the Rural-Urban Fringe?</a> September 2025.</p>
         </div>
         <div class="outreach-entry">
-          <p class="outreach-entry-title"><a href="https://gelade1.substack.com/p/welcome-to-the-swank-program-newsletter">Welcome to the Swank Program Newsletter</a></p>
+          <p class="outreach-entry-title"><a href="https://gelade1.substack.com/p/welcome-to-the-swank-program-newsletter">Welcome to the Swank Program Newsletter</a>. August 2025.</p>
         </div>
       </div>
     </section>
