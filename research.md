@@ -2,6 +2,7 @@
 layout: default
 title: "Research"
 permalink: /research/
+description: "Working papers and published research on energy, environmental, and agricultural policy from the Swank Program at Ohio State."
 ---
 
 <article class="page">

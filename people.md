@@ -2,6 +2,7 @@
 layout: default
 title: "People"
 permalink: /people/
+description: "Faculty, graduate students, and advisory board members of the Swank Program in Rural-Urban Policy at Ohio State."
 ---
 
 <article class="page">

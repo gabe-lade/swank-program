@@ -196,13 +196,45 @@ h3 { font-size: 1.1rem; margin-bottom: 0.75rem; }
   transform: rotate(-45deg);
 }
 
+/* --- Skip Link (accessibility) --- */
+.skip-link {
+  position: absolute;
+  top: -100%;
+  left: 1rem;
+  background: var(--color-accent);
+  color: #ffffff;
+  padding: 0.5rem 1rem;
+  border-radius: 3px;
+  z-index: 200;
+  text-decoration: none;
+  font-size: 0.9rem;
+}
+
+.skip-link:focus {
+  top: 0.5rem;
+  color: #ffffff;
+  text-decoration: none;
+}
+
 /* --- Hero Image (clean, no overlay) --- */
 .hero {
+  position: relative;
   width: 100vw;
   margin-left: calc(-50vw + 50%);
   overflow: hidden;
   background: var(--color-border);
   line-height: 0;
+}
+
+.hero::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 60px;
+  background: linear-gradient(to bottom, transparent, var(--color-bg));
+  pointer-events: none;
 }
 
 .hero-image {
@@ -275,6 +307,12 @@ main {
 
 .highlight-card {
   padding: 0;
+  transition: transform 0.2s ease;
+  cursor: default;
+}
+
+.highlight-card:hover {
+  transform: translateY(-2px);
 }
 
 .highlight-card h3 {
@@ -296,6 +334,39 @@ main {
 .highlight-card .card-link:hover {
   color: var(--color-accent-hover);
   text-decoration: underline;
+}
+
+/* --- Newsletter CTA (homepage) --- */
+.newsletter-cta {
+  text-align: center;
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 3rem var(--spacing-md) var(--spacing-lg);
+  border-top: 1px solid var(--color-border);
+}
+
+.newsletter-cta p {
+  color: var(--color-text-secondary);
+  font-size: 1.05rem;
+  margin-bottom: 1.25rem;
+}
+
+.newsletter-btn {
+  display: inline-block;
+  background: var(--color-accent);
+  color: #ffffff;
+  padding: 0.65rem 1.5rem;
+  border-radius: 4px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: background 0.2s ease;
+}
+
+.newsletter-btn:hover {
+  background: var(--color-accent-hover);
+  color: #ffffff;
+  text-decoration: none;
 }
 
 /* --- Events Section (homepage) --- */
@@ -404,6 +475,11 @@ main {
   flex-direction: column;
   align-items: center;
   text-align: center;
+  transition: transform 0.2s ease;
+}
+
+.person-card:hover {
+  transform: translateY(-2px);
 }
 
 .person-photo {
@@ -714,6 +790,11 @@ main {
 
   body.nav-open {
     overflow: hidden;
+  }
+
+  .pub-link {
+    padding: 0.4rem 0.75rem;
+    font-size: 0.85rem;
   }
 
   .faculty-featured {

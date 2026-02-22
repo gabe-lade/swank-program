@@ -2,6 +2,7 @@
 layout: default
 title: "Data"
 permalink: /data/
+description: "Datasets and interactive visualizations on Ohio agricultural economics, rural-urban demographics, and environmental policy."
 ---
 
 <article class="page">
