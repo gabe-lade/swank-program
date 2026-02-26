@@ -42,9 +42,13 @@ students:
 
     
 affiliates:
-  - name: "TBD"
-    title: "Affiliate Researcher"
-    photo: "/assets/images/people/placeholder.svg"
+  - name: "Alex Hollingsworth"
+    title: "Associate Professor (AEDE)"
+    photo: "/assets/images/people/alex-hollingsworth.jpg"
+
+  - name: "Yao Wang"
+    title: "Assistant Professor (AEDE)"
+    photo: "/assets/images/people/yao-wang.jpg"    
 
 advisory_board:
   - name: "Jessica D'Ambrosio "
