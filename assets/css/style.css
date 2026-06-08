@@ -652,6 +652,58 @@ main {
   line-height: 1.6;
 }
 
+.insights-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+  margin-top: 1.5rem;
+}
+
+.insight-card {
+  display: block;
+  color: var(--color-text);
+  text-decoration: none;
+  border-bottom: 1px solid var(--color-border);
+  padding-bottom: 1.5rem;
+}
+
+.insight-card:hover {
+  color: var(--color-text);
+  text-decoration: none;
+}
+
+.insight-card h3 {
+  margin: 1rem 0 0.5rem;
+  color: var(--color-accent);
+}
+
+.insight-card p {
+  color: var(--color-text-secondary);
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+
+.insight-thumbnail {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  border: 1px solid var(--color-border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-text-secondary);
+  font-size: 0.95rem;
+}
+
+.placeholder-thumbnail {
+  background: #f7f7f7;
+}
+
+@media (min-width: 768px) {
+  .insights-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
 /* --- 404 --- */
 .page-404 {
   text-align: center;
