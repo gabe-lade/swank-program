@@ -32,7 +32,7 @@ description: "Datasets and interactive visualizations on Ohio agricultural econo
         Short, plain-language explainers with maps, charts, and source notes on rural-urban policy issues.
       </p>
       <div class="dataset-entry">
-        <h3><a href="{{ '/data-insights/' | relative_url }}">Explore Data Insights</a></h3>
+        <h3><a href="{{ '/data/insights/' | relative_url }}">Explore Data Insights</a></h3>
         <p>
           View one-page explainers that combine background context, data visualizations, and reproducible source notes.
         </p>

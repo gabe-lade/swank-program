@@ -1,7 +1,7 @@
 ---
 layout: default
 title: "Data Insights"
-permalink: /data-insights/
+permalink: /data/insights/
 description: "Short, plain-language explainers with maps and charts on rural-urban policy topics."
 ---
 
@@ -19,14 +19,39 @@ description: "Short, plain-language explainers with maps and charts on rural-urb
     <section class="data-section">
       <h2>Featured explainers</h2>
 
-      <div class="insights-grid">
-        <a class="insight-card" href="{{ '/data-insights/' | relative_url }}">
-          <div class="insight-thumbnail placeholder-thumbnail">Pilot</div>
-          <h3>Pilot explainer coming soon</h3>
-          <p>
-            The first Data Insights page will pair a plain-language background section with a map, chart, source notes, and a last-updated date.
-          </p>
-        </a>
+      <div class="insights-list">
+        <article class="insight-list-item">
+          <div class="insight-list-copy">
+            <h3><a href="{{ '/data/insights/ohio-township-zoning-coverage/' | relative_url }}">Ohio township zoning coverage</a></h3>
+          </div>
+        </article>
+
+        <article class="insight-list-item">
+          <div class="insight-list-copy">
+            <h3><a href="{{ '/data/insights/ohio-property-tax-reform/' | relative_url }}">Ohio property tax reform</a></h3>
+          </div>
+        </article>
+
+        <article class="insight-list-item">
+          <div class="insight-list-copy">
+            <h3><a href="{{ '/data/insights/ohio-urbanization-rural-urban-fringe/' | relative_url }}">Ohio urbanization rural urban fringe</a></h3>
+            <p>
+              Explore where Ohio's urban footprint expanded from 2000 to 2020 using Census block and block group based classifications.
+            </p>
+          </div>
+        </article>
+
+        <article class="insight-list-item">
+          <div class="insight-list-copy">
+            <h3><a href="{{ '/data/insights/biofuels-renewable-fuel-standard/' | relative_url }}">Biofuels and Renewable Fuel Standard</a></h3>
+          </div>
+        </article>
+
+        <article class="insight-list-item">
+          <div class="insight-list-copy">
+            <h3><a href="{{ '/data/insights/what-crops-ohio-grows/' | relative_url }}">What crops Ohio grows</a></h3>
+          </div>
+        </article>
       </div>
     </section>
   </div>
