@@ -18,9 +18,7 @@ description: "Interactive tools, data insights, and datasets on Ohio rural-urban
 
     <!-- Featured tool -->
     <a class="tools-featured" href="{{ '/data/hilliard-housing-tracker.html' | relative_url }}">
-      <div class="tool-thumb">
-        <span class="tool-thumb-label">Hilliard Housing<br>Affordability Tracker</span>
-      </div>
+      <img class="tool-thumb" src="{{ '/assets/img/tools/hilliard-housing-tracker.png' | relative_url }}" alt="Hilliard Housing Affordability Tracker dashboard showing sale prices and affordability metrics">
       <div class="tools-featured-body">
         <p class="tool-tag">Featured · Interactive tool</p>
         <h3>Hilliard Housing Affordability Tracker</h3>
@@ -36,7 +34,7 @@ description: "Interactive tools, data insights, and datasets on Ohio rural-urban
     <div class="tools-grid">
 
       <a class="tool-card" href="{{ '/data/insights/ohio-urbanization-rural-urban-fringe/' | relative_url }}">
-        <div class="tool-thumb"><span class="tool-thumb-label">Ohio Urbanization &amp; the Rural-Urban Fringe</span></div>
+        <img class="tool-thumb" src="{{ '/assets/img/tools/ohio-urbanization.png' | relative_url }}" alt="Map of Ohio classifying urban, rural, and rural-to-urban areas in 2020">
         <div class="tool-card-body">
           <p class="tool-tag">Interactive maps</p>
           <h3>Ohio urbanization &amp; the rural-urban fringe</h3>
