@@ -1,0 +1,77 @@
+#!/usr/bin/env ruby
+# frozen_string_literal: true
+#
+# Validate the outreach data files before opening a PR:
+#   - each file is valid YAML
+#   - every item has its required fields
+#   - every topic is a slug defined in _data/outreach_topics.yml
+#   - flags items with no topics (won't appear under any topic filter)
+#
+# Exits non-zero if any ERROR is found, so it can gate a commit or CI step.
+require "yaml"
+
+ROOT = File.expand_path("..", __dir__)
+
+def load_yaml(path)
+  YAML.safe_load_file(path) || []
+rescue StandardError => e
+  warn "ERROR  could not parse #{File.basename(path)}: #{e.message}"
+  nil
+end
+
+topics_path = File.join(ROOT, "_data", "outreach_topics.yml")
+valid = (load_yaml(topics_path) || []).map { |t| t["slug"] }
+abort "ERROR  no topics found in _data/outreach_topics.yml" if valid.empty?
+
+# file => required fields
+FILES = {
+  "newsletters"   => %w[title url date],
+  "presentations" => %w[title url date],
+  "policy_briefs" => %w[title url source date],
+  "media"         => %w[title url source date],
+}.freeze
+
+errors = 0
+warnings = 0
+
+FILES.each do |name, required|
+  path = File.join(ROOT, "_data", "#{name}.yml")
+  next unless File.exist?(path)
+
+  items = load_yaml(path)
+  if items.nil?
+    errors += 1
+    next
+  end
+
+  items.each_with_index do |item, i|
+    label = (item["title"] || "(item #{i + 1})").to_s.strip[0, 60]
+
+    required.each do |field|
+      if item[field].to_s.strip.empty?
+        puts "ERROR  #{name}[#{i}] missing '#{field}' — #{label}"
+        errors += 1
+      end
+    end
+
+    topics = item["topics"] || []
+    topics.each do |t|
+      next if valid.include?(t)
+
+      puts "ERROR  #{name}[#{i}] unknown topic '#{t}' — #{label}"
+      errors += 1
+    end
+
+    if topics.empty?
+      puts "warn   #{name}[#{i}] has no topics (hidden from topic filters) — #{label}"
+      warnings += 1
+    end
+  end
+
+  puts "ok     #{name}.yml — #{items.size} item(s)"
+end
+
+puts ""
+puts "valid topics: #{valid.join(', ')}"
+puts "#{errors} error(s), #{warnings} warning(s)"
+exit(errors.zero? ? 0 : 1)

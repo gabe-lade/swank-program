@@ -24,6 +24,10 @@ exclude:
   - Gemfile.lock
   - README.md
   - LICENSE.md
+  - vendor
+  - miscellany
+  - logs
+  - bin
 
 keep_files:
   - .nojekyll

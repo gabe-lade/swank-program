@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+# Build and serve the site locally with live reload.
+#   bin/serve            → http://127.0.0.1:4000/swank-program/
+#   bin/serve --port 4001  (any extra args pass through to `jekyll serve`)
+set -euo pipefail
+source "$(dirname "${BASH_SOURCE[0]}")/common.sh"
+cd "$REPO_ROOT"
+
+if [ -n "$SITE_NOTE" ]; then echo "note: $SITE_NOTE"; fi
+echo "Serving http://127.0.0.1:4000/swank-program/  (Ctrl-C to stop)"
+exec bundle exec jekyll serve --host 127.0.0.1 --port 4000 --livereload -d "$SITE_DIR" "$@"
