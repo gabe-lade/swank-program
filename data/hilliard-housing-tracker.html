@@ -1,0 +1,1042 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hilliard Housing Affordability Tracker</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+
+<!-- ════════════════════════════════════════════════════════════════════
+     CITY STAFF: HOW TO UPDATE THIS DASHBOARD
+     ════════════════════════════════════════════════════════════════════
+     This entire dashboard lives in this one file. To update it each
+     quarter you only edit the three data blocks immediately below:
+
+       1. SALES DATA  — add one row per geography for the new quarter.
+          Numbers come from the Franklin County Auditor sales data
+          (see the explainer document for the step-by-step workflow).
+
+       2. MORTGAGE RATES — add one row: the quarter's average 30-year
+          fixed rate from Freddie Mac (freddiemac.com/pmms).
+
+       3. HUD AMI — add one row each spring when HUD publishes new
+          income limits for the Columbus metro (huduser.gov).
+
+       4. RENTS — add one row per geography: the latest month's value
+          from Zillow's ZORI file (zillow.com/research/data → Rentals →
+          ZORI, geography "City"; use "Metro" for the Columbus metro
+          row). Filter the downloaded spreadsheet to each city, copy
+          the quarter-end month's value.
+
+       5. SALES BY TYPE — same auditor extract as block 1, but Hilliard
+          only, split by property class (single-family vs condo/
+          townhome land-use codes). The R script computes this too.
+
+       6. PERMITS — once a year, add one row: residential units
+          permitted in Hilliard by structure type. Source: City of
+          Hilliard Building Division records, or the Census Building
+          Permits Survey for Hilliard (socds.huduser.gov/permits).
+
+     Do not edit anything below the line that says "NO EDITS NEEDED
+     BELOW THIS LINE". Save the file, double-click it to check it in a
+     browser, then re-upload it to the city website. That's the whole
+     update.
+     ════════════════════════════════════════════════════════════════ -->
+
+<!-- ── 1. SALES DATA ──────────────────────────────────────────────────
+     Columns: quarter, geography, number of valid sales, median sale
+     price ($), median price per square foot ($).
+     REAL DATA: computed from Franklin County Auditor records by
+     code/build_tracker_data.R — edit via the script, not by hand.    -->
+<script type="text/plain" id="sales-data">
+quarter,geography,sales,median_price,median_ppsf
+2020Q1,Hilliard,77,337000,152
+2020Q2,Hilliard,130,352500,153
+2020Q3,Hilliard,164,316400,163
+2020Q4,Hilliard,141,325300,159
+2021Q1,Hilliard,84,327500,168
+2021Q2,Hilliard,133,360000,181
+2021Q3,Hilliard,183,375000,179
+2021Q4,Hilliard,147,375700,191
+2022Q1,Hilliard,93,400000,198
+2022Q2,Hilliard,117,450000,209
+2022Q3,Hilliard,139,442000,199
+2022Q4,Hilliard,115,385100,202
+2023Q1,Hilliard,87,420000,206
+2023Q2,Hilliard,128,445000,221
+2023Q3,Hilliard,117,493000,220
+2023Q4,Hilliard,104,435400,223
+2024Q1,Hilliard,79,415000,222
+2024Q2,Hilliard,93,420000,227
+2024Q3,Hilliard,122,413000,231
+2024Q4,Hilliard,75,356000,231
+2025Q1,Hilliard,58,380000,221
+2025Q2,Hilliard,132,461200,227
+2025Q3,Hilliard,132,428600,223
+2025Q4,Hilliard,126,370000,228
+2026Q1,Hilliard,94,386000,223
+2020Q1,Dublin,88,400000,159
+2020Q2,Dublin,123,405000,163
+2020Q3,Dublin,157,425000,167
+2020Q4,Dublin,141,412500,169
+2021Q1,Dublin,82,413000,176
+2021Q2,Dublin,137,500000,186
+2021Q3,Dublin,196,470500,188
+2021Q4,Dublin,125,460000,188
+2022Q1,Dublin,88,458000,198
+2022Q2,Dublin,143,535000,218
+2022Q3,Dublin,124,535000,210
+2022Q4,Dublin,110,515500,206
+2023Q1,Dublin,59,545000,204
+2023Q2,Dublin,108,538500,233
+2023Q3,Dublin,156,500000,246
+2023Q4,Dublin,113,510000,236
+2024Q1,Dublin,58,597000,223
+2024Q2,Dublin,112,585400,240
+2024Q3,Dublin,135,580000,243
+2024Q4,Dublin,100,560000,247
+2025Q1,Dublin,60,572500,247
+2025Q2,Dublin,133,579600,245
+2025Q3,Dublin,156,626000,251
+2025Q4,Dublin,112,544000,237
+2026Q1,Dublin,77,612500,246
+2020Q1,Gahanna,63,239900,142
+2020Q2,Gahanna,98,235000,152
+2020Q3,Gahanna,108,261300,150
+2020Q4,Gahanna,124,256200,159
+2021Q1,Gahanna,82,263000,159
+2021Q2,Gahanna,103,269900,182
+2021Q3,Gahanna,151,315000,181
+2021Q4,Gahanna,157,315000,179
+2022Q1,Gahanna,76,300000,192
+2022Q2,Gahanna,138,350000,204
+2022Q3,Gahanna,139,350000,200
+2022Q4,Gahanna,84,325000,191
+2023Q1,Gahanna,69,310000,204
+2023Q2,Gahanna,97,360000,204
+2023Q3,Gahanna,107,351200,222
+2023Q4,Gahanna,73,322000,204
+2024Q1,Gahanna,81,330000,214
+2024Q2,Gahanna,113,380000,220
+2024Q3,Gahanna,129,390000,216
+2024Q4,Gahanna,102,356500,219
+2025Q1,Gahanna,71,375000,223
+2025Q2,Gahanna,136,412000,228
+2025Q3,Gahanna,136,353800,215
+2025Q4,Gahanna,111,339900,217
+2026Q1,Gahanna,72,410000,217
+2020Q1,Grove City,81,250000,137
+2020Q2,Grove City,137,252500,137
+2020Q3,Grove City,159,265000,144
+2020Q4,Grove City,229,280000,149
+2021Q1,Grove City,132,302500,154
+2021Q2,Grove City,207,303000,159
+2021Q3,Grove City,291,315000,160
+2021Q4,Grove City,251,321900,171
+2022Q1,Grove City,200,349300,177
+2022Q2,Grove City,245,371000,189
+2022Q3,Grove City,214,352500,188
+2022Q4,Grove City,183,383700,185
+2023Q1,Grove City,164,374000,191
+2023Q2,Grove City,198,378400,195
+2023Q3,Grove City,187,375000,196
+2023Q4,Grove City,180,394000,195
+2024Q1,Grove City,92,350000,196
+2024Q2,Grove City,141,355000,210
+2024Q3,Grove City,150,350000,200
+2024Q4,Grove City,136,349000,203
+2025Q1,Grove City,109,325900,198
+2025Q2,Grove City,151,370000,200
+2025Q3,Grove City,193,359900,198
+2025Q4,Grove City,188,340500,193
+2026Q1,Grove City,142,315000,199
+2020Q1,Westerville,52,259200,145
+2020Q2,Westerville,77,285500,146
+2020Q3,Westerville,97,277000,154
+2020Q4,Westerville,111,295000,163
+2021Q1,Westerville,58,255000,169
+2021Q2,Westerville,93,317000,179
+2021Q3,Westerville,173,335000,178
+2021Q4,Westerville,119,318000,176
+2022Q1,Westerville,65,340000,181
+2022Q2,Westerville,120,355800,203
+2022Q3,Westerville,125,355000,200
+2022Q4,Westerville,69,363000,193
+2023Q1,Westerville,60,362500,209
+2023Q2,Westerville,77,380000,208
+2023Q3,Westerville,90,374000,215
+2023Q4,Westerville,73,375000,217
+2024Q1,Westerville,39,390000,226
+2024Q2,Westerville,82,395800,223
+2024Q3,Westerville,103,390000,217
+2024Q4,Westerville,83,420000,219
+2025Q1,Westerville,56,373000,225
+2025Q2,Westerville,113,415000,232
+2025Q3,Westerville,132,383700,219
+2025Q4,Westerville,90,392500,221
+2026Q1,Westerville,74,377000,228
+2020Q1,Franklin County,2334,209400,137
+2020Q2,Franklin County,3240,229200,147
+2020Q3,Franklin County,4175,236000,150
+2020Q4,Franklin County,4612,232000,152
+2021Q1,Franklin County,3133,230000,153
+2021Q2,Franklin County,4072,259900,168
+2021Q3,Franklin County,5604,265000,173
+2021Q4,Franklin County,5204,262000,174
+2022Q1,Franklin County,3500,265000,180
+2022Q2,Franklin County,4984,299900,195
+2022Q3,Franklin County,4749,292500,194
+2022Q4,Franklin County,3530,279900,187
+2023Q1,Franklin County,2854,278700,190
+2023Q2,Franklin County,3892,311400,204
+2023Q3,Franklin County,4187,310000,205
+2023Q4,Franklin County,3473,305000,201
+2024Q1,Franklin County,2908,285500,203
+2024Q2,Franklin County,3809,310000,216
+2024Q3,Franklin County,4059,305000,214
+2024Q4,Franklin County,3518,295000,210
+2025Q1,Franklin County,2927,270200,204
+2025Q2,Franklin County,4415,299900,216
+2025Q3,Franklin County,4787,300000,209
+2025Q4,Franklin County,4144,279900,201
+2026Q1,Franklin County,3245,284900,202
+</script>
+
+<!-- ── 2. MORTGAGE RATES ──────────────────────────────────────────────
+     Quarterly average 30-year fixed rate (%), Freddie Mac PMMS.
+     2020–2025Q2 from PMMS history; 2025Q3 onward are close estimates —
+     replace from freddiemac.com/pmms historical file when updating.  -->
+<script type="text/plain" id="rate-data">
+quarter,rate
+2020Q1,3.51
+2020Q2,3.23
+2020Q3,2.95
+2020Q4,2.76
+2021Q1,2.88
+2021Q2,2.99
+2021Q3,2.87
+2021Q4,3.08
+2022Q1,3.82
+2022Q2,5.27
+2022Q3,5.62
+2022Q4,6.66
+2023Q1,6.37
+2023Q2,6.51
+2023Q3,7.04
+2023Q4,7.30
+2024Q1,6.75
+2024Q2,7.00
+2024Q3,6.51
+2024Q4,6.63
+2025Q1,6.83
+2025Q2,6.84
+2025Q3,6.70
+2025Q4,6.60
+2026Q1,6.50
+</script>
+
+<!-- ── 3. HUD AREA MEDIAN INCOME, Columbus metro ($, 4-person) ───────
+     One row per year, from huduser.gov income limits.
+     2023–2026 verified against published HUD/City of Columbus tables;
+     2020–2022 are close estimates pending verification.              -->
+<script type="text/plain" id="ami-data">
+year,ami
+2020,83800
+2021,86900
+2022,93700
+2023,101100
+2024,103300
+2025,109000
+2026,112000
+</script>
+
+<!-- ── 4. RENTS ───────────────────────────────────────────────────────
+     Typical asking rent (Zillow Observed Rent Index, smoothed, all
+     homes + multifamily), quarter-end month value.
+     REAL DATA: from Zillow research CSVs via the build script.       -->
+<script type="text/plain" id="rent-data">
+quarter,geography,rent
+2021Q1,Hilliard,1181
+2021Q2,Hilliard,1247
+2021Q3,Hilliard,1269
+2021Q4,Hilliard,1267
+2022Q1,Hilliard,1245
+2022Q2,Hilliard,1341
+2022Q3,Hilliard,1361
+2022Q4,Hilliard,1333
+2023Q1,Hilliard,1366
+2023Q2,Hilliard,1411
+2023Q3,Hilliard,1426
+2023Q4,Hilliard,1375
+2024Q1,Hilliard,1390
+2024Q2,Hilliard,1484
+2024Q3,Hilliard,1488
+2024Q4,Hilliard,1463
+2025Q1,Hilliard,1496
+2025Q2,Hilliard,1526
+2025Q3,Hilliard,1548
+2025Q4,Hilliard,1521
+2026Q1,Hilliard,1512
+2020Q1,Dublin,1289
+2020Q2,Dublin,1297
+2020Q3,Dublin,1319
+2020Q4,Dublin,1316
+2021Q1,Dublin,1336
+2021Q2,Dublin,1423
+2021Q3,Dublin,1482
+2021Q4,Dublin,1438
+2022Q1,Dublin,1499
+2022Q2,Dublin,1604
+2022Q3,Dublin,1622
+2022Q4,Dublin,1523
+2023Q1,Dublin,1592
+2023Q2,Dublin,1650
+2023Q3,Dublin,1663
+2023Q4,Dublin,1610
+2024Q1,Dublin,1614
+2024Q2,Dublin,1686
+2024Q3,Dublin,1736
+2024Q4,Dublin,1692
+2025Q1,Dublin,1750
+2025Q2,Dublin,1788
+2025Q3,Dublin,1737
+2025Q4,Dublin,1700
+2026Q1,Dublin,1711
+2025Q1,Gahanna,1643
+2025Q2,Gahanna,1717
+2025Q3,Gahanna,1708
+2025Q4,Gahanna,1657
+2026Q1,Gahanna,1700
+2021Q2,Grove City,1216
+2021Q3,Grove City,1267
+2021Q4,Grove City,1239
+2022Q1,Grove City,1267
+2022Q2,Grove City,1324
+2022Q3,Grove City,1342
+2022Q4,Grove City,1313
+2023Q1,Grove City,1364
+2023Q2,Grove City,1386
+2023Q3,Grove City,1395
+2023Q4,Grove City,1395
+2024Q1,Grove City,1447
+2024Q2,Grove City,1444
+2024Q3,Grove City,1461
+2024Q4,Grove City,1468
+2025Q1,Grove City,1475
+2025Q2,Grove City,1483
+2025Q3,Grove City,1488
+2025Q4,Grove City,1503
+2026Q1,Grove City,1532
+2020Q1,Westerville,1155
+2020Q2,Westerville,1140
+2020Q3,Westerville,1165
+2020Q4,Westerville,1152
+2021Q1,Westerville,1170
+2021Q2,Westerville,1248
+2021Q3,Westerville,1274
+2021Q4,Westerville,1297
+2022Q1,Westerville,1302
+2022Q2,Westerville,1411
+2022Q3,Westerville,1397
+2022Q4,Westerville,1380
+2023Q1,Westerville,1386
+2023Q2,Westerville,1459
+2023Q3,Westerville,1472
+2023Q4,Westerville,1445
+2024Q1,Westerville,1478
+2024Q2,Westerville,1534
+2024Q3,Westerville,1550
+2024Q4,Westerville,1507
+2025Q1,Westerville,1581
+2025Q2,Westerville,1618
+2025Q3,Westerville,1598
+2025Q4,Westerville,1575
+2026Q1,Westerville,1583
+2020Q1,Columbus metro,1107
+2020Q2,Columbus metro,1121
+2020Q3,Columbus metro,1137
+2020Q4,Columbus metro,1141
+2021Q1,Columbus metro,1165
+2021Q2,Columbus metro,1213
+2021Q3,Columbus metro,1245
+2021Q4,Columbus metro,1254
+2022Q1,Columbus metro,1274
+2022Q2,Columbus metro,1333
+2022Q3,Columbus metro,1358
+2022Q4,Columbus metro,1334
+2023Q1,Columbus metro,1356
+2023Q2,Columbus metro,1397
+2023Q3,Columbus metro,1407
+2023Q4,Columbus metro,1400
+2024Q1,Columbus metro,1410
+2024Q2,Columbus metro,1451
+2024Q3,Columbus metro,1469
+2024Q4,Columbus metro,1458
+2025Q1,Columbus metro,1482
+2025Q2,Columbus metro,1508
+2025Q3,Columbus metro,1508
+2025Q4,Columbus metro,1493
+2026Q1,Columbus metro,1507
+</script>
+
+<!-- ── 5. SALES BY TYPE (Hilliard only) ──────────────────────────────
+     Same auditor records as block 1, Hilliard only, split by
+     property class (LUC 510-513 vs 550-556).
+     REAL DATA: computed by the build script.                         -->
+<script type="text/plain" id="type-data">
+quarter,type,sales,median_price
+2020Q1,Single-family detached,66,363300
+2020Q2,Single-family detached,113,361000
+2020Q3,Single-family detached,140,337400
+2020Q4,Single-family detached,125,358300
+2021Q1,Single-family detached,72,344200
+2021Q2,Single-family detached,119,385000
+2021Q3,Single-family detached,166,387400
+2021Q4,Single-family detached,133,405000
+2022Q1,Single-family detached,77,427500
+2022Q2,Single-family detached,106,456500
+2022Q3,Single-family detached,125,455000
+2022Q4,Single-family detached,105,435000
+2023Q1,Single-family detached,76,454000
+2023Q2,Single-family detached,105,479000
+2023Q3,Single-family detached,107,500000
+2023Q4,Single-family detached,92,463800
+2024Q1,Single-family detached,68,434500
+2024Q2,Single-family detached,80,454400
+2024Q3,Single-family detached,110,427000
+2024Q4,Single-family detached,66,370000
+2025Q1,Single-family detached,50,400000
+2025Q2,Single-family detached,107,495000
+2025Q3,Single-family detached,108,458500
+2025Q4,Single-family detached,102,390000
+2026Q1,Single-family detached,75,435000
+2020Q1,Condo / townhome,11,230000
+2020Q2,Condo / townhome,17,225000
+2020Q3,Condo / townhome,24,269500
+2020Q4,Condo / townhome,16,216500
+2021Q1,Condo / townhome,12,265000
+2021Q2,Condo / townhome,14,283500
+2021Q3,Condo / townhome,17,280000
+2021Q4,Condo / townhome,14,279000
+2022Q1,Condo / townhome,16,312500
+2022Q2,Condo / townhome,11,333000
+2022Q3,Condo / townhome,14,313000
+2022Q4,Condo / townhome,10,312500
+2023Q1,Condo / townhome,11,310000
+2023Q2,Condo / townhome,23,335000
+2023Q3,Condo / townhome,10,295000
+2023Q4,Condo / townhome,12,296000
+2024Q1,Condo / townhome,11,345000
+2024Q2,Condo / townhome,13,333000
+2024Q3,Condo / townhome,12,339000
+2024Q4,Condo / townhome,9,325000
+2025Q1,Condo / townhome,8,280500
+2025Q2,Condo / townhome,25,325000
+2025Q3,Condo / townhome,24,376000
+2025Q4,Condo / townhome,24,334000
+2026Q1,Condo / townhome,19,310000
+</script>
+
+<!-- ── 6. PERMITS (Hilliard, annual housing units by type) ───────────
+     Residential units permitted per calendar year. Source: City of
+     Hilliard Building Division or Census Building Permits Survey.
+     ⚠ PLACEHOLDER: illustrative values pending Building Division
+     data — this panel is also labeled as such on the page.           -->
+<script type="text/plain" id="permit-data">
+year,sf_detached,townhome,apartment
+2020,212,38,118
+2021,228,52,184
+2022,193,61,322
+2023,158,47,148
+2024,176,72,214
+2025,184,88,262
+</script>
+
+<!-- ── 7. ZILLOW HOME VALUE INDEX (real data) ────────────────────────
+     ZHVI (all homes, smoothed, seasonally adjusted), quarter-end month,
+     from the City and Metro csv files at zillow.com/research/data.   -->
+<script type="text/plain" id="zhvi-data">
+quarter,geography,zhvi
+2020Q1,Hilliard,253000
+2020Q2,Hilliard,257200
+2020Q3,Hilliard,262700
+2020Q4,Hilliard,273500
+2021Q1,Hilliard,284100
+2021Q2,Hilliard,299100
+2021Q3,Hilliard,304100
+2021Q4,Hilliard,308500
+2022Q1,Hilliard,326400
+2022Q2,Hilliard,345200
+2022Q3,Hilliard,347100
+2022Q4,Hilliard,345900
+2023Q1,Hilliard,346700
+2023Q2,Hilliard,353700
+2023Q3,Hilliard,362200
+2023Q4,Hilliard,366400
+2024Q1,Hilliard,371100
+2024Q2,Hilliard,375400
+2024Q3,Hilliard,377500
+2024Q4,Hilliard,381600
+2025Q1,Hilliard,384300
+2025Q2,Hilliard,384100
+2025Q3,Hilliard,386400
+2025Q4,Hilliard,388900
+2026Q1,Hilliard,388200
+2020Q1,Dublin,376600
+2020Q2,Dublin,379500
+2020Q3,Dublin,385200
+2020Q4,Dublin,398500
+2021Q1,Dublin,413300
+2021Q2,Dublin,432300
+2021Q3,Dublin,440300
+2021Q4,Dublin,447400
+2022Q1,Dublin,470300
+2022Q2,Dublin,497000
+2022Q3,Dublin,499700
+2022Q4,Dublin,499800
+2023Q1,Dublin,502100
+2023Q2,Dublin,513200
+2023Q3,Dublin,523200
+2023Q4,Dublin,529500
+2024Q1,Dublin,536600
+2024Q2,Dublin,543000
+2024Q3,Dublin,545300
+2024Q4,Dublin,554100
+2025Q1,Dublin,559900
+2025Q2,Dublin,561500
+2025Q3,Dublin,564800
+2025Q4,Dublin,569300
+2026Q1,Dublin,567500
+2020Q1,Gahanna,248400
+2020Q2,Gahanna,252100
+2020Q3,Gahanna,257000
+2020Q4,Gahanna,268500
+2021Q1,Gahanna,279200
+2021Q2,Gahanna,292400
+2021Q3,Gahanna,294000
+2021Q4,Gahanna,294900
+2022Q1,Gahanna,312300
+2022Q2,Gahanna,329800
+2022Q3,Gahanna,333700
+2022Q4,Gahanna,333500
+2023Q1,Gahanna,332800
+2023Q2,Gahanna,338900
+2023Q3,Gahanna,347100
+2023Q4,Gahanna,352000
+2024Q1,Gahanna,356800
+2024Q2,Gahanna,361200
+2024Q3,Gahanna,363200
+2024Q4,Gahanna,367400
+2025Q1,Gahanna,370100
+2025Q2,Gahanna,370400
+2025Q3,Gahanna,375200
+2025Q4,Gahanna,378200
+2026Q1,Gahanna,380000
+2020Q1,Grove City,220400
+2020Q2,Grove City,224500
+2020Q3,Grove City,229500
+2020Q4,Grove City,239400
+2021Q1,Grove City,250300
+2021Q2,Grove City,263300
+2021Q3,Grove City,267100
+2021Q4,Grove City,269900
+2022Q1,Grove City,285500
+2022Q2,Grove City,301300
+2022Q3,Grove City,305000
+2022Q4,Grove City,302800
+2023Q1,Grove City,301200
+2023Q2,Grove City,306200
+2023Q3,Grove City,312300
+2023Q4,Grove City,315200
+2024Q1,Grove City,318700
+2024Q2,Grove City,322700
+2024Q3,Grove City,324900
+2024Q4,Grove City,328500
+2025Q1,Grove City,330000
+2025Q2,Grove City,329000
+2025Q3,Grove City,331500
+2025Q4,Grove City,332500
+2026Q1,Grove City,333900
+2020Q1,Westerville,305200
+2020Q2,Westerville,309500
+2020Q3,Westerville,315100
+2020Q4,Westerville,327200
+2021Q1,Westerville,340500
+2021Q2,Westerville,356700
+2021Q3,Westerville,360300
+2021Q4,Westerville,364400
+2022Q1,Westerville,383800
+2022Q2,Westerville,406000
+2022Q3,Westerville,408600
+2022Q4,Westerville,408100
+2023Q1,Westerville,407900
+2023Q2,Westerville,414500
+2023Q3,Westerville,422800
+2023Q4,Westerville,425400
+2024Q1,Westerville,431200
+2024Q2,Westerville,436000
+2024Q3,Westerville,437800
+2024Q4,Westerville,442500
+2025Q1,Westerville,444800
+2025Q2,Westerville,444200
+2025Q3,Westerville,448200
+2025Q4,Westerville,451200
+2026Q1,Westerville,451300
+2020Q1,Columbus metro,218700
+2020Q2,Columbus metro,222700
+2020Q3,Columbus metro,228300
+2020Q4,Columbus metro,239000
+2021Q1,Columbus metro,249500
+2021Q2,Columbus metro,261500
+2021Q3,Columbus metro,264700
+2021Q4,Columbus metro,266800
+2022Q1,Columbus metro,281600
+2022Q2,Columbus metro,296900
+2022Q3,Columbus metro,299200
+2022Q4,Columbus metro,297700
+2023Q1,Columbus metro,297200
+2023Q2,Columbus metro,303700
+2023Q3,Columbus metro,310100
+2023Q4,Columbus metro,312600
+2024Q1,Columbus metro,316400
+2024Q2,Columbus metro,320500
+2024Q3,Columbus metro,321900
+2024Q4,Columbus metro,324100
+2025Q1,Columbus metro,326300
+2025Q2,Columbus metro,325200
+2025Q3,Columbus metro,326600
+2025Q4,Columbus metro,328400
+2026Q1,Columbus metro,330100
+</script>
+
+<!-- ── 8. ACS CONTEXT (annual, 5-year ACS) ───────────────────────────
+     Populated automatically by code/build_tracker_data.R (or .py) when
+     a free Census API key is set (see explainer §3). Values are 5-year
+     rolling averages; year = final year of the window.               -->
+<script type="text/plain" id="acs-data">
+year,geography,pop,med_hh_income,renter_share,renter_burden
+2015,Dublin,43224,121020,0.223,0.205
+2016,Dublin,43874,125540,0.243,0.243
+2017,Dublin,44442,128916,0.231,0.256
+2018,Dublin,45559,135514,0.229,0.233
+2019,Dublin,46499,137867,0.239,0.274
+2020,Dublin,47824,138372,0.242,0.299
+2021,Dublin,48613,145828,0.228,0.25
+2022,Dublin,48893,158363,0.232,0.275
+2023,Dublin,49031,155282,0.229,0.303
+2024,Dublin,49294,160296,0.229,0.354
+2015,Franklin County,1215761,52341,0.462,0.47
+2016,Franklin County,1232118,54037,0.467,0.46
+2017,Franklin County,1253507,56319,0.464,0.456
+2018,Franklin County,1275333,58762,0.466,0.451
+2019,Franklin County,1290360,61305,0.466,0.441
+2020,Franklin County,1304715,62352,0.464,0.43
+2021,Franklin County,1313598,65999,0.464,0.428
+2022,Franklin County,1318149,71070,0.465,0.435
+2023,Franklin County,1321635,73795,0.47,0.447
+2024,Franklin County,1333048,75176,0.472,0.463
+2015,Gahanna,34095,72863,0.263,0.452
+2016,Gahanna,34373,73535,0.285,0.399
+2017,Gahanna,34691,78854,0.28,0.355
+2018,Gahanna,35061,84429,0.266,0.367
+2019,Gahanna,35268,88475,0.262,0.39
+2020,Gahanna,35442,89945,0.275,0.42
+2021,Gahanna,35626,95547,0.292,0.43
+2022,Gahanna,35529,104555,0.296,0.449
+2023,Gahanna,35438,106004,0.305,0.475
+2024,Gahanna,35486,109061,0.294,0.447
+2015,Grove City,37751,66403,0.312,0.431
+2016,Grove City,38374,65277,0.316,0.423
+2017,Grove City,39266,68907,0.304,0.409
+2018,Grove City,40171,69479,0.287,0.415
+2019,Grove City,40797,74284,0.295,0.413
+2020,Grove City,41394,77865,0.282,0.356
+2021,Grove City,41025,82224,0.294,0.357
+2022,Grove City,41423,84765,0.292,0.394
+2023,Grove City,41831,90888,0.297,0.424
+2024,Grove City,42517,93161,0.286,0.438
+2015,Hilliard,31803,88003,0.234,0.419
+2016,Hilliard,33108,92727,0.227,0.422
+2017,Hilliard,34386,95742,0.242,0.392
+2018,Hilliard,35665,95831,0.259,0.463
+2019,Hilliard,36411,96959,0.294,0.463
+2020,Hilliard,37023,102283,0.285,0.422
+2021,Hilliard,35530,106269,0.287,0.375
+2022,Hilliard,36103,116287,0.289,0.364
+2023,Hilliard,36560,122864,0.305,0.362
+2024,Hilliard,38033,128189,0.313,0.342
+2015,Westerville,37540,82121,0.254,0.426
+2016,Westerville,38089,85230,0.234,0.432
+2017,Westerville,38604,86466,0.224,0.475
+2018,Westerville,39242,90443,0.226,0.462
+2019,Westerville,39877,93717,0.224,0.435
+2020,Westerville,40443,92287,0.223,0.44
+2021,Westerville,38960,96279,0.232,0.462
+2022,Westerville,38911,103617,0.247,0.482
+2023,Westerville,38543,107054,0.256,0.528
+2024,Westerville,38645,109404,0.275,0.512
+</script>
+
+<!-- ── 9. ACS HOUSING MIX (latest 5-year ACS, % of housing units) ────-->
+<script type="text/plain" id="acs-mix-data">
+geography,sf_detached,sf_attached,units_2_4,units_5plus,other
+Dublin,0.685,0.126,0.04,0.143,0.006
+Gahanna,0.684,0.103,0.065,0.146,0.002
+Grove City,0.631,0.134,0.076,0.148,0.011
+Hilliard,0.642,0.115,0.058,0.183,0.002
+Westerville,0.662,0.094,0.076,0.168,0
+Franklin County,0.52,0.099,0.108,0.262,0.011
+</script>
+
+<!-- ════════════════════════════════════════════════════════════════
+     NO EDITS NEEDED BELOW THIS LINE
+     ════════════════════════════════════════════════════════════════ -->
+
+<style>
+  :root{
+    --hilliard:#0b5394; --county:#444; --accent:#c0392b;
+    --bg:#f5f7fa; --card:#ffffff; --ink:#1c2733; --muted:#5c6b7a;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;font-family:"Segoe UI",Helvetica,Arial,sans-serif;background:var(--bg);color:var(--ink)}
+  header{background:var(--hilliard);color:#fff;padding:28px 32px 22px}
+  header h1{margin:0 0 4px;font-size:26px;font-weight:600}
+  header p{margin:0;opacity:.85;font-size:14px}
+  .mock{display:inline-block;background:#ffd966;color:#5a4500;font-weight:700;font-size:12px;
+        padding:3px 10px;border-radius:4px;margin-bottom:10px;letter-spacing:.5px}
+  .wrap{max-width:1100px;margin:0 auto;padding:24px 20px 60px}
+  .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;margin:-46px 0 26px}
+  .card{background:var(--card);border-radius:10px;padding:16px 18px;box-shadow:0 2px 8px rgba(20,40,60,.10)}
+  .card .label{font-size:12px;text-transform:uppercase;letter-spacing:.6px;color:var(--muted)}
+  .card .value{font-size:26px;font-weight:700;margin:4px 0 2px}
+  .card .delta{font-size:13px;color:var(--muted)}
+  .up{color:var(--accent);font-weight:600}.down{color:#1e7a3c;font-weight:600}
+  section.chart{background:var(--card);border-radius:10px;padding:20px 22px;margin-bottom:22px;
+                box-shadow:0 2px 8px rgba(20,40,60,.08)}
+  section.chart h2{margin:0 0 2px;font-size:17px}
+  section.chart p.sub{margin:0 0 14px;font-size:13px;color:var(--muted)}
+  .chartbox{position:relative;height:340px}
+  table{border-collapse:collapse;width:100%;font-size:14px}
+  th,td{padding:8px 10px;text-align:right;border-bottom:1px solid #e3e8ee}
+  th:first-child,td:first-child{text-align:left}
+  thead th{font-size:12px;text-transform:uppercase;letter-spacing:.5px;color:var(--muted)}
+  tr.hl td{font-weight:700;background:#eef4fb}
+  footer{font-size:12.5px;color:var(--muted);line-height:1.6;max-width:1100px;margin:0 auto;padding:0 20px 50px}
+  footer h3{color:var(--ink);font-size:14px;margin-bottom:4px}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap" style="padding:0">
+    <span class="mock">DRAFT — REAL DATA · PERMIT PANEL STILL ILLUSTRATIVE</span>
+    <h1>Hilliard Housing Affordability Tracker</h1>
+    <p>Quarterly residential sale prices in Hilliard compared with peer communities in central Ohio ·
+       Source: Franklin County Auditor sales records · Updated quarterly by City of Hilliard staff</p>
+  </div>
+</header>
+
+<div class="wrap">
+  <div class="cards" id="cards"></div>
+
+  <section class="chart">
+    <h2>Median home sale price</h2>
+    <p class="sub">Median price of valid residential sales each quarter. Through 2025Q2 the series reflects each parcel’s most recent recorded sale (a “last-sale” sample — see notes); from 2025Q3 (dashed line) it reflects complete conveyance records. Click a legend name to hide/show a community.</p>
+    <div class="chartbox"><canvas id="cPrice"></canvas></div>
+  </section>
+
+  <section class="chart">
+    <h2>Is Hilliard becoming less affordable than the region?</h2>
+    <p class="sub">Median sale price as a percent of the Franklin County median (100% = same as the county overall). A rising Hilliard line means Hilliard prices are growing <em>faster</em> than the region's.</p>
+    <div class="chartbox"><canvas id="cRel"></canvas></div>
+  </section>
+
+  <section class="chart">
+    <h2>Income needed to buy the median Hilliard home</h2>
+    <p class="sub">Household income required to buy the median-priced Hilliard home without spending more than 30% of income on housing (10% down, prevailing 30-year mortgage rate, plus taxes and insurance), compared with the HUD Area Median Income for the Columbus metro.</p>
+    <div class="chartbox"><canvas id="cIncome"></canvas></div>
+  </section>
+
+  <section class="chart">
+    <h2>Median price per square foot</h2>
+    <p class="sub">Normalizes prices across home sizes — useful when the mix of homes sold shifts between quarters.</p>
+    <div class="chartbox"><canvas id="cPpsf"></canvas></div>
+  </section>
+
+  <section class="chart">
+    <h2>Typical asking rent</h2>
+    <p class="sub">Zillow Observed Rent Index (smoothed, all homes and apartments). Captures what renters face, which sale prices miss. Zillow begins covering smaller cities only once it has enough listings, so some peer lines start mid-series. Data provided by Zillow Group (zillow.com/research/data).</p>
+    <div class="chartbox"><canvas id="cRent"></canvas></div>
+  </section>
+
+  <section class="chart">
+    <h2>Hilliard sale prices by home type</h2>
+    <p class="sub">Median sale price of single-family detached homes vs condos/townhomes in Hilliard. Condos and townhomes are the main lower-cost ownership option; a widening gap means fewer attainable entry points.</p>
+    <div class="chartbox"><canvas id="cType"></canvas></div>
+  </section>
+
+  <section class="chart">
+    <h2>Zillow typical home value (ZHVI)</h2>
+    <p class="sub">Zillow's smoothed, seasonally adjusted estimate of the typical home value (35th–65th percentile, all homes). An independent cross-check on the auditor sale medians that is not affected by which homes happened to sell in a quarter. Data provided by Zillow Group (zillow.com/research/data).</p>
+    <div class="chartbox"><canvas id="cZhvi"></canvas></div>
+  </section>
+
+  <section class="chart">
+    <h2>New housing units permitted in Hilliard <span style="color:#c0392b;font-size:13px">(placeholder — awaiting Building Division data)</span></h2>
+    <p class="sub">Residential units permitted per year, by structure type. Shows whether the housing being added matches the variety the Housing Study calls for — not just how much is built.</p>
+    <div class="chartbox"><canvas id="cPermit"></canvas></div>
+  </section>
+
+  <h2 style="margin:30px 0 4px;font-size:20px">Context: who lives here and what's in the housing stock</h2>
+  <p style="margin:0 0 16px;font-size:13px;color:var(--muted)">American Community Survey 5-year estimates (rolling averages — levels and slow trends, not turning points). City-level estimates carry wide margins of error; small year-to-year moves are not meaningful. Updated once a year by the build script.</p>
+
+  <section class="chart" data-acs>
+    <h2>Median household income</h2>
+    <p class="sub">ACS table B19013. Hilliard households out-earn the county — context for why its market bears higher prices.</p>
+    <div class="chartbox"><canvas id="cIncomeAcs"></canvas></div>
+  </section>
+
+  <section class="chart" data-acs>
+    <h2>Renter share of households</h2>
+    <p class="sub">ACS table B25003. How much of each community rents rather than owns.</p>
+    <div class="chartbox"><canvas id="cRenterShare"></canvas></div>
+  </section>
+
+  <section class="chart" data-acs>
+    <h2>Renters spending 30%+ of income on housing</h2>
+    <p class="sub">ACS table B25070 — the cost-burdened share of renter households.</p>
+    <div class="chartbox"><canvas id="cBurden"></canvas></div>
+  </section>
+
+  <section class="chart" data-acs>
+    <h2>Housing stock by structure type</h2>
+    <p class="sub">ACS table B25024, latest release. Shows how little exists between single-family homes and large apartment buildings — the "missing middle" the Housing Study targets.</p>
+    <div class="chartbox"><canvas id="cMix"></canvas></div>
+  </section>
+
+  <section class="chart">
+    <h2>Latest quarter at a glance <span id="latestQ" style="color:var(--muted);font-weight:400"></span></h2>
+    <div style="overflow-x:auto"><table id="tbl"></table></div>
+  </section>
+</div>
+
+<footer>
+  <h3>About this tracker</h3>
+  <p><strong>Draft.</strong> All panels are computed from real data except the permits panel, which is an illustrative placeholder pending Building Division data. Sale prices come from arm's-length residential sales recorded by the <a href="https://auditor.franklincountyohio.gov">Franklin County Auditor</a>, aggregated by city staff each quarter. Rents are the <a href="https://www.zillow.com/research/data/">Zillow Observed Rent Index</a> (smoothed, all homes and multifamily), a repeat-rent index of asking rents; home values use Zillow's ZHVI from the same portal. Building permits come from City of Hilliard Building Division records (or the Census Building Permits Survey). Mortgage rates are quarterly averages of the Freddie Mac 30-year fixed survey rate. Area Median Income is the HUD income limit for the Columbus metro. The income-needed calculation assumes a 10% down payment, 1.8% effective property tax rate, $1,200/yr insurance, 0.4% PMI on the loan, and a 30% housing-cost-to-income standard — calibrated to match the 2026 Hilliard Housing Study. It is a consistent affordability index over time, not an underwriting estimate for any particular buyer; property tax is the most sensitive assumption<span id="taxSens"></span>.</p>
+  <p>Method notes: sales through July 14, 2025 come from the Auditor parcel file (each parcel's most recent valid sale; LUC 510–513 and 550–556, price ≥ $10,000, multi-parcel package transfers removed); sales from July 21, 2025 onward come from the Auditor daily conveyance files (non-exempt, land-and-building, single-parcel). Recorded sales for July 15–20, 2025 are not in either file and are omitted (≈6% of 2025Q3 recording days, so that quarter’s counts are slightly understated). Earlier quarters slightly under-count homes that have since resold. Dublin and Westerville figures cover their Franklin County portions only. Hilliard quarterly medians are based on roughly 60–180 sales, so single-quarter moves should be read cautiously; the price-per-square-foot chart helps control for mix shifts. Mortgage rates for 2025Q3 onward and AMI values before 2023 are close estimates pending replacement from the PMMS archive and huduser.gov.</p>
+  <h3>Updating</h3>
+  <p>City staff update three small data tables inside this file each quarter (instructions are in the accompanying explainer document and in comments at the top of this file's code), then repost the file to the city website. No software is required beyond a text editor and a web browser.</p>
+</footer>
+
+<script>
+// ---------- parse the embedded CSV blocks ----------
+function parseCSV(id){
+  // quote-aware CSV parser: handles commas inside "quoted" fields
+  const text=document.getElementById(id).textContent.trim();
+  if(!text) return [];
+  const rows=[];let row=[],cur='',inQ=false;
+  for(let i=0;i<text.length;i++){const ch=text[i];
+    if(inQ){ if(ch==='"'){ if(text[i+1]==='"'){cur+='"';i++;} else inQ=false; } else cur+=ch; }
+    else if(ch==='"') inQ=true;
+    else if(ch===','){row.push(cur);cur='';}
+    else if(ch==='\n'){row.push(cur);rows.push(row);row=[];cur='';}
+    else if(ch!=='\r') cur+=ch;
+  }
+  row.push(cur);rows.push(row);
+  const head=rows[0];
+  return rows.slice(1).filter(r=>r.length>1||r[0]!=='').map(v=>{
+    const o={};head.forEach((h,i)=>o[h]=(v[i]!==''&&v[i]!==undefined&&!isNaN(+v[i]))?+v[i]:v[i]);
+    return o;});
+}
+const sales=parseCSV('sales-data'), rates=parseCSV('rate-data'), amis=parseCSV('ami-data'),
+      rents=parseCSV('rent-data'), byType=parseCSV('type-data'), permits=parseCSV('permit-data'),
+      zhvi=parseCSV('zhvi-data'), acs=parseCSV('acs-data'), acsMix=parseCSV('acs-mix-data');
+
+const quarters=[...new Set(sales.map(r=>r.quarter))].sort();
+const geos=[...new Set(sales.map(r=>r.geography))];
+const get=(g,q,f)=>{const r=sales.find(x=>x.geography===g&&x.quarter===q);return r?r[f]:null;};
+const rateOf=q=>{const r=rates.find(x=>x.quarter===q);return r?r.rate:null;};
+const amiOf=q=>{const a=amis.find(x=>x.year===+q.slice(0,4));return a?a.ami:null;};
+
+// income needed to afford a given price (study-style assumptions)
+function incomeNeeded(price,ratePct,taxRate=0.018){
+  if(price==null||ratePct==null)return null;
+  const loan=price*0.90, r=ratePct/100/12;
+  const pi=loan*r/(1-Math.pow(1+r,-360));
+  const tax=price*taxRate/12, ins=1200/12, pmi=loan*0.004/12;
+  return (pi+tax+ins+pmi)*12/0.30;
+}
+
+const fmt$=v=>v==null?'—':'$'+Math.round(v).toLocaleString();
+const fmtK=v=>v==null?'—':'$'+Math.round(v/1000)+'k';
+const pct=v=>v==null?'—':(v>=0?'+':'')+v.toFixed(1)+'%';
+
+// ---------- KPI cards ----------
+const qN=quarters[quarters.length-1], qY=quarters[quarters.length-5];
+const yoyNote=(qY==='2025Q3')?' <span title="comparison quarter 2025Q3 is missing ~6% of recording days">†</span>':'';
+const hNow=get('Hilliard',qN,'median_price'), hYr=get('Hilliard',qY,'median_price');
+const cNow=get('Franklin County',qN,'median_price'), cYr=get('Franklin County',qY,'median_price');
+const relNow=hNow/cNow*100, relYr=hYr/cYr*100;
+const incNow=incomeNeeded(hNow,rateOf(qN)), amiNow=amiOf(qN);
+const sNow=get('Hilliard',qN,'median_ppsf'), sYr=get('Hilliard',qY,'median_ppsf');
+
+const cards=[
+ {label:`Hilliard median sale price (${qN})`, value:fmt$(hNow),
+  delta:`<span class="${hNow>=hYr?'up':'down'}">${pct((hNow/hYr-1)*100)}</span> vs one year ago${yoyNote}`},
+ {label:'Hilliard vs Franklin County median', value:relNow.toFixed(0)+'%',
+  delta:`<span class="${relNow>=relYr?'up':'down'}">${(relNow-relYr>=0?'+':'')+(relNow-relYr).toFixed(1)} pts</span> vs one year ago`},
+ {label:'Income needed to buy median home', value:fmtK(incNow),
+  delta:`HUD Area Median Income: ${fmtK(amiNow)} ${incNow>amiNow?'<span class="up">(above AMI)</span>':'<span class="down">(within AMI)</span>'}`},
+ {label:'Median price per square foot', value:fmt$(sNow),
+  delta:`<span class="${sNow>=sYr?'up':'down'}">${pct((sNow/sYr-1)*100)}</span> vs one year ago`},
+];
+// rent KPI (uses rent-data block)
+const rNowR=rents.find(x=>x.geography==='Hilliard'&&x.quarter===qN);
+const rYrR=rents.find(x=>x.geography==='Hilliard'&&x.quarter===qY);
+if(rNowR&&rYrR){cards.push({label:'Typical Hilliard rent (Zillow)',value:fmt$(rNowR.rent),
+  delta:`<span class="${rNowR.rent>=rYrR.rent?'up':'down'}">${pct((rNowR.rent/rYrR.rent-1)*100)}</span> vs one year ago`});}
+document.getElementById('cards').innerHTML=cards.map(c=>
+ `<div class="card"><div class="label">${c.label}</div><div class="value">${c.value}</div><div class="delta">${c.delta}</div></div>`).join('');
+
+// ---------- chart styling ----------
+const palette={'Hilliard':'#0b5394','Dublin':'#9aa7b5','Gahanna':'#c2a25c','Grove City':'#8fb08a',
+               'Westerville':'#b08fa6','Franklin County':'#444444','Columbus metro':'#444444'};
+function ds(g,data,extra={}){
+  const isH=g==='Hilliard', isC=(g==='Franklin County'||g==='Columbus metro');
+  return Object.assign({label:g,data,borderColor:palette[g],backgroundColor:palette[g],
+    borderWidth:isH?3.5:1.8,pointRadius:isH?2.5:0,tension:.25,
+    borderDash:isC?[6,4]:[]},extra);
+}
+const baseOpts=yfmt=>({responsive:true,maintainAspectRatio:false,interaction:{mode:'index',intersect:false},
+  plugins:{legend:{position:'bottom',labels:{boxWidth:14,boxHeight:3}},
+    tooltip:{callbacks:{label:c=>` ${c.dataset.label}: ${yfmt(c.parsed.y)}`}}},
+  scales:{y:{ticks:{callback:v=>yfmt(v)}},x:{ticks:{maxRotation:0,callback:function(v,i){const q=quarters[i];return q.endsWith('Q1')?q.slice(0,4):'';}}}}});
+
+// dashed vertical marker where the data source changes (2025Q2 -> 2025Q3)
+const seamPlugin={id:'seam',afterDatasetsDraw(chart){
+  const i=quarters.indexOf('2025Q3'); if(i<1) return;
+  const x=chart.scales.x.getPixelForValue(i-0.5), area=chart.chartArea, c=chart.ctx;
+  c.save(); c.strokeStyle='#999'; c.setLineDash([5,4]); c.lineWidth=1;
+  c.beginPath(); c.moveTo(x,area.top); c.lineTo(x,area.bottom); c.stroke();
+  c.setLineDash([]); c.fillStyle='#888'; c.font='10px sans-serif'; c.textAlign='left';
+  c.fillText('source change',x+4,area.top+10); c.restore();
+}};
+
+// 1. median price (tooltips include n = number of sales)
+const priceOpts=baseOpts(fmtK);
+priceOpts.plugins.tooltip.callbacks.afterLabel=c=>{
+  const n=get(c.dataset.label,quarters[c.dataIndex],'sales');
+  return n!=null?`    n = ${n.toLocaleString()} sales`:'';};
+new Chart(cPrice,{type:'line',
+ data:{labels:quarters,datasets:geos.map(g=>ds(g,quarters.map(q=>get(g,q,'median_price'))))},
+ options:priceOpts,plugins:[seamPlugin]});
+
+// 2. relative to county
+new Chart(cRel,{type:'line',
+ data:{labels:quarters,datasets:geos.filter(g=>g!=='Franklin County').map(g=>
+   ds(g,quarters.map(q=>get(g,q,'median_price')/get('Franklin County',q,'median_price')*100)))},
+ options:baseOpts(v=>v.toFixed(0)+'%'),plugins:[seamPlugin]});
+
+// 3. income needed vs AMI
+new Chart(cIncome,{type:'line',
+ data:{labels:quarters,datasets:[
+   {label:'Income needed (median Hilliard home)',data:quarters.map(q=>incomeNeeded(get('Hilliard',q,'median_price'),rateOf(q))),
+    borderColor:'#0b5394',backgroundColor:'rgba(11,83,148,.08)',borderWidth:3,pointRadius:2,tension:.25,fill:'+1'},
+   {label:'HUD Area Median Income (Columbus metro)',data:quarters.map(q=>amiOf(q)),
+    borderColor:'#c0392b',borderWidth:2,pointRadius:0,borderDash:[6,4],tension:0}]},
+ options:baseOpts(fmtK)});
+
+// 4. price per sqft
+new Chart(cPpsf,{type:'line',
+ data:{labels:quarters,datasets:geos.map(g=>ds(g,quarters.map(q=>get(g,q,'median_ppsf'))))},
+ options:baseOpts(v=>'$'+Math.round(v)),plugins:[seamPlugin]});
+
+// 5. rents (ZORI)
+const rentGeos=[...new Set(rents.map(r=>r.geography))];
+const rentOf=(g,q)=>{const r=rents.find(x=>x.geography===g&&x.quarter===q);return r?r.rent:null;};
+new Chart(cRent,{type:'line',
+ data:{labels:quarters,datasets:rentGeos.map(g=>ds(g,quarters.map(q=>rentOf(g,q))))},
+ options:baseOpts(v=>'$'+Math.round(v).toLocaleString())});
+
+// 6. Hilliard sale prices by home type
+const typeNames=[...new Set(byType.map(r=>r.type))];
+const typeOf=(t,q)=>{const r=byType.find(x=>x.type===t&&x.quarter===q);return r?r.median_price:null;};
+const typeColors={'Single-family detached':'#0b5394','Condo / townhome':'#e0913c'};
+const typeOpts=baseOpts(fmtK);
+typeOpts.plugins.tooltip.callbacks.afterLabel=c=>{
+  const r=byType.find(x=>x.type===c.dataset.label&&x.quarter===quarters[c.dataIndex]);
+  return r?`    n = ${r.sales} sales`:'';};
+new Chart(cType,{type:'line',
+ data:{labels:quarters,datasets:typeNames.map(t=>({label:t,
+   data:quarters.map(q=>typeOf(t,q)),borderColor:typeColors[t],backgroundColor:typeColors[t],
+   borderWidth:2.5,pointRadius:2,tension:.25}))},
+ options:typeOpts,plugins:[seamPlugin]});
+
+// 6b. Zillow home value index
+const zGeos=[...new Set(zhvi.map(r=>r.geography))];
+const zOf=(g,q)=>{const r=zhvi.find(x=>x.geography===g&&x.quarter===q);return r?r.zhvi:null;};
+new Chart(cZhvi,{type:'line',
+ data:{labels:quarters,datasets:zGeos.map(g=>ds(g,quarters.map(q=>zOf(g,q))))},
+ options:baseOpts(fmtK)});
+
+// 7. permits stacked bar (annual)
+const pYears=permits.map(p=>p.year);
+new Chart(cPermit,{type:'bar',
+ data:{labels:pYears,datasets:[
+   {label:'Single-family detached',data:permits.map(p=>p.sf_detached),backgroundColor:'#0b5394'},
+   {label:'Townhome / rowhouse',data:permits.map(p=>p.townhome),backgroundColor:'#e0913c'},
+   {label:'Apartment units (5+ unit buildings)',data:permits.map(p=>p.apartment),backgroundColor:'#8fb08a'}]},
+ options:{responsive:true,maintainAspectRatio:false,
+   plugins:{legend:{position:'bottom',labels:{boxWidth:14,boxHeight:10}},
+     tooltip:{callbacks:{footer:items=>'Total: '+items.reduce((s,i)=>s+i.parsed.y,0)+' units'}}},
+   scales:{x:{stacked:true},y:{stacked:true,title:{display:true,text:'Units permitted'}}}}});
+
+// 7b. ACS context charts (render only when populated by the build script)
+if(acs.length){
+  const ay=[...new Set(acs.map(r=>r.year))].sort();
+  const ag=[...new Set(acs.map(r=>r.geography))];
+  const aOf=(g,y,f)=>{const r=acs.find(x=>x.geography===g&&x.year===y);return r?r[f]:null;};
+  const mk=(id,field,fmt)=>new Chart(document.getElementById(id),{type:'line',
+    data:{labels:ay,datasets:ag.map(g=>ds(g,ay.map(y=>aOf(g,y,field))))},
+    options:{responsive:true,maintainAspectRatio:false,interaction:{mode:'index',intersect:false},
+      plugins:{legend:{position:'bottom',labels:{boxWidth:14,boxHeight:3}},
+        tooltip:{callbacks:{label:c=>` ${c.dataset.label}: ${fmt(c.parsed.y)}`}}},
+      scales:{y:{ticks:{callback:v=>fmt(v)}}}}});
+  mk('cIncomeAcs','med_hh_income',fmtK);
+  mk('cRenterShare','renter_share',v=>(v*100).toFixed(0)+'%');
+  mk('cBurden','renter_burden',v=>(v*100).toFixed(0)+'%');
+  if(acsMix.length){
+    const cats=[['sf_detached','Single-family detached','#0b5394'],['sf_attached','Townhome / SF attached','#e0913c'],
+                ['units_2_4','2–4 unit buildings','#8fb08a'],['units_5plus','5+ unit buildings','#b08fa6'],['other','Other / mobile','#9aa7b5']];
+    new Chart(cMix,{type:'bar',data:{labels:acsMix.map(r=>r.geography),
+      datasets:cats.map(([f,l,c])=>({label:l,data:acsMix.map(r=>r[f]*100),backgroundColor:c}))},
+      options:{indexAxis:'y',responsive:true,maintainAspectRatio:false,
+        plugins:{legend:{position:'bottom',labels:{boxWidth:14,boxHeight:10}},
+          tooltip:{callbacks:{label:c=>` ${c.dataset.label}: ${c.parsed.x.toFixed(0)}%`}}},
+        scales:{x:{stacked:true,max:100,ticks:{callback:v=>v+'%'}},y:{stacked:true}}}});
+  }
+}else{
+  document.querySelectorAll('section[data-acs]').forEach(s=>{
+    s.querySelector('.chartbox').innerHTML='<p style="color:var(--muted);font-size:13px;padding:20px 0">Not yet populated — run code/build_tracker_data.R with a free Census API key (see explainer) to fill this panel.</p>';
+    s.querySelector('.chartbox').style.height='auto';
+  });
+}
+
+// 8. latest-quarter table
+document.getElementById('latestQ').textContent='· '+qN;
+const rows=geos.map(g=>{
+  const p=get(g,qN,'median_price'), py=get(g,qY,'median_price');
+  return {g,n:get(g,qN,'sales'),p,yoy:(p/py-1)*100,s:get(g,qN,'median_ppsf'),
+          inc:incomeNeeded(p,rateOf(qN))};
+});
+const sensEl=document.getElementById('taxSens');
+if(sensEl&&hNow&&rateOf(qN)){
+  const s22=incomeNeeded(hNow,rateOf(qN),0.022), s26=incomeNeeded(hNow,rateOf(qN),0.026);
+  sensEl.textContent=` (at 2.2% or 2.6% effective tax, the latest figure would be ${fmtK(s22)} or ${fmtK(s26)} instead of ${fmtK(incNow)})`;
+}
+document.getElementById('tbl').innerHTML=
+ '<thead><tr><th>Community</th><th>Valid sales</th><th>Median price</th><th>YoY change</th><th>$ / sq ft</th><th>Income needed</th></tr></thead><tbody>'+
+ rows.map(r=>`<tr${r.g==='Hilliard'?' class="hl"':''}><td>${r.g}</td><td>${r.n.toLocaleString()}</td><td>${fmt$(r.p)}</td><td>${pct(r.yoy)}</td><td>$${r.s}</td><td>${fmtK(r.inc)}</td></tr>`).join('')+'</tbody>';
+</script>
+</body>
+</html>
