@@ -984,6 +984,16 @@ img.tool-thumb {
   text-decoration: underline;
 }
 
+/* Embedded full-page dashboard (e.g. Hilliard tracker) shown under the site nav.
+   The dashboard centers itself (max-width ~1100px) inside this full-width frame;
+   height is set by JS to the dashboard's content so there is no inner scrollbar. */
+.dashboard-frame {
+  display: block;
+  width: 100%;
+  border: 0;
+  min-height: 85vh;
+}
+
 /* --- 404 --- */
 .page-404 {
   text-align: center;

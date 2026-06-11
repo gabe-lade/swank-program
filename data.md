@@ -17,15 +17,15 @@ description: "Interactive tools, data insights, and datasets on Ohio rural-urban
     </p>
 
     <!-- Featured tool -->
-    <a class="tools-featured" href="{{ '/data/hilliard-housing-tracker.html' | relative_url }}">
-      <img class="tool-thumb" src="{{ '/assets/img/tools/hilliard-housing-tracker.png' | relative_url }}" alt="Hilliard Housing Affordability Tracker dashboard showing sale prices and affordability metrics">
+    <a class="tools-featured" href="{{ '/data/insights/ohio-urbanization-rural-urban-fringe/' | relative_url }}">
+      <img class="tool-thumb" src="{{ '/assets/img/tools/ohio-urbanization.png' | relative_url }}" alt="Map of Ohio classifying urban, rural, and rural-to-urban areas in 2020">
       <div class="tools-featured-body">
-        <p class="tool-tag">Featured · Interactive tool</p>
-        <h3>Hilliard Housing Affordability Tracker</h3>
+        <p class="tool-tag">Featured · Interactive maps</p>
+        <h3>Ohio urbanization &amp; the rural-urban fringe</h3>
         <p>
-          Track how home prices, mortgage rates, rents, and area incomes shape housing affordability across Hilliard and the Columbus metro. Built for city staff and updated each quarter from public data sources.
+          Explore where Ohio's urban footprint expanded from 2000 to 2020 using Census block and block-group classifications, and see where formerly rural places became urban.
         </p>
-        <span class="tool-card-link">Explore the tracker →</span>
+        <span class="tool-card-link">View the maps →</span>
       </div>
     </a>
 
@@ -33,13 +33,13 @@ description: "Interactive tools, data insights, and datasets on Ohio rural-urban
     <h2 class="tools-section-label">More tools &amp; data insights</h2>
     <div class="tools-grid">
 
-      <a class="tool-card" href="{{ '/data/insights/ohio-urbanization-rural-urban-fringe/' | relative_url }}">
-        <img class="tool-thumb" src="{{ '/assets/img/tools/ohio-urbanization.png' | relative_url }}" alt="Map of Ohio classifying urban, rural, and rural-to-urban areas in 2020">
+      <a class="tool-card" href="{{ '/data/hilliard-housing-tracker/' | relative_url }}">
+        <img class="tool-thumb" src="{{ '/assets/img/tools/hilliard-housing-tracker.png' | relative_url }}" alt="Hilliard Housing Affordability Tracker dashboard showing sale prices and affordability metrics">
         <div class="tool-card-body">
-          <p class="tool-tag">Interactive maps</p>
-          <h3>Ohio urbanization &amp; the rural-urban fringe</h3>
-          <p>Explore where Ohio's urban footprint expanded from 2000 to 2020 using Census block and block-group classifications.</p>
-          <span class="tool-card-link">View maps →</span>
+          <p class="tool-tag">Interactive tool</p>
+          <h3>Hilliard Housing Affordability Tracker</h3>
+          <p>Track how home prices, mortgage rates, rents, and area incomes shape housing affordability across Hilliard and the Columbus metro. Updated quarterly from public data sources.</p>
+          <span class="tool-card-link">Explore the tracker →</span>
         </div>
       </a>
 
