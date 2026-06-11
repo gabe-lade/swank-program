@@ -1,0 +1,36 @@
+---
+layout: default
+title: "Hilliard Housing Affordability Tracker"
+permalink: /data/hilliard-housing-tracker/
+description: "Quarterly residential sale prices, rents, and affordability metrics for Hilliard compared with peer central Ohio communities."
+---
+
+<!-- The dashboard itself lives in /data/hilliard-housing-tracker.html as a
+     standalone file (city staff edit that one file to update the data). We embed
+     it here through the site layout so it gains the Swank Program header/nav.
+     The iframe auto-sizes to the dashboard's height so there is no inner scroll. -->
+<iframe
+  id="hilliard-frame"
+  class="dashboard-frame"
+  src="{{ '/data/hilliard-housing-tracker.html' | relative_url }}"
+  title="Hilliard Housing Affordability Tracker"></iframe>
+
+<script>
+  (function () {
+    var frame = document.getElementById('hilliard-frame');
+    if (!frame) return;
+    function resize() {
+      try {
+        var doc = frame.contentWindow.document;
+        var h = Math.max(doc.body.scrollHeight, doc.documentElement.scrollHeight);
+        frame.style.height = h + 'px';
+      } catch (e) { /* cross-origin: leave CSS min-height in place */ }
+    }
+    frame.addEventListener('load', function () {
+      resize();
+      // Re-measure after Chart.js finishes drawing.
+      [200, 600, 1500, 3000].forEach(function (t) { setTimeout(resize, t); });
+    });
+    window.addEventListener('resize', resize);
+  })();
+</script>
