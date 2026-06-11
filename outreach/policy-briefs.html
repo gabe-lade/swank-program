@@ -1,0 +1,21 @@
+---
+layout: default
+title: "Policy Briefs"
+permalink: /outreach/policy-briefs/
+description: "Short, accessible policy briefs and popular-press explainers from the Swank Program."
+---
+
+<article class="page">
+  <header class="page-header">
+    <h1>Policy Briefs</h1>
+    <p class="page-subtitle">
+      Short, accessible briefs that translate research for policymakers and the public. Filter by topic or search by title.
+    </p>
+  </header>
+
+  <div class="page-content">
+    {% include outreach-filter.html items=site.data.policy_briefs label="policy briefs" %}
+  </div>
+</article>
+
+<script src="{{ '/assets/js/outreach-filter.js' | relative_url }}" defer></script>
