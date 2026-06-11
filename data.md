@@ -1,53 +1,102 @@
 ---
 layout: default
-title: "Data"
+title: "Data & Tools"
 permalink: /data/
-description: "Datasets and interactive visualizations on Ohio agricultural economics, rural-urban demographics, and environmental policy."
+description: "Interactive tools, data insights, and datasets on Ohio rural-urban policy, housing, land use, and agriculture."
 ---
 
 <article class="page">
   <header class="page-header">
-    <h1>Data</h1>
+    <h1>Data &amp; Tools</h1>
+    <p class="page-subtitle">Interactive tools, data insights, and datasets on Ohio's rural-urban policy issues.</p>
   </header>
 
   <div class="page-content">
-    <p class="section-intro">
-      The Swank Program produces datasets and interactive visualizations to inform policy decisions and support researchers studying rural-urban dynamics. Our goal is to make high-quality data accessible to policymakers, scholars, and communities.
+    <p class="section-intro tools-intro">
+      The Swank Program builds interactive tools and plain-language data explainers that make high-quality data on housing, land use, agriculture, and rural-urban change accessible to policymakers, researchers, and communities.
     </p>
 
-    <!-- Datasets Section -->
-    <section class="data-section">
-      <h2>Datasets</h2>
-      <div class="dataset-list">
-        <div class="placeholder-note">
-          Datasets related to Ohio agricultural economics, rural-urban demographics, energy policy, and environmental outcomes will be published here with documentation and download links.
+    <!-- Featured tool -->
+    <a class="tools-featured" href="{{ '/data/hilliard-housing-tracker.html' | relative_url }}">
+      <img class="tool-thumb" src="{{ '/assets/img/tools/hilliard-housing-tracker.png' | relative_url }}" alt="Hilliard Housing Affordability Tracker dashboard showing sale prices and affordability metrics">
+      <div class="tools-featured-body">
+        <p class="tool-tag">Featured · Interactive tool</p>
+        <h3>Hilliard Housing Affordability Tracker</h3>
+        <p>
+          Track how home prices, mortgage rates, rents, and area incomes shape housing affordability across Hilliard and the Columbus metro. Built for city staff and updated each quarter from public data sources.
+        </p>
+        <span class="tool-card-link">Explore the tracker →</span>
+      </div>
+    </a>
+
+    <!-- Interactive tools + data insights -->
+    <h2 class="tools-section-label">More tools &amp; data insights</h2>
+    <div class="tools-grid">
+
+      <a class="tool-card" href="{{ '/data/insights/ohio-urbanization-rural-urban-fringe/' | relative_url }}">
+        <img class="tool-thumb" src="{{ '/assets/img/tools/ohio-urbanization.png' | relative_url }}" alt="Map of Ohio classifying urban, rural, and rural-to-urban areas in 2020">
+        <div class="tool-card-body">
+          <p class="tool-tag">Interactive maps</p>
+          <h3>Ohio urbanization &amp; the rural-urban fringe</h3>
+          <p>Explore where Ohio's urban footprint expanded from 2000 to 2020 using Census block and block-group classifications.</p>
+          <span class="tool-card-link">View maps →</span>
+        </div>
+      </a>
+
+      <a class="tool-card" href="{{ '/data/insights/ohio-township-zoning-coverage/' | relative_url }}">
+        <div class="tool-thumb"><span class="tool-thumb-label">Ohio Township Zoning Coverage</span></div>
+        <div class="tool-card-body">
+          <p class="tool-tag">Data insight</p>
+          <h3>Ohio township zoning coverage <span class="tool-badge">Coming soon</span></h3>
+          <p>A plain-language explainer with maps and source notes on how zoning authority is distributed across Ohio's townships, and where land remains unzoned.</p>
+          <span class="tool-card-link">Learn more →</span>
+        </div>
+      </a>
+
+      <a class="tool-card" href="{{ '/data/insights/ohio-property-tax-reform/' | relative_url }}">
+        <div class="tool-thumb"><span class="tool-thumb-label">Ohio Property Tax Reform</span></div>
+        <div class="tool-card-body">
+          <p class="tool-tag">Data insight</p>
+          <h3>Ohio property tax reform <span class="tool-badge">Coming soon</span></h3>
+          <p>Background, maps, and source notes on recent Ohio property tax reform proposals and their effects on local governments and homeowners.</p>
+          <span class="tool-card-link">Learn more →</span>
+        </div>
+      </a>
+
+      <a class="tool-card" href="{{ '/data/insights/biofuels-renewable-fuel-standard/' | relative_url }}">
+        <div class="tool-thumb"><span class="tool-thumb-label">Biofuels &amp; the Renewable Fuel Standard</span></div>
+        <div class="tool-card-body">
+          <p class="tool-tag">Data insight</p>
+          <h3>Biofuels &amp; the Renewable Fuel Standard <span class="tool-badge">Coming soon</span></h3>
+          <p>How the federal Renewable Fuel Standard shapes demand for Ohio corn and soybeans and the economics of biofuel production.</p>
+          <span class="tool-card-link">Learn more →</span>
+        </div>
+      </a>
+
+      <a class="tool-card" href="{{ '/data/insights/what-crops-ohio-grows/' | relative_url }}">
+        <div class="tool-thumb"><span class="tool-thumb-label">What Crops Ohio Grows</span></div>
+        <div class="tool-card-body">
+          <p class="tool-tag">Data insight</p>
+          <h3>What crops Ohio grows <span class="tool-badge">Coming soon</span></h3>
+          <p>A look at Ohio's major crops and how production has shifted across the state over time.</p>
+          <span class="tool-card-link">Learn more →</span>
+        </div>
+      </a>
+
+    </div>
+
+    <!-- Datasets -->
+    <h2 class="tools-section-label">Datasets</h2>
+    <div class="tools-grid">
+      <div class="tool-card">
+        <div class="tool-thumb"><span class="tool-thumb-label">Datasets</span></div>
+        <div class="tool-card-body">
+          <p class="tool-tag">Datasets</p>
+          <h3>Downloadable datasets <span class="tool-badge">Coming soon</span></h3>
+          <p>Documented datasets on Ohio agricultural economics, rural-urban demographics, energy, and environmental outcomes — published here with documentation and download links.</p>
         </div>
       </div>
-    </section>
+    </div>
 
-    <!-- Data Insights Section -->
-    <section class="data-section">
-      <h2>Data Insights</h2>
-      <p class="section-intro">
-        Short, plain-language explainers with maps, charts, and source notes on rural-urban policy issues.
-      </p>
-      <div class="dataset-entry">
-        <h3><a href="{{ '/data/insights/' | relative_url }}">Explore Data Insights</a></h3>
-        <p>
-          View one-page explainers that combine background context, data visualizations, and reproducible source notes.
-        </p>
-      </div>
-    </section>
-
-    <!-- Visualizations Section -->
-    <section class="data-section">
-      <h2>Interactive Visualizations</h2>
-      <p class="section-intro">
-        Coming in 2026: interactive, data-driven visualizations of Ohio agricultural and demographic data. These tools will allow users to explore trends in rural-urban economic indicators, land use, energy production, and environmental quality.
-      </p>
-      <div class="placeholder-note">
-        Interactive visualizations built with R and other tools will be embedded here. Check back for updates.
-      </div>
-    </section>
   </div>
 </article>

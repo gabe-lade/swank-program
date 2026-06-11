@@ -1,0 +1,19 @@
+# Netlify configuration — used ONLY for deploy previews of pull requests and
+# branches so you can eyeball proposed changes before merging to main.
+#
+# Production hosting stays on GitHub Pages (see .github/workflows/deploy.yml);
+# Netlify never serves the live site.
+#
+# GitHub Pages serves the site from the "/swank-program" subpath, so _config.yml
+# sets `baseurl: "/swank-program"`. Netlify previews are served at their own root
+# domain (e.g. deploy-preview-42--<site>.netlify.app/), so we override the
+# baseurl to empty here — otherwise every CSS, link, and asset path would 404.
+
+[build]
+  command = "bundle exec jekyll build --baseurl \"\""
+  publish = "_site"
+
+[build.environment]
+  JEKYLL_ENV = "production"
+  # github-pages gem now requires Ruby >= 3.0; pin a version Netlify supports.
+  RUBY_VERSION = "3.1.4"
