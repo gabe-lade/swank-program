@@ -1,0 +1,25 @@
+# News coverage, podcasts, and interviews. Newest first.
+# Fields: title, url, source (outlet), date (display string), topics (slugs)
+- title: "Data Centers Bring Money and Pushback"
+  url: "https://spectrumnews1.com/oh/toledo/news/2026/02/19/data-centers-bring-money-and-pushback"
+  source: "Spectrum News 1"
+  date: "February 2026"
+  topics: [energy-land-use, rural-urban]
+
+- title: "Ohio Ag Net Podcast – Ep. 424 – The Future of Biofuels"
+  url: "https://ocj.com/2025/12/ohio-ag-net-podcast-ep-424-the-future-of-biofuels/"
+  source: "Ohio's Country Journal"
+  date: "December 2025"
+  topics: [biofuels]
+
+- title: "Biofuels Forum Highlights Policy, Markets and the Future of Rural Energy"
+  url: "https://advancedbiofuelsusa.info/biofuels-forum-highlights-policy-markets-and-the-future-of-rural-energy"
+  source: "Advanced Biofuels USA"
+  date: "December 2025"
+  topics: [biofuels, energy-land-use]
+
+- title: "Biofuels Forum Highlights Policy, Markets and the Future of Rural Energy"
+  url: "https://www.northwestsignal.net/article_d5c68034-2249-5561-8ea6-f9c63eb0e61b.html"
+  source: "Northwest Signal"
+  date: "December 2025"
+  topics: [biofuels, energy-land-use]

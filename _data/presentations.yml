@@ -1,0 +1,11 @@
+# Presentations, talks, and primers. Newest first.
+# Fields: title, url, date (display string), topics (slugs from outreach_topics.yml)
+- title: "Ohio's Historic Property Tax Reforms: An Economist's Perspective"
+  url: "https://gabe-lade.github.io/MyFiles/property-tax-reform-202602.pdf"
+  date: "February 2026"
+  topics: [property-tax]
+
+- title: "Renewable Fuels Standard Policy Primer"
+  url: "https://github.com/gabe-lade/MyFiles/blob/master/biofuels-policy-primer-v2.pdf"
+  date: "February 2026"
+  topics: [biofuels]

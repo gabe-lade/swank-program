@@ -1,0 +1,7 @@
+# Policy briefs and popular-press explainers. Newest first.
+# Fields: title, url, source (outlet), date (display string), topics (slugs)
+- title: "Millions of People Across the US Use Well Water, but Very Few Test It Often Enough to Make Sure It's Safe"
+  url: "https://theconversation.com/millions-of-people-across-the-us-use-well-water-but-very-few-test-it-often-enough-to-make-sure-its-safe-236930"
+  source: "The Conversation"
+  date: "October 2024"
+  topics: [water-environment]

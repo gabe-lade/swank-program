@@ -1,0 +1,21 @@
+---
+layout: default
+title: "Recent Media"
+permalink: /outreach/recent-media/
+description: "News coverage, podcasts, and interviews featuring the Swank Program in Rural-Urban Policy."
+---
+
+<article class="page">
+  <header class="page-header">
+    <h1>Recent Media</h1>
+    <p class="page-subtitle">
+      News coverage, podcasts, and interviews featuring our work. Filter by topic or search by title.
+    </p>
+  </header>
+
+  <div class="page-content">
+    {% include outreach-filter.html items=site.data.media label="media coverage" %}
+  </div>
+</article>
+
+<script src="{{ '/assets/js/outreach-filter.js' | relative_url }}" defer></script>

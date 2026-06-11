@@ -1,0 +1,15 @@
+# Controlled vocabulary of outreach topics. The `slug` is used in each item's
+# `topics:` list and as the filter value; the `label` is shown on the chip.
+# Edit/extend this list to change the topic filters site-wide.
+- slug: biofuels
+  label: "Biofuels & Renewable Fuels"
+- slug: property-tax
+  label: "Property Tax & Local Government"
+- slug: rural-urban
+  label: "Rural-Urban Change"
+- slug: agriculture
+  label: "Agriculture & Crops"
+- slug: water-environment
+  label: "Water Quality & Environment"
+- slug: energy-land-use
+  label: "Energy & Land Use"
