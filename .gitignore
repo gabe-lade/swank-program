@@ -6,3 +6,7 @@ vendor
 debug.log
 .DS_Store
 Gemfile.lock
+miscellany/*
+!miscellany/.gitkeep
+logs/*
+!logs/.gitkeep
