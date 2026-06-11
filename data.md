@@ -25,6 +25,20 @@ description: "Datasets and interactive visualizations on Ohio agricultural econo
       </div>
     </section>
 
+    <!-- Data Insights Section -->
+    <section class="data-section">
+      <h2>Data Insights</h2>
+      <p class="section-intro">
+        Short, plain-language explainers with maps, charts, and source notes on rural-urban policy issues.
+      </p>
+      <div class="dataset-entry">
+        <h3><a href="{{ '/data/insights/' | relative_url }}">Explore Data Insights</a></h3>
+        <p>
+          View one-page explainers that combine background context, data visualizations, and reproducible source notes.
+        </p>
+      </div>
+    </section>
+
     <!-- Visualizations Section -->
     <section class="data-section">
       <h2>Interactive Visualizations</h2>
