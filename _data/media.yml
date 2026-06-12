@@ -1,5 +1,17 @@
 # News coverage, podcasts, and interviews. Newest first.
 # Fields: title, url, source (outlet), date (display string), topics (slugs)
+- title: "Ohio's AI Boom: An economist's perspective on data centers"
+  url: "https://ocj.com/2026/05/ohios-ai-boom-an-economists-perspective-on-data-centers/"
+  source: "Ohio's Country Journal"
+  date: "May 2026"
+  topics: [energy-land-use, rural-urban, water-environment]
+
+- title: "Nitrate is quietly polluting rural drinking wells. How researchers are working to help"
+  url: "https://www.mprnews.org/story/2026/04/21/harvest-nitrate-is-quietly-polluting-rural-drinking-wells"
+  source: "MPR News"
+  date: "April 2026"
+  topics: [water-environment, agriculture]
+
 - title: "Data Centers Bring Money and Pushback"
   url: "https://spectrumnews1.com/oh/toledo/news/2026/02/19/data-centers-bring-money-and-pushback"
   source: "Spectrum News 1"
@@ -23,3 +35,9 @@
   source: "Northwest Signal"
   date: "December 2025"
   topics: [biofuels, energy-land-use]
+
+- title: "Balancing farmland preservation with land-use development"
+  url: "https://ofbf.org/2025/04/24/balancing-farmland-preservation-with-land-use-development/"
+  source: "Ohio Farm Bureau"
+  date: "April 2025"
+  topics: [rural-urban, agriculture]

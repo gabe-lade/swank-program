@@ -1,5 +1,30 @@
 # Substack newsletter posts. Newest first.
 # Fields: title, url, date (display string), topics (slugs from outreach_topics.yml)
+- title: "Has the U.S.-Iran War Raised Prices for Ohio Soybean Producers?"
+  url: "https://gelade1.substack.com/p/has-the-us-iran-war-raised-prices"
+  date: "May 2026"
+  topics: [biofuels, agriculture]
+
+- title: "Data Centers are Infrastructure"
+  url: "https://gelade1.substack.com/p/data-centers-are-infrastructure"
+  date: "May 2026"
+  topics: [energy-land-use, rural-urban, water-environment]
+
+- title: "Data Centers: What Stays Local, What Doesn't"
+  url: "https://gelade1.substack.com/p/data-centers-what-stays-local-what"
+  date: "April 2026"
+  topics: [energy-land-use, rural-urban, water-environment]
+
+- title: "Fiscal Costs of Data Centers"
+  url: "https://gelade1.substack.com/p/fiscal-costs-of-data-centers"
+  date: "March 2026"
+  topics: [energy-land-use, rural-urban, water-environment]
+
+- title: "Ohio's AI Boom: An Economist's Perspective on Data Centers"
+  url: "https://gelade1.substack.com/p/ohios-ai-boom-an-economists-perspective"
+  date: "March 2026"
+  topics: [energy-land-use, rural-urban, water-environment]
+
 - title: "The Rural-Urban Fringe Is Growing"
   url: "https://gelade1.substack.com/p/the-rural-urban-fringe-is-growing"
   date: "January 2026"
