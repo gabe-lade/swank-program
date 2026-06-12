@@ -50,6 +50,19 @@ git add -p && git commit
 git push -u origin HEAD      # then open a PR
 ```
 
+### Review policy
+
+All changes — content, code, config, exploration — go through Gabe:
+
+- **Every branch lands via a PR with Gabe ([@gabe-lade](https://github.com/gabe-lade))
+  assigned as reviewer** (`gh pr create --reviewer gabe-lade --assignee gabe-lade`).
+- **Only Gabe merges to `main`.** Merging `main` deploys the live site, so the
+  merge button is his.
+- **Risky or important moves need Gabe's explicit sign-off *before* the PR is
+  opened**: changes to `_config.yml`, `.github/workflows/`, `netlify.toml`,
+  the topic vocabulary (`_data/outreach_topics.yml`), site layouts, or any
+  deletion of published content.
+
 ### Adding outreach items
 
 Each outreach item is one YAML entry under `_data/`:
