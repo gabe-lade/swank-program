@@ -17,7 +17,7 @@ protocol, human checkpoints) and `.claude/rules/data-formats.md`.
 | First token | Mode | Detail file (read it, follow it) |
 |---|---|---|
 | `newsletter` | Substack diff/wire | `newsletter.md` |
-| `media` | Web search for coverage | `media.md` |
+| `media` | Web search for coverage — optional scope: `papers`, `newsletters`, or a title/topic | `media.md` |
 | `presentations` | Manual entry | `manual-entry.md` |
 | `policy-briefs` | Manual entry | `manual-entry.md` |
 | *(none)* | Full sweep | "Bare mode" below |

@@ -13,8 +13,9 @@ list in the exact format below.
 ## Inputs you receive
 
 - A **search brief**: a specific paper/topic target, or a full sweep
-  (all papers in `_data/publications.yml` + the six program topics), plus a
-  "since" date.
+  (all papers in `_data/publications.yml` + all newsletter posts in
+  `_data/newsletters.yml` + the six program topics), or a scoped sweep
+  (`papers` only or `newsletters` only), plus a "since" date.
 - The current contents of `_data/media.yml` (for dedup).
 - On round 2+: the critic's report. Address EVERY item in it explicitly.
   Do not re-add a REJECTED item unless you have new evidence.
@@ -30,10 +31,17 @@ not after. Read `.claude/references/topic-tagging.md` for tagging.
    Ohio State`; `"Lade" AEDE`.
 2. **Per-paper queries**: distinctive title phrases from `publications.yml`,
    in quotes.
-3. **Outlet-targeted queries**: the `site:` list at the bottom of the
+3. **Per-newsletter queries**: distinctive title phrases and topics from
+   `_data/newsletters.yml`, in quotes — coverage that picks up or discusses
+   Lade's newsletter analyses (these posts are often adapted into op-eds or
+   quoted by trade press).
+4. **Outlet-targeted queries**: the `site:` list at the bottom of the
    criteria file.
-4. **Podcast directories** for interviews.
-5. Time-bound to the brief's "since" date unless it says full sweep.
+5. **Podcast directories** for interviews.
+6. Time-bound to the brief's "since" date unless it says full sweep.
+
+If the brief scopes to `papers` only or `newsletters` only, run that seed set
+(plus name queries); otherwise run them all.
 
 ## For every candidate — fetch it yourself
 
@@ -65,6 +73,7 @@ source: <outlet name>
 date: <Month YYYY>
 topics: [slug, slug]
 tier: <1 | 2 | UNKNOWN>
+origin: <scout | queue>
 status: <FETCHED | UNVERIFIED-BY-WORKER>
 evidence: "<quote from the page naming Lade/Swank/the paper>"
 notes: <syndication copies, caveats, or ->

@@ -33,6 +33,12 @@ reference them; do not duplicate them elsewhere.
 - **UNVERIFIABLE ≠ verified, UNVERIFIABLE ≠ rejected.** When a page can't be
   fetched (403, paywall, bot wall), the item is flagged for the human to
   check in a browser. Never guess either way.
+- **Honest surfacing is not an error.** Deductions are for the worker's own
+  mistakes — fabrication, misrepresenting a page, vouching for an item that
+  fails a gate. An item the worker honestly surfaces and correctly flags for
+  the human — a human-queued item that fails a gate, or an
+  `UNVERIFIED-BY-WORKER` page — scores **−0 and routes to the human**; it
+  never drags the batch below threshold.
 
 ## Human-in-the-loop checkpoints
 
@@ -40,7 +46,9 @@ Use AskUserQuestion (never act unilaterally) at:
 
 1. **Candidate selection** — which scouted/queued items to wire in
    (multiSelect; batch 4 options per question, or fall back to a numbered
-   text list above ~8 candidates).
+   text list above ~8 candidates). **Always show each item's URL** in the
+   option (description, or the numbered line) so the human can click through
+   to the source before deciding.
 2. **Low-confidence topic tags** — when tagging is uncertain or queue tags
    were invalid.
 3. **UNVERIFIABLE items** — "verify manually / include anyway / drop".

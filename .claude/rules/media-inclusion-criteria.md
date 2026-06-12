@@ -10,9 +10,15 @@ An item must clear **both** gates: Relevance AND Outlet tier.
 - **R1.** Quotes or interviews Gabriel Lade (any affiliation wording: OSU,
   AEDE, Ohio State, Swank Chair; formerly Iowa State).
 - **R2.** Names Gabriel Lade or the Swank Program / Swank Chair in the
-  article body. A byline-only or footnote mention does not count.
+  article body. An incidental byline or footnote mention does not count (for
+  pieces Lade himself authored, see R4).
 - **R3.** Covers, by name, a paper in `_data/publications.yml` or a Swank
   Program event/report (e.g., the biofuels forum).
+- **R4.** Authored by Gabriel Lade — an op-ed, column, or contributed
+  analysis bylined to Lade in a qualifying media outlet counts. (This is the
+  one case where a byline *does* satisfy Gate 1, because Lade is the author,
+  not an incidental name.) **Flag self-authored pieces in the PR body** so
+  Gabe can confirm they belong in `media.yml` rather than elsewhere.
 
 ## Gate 2 — Outlet tier
 
