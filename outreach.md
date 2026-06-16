@@ -2,13 +2,13 @@
 layout: default
 title: "Outreach"
 permalink: /outreach/
-description: "Newsletter, presentations, policy briefs, and media coverage from the Swank Program in Rural-Urban Policy."
+description: "Newsletter, presentations, policy writings, and media coverage from the Swank Program in Rural-Urban Policy."
 ---
 
 <article class="page">
   <header class="page-header">
     <h1>Outreach</h1>
-    <p class="page-subtitle">Newsletter essays, presentations, policy briefs, and media coverage — browse by type, then filter by topic.</p>
+    <p class="page-subtitle">Newsletter essays, presentations, policy writings, and media coverage — browse by type, then filter by topic.</p>
   </header>
 
   <div class="page-content">
