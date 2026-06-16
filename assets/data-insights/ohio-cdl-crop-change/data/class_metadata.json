@@ -1,0 +1,2562 @@
+[
+  {
+    "code": 0,
+    "class_name": "Background",
+    "red": 0,
+    "green": 0,
+    "blue": 0,
+    "hex": "#000000",
+    "is_ag": false,
+    "is_primary": false
+  },
+  {
+    "code": 1,
+    "class_name": "Corn",
+    "red": 255,
+    "green": 212,
+    "blue": 0,
+    "hex": "#FFD400",
+    "is_ag": true,
+    "is_primary": true
+  },
+  {
+    "code": 2,
+    "class_name": "Cotton",
+    "red": 255,
+    "green": 38,
+    "blue": 38,
+    "hex": "#FF2626",
+    "is_ag": true,
+    "is_primary": false
+  },
+  {
+    "code": 3,
+    "class_name": "Rice",
+    "red": 0,
+    "green": 169,
+    "blue": 230,
+    "hex": "#00A9E6",
+    "is_ag": true,
+    "is_primary": false
+  },
+  {
+    "code": 4,
+    "class_name": "Sorghum",
+    "red": 255,
+    "green": 158,
+    "blue": 15,
+    "hex": "#FF9E0F",
+    "is_ag": true,
+    "is_primary": false
+  },
+  {
+    "code": 5,
+    "class_name": "Soybeans",
+    "red": 38,
+    "green": 115,
+    "blue": 0,
+    "hex": "#267300",
+    "is_ag": true,
+    "is_primary": true
+  },
+  {
+    "code": 6,
+    "class_name": "Sunflower",
+    "red": 255,
+    "green": 255,
+    "blue": 0,
+    "hex": "#FFFF00",
+    "is_ag": true,
+    "is_primary": false
+  },
+  {
+    "code": 7,
+    "class_name": "Code 7",
+    "red": 0,
+    "green": 0,
+    "blue": 0,
+    "hex": "#000000",
+    "is_ag": true,
+    "is_primary": false
+  },
+  {
+    "code": 8,
+    "class_name": "Code 8",
+    "red": 0,
+    "green": 0,
+    "blue": 0,
+    "hex": "#000000",
+    "is_ag": true,
+    "is_primary": false
+  },
+  {
+    "code": 9,
+    "class_name": "Code 9",
+    "red": 0,
+    "green": 0,
+    "blue": 0,
+    "hex": "#000000",
+    "is_ag": true,
+    "is_primary": false
+  },
+  {
+    "code": 10,
+    "class_name": "Peanuts",
+    "red": 112,
+    "green": 168,
+    "blue": 0,
+    "hex": "#70A800",
+    "is_ag": true,
+    "is_primary": false
+  },
+  {
+    "code": 11,
+    "class_name": "Tobacco",
+    "red": 0,
+    "green": 175,
+    "blue": 77,
+    "hex": "#00AF4D",
+    "is_ag": true,
+    "is_primary": false
+  },
+  {
+    "code": 12,
+    "class_name": "Sweet Corn",
+    "red": 224,
+    "green": 166,
+    "blue": 15,
+    "hex": "#E0A60F",
+    "is_ag": true,
+    "is_primary": false
+  },
+  {
+    "code": 13,
+    "class_name": "Pop or Orn Corn",
+    "red": 224,
+    "green": 166,
+    "blue": 15,
+    "hex": "#E0A60F",
+    "is_ag": true,
+    "is_primary": false
+  },
+  {
+    "code": 14,
+    "class_name": "Mint",
+    "red": 128,
+    "green": 212,
+    "blue": 255,
+    "hex": "#80D4FF",
+    "is_ag": true,
+    "is_primary": false
+  },
+  {
+    "code": 15,
+    "class_name": "Code 15",
+    "red": 0,
+    "green": 0,
+    "blue": 0,
+    "hex": "#000000",
+    "is_ag": true,
+    "is_primary": false
+  },
+  {
+    "code": 16,
+    "class_name": "Code 16",
+    "red": 0,
+    "green": 0,
+    "blue": 0,
+    "hex": "#000000",
+    "is_ag": true,
+    "is_primary": false
+  },
+  {
+    "code": 17,
+    "class_name": "Code 17",
+    "red": 0,
+    "green": 0,
+    "blue": 0,
+    "hex": "#000000",
+    "is_ag": true,
+    "is_primary": false
+  },
+  {
+    "code": 18,
+    "class_name": "Code 18",
+    "red": 0,
+    "green": 0,
+    "blue": 0,
+    "hex": "#000000",
+    "is_ag": true,
+    "is_primary": false
+  },
+  {
+    "code": 19,
+    "class_name": "Code 19",
+    "red": 0,
+    "green": 0,
+    "blue": 0,
+    "hex": "#000000",
+    "is_ag": true,
+    "is_primary": false
+  },
+  {
+    "code": 20,
+    "class_name": "Code 20",
+    "red": 0,
+    "green": 0,
+    "blue": 0,
+    "hex": "#000000",
+    "is_ag": true,
+    "is_primary": false
+  },
+  {
+    "code": 21,
+    "class_name": "Barley",
+    "red": 226,
+    "green": 0,
+    "blue": 127,
+    "hex": "#E2007F",
+    "is_ag": true,
+    "is_primary": false
+  },
+  {
+    "code": 22,
+    "class_name": "Durum Wheat",
+    "red": 138,
+    "green": 100,
+    "blue": 83,
+    "hex": "#8A6453",
+    "is_ag": true,
+    "is_primary": false
+  },
+  {
+    "code": 23,
+    "class_name": "Spring Wheat",
+    "red": 217,
+    "green": 181,
+    "blue": 108,
+    "hex": "#D9B56C",
+    "is_ag": true,
+    "is_primary": false
+  },
+  {
+    "code": 24,
+    "class_name": "Winter Wheat",
+    "red": 168,
+    "green": 112,
+    "blue": 0,
+    "hex": "#A87000",
+    "is_ag": true,
+    "is_primary": true
+  },
+  {
+    "code": 25,
+    "class_name": "Other Small Grains",
+    "red": 214,
+    "green": 157,
+    "blue": 188,
+    "hex": "#D69DBC",
+    "is_ag": true,
+    "is_primary": false
+  },
+  {
+    "code": 26,
+    "class_name": "Dbl Crop WinWht/Soybeans",
+    "red": 115,
+    "green": 115,
+    "blue": 0,
+    "hex": "#737300",
+    "is_ag": true,
+    "is_primary": false
+  },
+  {
+    "code": 27,
+    "class_name": "Rye",
+    "red": 174,
+    "green": 1,
+    "blue": 126,
+    "hex": "#AE017E",
+    "is_ag": true,
+    "is_primary": false
+  },
+  {
+    "code": 28,
+    "class_name": "Oats",
+    "red": 161,
+    "green": 88,
+    "blue": 137,
+    "hex": "#A15889",
+    "is_ag": true,
+    "is_primary": false
+  },
+  {
+    "code": 29,
+    "class_name": "Millet",
+    "red": 115,
+    "green": 0,
+    "blue": 76,
+    "hex": "#73004C",
+    "is_ag": true,
+    "is_primary": false
+  },
+  {
+    "code": 30,
+    "class_name": "Speltz",
+    "red": 214,
+    "green": 157,
+    "blue": 188,
+    "hex": "#D69DBC",
+    "is_ag": true,
+    "is_primary": false
+  },
+  {
+    "code": 31,
+    "class_name": "Canola",
+    "red": 209,
+    "green": 255,
+    "blue": 0,
+    "hex": "#D1FF00",
+    "is_ag": true,
+    "is_primary": false
+  },
+  {
+    "code": 32,
+    "class_name": "Flaxseed",
+    "red": 128,
+    "green": 153,
+    "blue": 255,
+    "hex": "#8099FF",
+    "is_ag": true,
+    "is_primary": false
+  },
+  {
+    "code": 33,
+    "class_name": "Safflower",
+    "red": 214,
+    "green": 214,
+    "blue": 0,
+    "hex": "#D6D600",
+    "is_ag": true,
+    "is_primary": false
+  },
+  {
+    "code": 34,
+    "class_name": "Rape Seed",
+    "red": 209,
+    "green": 255,
+    "blue": 0,
+    "hex": "#D1FF00",
+    "is_ag": true,
+    "is_primary": false
+  },
+  {
+    "code": 35,
+    "class_name": "Mustard",
+    "red": 0,
+    "green": 175,
+    "blue": 77,
+    "hex": "#00AF4D",
+    "is_ag": true,
+    "is_primary": false
+  },
+  {
+    "code": 36,
+    "class_name": "Alfalfa",
+    "red": 255,
+    "green": 168,
+    "blue": 227,
+    "hex": "#FFA8E3",
+    "is_ag": true,
+    "is_primary": true
+  },
+  {
+    "code": 37,
+    "class_name": "Other Hay/Non Alfalfa",
+    "red": 165,
+    "green": 245,
+    "blue": 141,
+    "hex": "#A5F58D",
+    "is_ag": true,
+    "is_primary": false
+  },
+  {
+    "code": 38,
+    "class_name": "Camelina",
+    "red": 0,
+    "green": 175,
+    "blue": 77,
+    "hex": "#00AF4D",
+    "is_ag": true,
+    "is_primary": false
+  },
+  {
+    "code": 39,
+    "class_name": "Buckwheat",
+    "red": 214,
+    "green": 157,
+    "blue": 188,
+    "hex": "#D69DBC",
+    "is_ag": true,
+    "is_primary": false
+  },
+  {
+    "code": 40,
+    "class_name": "Code 40",
+    "red": 0,
+    "green": 0,
+    "blue": 0,
+    "hex": "#000000",
+    "is_ag": true,
+    "is_primary": false
+  },
+  {
+    "code": 41,
+    "class_name": "Sugarbeets",
+    "red": 169,
+    "green": 0,
+    "blue": 230,
+    "hex": "#A900E6",
+    "is_ag": true,
+    "is_primary": false
+  },
+  {
+    "code": 42,
+    "class_name": "Dry Beans",
+    "red": 168,
+    "green": 0,
+    "blue": 0,
+    "hex": "#A80000",
+    "is_ag": true,
+    "is_primary": false
+  },
+  {
+    "code": 43,
+    "class_name": "Potatoes",
+    "red": 115,
+    "green": 38,
+    "blue": 0,
+    "hex": "#732600",
+    "is_ag": true,
+    "is_primary": false
+  },
+  {
+    "code": 44,
+    "class_name": "Other Crops",
+    "red": 0,
+    "green": 175,
+    "blue": 77,
+    "hex": "#00AF4D",
+    "is_ag": true,
+    "is_primary": false
+  },
+  {
+    "code": 45,
+    "class_name": "Sugarcane",
+    "red": 179,
+    "green": 128,
+    "blue": 255,
+    "hex": "#B380FF",
+    "is_ag": true,
+    "is_primary": false
+  },
+  {
+    "code": 46,
+    "class_name": "Sweet Potatoes",
+    "red": 115,
+    "green": 38,
+    "blue": 0,
+    "hex": "#732600",
+    "is_ag": true,
+    "is_primary": false
+  },
+  {
+    "code": 47,
+    "class_name": "Misc Vegs & Fruits",
+    "red": 255,
+    "green": 102,
+    "blue": 102,
+    "hex": "#FF6666",
+    "is_ag": true,
+    "is_primary": false
+  },
+  {
+    "code": 48,
+    "class_name": "Watermelons",
+    "red": 255,
+    "green": 102,
+    "blue": 102,
+    "hex": "#FF6666",
+    "is_ag": true,
+    "is_primary": false
+  },
+  {
+    "code": 49,
+    "class_name": "Onions",
+    "red": 255,
+    "green": 204,
+    "blue": 102,
+    "hex": "#FFCC66",
+    "is_ag": true,
+    "is_primary": false
+  },
+  {
+    "code": 50,
+    "class_name": "Cucumbers",
+    "red": 255,
+    "green": 102,
+    "blue": 102,
+    "hex": "#FF6666",
+    "is_ag": true,
+    "is_primary": false
+  },
+  {
+    "code": 51,
+    "class_name": "Chick Peas",
+    "red": 0,
+    "green": 175,
+    "blue": 77,
+    "hex": "#00AF4D",
+    "is_ag": true,
+    "is_primary": false
+  },
+  {
+    "code": 52,
+    "class_name": "Lentils",
+    "red": 0,
+    "green": 222,
+    "blue": 176,
+    "hex": "#00DEB0",
+    "is_ag": true,
+    "is_primary": false
+  },
+  {
+    "code": 53,
+    "class_name": "Peas",
+    "red": 85,
+    "green": 255,
+    "blue": 0,
+    "hex": "#55FF00",
+    "is_ag": true,
+    "is_primary": false
+  },
+  {
+    "code": 54,
+    "class_name": "Tomatoes",
+    "red": 245,
+    "green": 162,
+    "blue": 122,
+    "hex": "#F5A27A",
+    "is_ag": true,
+    "is_primary": false
+  },
+  {
+    "code": 55,
+    "class_name": "Caneberries",
+    "red": 255,
+    "green": 102,
+    "blue": 102,
+    "hex": "#FF6666",
+    "is_ag": true,
+    "is_primary": false
+  },
+  {
+    "code": 56,
+    "class_name": "Hops",
+    "red": 0,
+    "green": 175,
+    "blue": 77,
+    "hex": "#00AF4D",
+    "is_ag": true,
+    "is_primary": false
+  },
+  {
+    "code": 57,
+    "class_name": "Herbs",
+    "red": 128,
+    "green": 212,
+    "blue": 255,
+    "hex": "#80D4FF",
+    "is_ag": true,
+    "is_primary": false
+  },
+  {
+    "code": 58,
+    "class_name": "Clover/Wildflowers",
+    "red": 232,
+    "green": 190,
+    "blue": 255,
+    "hex": "#E8BEFF",
+    "is_ag": true,
+    "is_primary": false
+  },
+  {
+    "code": 59,
+    "class_name": "Sod/Grass Seed",
+    "red": 178,
+    "green": 255,
+    "blue": 222,
+    "hex": "#B2FFDE",
+    "is_ag": true,
+    "is_primary": false
+  },
+  {
+    "code": 60,
+    "class_name": "Switchgrass",
+    "red": 0,
+    "green": 175,
+    "blue": 77,
+    "hex": "#00AF4D",
+    "is_ag": true,
+    "is_primary": false
+  },
+  {
+    "code": 61,
+    "class_name": "Fallow/Idle Cropland",
+    "red": 191,
+    "green": 191,
+    "blue": 122,
+    "hex": "#BFBF7A",
+    "is_ag": true,
+    "is_primary": false
+  },
+  {
+    "code": 62,
+    "class_name": "Code 62",
+    "red": 0,
+    "green": 0,
+    "blue": 0,
+    "hex": "#000000",
+    "is_ag": true,
+    "is_primary": false
+  },
+  {
+    "code": 63,
+    "class_name": "Forest",
+    "red": 149,
+    "green": 206,
+    "blue": 147,
+    "hex": "#95CE93",
+    "is_ag": false,
+    "is_primary": false
+  },
+  {
+    "code": 64,
+    "class_name": "Shrubland",
+    "red": 199,
+    "green": 215,
+    "blue": 158,
+    "hex": "#C7D79E",
+    "is_ag": false,
+    "is_primary": false
+  },
+  {
+    "code": 65,
+    "class_name": "Barren",
+    "red": 204,
+    "green": 191,
+    "blue": 163,
+    "hex": "#CCBFA3",
+    "is_ag": false,
+    "is_primary": false
+  },
+  {
+    "code": 66,
+    "class_name": "Cherries",
+    "red": 255,
+    "green": 0,
+    "blue": 255,
+    "hex": "#FF00FF",
+    "is_ag": true,
+    "is_primary": false
+  },
+  {
+    "code": 67,
+    "class_name": "Peaches",
+    "red": 255,
+    "green": 145,
+    "blue": 171,
+    "hex": "#FF91AB",
+    "is_ag": true,
+    "is_primary": false
+  },
+  {
+    "code": 68,
+    "class_name": "Apples",
+    "red": 185,
+    "green": 0,
+    "blue": 80,
+    "hex": "#B90050",
+    "is_ag": true,
+    "is_primary": false
+  },
+  {
+    "code": 69,
+    "class_name": "Grapes",
+    "red": 112,
+    "green": 68,
+    "blue": 137,
+    "hex": "#704489",
+    "is_ag": true,
+    "is_primary": false
+  },
+  {
+    "code": 70,
+    "class_name": "Christmas Trees",
+    "red": 0,
+    "green": 120,
+    "blue": 120,
+    "hex": "#007878",
+    "is_ag": true,
+    "is_primary": false
+  },
+  {
+    "code": 71,
+    "class_name": "Other Tree Crops",
+    "red": 179,
+    "green": 156,
+    "blue": 112,
+    "hex": "#B39C70",
+    "is_ag": true,
+    "is_primary": false
+  },
+  {
+    "code": 72,
+    "class_name": "Citrus",
+    "red": 255,
+    "green": 255,
+    "blue": 128,
+    "hex": "#FFFF80",
+    "is_ag": true,
+    "is_primary": false
+  },
+  {
+    "code": 73,
+    "class_name": "Code 73",
+    "red": 0,
+    "green": 0,
+    "blue": 0,
+    "hex": "#000000",
+    "is_ag": true,
+    "is_primary": false
+  },
+  {
+    "code": 74,
+    "class_name": "Pecans",
+    "red": 182,
+    "green": 112,
+    "blue": 92,
+    "hex": "#B6705C",
+    "is_ag": true,
+    "is_primary": false
+  },
+  {
+    "code": 75,
+    "class_name": "Almonds",
+    "red": 0,
+    "green": 168,
+    "blue": 132,
+    "hex": "#00A884",
+    "is_ag": true,
+    "is_primary": false
+  },
+  {
+    "code": 76,
+    "class_name": "Walnuts",
+    "red": 235,
+    "green": 214,
+    "blue": 176,
+    "hex": "#EBD6B0",
+    "is_ag": true,
+    "is_primary": false
+  },
+  {
+    "code": 77,
+    "class_name": "Pears",
+    "red": 179,
+    "green": 156,
+    "blue": 112,
+    "hex": "#B39C70",
+    "is_ag": true,
+    "is_primary": false
+  },
+  {
+    "code": 78,
+    "class_name": "Code 78",
+    "red": 0,
+    "green": 0,
+    "blue": 0,
+    "hex": "#000000",
+    "is_ag": false,
+    "is_primary": false
+  },
+  {
+    "code": 79,
+    "class_name": "Code 79",
+    "red": 0,
+    "green": 0,
+    "blue": 0,
+    "hex": "#000000",
+    "is_ag": false,
+    "is_primary": false
+  },
+  {
+    "code": 80,
+    "class_name": "Code 80",
+    "red": 0,
+    "green": 0,
+    "blue": 0,
+    "hex": "#000000",
+    "is_ag": false,
+    "is_primary": false
+  },
+  {
+    "code": 81,
+    "class_name": "Clouds/No Data",
+    "red": 247,
+    "green": 247,
+    "blue": 247,
+    "hex": "#F7F7F7",
+    "is_ag": false,
+    "is_primary": false
+  },
+  {
+    "code": 82,
+    "class_name": "Developed",
+    "red": 156,
+    "green": 156,
+    "blue": 156,
+    "hex": "#9C9C9C",
+    "is_ag": false,
+    "is_primary": false
+  },
+  {
+    "code": 83,
+    "class_name": "Water",
+    "red": 77,
+    "green": 112,
+    "blue": 163,
+    "hex": "#4D70A3",
+    "is_ag": false,
+    "is_primary": false
+  },
+  {
+    "code": 84,
+    "class_name": "Code 84",
+    "red": 0,
+    "green": 0,
+    "blue": 0,
+    "hex": "#000000",
+    "is_ag": false,
+    "is_primary": false
+  },
+  {
+    "code": 85,
+    "class_name": "Code 85",
+    "red": 0,
+    "green": 0,
+    "blue": 0,
+    "hex": "#000000",
+    "is_ag": false,
+    "is_primary": false
+  },
+  {
+    "code": 86,
+    "class_name": "Code 86",
+    "red": 0,
+    "green": 0,
+    "blue": 0,
+    "hex": "#000000",
+    "is_ag": false,
+    "is_primary": false
+  },
+  {
+    "code": 87,
+    "class_name": "Wetlands",
+    "red": 128,
+    "green": 179,
+    "blue": 179,
+    "hex": "#80B3B3",
+    "is_ag": false,
+    "is_primary": false
+  },
+  {
+    "code": 88,
+    "class_name": "Nonag/Undefined",
+    "red": 233,
+    "green": 255,
+    "blue": 190,
+    "hex": "#E9FFBE",
+    "is_ag": false,
+    "is_primary": false
+  },
+  {
+    "code": 89,
+    "class_name": "Code 89",
+    "red": 0,
+    "green": 0,
+    "blue": 0,
+    "hex": "#000000",
+    "is_ag": false,
+    "is_primary": false
+  },
+  {
+    "code": 90,
+    "class_name": "Code 90",
+    "red": 0,
+    "green": 0,
+    "blue": 0,
+    "hex": "#000000",
+    "is_ag": false,
+    "is_primary": false
+  },
+  {
+    "code": 91,
+    "class_name": "Code 91",
+    "red": 0,
+    "green": 0,
+    "blue": 0,
+    "hex": "#000000",
+    "is_ag": false,
+    "is_primary": false
+  },
+  {
+    "code": 92,
+    "class_name": "Aquaculture",
+    "red": 0,
+    "green": 255,
+    "blue": 255,
+    "hex": "#00FFFF",
+    "is_ag": false,
+    "is_primary": false
+  },
+  {
+    "code": 93,
+    "class_name": "Code 93",
+    "red": 0,
+    "green": 0,
+    "blue": 0,
+    "hex": "#000000",
+    "is_ag": false,
+    "is_primary": false
+  },
+  {
+    "code": 94,
+    "class_name": "Code 94",
+    "red": 0,
+    "green": 0,
+    "blue": 0,
+    "hex": "#000000",
+    "is_ag": false,
+    "is_primary": false
+  },
+  {
+    "code": 95,
+    "class_name": "Code 95",
+    "red": 0,
+    "green": 0,
+    "blue": 0,
+    "hex": "#000000",
+    "is_ag": false,
+    "is_primary": false
+  },
+  {
+    "code": 96,
+    "class_name": "Code 96",
+    "red": 0,
+    "green": 0,
+    "blue": 0,
+    "hex": "#000000",
+    "is_ag": false,
+    "is_primary": false
+  },
+  {
+    "code": 97,
+    "class_name": "Code 97",
+    "red": 0,
+    "green": 0,
+    "blue": 0,
+    "hex": "#000000",
+    "is_ag": false,
+    "is_primary": false
+  },
+  {
+    "code": 98,
+    "class_name": "Code 98",
+    "red": 0,
+    "green": 0,
+    "blue": 0,
+    "hex": "#000000",
+    "is_ag": false,
+    "is_primary": false
+  },
+  {
+    "code": 99,
+    "class_name": "Code 99",
+    "red": 0,
+    "green": 0,
+    "blue": 0,
+    "hex": "#000000",
+    "is_ag": false,
+    "is_primary": false
+  },
+  {
+    "code": 100,
+    "class_name": "Code 100",
+    "red": 0,
+    "green": 0,
+    "blue": 0,
+    "hex": "#000000",
+    "is_ag": false,
+    "is_primary": false
+  },
+  {
+    "code": 101,
+    "class_name": "Code 101",
+    "red": 0,
+    "green": 0,
+    "blue": 0,
+    "hex": "#000000",
+    "is_ag": false,
+    "is_primary": false
+  },
+  {
+    "code": 102,
+    "class_name": "Code 102",
+    "red": 0,
+    "green": 0,
+    "blue": 0,
+    "hex": "#000000",
+    "is_ag": false,
+    "is_primary": false
+  },
+  {
+    "code": 103,
+    "class_name": "Code 103",
+    "red": 0,
+    "green": 0,
+    "blue": 0,
+    "hex": "#000000",
+    "is_ag": false,
+    "is_primary": false
+  },
+  {
+    "code": 104,
+    "class_name": "Code 104",
+    "red": 0,
+    "green": 0,
+    "blue": 0,
+    "hex": "#000000",
+    "is_ag": false,
+    "is_primary": false
+  },
+  {
+    "code": 105,
+    "class_name": "Code 105",
+    "red": 0,
+    "green": 0,
+    "blue": 0,
+    "hex": "#000000",
+    "is_ag": false,
+    "is_primary": false
+  },
+  {
+    "code": 106,
+    "class_name": "Code 106",
+    "red": 0,
+    "green": 0,
+    "blue": 0,
+    "hex": "#000000",
+    "is_ag": false,
+    "is_primary": false
+  },
+  {
+    "code": 107,
+    "class_name": "Code 107",
+    "red": 0,
+    "green": 0,
+    "blue": 0,
+    "hex": "#000000",
+    "is_ag": false,
+    "is_primary": false
+  },
+  {
+    "code": 108,
+    "class_name": "Code 108",
+    "red": 0,
+    "green": 0,
+    "blue": 0,
+    "hex": "#000000",
+    "is_ag": false,
+    "is_primary": false
+  },
+  {
+    "code": 109,
+    "class_name": "Code 109",
+    "red": 0,
+    "green": 0,
+    "blue": 0,
+    "hex": "#000000",
+    "is_ag": false,
+    "is_primary": false
+  },
+  {
+    "code": 110,
+    "class_name": "Code 110",
+    "red": 0,
+    "green": 0,
+    "blue": 0,
+    "hex": "#000000",
+    "is_ag": false,
+    "is_primary": false
+  },
+  {
+    "code": 111,
+    "class_name": "Open Water",
+    "red": 77,
+    "green": 112,
+    "blue": 163,
+    "hex": "#4D70A3",
+    "is_ag": false,
+    "is_primary": false
+  },
+  {
+    "code": 112,
+    "class_name": "Perennial Ice/Snow",
+    "red": 212,
+    "green": 227,
+    "blue": 252,
+    "hex": "#D4E3FC",
+    "is_ag": false,
+    "is_primary": false
+  },
+  {
+    "code": 113,
+    "class_name": "Code 113",
+    "red": 0,
+    "green": 0,
+    "blue": 0,
+    "hex": "#000000",
+    "is_ag": false,
+    "is_primary": false
+  },
+  {
+    "code": 114,
+    "class_name": "Code 114",
+    "red": 0,
+    "green": 0,
+    "blue": 0,
+    "hex": "#000000",
+    "is_ag": false,
+    "is_primary": false
+  },
+  {
+    "code": 115,
+    "class_name": "Code 115",
+    "red": 0,
+    "green": 0,
+    "blue": 0,
+    "hex": "#000000",
+    "is_ag": false,
+    "is_primary": false
+  },
+  {
+    "code": 116,
+    "class_name": "Code 116",
+    "red": 0,
+    "green": 0,
+    "blue": 0,
+    "hex": "#000000",
+    "is_ag": false,
+    "is_primary": false
+  },
+  {
+    "code": 117,
+    "class_name": "Code 117",
+    "red": 0,
+    "green": 0,
+    "blue": 0,
+    "hex": "#000000",
+    "is_ag": false,
+    "is_primary": false
+  },
+  {
+    "code": 118,
+    "class_name": "Code 118",
+    "red": 0,
+    "green": 0,
+    "blue": 0,
+    "hex": "#000000",
+    "is_ag": false,
+    "is_primary": false
+  },
+  {
+    "code": 119,
+    "class_name": "Code 119",
+    "red": 0,
+    "green": 0,
+    "blue": 0,
+    "hex": "#000000",
+    "is_ag": false,
+    "is_primary": false
+  },
+  {
+    "code": 120,
+    "class_name": "Code 120",
+    "red": 0,
+    "green": 0,
+    "blue": 0,
+    "hex": "#000000",
+    "is_ag": false,
+    "is_primary": false
+  },
+  {
+    "code": 121,
+    "class_name": "Developed/Open Space",
+    "red": 156,
+    "green": 156,
+    "blue": 156,
+    "hex": "#9C9C9C",
+    "is_ag": false,
+    "is_primary": false
+  },
+  {
+    "code": 122,
+    "class_name": "Developed/Low Intensity",
+    "red": 156,
+    "green": 156,
+    "blue": 156,
+    "hex": "#9C9C9C",
+    "is_ag": false,
+    "is_primary": false
+  },
+  {
+    "code": 123,
+    "class_name": "Developed/Med Intensity",
+    "red": 156,
+    "green": 156,
+    "blue": 156,
+    "hex": "#9C9C9C",
+    "is_ag": false,
+    "is_primary": false
+  },
+  {
+    "code": 124,
+    "class_name": "Developed/High Intensity",
+    "red": 156,
+    "green": 156,
+    "blue": 156,
+    "hex": "#9C9C9C",
+    "is_ag": false,
+    "is_primary": false
+  },
+  {
+    "code": 125,
+    "class_name": "Code 125",
+    "red": 0,
+    "green": 0,
+    "blue": 0,
+    "hex": "#000000",
+    "is_ag": false,
+    "is_primary": false
+  },
+  {
+    "code": 126,
+    "class_name": "Code 126",
+    "red": 0,
+    "green": 0,
+    "blue": 0,
+    "hex": "#000000",
+    "is_ag": false,
+    "is_primary": false
+  },
+  {
+    "code": 127,
+    "class_name": "Code 127",
+    "red": 0,
+    "green": 0,
+    "blue": 0,
+    "hex": "#000000",
+    "is_ag": false,
+    "is_primary": false
+  },
+  {
+    "code": 128,
+    "class_name": "Code 128",
+    "red": 0,
+    "green": 0,
+    "blue": 0,
+    "hex": "#000000",
+    "is_ag": false,
+    "is_primary": false
+  },
+  {
+    "code": 129,
+    "class_name": "Code 129",
+    "red": 0,
+    "green": 0,
+    "blue": 0,
+    "hex": "#000000",
+    "is_ag": false,
+    "is_primary": false
+  },
+  {
+    "code": 130,
+    "class_name": "Code 130",
+    "red": 0,
+    "green": 0,
+    "blue": 0,
+    "hex": "#000000",
+    "is_ag": false,
+    "is_primary": false
+  },
+  {
+    "code": 131,
+    "class_name": "Barren",
+    "red": 204,
+    "green": 191,
+    "blue": 163,
+    "hex": "#CCBFA3",
+    "is_ag": false,
+    "is_primary": false
+  },
+  {
+    "code": 132,
+    "class_name": "Code 132",
+    "red": 0,
+    "green": 0,
+    "blue": 0,
+    "hex": "#000000",
+    "is_ag": false,
+    "is_primary": false
+  },
+  {
+    "code": 133,
+    "class_name": "Code 133",
+    "red": 0,
+    "green": 0,
+    "blue": 0,
+    "hex": "#000000",
+    "is_ag": false,
+    "is_primary": false
+  },
+  {
+    "code": 134,
+    "class_name": "Code 134",
+    "red": 0,
+    "green": 0,
+    "blue": 0,
+    "hex": "#000000",
+    "is_ag": false,
+    "is_primary": false
+  },
+  {
+    "code": 135,
+    "class_name": "Code 135",
+    "red": 0,
+    "green": 0,
+    "blue": 0,
+    "hex": "#000000",
+    "is_ag": false,
+    "is_primary": false
+  },
+  {
+    "code": 136,
+    "class_name": "Code 136",
+    "red": 0,
+    "green": 0,
+    "blue": 0,
+    "hex": "#000000",
+    "is_ag": false,
+    "is_primary": false
+  },
+  {
+    "code": 137,
+    "class_name": "Code 137",
+    "red": 0,
+    "green": 0,
+    "blue": 0,
+    "hex": "#000000",
+    "is_ag": false,
+    "is_primary": false
+  },
+  {
+    "code": 138,
+    "class_name": "Code 138",
+    "red": 0,
+    "green": 0,
+    "blue": 0,
+    "hex": "#000000",
+    "is_ag": false,
+    "is_primary": false
+  },
+  {
+    "code": 139,
+    "class_name": "Code 139",
+    "red": 0,
+    "green": 0,
+    "blue": 0,
+    "hex": "#000000",
+    "is_ag": false,
+    "is_primary": false
+  },
+  {
+    "code": 140,
+    "class_name": "Code 140",
+    "red": 0,
+    "green": 0,
+    "blue": 0,
+    "hex": "#000000",
+    "is_ag": false,
+    "is_primary": false
+  },
+  {
+    "code": 141,
+    "class_name": "Deciduous Forest",
+    "red": 149,
+    "green": 206,
+    "blue": 147,
+    "hex": "#95CE93",
+    "is_ag": false,
+    "is_primary": false
+  },
+  {
+    "code": 142,
+    "class_name": "Evergreen Forest",
+    "red": 149,
+    "green": 206,
+    "blue": 147,
+    "hex": "#95CE93",
+    "is_ag": false,
+    "is_primary": false
+  },
+  {
+    "code": 143,
+    "class_name": "Mixed Forest",
+    "red": 149,
+    "green": 206,
+    "blue": 147,
+    "hex": "#95CE93",
+    "is_ag": false,
+    "is_primary": false
+  },
+  {
+    "code": 144,
+    "class_name": "Code 144",
+    "red": 0,
+    "green": 0,
+    "blue": 0,
+    "hex": "#000000",
+    "is_ag": false,
+    "is_primary": false
+  },
+  {
+    "code": 145,
+    "class_name": "Code 145",
+    "red": 0,
+    "green": 0,
+    "blue": 0,
+    "hex": "#000000",
+    "is_ag": false,
+    "is_primary": false
+  },
+  {
+    "code": 146,
+    "class_name": "Code 146",
+    "red": 0,
+    "green": 0,
+    "blue": 0,
+    "hex": "#000000",
+    "is_ag": false,
+    "is_primary": false
+  },
+  {
+    "code": 147,
+    "class_name": "Code 147",
+    "red": 0,
+    "green": 0,
+    "blue": 0,
+    "hex": "#000000",
+    "is_ag": false,
+    "is_primary": false
+  },
+  {
+    "code": 148,
+    "class_name": "Code 148",
+    "red": 0,
+    "green": 0,
+    "blue": 0,
+    "hex": "#000000",
+    "is_ag": false,
+    "is_primary": false
+  },
+  {
+    "code": 149,
+    "class_name": "Code 149",
+    "red": 0,
+    "green": 0,
+    "blue": 0,
+    "hex": "#000000",
+    "is_ag": false,
+    "is_primary": false
+  },
+  {
+    "code": 150,
+    "class_name": "Code 150",
+    "red": 0,
+    "green": 0,
+    "blue": 0,
+    "hex": "#000000",
+    "is_ag": false,
+    "is_primary": false
+  },
+  {
+    "code": 151,
+    "class_name": "Code 151",
+    "red": 0,
+    "green": 0,
+    "blue": 0,
+    "hex": "#000000",
+    "is_ag": false,
+    "is_primary": false
+  },
+  {
+    "code": 152,
+    "class_name": "Shrubland",
+    "red": 199,
+    "green": 215,
+    "blue": 158,
+    "hex": "#C7D79E",
+    "is_ag": false,
+    "is_primary": false
+  },
+  {
+    "code": 153,
+    "class_name": "Code 153",
+    "red": 0,
+    "green": 0,
+    "blue": 0,
+    "hex": "#000000",
+    "is_ag": false,
+    "is_primary": false
+  },
+  {
+    "code": 154,
+    "class_name": "Code 154",
+    "red": 0,
+    "green": 0,
+    "blue": 0,
+    "hex": "#000000",
+    "is_ag": false,
+    "is_primary": false
+  },
+  {
+    "code": 155,
+    "class_name": "Code 155",
+    "red": 0,
+    "green": 0,
+    "blue": 0,
+    "hex": "#000000",
+    "is_ag": false,
+    "is_primary": false
+  },
+  {
+    "code": 156,
+    "class_name": "Code 156",
+    "red": 0,
+    "green": 0,
+    "blue": 0,
+    "hex": "#000000",
+    "is_ag": false,
+    "is_primary": false
+  },
+  {
+    "code": 157,
+    "class_name": "Code 157",
+    "red": 0,
+    "green": 0,
+    "blue": 0,
+    "hex": "#000000",
+    "is_ag": false,
+    "is_primary": false
+  },
+  {
+    "code": 158,
+    "class_name": "Code 158",
+    "red": 0,
+    "green": 0,
+    "blue": 0,
+    "hex": "#000000",
+    "is_ag": false,
+    "is_primary": false
+  },
+  {
+    "code": 159,
+    "class_name": "Code 159",
+    "red": 0,
+    "green": 0,
+    "blue": 0,
+    "hex": "#000000",
+    "is_ag": false,
+    "is_primary": false
+  },
+  {
+    "code": 160,
+    "class_name": "Code 160",
+    "red": 0,
+    "green": 0,
+    "blue": 0,
+    "hex": "#000000",
+    "is_ag": false,
+    "is_primary": false
+  },
+  {
+    "code": 161,
+    "class_name": "Code 161",
+    "red": 0,
+    "green": 0,
+    "blue": 0,
+    "hex": "#000000",
+    "is_ag": false,
+    "is_primary": false
+  },
+  {
+    "code": 162,
+    "class_name": "Code 162",
+    "red": 0,
+    "green": 0,
+    "blue": 0,
+    "hex": "#000000",
+    "is_ag": false,
+    "is_primary": false
+  },
+  {
+    "code": 163,
+    "class_name": "Code 163",
+    "red": 0,
+    "green": 0,
+    "blue": 0,
+    "hex": "#000000",
+    "is_ag": false,
+    "is_primary": false
+  },
+  {
+    "code": 164,
+    "class_name": "Code 164",
+    "red": 0,
+    "green": 0,
+    "blue": 0,
+    "hex": "#000000",
+    "is_ag": false,
+    "is_primary": false
+  },
+  {
+    "code": 165,
+    "class_name": "Code 165",
+    "red": 0,
+    "green": 0,
+    "blue": 0,
+    "hex": "#000000",
+    "is_ag": false,
+    "is_primary": false
+  },
+  {
+    "code": 166,
+    "class_name": "Code 166",
+    "red": 0,
+    "green": 0,
+    "blue": 0,
+    "hex": "#000000",
+    "is_ag": false,
+    "is_primary": false
+  },
+  {
+    "code": 167,
+    "class_name": "Code 167",
+    "red": 0,
+    "green": 0,
+    "blue": 0,
+    "hex": "#000000",
+    "is_ag": false,
+    "is_primary": false
+  },
+  {
+    "code": 168,
+    "class_name": "Code 168",
+    "red": 0,
+    "green": 0,
+    "blue": 0,
+    "hex": "#000000",
+    "is_ag": false,
+    "is_primary": false
+  },
+  {
+    "code": 169,
+    "class_name": "Code 169",
+    "red": 0,
+    "green": 0,
+    "blue": 0,
+    "hex": "#000000",
+    "is_ag": false,
+    "is_primary": false
+  },
+  {
+    "code": 170,
+    "class_name": "Code 170",
+    "red": 0,
+    "green": 0,
+    "blue": 0,
+    "hex": "#000000",
+    "is_ag": false,
+    "is_primary": false
+  },
+  {
+    "code": 171,
+    "class_name": "Code 171",
+    "red": 0,
+    "green": 0,
+    "blue": 0,
+    "hex": "#000000",
+    "is_ag": false,
+    "is_primary": false
+  },
+  {
+    "code": 172,
+    "class_name": "Code 172",
+    "red": 0,
+    "green": 0,
+    "blue": 0,
+    "hex": "#000000",
+    "is_ag": false,
+    "is_primary": false
+  },
+  {
+    "code": 173,
+    "class_name": "Code 173",
+    "red": 0,
+    "green": 0,
+    "blue": 0,
+    "hex": "#000000",
+    "is_ag": false,
+    "is_primary": false
+  },
+  {
+    "code": 174,
+    "class_name": "Code 174",
+    "red": 0,
+    "green": 0,
+    "blue": 0,
+    "hex": "#000000",
+    "is_ag": false,
+    "is_primary": false
+  },
+  {
+    "code": 175,
+    "class_name": "Code 175",
+    "red": 0,
+    "green": 0,
+    "blue": 0,
+    "hex": "#000000",
+    "is_ag": false,
+    "is_primary": false
+  },
+  {
+    "code": 176,
+    "class_name": "Grass/Pasture",
+    "red": 233,
+    "green": 255,
+    "blue": 190,
+    "hex": "#E9FFBE",
+    "is_ag": true,
+    "is_primary": true
+  },
+  {
+    "code": 177,
+    "class_name": "Code 177",
+    "red": 0,
+    "green": 0,
+    "blue": 0,
+    "hex": "#000000",
+    "is_ag": false,
+    "is_primary": false
+  },
+  {
+    "code": 178,
+    "class_name": "Code 178",
+    "red": 0,
+    "green": 0,
+    "blue": 0,
+    "hex": "#000000",
+    "is_ag": false,
+    "is_primary": false
+  },
+  {
+    "code": 179,
+    "class_name": "Code 179",
+    "red": 0,
+    "green": 0,
+    "blue": 0,
+    "hex": "#000000",
+    "is_ag": false,
+    "is_primary": false
+  },
+  {
+    "code": 180,
+    "class_name": "Code 180",
+    "red": 0,
+    "green": 0,
+    "blue": 0,
+    "hex": "#000000",
+    "is_ag": false,
+    "is_primary": false
+  },
+  {
+    "code": 181,
+    "class_name": "Code 181",
+    "red": 0,
+    "green": 0,
+    "blue": 0,
+    "hex": "#000000",
+    "is_ag": false,
+    "is_primary": false
+  },
+  {
+    "code": 182,
+    "class_name": "Code 182",
+    "red": 0,
+    "green": 0,
+    "blue": 0,
+    "hex": "#000000",
+    "is_ag": false,
+    "is_primary": false
+  },
+  {
+    "code": 183,
+    "class_name": "Code 183",
+    "red": 0,
+    "green": 0,
+    "blue": 0,
+    "hex": "#000000",
+    "is_ag": false,
+    "is_primary": false
+  },
+  {
+    "code": 184,
+    "class_name": "Code 184",
+    "red": 0,
+    "green": 0,
+    "blue": 0,
+    "hex": "#000000",
+    "is_ag": false,
+    "is_primary": false
+  },
+  {
+    "code": 185,
+    "class_name": "Code 185",
+    "red": 0,
+    "green": 0,
+    "blue": 0,
+    "hex": "#000000",
+    "is_ag": false,
+    "is_primary": false
+  },
+  {
+    "code": 186,
+    "class_name": "Code 186",
+    "red": 0,
+    "green": 0,
+    "blue": 0,
+    "hex": "#000000",
+    "is_ag": false,
+    "is_primary": false
+  },
+  {
+    "code": 187,
+    "class_name": "Code 187",
+    "red": 0,
+    "green": 0,
+    "blue": 0,
+    "hex": "#000000",
+    "is_ag": false,
+    "is_primary": false
+  },
+  {
+    "code": 188,
+    "class_name": "Code 188",
+    "red": 0,
+    "green": 0,
+    "blue": 0,
+    "hex": "#000000",
+    "is_ag": false,
+    "is_primary": false
+  },
+  {
+    "code": 189,
+    "class_name": "Code 189",
+    "red": 0,
+    "green": 0,
+    "blue": 0,
+    "hex": "#000000",
+    "is_ag": false,
+    "is_primary": false
+  },
+  {
+    "code": 190,
+    "class_name": "Woody Wetlands",
+    "red": 128,
+    "green": 179,
+    "blue": 179,
+    "hex": "#80B3B3",
+    "is_ag": false,
+    "is_primary": false
+  },
+  {
+    "code": 191,
+    "class_name": "Code 191",
+    "red": 0,
+    "green": 0,
+    "blue": 0,
+    "hex": "#000000",
+    "is_ag": false,
+    "is_primary": false
+  },
+  {
+    "code": 192,
+    "class_name": "Code 192",
+    "red": 0,
+    "green": 0,
+    "blue": 0,
+    "hex": "#000000",
+    "is_ag": false,
+    "is_primary": false
+  },
+  {
+    "code": 193,
+    "class_name": "Code 193",
+    "red": 0,
+    "green": 0,
+    "blue": 0,
+    "hex": "#000000",
+    "is_ag": false,
+    "is_primary": false
+  },
+  {
+    "code": 194,
+    "class_name": "Code 194",
+    "red": 0,
+    "green": 0,
+    "blue": 0,
+    "hex": "#000000",
+    "is_ag": false,
+    "is_primary": false
+  },
+  {
+    "code": 195,
+    "class_name": "Herbaceous Wetlands",
+    "red": 128,
+    "green": 179,
+    "blue": 179,
+    "hex": "#80B3B3",
+    "is_ag": false,
+    "is_primary": false
+  },
+  {
+    "code": 196,
+    "class_name": "Code 196",
+    "red": 0,
+    "green": 0,
+    "blue": 0,
+    "hex": "#000000",
+    "is_ag": false,
+    "is_primary": false
+  },
+  {
+    "code": 197,
+    "class_name": "Code 197",
+    "red": 0,
+    "green": 0,
+    "blue": 0,
+    "hex": "#000000",
+    "is_ag": false,
+    "is_primary": false
+  },
+  {
+    "code": 198,
+    "class_name": "Code 198",
+    "red": 0,
+    "green": 0,
+    "blue": 0,
+    "hex": "#000000",
+    "is_ag": false,
+    "is_primary": false
+  },
+  {
+    "code": 199,
+    "class_name": "Code 199",
+    "red": 0,
+    "green": 0,
+    "blue": 0,
+    "hex": "#000000",
+    "is_ag": false,
+    "is_primary": false
+  },
+  {
+    "code": 200,
+    "class_name": "Code 200",
+    "red": 0,
+    "green": 0,
+    "blue": 0,
+    "hex": "#000000",
+    "is_ag": false,
+    "is_primary": false
+  },
+  {
+    "code": 201,
+    "class_name": "Code 201",
+    "red": 0,
+    "green": 0,
+    "blue": 0,
+    "hex": "#000000",
+    "is_ag": false,
+    "is_primary": false
+  },
+  {
+    "code": 202,
+    "class_name": "Code 202",
+    "red": 0,
+    "green": 0,
+    "blue": 0,
+    "hex": "#000000",
+    "is_ag": false,
+    "is_primary": false
+  },
+  {
+    "code": 203,
+    "class_name": "Code 203",
+    "red": 0,
+    "green": 0,
+    "blue": 0,
+    "hex": "#000000",
+    "is_ag": false,
+    "is_primary": false
+  },
+  {
+    "code": 204,
+    "class_name": "Pistachios",
+    "red": 0,
+    "green": 255,
+    "blue": 140,
+    "hex": "#00FF8C",
+    "is_ag": true,
+    "is_primary": false
+  },
+  {
+    "code": 205,
+    "class_name": "Triticale",
+    "red": 214,
+    "green": 157,
+    "blue": 188,
+    "hex": "#D69DBC",
+    "is_ag": true,
+    "is_primary": false
+  },
+  {
+    "code": 206,
+    "class_name": "Carrots",
+    "red": 255,
+    "green": 102,
+    "blue": 102,
+    "hex": "#FF6666",
+    "is_ag": true,
+    "is_primary": false
+  },
+  {
+    "code": 207,
+    "class_name": "Asparagus",
+    "red": 255,
+    "green": 102,
+    "blue": 102,
+    "hex": "#FF6666",
+    "is_ag": true,
+    "is_primary": false
+  },
+  {
+    "code": 208,
+    "class_name": "Garlic",
+    "red": 255,
+    "green": 102,
+    "blue": 102,
+    "hex": "#FF6666",
+    "is_ag": true,
+    "is_primary": false
+  },
+  {
+    "code": 209,
+    "class_name": "Cantaloupes",
+    "red": 255,
+    "green": 102,
+    "blue": 102,
+    "hex": "#FF6666",
+    "is_ag": true,
+    "is_primary": false
+  },
+  {
+    "code": 210,
+    "class_name": "Prunes",
+    "red": 255,
+    "green": 145,
+    "blue": 171,
+    "hex": "#FF91AB",
+    "is_ag": true,
+    "is_primary": false
+  },
+  {
+    "code": 211,
+    "class_name": "Olives",
+    "red": 52,
+    "green": 74,
+    "blue": 52,
+    "hex": "#344A34",
+    "is_ag": true,
+    "is_primary": false
+  },
+  {
+    "code": 212,
+    "class_name": "Oranges",
+    "red": 230,
+    "green": 117,
+    "blue": 37,
+    "hex": "#E67525",
+    "is_ag": true,
+    "is_primary": false
+  },
+  {
+    "code": 213,
+    "class_name": "Honeydew Melons",
+    "red": 255,
+    "green": 102,
+    "blue": 102,
+    "hex": "#FF6666",
+    "is_ag": true,
+    "is_primary": false
+  },
+  {
+    "code": 214,
+    "class_name": "Broccoli",
+    "red": 255,
+    "green": 102,
+    "blue": 102,
+    "hex": "#FF6666",
+    "is_ag": true,
+    "is_primary": false
+  },
+  {
+    "code": 215,
+    "class_name": "Avocados",
+    "red": 102,
+    "green": 153,
+    "blue": 77,
+    "hex": "#66994D",
+    "is_ag": true,
+    "is_primary": false
+  },
+  {
+    "code": 216,
+    "class_name": "Peppers",
+    "red": 255,
+    "green": 102,
+    "blue": 102,
+    "hex": "#FF6666",
+    "is_ag": true,
+    "is_primary": false
+  },
+  {
+    "code": 217,
+    "class_name": "Pomegranates",
+    "red": 179,
+    "green": 156,
+    "blue": 112,
+    "hex": "#B39C70",
+    "is_ag": true,
+    "is_primary": false
+  },
+  {
+    "code": 218,
+    "class_name": "Nectarines",
+    "red": 255,
+    "green": 145,
+    "blue": 171,
+    "hex": "#FF91AB",
+    "is_ag": true,
+    "is_primary": false
+  },
+  {
+    "code": 219,
+    "class_name": "Greens",
+    "red": 255,
+    "green": 102,
+    "blue": 102,
+    "hex": "#FF6666",
+    "is_ag": true,
+    "is_primary": false
+  },
+  {
+    "code": 220,
+    "class_name": "Plums",
+    "red": 255,
+    "green": 145,
+    "blue": 171,
+    "hex": "#FF91AB",
+    "is_ag": true,
+    "is_primary": false
+  },
+  {
+    "code": 221,
+    "class_name": "Strawberries",
+    "red": 255,
+    "green": 102,
+    "blue": 102,
+    "hex": "#FF6666",
+    "is_ag": true,
+    "is_primary": false
+  },
+  {
+    "code": 222,
+    "class_name": "Squash",
+    "red": 255,
+    "green": 102,
+    "blue": 102,
+    "hex": "#FF6666",
+    "is_ag": true,
+    "is_primary": false
+  },
+  {
+    "code": 223,
+    "class_name": "Apricots",
+    "red": 255,
+    "green": 145,
+    "blue": 171,
+    "hex": "#FF91AB",
+    "is_ag": true,
+    "is_primary": false
+  },
+  {
+    "code": 224,
+    "class_name": "Vetch",
+    "red": 0,
+    "green": 175,
+    "blue": 77,
+    "hex": "#00AF4D",
+    "is_ag": true,
+    "is_primary": false
+  },
+  {
+    "code": 225,
+    "class_name": "Dbl Crop WinWht/Corn",
+    "red": 255,
+    "green": 212,
+    "blue": 0,
+    "hex": "#FFD400",
+    "is_ag": true,
+    "is_primary": false
+  },
+  {
+    "code": 226,
+    "class_name": "Dbl Crop Oats/Corn",
+    "red": 255,
+    "green": 212,
+    "blue": 0,
+    "hex": "#FFD400",
+    "is_ag": true,
+    "is_primary": false
+  },
+  {
+    "code": 227,
+    "class_name": "Lettuce",
+    "red": 255,
+    "green": 102,
+    "blue": 102,
+    "hex": "#FF6666",
+    "is_ag": true,
+    "is_primary": false
+  },
+  {
+    "code": 228,
+    "class_name": "Dbl Crop Triticale/Corn",
+    "red": 255,
+    "green": 212,
+    "blue": 0,
+    "hex": "#FFD400",
+    "is_ag": true,
+    "is_primary": false
+  },
+  {
+    "code": 229,
+    "class_name": "Pumpkins",
+    "red": 255,
+    "green": 102,
+    "blue": 102,
+    "hex": "#FF6666",
+    "is_ag": true,
+    "is_primary": false
+  },
+  {
+    "code": 230,
+    "class_name": "Dbl Crop Lettuce/Durum Wht",
+    "red": 138,
+    "green": 100,
+    "blue": 83,
+    "hex": "#8A6453",
+    "is_ag": true,
+    "is_primary": false
+  },
+  {
+    "code": 231,
+    "class_name": "Dbl Crop Lettuce/Cantaloupe",
+    "red": 255,
+    "green": 102,
+    "blue": 102,
+    "hex": "#FF6666",
+    "is_ag": true,
+    "is_primary": false
+  },
+  {
+    "code": 232,
+    "class_name": "Dbl Crop Lettuce/Cotton",
+    "red": 255,
+    "green": 38,
+    "blue": 38,
+    "hex": "#FF2626",
+    "is_ag": true,
+    "is_primary": false
+  },
+  {
+    "code": 233,
+    "class_name": "Dbl Crop Lettuce/Barley",
+    "red": 226,
+    "green": 0,
+    "blue": 127,
+    "hex": "#E2007F",
+    "is_ag": true,
+    "is_primary": false
+  },
+  {
+    "code": 234,
+    "class_name": "Dbl Crop Durum Wht/Sorghum",
+    "red": 255,
+    "green": 158,
+    "blue": 15,
+    "hex": "#FF9E0F",
+    "is_ag": true,
+    "is_primary": false
+  },
+  {
+    "code": 235,
+    "class_name": "Dbl Crop Barley/Sorghum",
+    "red": 255,
+    "green": 158,
+    "blue": 15,
+    "hex": "#FF9E0F",
+    "is_ag": true,
+    "is_primary": false
+  },
+  {
+    "code": 236,
+    "class_name": "Dbl Crop WinWht/Sorghum",
+    "red": 168,
+    "green": 112,
+    "blue": 0,
+    "hex": "#A87000",
+    "is_ag": true,
+    "is_primary": false
+  },
+  {
+    "code": 237,
+    "class_name": "Dbl Crop Barley/Corn",
+    "red": 255,
+    "green": 212,
+    "blue": 0,
+    "hex": "#FFD400",
+    "is_ag": true,
+    "is_primary": false
+  },
+  {
+    "code": 238,
+    "class_name": "Dbl Crop WinWht/Cotton",
+    "red": 168,
+    "green": 112,
+    "blue": 0,
+    "hex": "#A87000",
+    "is_ag": true,
+    "is_primary": false
+  },
+  {
+    "code": 239,
+    "class_name": "Dbl Crop Soybeans/Cotton",
+    "red": 38,
+    "green": 115,
+    "blue": 0,
+    "hex": "#267300",
+    "is_ag": true,
+    "is_primary": false
+  },
+  {
+    "code": 240,
+    "class_name": "Dbl Crop Soybeans/Oats",
+    "red": 38,
+    "green": 115,
+    "blue": 0,
+    "hex": "#267300",
+    "is_ag": true,
+    "is_primary": false
+  },
+  {
+    "code": 241,
+    "class_name": "Dbl Crop Corn/Soybeans",
+    "red": 255,
+    "green": 212,
+    "blue": 0,
+    "hex": "#FFD400",
+    "is_ag": true,
+    "is_primary": false
+  },
+  {
+    "code": 242,
+    "class_name": "Blueberries",
+    "red": 0,
+    "green": 0,
+    "blue": 153,
+    "hex": "#000099",
+    "is_ag": true,
+    "is_primary": false
+  },
+  {
+    "code": 243,
+    "class_name": "Cabbage",
+    "red": 255,
+    "green": 102,
+    "blue": 102,
+    "hex": "#FF6666",
+    "is_ag": true,
+    "is_primary": false
+  },
+  {
+    "code": 244,
+    "class_name": "Cauliflower",
+    "red": 255,
+    "green": 102,
+    "blue": 102,
+    "hex": "#FF6666",
+    "is_ag": true,
+    "is_primary": false
+  },
+  {
+    "code": 245,
+    "class_name": "Celery",
+    "red": 255,
+    "green": 102,
+    "blue": 102,
+    "hex": "#FF6666",
+    "is_ag": true,
+    "is_primary": false
+  },
+  {
+    "code": 246,
+    "class_name": "Radishes",
+    "red": 255,
+    "green": 102,
+    "blue": 102,
+    "hex": "#FF6666",
+    "is_ag": true,
+    "is_primary": false
+  },
+  {
+    "code": 247,
+    "class_name": "Turnips",
+    "red": 255,
+    "green": 102,
+    "blue": 102,
+    "hex": "#FF6666",
+    "is_ag": true,
+    "is_primary": false
+  },
+  {
+    "code": 248,
+    "class_name": "Eggplants",
+    "red": 255,
+    "green": 102,
+    "blue": 102,
+    "hex": "#FF6666",
+    "is_ag": true,
+    "is_primary": false
+  },
+  {
+    "code": 249,
+    "class_name": "Gourds",
+    "red": 255,
+    "green": 102,
+    "blue": 102,
+    "hex": "#FF6666",
+    "is_ag": true,
+    "is_primary": false
+  },
+  {
+    "code": 250,
+    "class_name": "Cranberries",
+    "red": 255,
+    "green": 102,
+    "blue": 102,
+    "hex": "#FF6666",
+    "is_ag": true,
+    "is_primary": false
+  },
+  {
+    "code": 251,
+    "class_name": "Code 251",
+    "red": 255,
+    "green": 212,
+    "blue": 0,
+    "hex": "#FFD400",
+    "is_ag": false,
+    "is_primary": false
+  },
+  {
+    "code": 252,
+    "class_name": "Code 252",
+    "red": 38,
+    "green": 115,
+    "blue": 0,
+    "hex": "#267300",
+    "is_ag": false,
+    "is_primary": false
+  },
+  {
+    "code": 253,
+    "class_name": "Code 253",
+    "red": 168,
+    "green": 112,
+    "blue": 0,
+    "hex": "#A87000",
+    "is_ag": false,
+    "is_primary": false
+  },
+  {
+    "code": 254,
+    "class_name": "Dbl Crop Barley/Soybeans",
+    "red": 38,
+    "green": 115,
+    "blue": 0,
+    "hex": "#267300",
+    "is_ag": true,
+    "is_primary": false
+  },
+  {
+    "code": 255,
+    "class_name": "Code 255",
+    "red": 0,
+    "green": 0,
+    "blue": 0,
+    "hex": "#000000",
+    "is_ag": false,
+    "is_primary": false
+  }
+]

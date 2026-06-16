@@ -1,0 +1,8463 @@
+{
+  "2006": [
+    {
+      "code": 141,
+      "class_name": "Deciduous Forest",
+      "hex": "#95CE93",
+      "is_ag": false,
+      "acres": 8961272.1576
+    },
+    {
+      "code": 176,
+      "class_name": "Grass/Pasture",
+      "hex": "#E9FFBE",
+      "is_ag": true,
+      "acres": 4892568.269400001
+    },
+    {
+      "code": 5,
+      "class_name": "Soybeans",
+      "hex": "#267300",
+      "is_ag": true,
+      "acres": 4170913.9731
+    },
+    {
+      "code": 1,
+      "class_name": "Corn",
+      "hex": "#FFD400",
+      "is_ag": true,
+      "acres": 2611390.5279
+    },
+    {
+      "code": 121,
+      "class_name": "Developed/Open Space",
+      "hex": "#9C9C9C",
+      "is_ag": false,
+      "acres": 2594015.7201
+    },
+    {
+      "code": 122,
+      "class_name": "Developed/Low Intensity",
+      "hex": "#9C9C9C",
+      "is_ag": false,
+      "acres": 1161535.5801000001
+    },
+    {
+      "code": 24,
+      "class_name": "Winter Wheat",
+      "hex": "#A87000",
+      "is_ag": true,
+      "acres": 746685.8910000001
+    },
+    {
+      "code": 123,
+      "class_name": "Developed/Med Intensity",
+      "hex": "#9C9C9C",
+      "is_ag": false,
+      "acres": 341384.5197
+    },
+    {
+      "code": 111,
+      "class_name": "Open Water",
+      "hex": "#4D70A3",
+      "is_ag": false,
+      "acres": 293706.47250000003
+    },
+    {
+      "code": 61,
+      "class_name": "Fallow/Idle Cropland",
+      "hex": "#BFBF7A",
+      "is_ag": true,
+      "acres": 152997.8058
+    },
+    {
+      "code": 124,
+      "class_name": "Developed/High Intensity",
+      "hex": "#9C9C9C",
+      "is_ag": false,
+      "acres": 132242.8842
+    },
+    {
+      "code": 142,
+      "class_name": "Evergreen Forest",
+      "hex": "#95CE93",
+      "is_ag": false,
+      "acres": 81181.6236
+    },
+    {
+      "code": 36,
+      "class_name": "Alfalfa",
+      "hex": "#FFA8E3",
+      "is_ag": true,
+      "acres": 66398.08140000001
+    },
+    {
+      "code": 190,
+      "class_name": "Woody Wetlands",
+      "hex": "#80B3B3",
+      "is_ag": false,
+      "acres": 62980.7724
+    },
+    {
+      "code": 195,
+      "class_name": "Herbaceous Wetlands",
+      "hex": "#80B3B3",
+      "is_ag": false,
+      "acres": 48814.0506
+    },
+    {
+      "code": 131,
+      "class_name": "Barren",
+      "hex": "#CCBFA3",
+      "is_ag": false,
+      "acres": 30206.376900000003
+    },
+    {
+      "code": 26,
+      "class_name": "Dbl Crop WinWht/Soybeans",
+      "hex": "#737300",
+      "is_ag": true,
+      "acres": 17759.1582
+    },
+    {
+      "code": 152,
+      "class_name": "Shrubland",
+      "hex": "#C7D79E",
+      "is_ag": false,
+      "acres": 16200.0594
+    },
+    {
+      "code": 28,
+      "class_name": "Oats",
+      "hex": "#A15889",
+      "is_ag": true,
+      "acres": 8922.1986
+    },
+    {
+      "code": 47,
+      "class_name": "Misc Vegs & Fruits",
+      "hex": "#FF6666",
+      "is_ag": true,
+      "acres": 3810.1833
+    },
+    {
+      "code": 143,
+      "class_name": "Mixed Forest",
+      "hex": "#95CE93",
+      "is_ag": false,
+      "acres": 3212.7354
+    },
+    {
+      "code": 44,
+      "class_name": "Other Crops",
+      "hex": "#00AF4D",
+      "is_ag": true,
+      "acres": 2420.0127
+    },
+    {
+      "code": 58,
+      "class_name": "Clover/Wildflowers",
+      "hex": "#E8BEFF",
+      "is_ag": true,
+      "acres": 826.0434
+    },
+    {
+      "code": 43,
+      "class_name": "Potatoes",
+      "hex": "#732600",
+      "is_ag": true,
+      "acres": 488.187
+    },
+    {
+      "code": 27,
+      "class_name": "Rye",
+      "hex": "#AE017E",
+      "is_ag": true,
+      "acres": 371.1771
+    },
+    {
+      "code": 30,
+      "class_name": "Speltz",
+      "hex": "#D69DBC",
+      "is_ag": true,
+      "acres": 232.47
+    },
+    {
+      "code": 42,
+      "class_name": "Dry Beans",
+      "hex": "#A80000",
+      "is_ag": true,
+      "acres": 213.8724
+    },
+    {
+      "code": 21,
+      "class_name": "Barley",
+      "hex": "#E2007F",
+      "is_ag": true,
+      "acres": 195.2748
+    },
+    {
+      "code": 6,
+      "class_name": "Sunflower",
+      "hex": "#FFFF00",
+      "is_ag": true,
+      "acres": 151.1055
+    },
+    {
+      "code": 70,
+      "class_name": "Christmas Trees",
+      "hex": "#007878",
+      "is_ag": true,
+      "acres": 50.368500000000004
+    },
+    {
+      "code": 68,
+      "class_name": "Apples",
+      "hex": "#B90050",
+      "is_ag": true,
+      "acres": 41.069700000000005
+    },
+    {
+      "code": 4,
+      "class_name": "Sorghum",
+      "hex": "#FF9E0F",
+      "is_ag": true,
+      "acres": 27.1215
+    },
+    {
+      "code": 87,
+      "class_name": "Wetlands",
+      "hex": "#80B3B3",
+      "is_ag": false,
+      "acres": 6.9741
+    },
+    {
+      "code": 63,
+      "class_name": "Forest",
+      "hex": "#95CE93",
+      "is_ag": false,
+      "acres": 5.424300000000001
+    },
+    {
+      "code": 69,
+      "class_name": "Grapes",
+      "hex": "#704489",
+      "is_ag": true,
+      "acres": 1.5498
+    },
+    {
+      "code": 25,
+      "class_name": "Other Small Grains",
+      "hex": "#D69DBC",
+      "is_ag": true,
+      "acres": 0.7749
+    }
+  ],
+  "2007": [
+    {
+      "code": 141,
+      "class_name": "Deciduous Forest",
+      "hex": "#95CE93",
+      "is_ag": false,
+      "acres": 9004236.4881
+    },
+    {
+      "code": 176,
+      "class_name": "Grass/Pasture",
+      "hex": "#E9FFBE",
+      "is_ag": true,
+      "acres": 4853332.7577
+    },
+    {
+      "code": 5,
+      "class_name": "Soybeans",
+      "hex": "#267300",
+      "is_ag": true,
+      "acres": 3672782.6814
+    },
+    {
+      "code": 1,
+      "class_name": "Corn",
+      "hex": "#FFD400",
+      "is_ag": true,
+      "acres": 3453360.4476
+    },
+    {
+      "code": 121,
+      "class_name": "Developed/Open Space",
+      "hex": "#9C9C9C",
+      "is_ag": false,
+      "acres": 2581332.9318
+    },
+    {
+      "code": 122,
+      "class_name": "Developed/Low Intensity",
+      "hex": "#9C9C9C",
+      "is_ag": false,
+      "acres": 1154993.0994
+    },
+    {
+      "code": 24,
+      "class_name": "Winter Wheat",
+      "hex": "#A87000",
+      "is_ag": true,
+      "acres": 629617.0986
+    },
+    {
+      "code": 123,
+      "class_name": "Developed/Med Intensity",
+      "hex": "#9C9C9C",
+      "is_ag": false,
+      "acres": 346036.2444
+    },
+    {
+      "code": 111,
+      "class_name": "Open Water",
+      "hex": "#4D70A3",
+      "is_ag": false,
+      "acres": 286860.231
+    },
+    {
+      "code": 124,
+      "class_name": "Developed/High Intensity",
+      "hex": "#9C9C9C",
+      "is_ag": false,
+      "acres": 126500.87520000001
+    },
+    {
+      "code": 142,
+      "class_name": "Evergreen Forest",
+      "hex": "#95CE93",
+      "is_ag": false,
+      "acres": 66660.7725
+    },
+    {
+      "code": 36,
+      "class_name": "Alfalfa",
+      "hex": "#FFA8E3",
+      "is_ag": true,
+      "acres": 51507.603
+    },
+    {
+      "code": 190,
+      "class_name": "Woody Wetlands",
+      "hex": "#80B3B3",
+      "is_ag": false,
+      "acres": 51495.9795
+    },
+    {
+      "code": 195,
+      "class_name": "Herbaceous Wetlands",
+      "hex": "#80B3B3",
+      "is_ag": false,
+      "acres": 42779.9043
+    },
+    {
+      "code": 131,
+      "class_name": "Barren",
+      "hex": "#CCBFA3",
+      "is_ag": false,
+      "acres": 28001.0115
+    },
+    {
+      "code": 26,
+      "class_name": "Dbl Crop WinWht/Soybeans",
+      "hex": "#737300",
+      "is_ag": true,
+      "acres": 16365.888
+    },
+    {
+      "code": 47,
+      "class_name": "Misc Vegs & Fruits",
+      "hex": "#FF6666",
+      "is_ag": true,
+      "acres": 10885.7952
+    },
+    {
+      "code": 152,
+      "class_name": "Shrubland",
+      "hex": "#C7D79E",
+      "is_ag": false,
+      "acres": 8992.7145
+    },
+    {
+      "code": 61,
+      "class_name": "Fallow/Idle Cropland",
+      "hex": "#BFBF7A",
+      "is_ag": true,
+      "acres": 4005.4581000000003
+    },
+    {
+      "code": 58,
+      "class_name": "Clover/Wildflowers",
+      "hex": "#E8BEFF",
+      "is_ag": true,
+      "acres": 3247.6059
+    },
+    {
+      "code": 28,
+      "class_name": "Oats",
+      "hex": "#A15889",
+      "is_ag": true,
+      "acres": 2966.3172
+    },
+    {
+      "code": 87,
+      "class_name": "Wetlands",
+      "hex": "#80B3B3",
+      "is_ag": false,
+      "acres": 1942.6743000000001
+    },
+    {
+      "code": 44,
+      "class_name": "Other Crops",
+      "hex": "#00AF4D",
+      "is_ag": true,
+      "acres": 1756.6983
+    },
+    {
+      "code": 143,
+      "class_name": "Mixed Forest",
+      "hex": "#95CE93",
+      "is_ag": false,
+      "acres": 997.2963000000001
+    },
+    {
+      "code": 42,
+      "class_name": "Dry Beans",
+      "hex": "#A80000",
+      "is_ag": true,
+      "acres": 713.6829
+    },
+    {
+      "code": 63,
+      "class_name": "Forest",
+      "hex": "#95CE93",
+      "is_ag": false,
+      "acres": 644.7168
+    },
+    {
+      "code": 43,
+      "class_name": "Potatoes",
+      "hex": "#732600",
+      "is_ag": true,
+      "acres": 379.701
+    },
+    {
+      "code": 4,
+      "class_name": "Sorghum",
+      "hex": "#FF9E0F",
+      "is_ag": true,
+      "acres": 306.8604
+    },
+    {
+      "code": 30,
+      "class_name": "Speltz",
+      "hex": "#D69DBC",
+      "is_ag": true,
+      "acres": 243.3186
+    },
+    {
+      "code": 11,
+      "class_name": "Tobacco",
+      "hex": "#00AF4D",
+      "is_ag": true,
+      "acres": 171.2529
+    },
+    {
+      "code": 21,
+      "class_name": "Barley",
+      "hex": "#E2007F",
+      "is_ag": true,
+      "acres": 63.5418
+    },
+    {
+      "code": 27,
+      "class_name": "Rye",
+      "hex": "#AE017E",
+      "is_ag": true,
+      "acres": 55.017900000000004
+    },
+    {
+      "code": 69,
+      "class_name": "Grapes",
+      "hex": "#704489",
+      "is_ag": true,
+      "acres": 21.697200000000002
+    },
+    {
+      "code": 6,
+      "class_name": "Sunflower",
+      "hex": "#FFFF00",
+      "is_ag": true,
+      "acres": 5.424300000000001
+    },
+    {
+      "code": 70,
+      "class_name": "Christmas Trees",
+      "hex": "#007878",
+      "is_ag": true,
+      "acres": 3.0996
+    },
+    {
+      "code": 25,
+      "class_name": "Other Small Grains",
+      "hex": "#D69DBC",
+      "is_ag": true,
+      "acres": 1.5498
+    },
+    {
+      "code": 67,
+      "class_name": "Peaches",
+      "hex": "#FF91AB",
+      "is_ag": true,
+      "acres": 0.7749
+    },
+    {
+      "code": 68,
+      "class_name": "Apples",
+      "hex": "#B90050",
+      "is_ag": true,
+      "acres": 0.7749
+    }
+  ],
+  "2008": [
+    {
+      "code": 141,
+      "class_name": "Deciduous Forest",
+      "hex": "#95CE93",
+      "is_ag": false,
+      "acres": 8582618.1616
+    },
+    {
+      "code": 5,
+      "class_name": "Soybeans",
+      "hex": "#267300",
+      "is_ag": true,
+      "acres": 4502788.0176
+    },
+    {
+      "code": 176,
+      "class_name": "Grass/Pasture",
+      "hex": "#E9FFBE",
+      "is_ag": true,
+      "acres": 4242905.1663999995
+    },
+    {
+      "code": 1,
+      "class_name": "Corn",
+      "hex": "#FFD400",
+      "is_ag": true,
+      "acres": 3125940.3087999998
+    },
+    {
+      "code": 121,
+      "class_name": "Developed/Open Space",
+      "hex": "#9C9C9C",
+      "is_ag": false,
+      "acres": 2042221.1375999998
+    },
+    {
+      "code": 122,
+      "class_name": "Developed/Low Intensity",
+      "hex": "#9C9C9C",
+      "is_ag": false,
+      "acres": 1163960.8687999998
+    },
+    {
+      "code": 24,
+      "class_name": "Winter Wheat",
+      "hex": "#A87000",
+      "is_ag": true,
+      "acres": 952665.968
+    },
+    {
+      "code": 123,
+      "class_name": "Developed/Med Intensity",
+      "hex": "#9C9C9C",
+      "is_ag": false,
+      "acres": 406881.91199999995
+    },
+    {
+      "code": 111,
+      "class_name": "Open Water",
+      "hex": "#4D70A3",
+      "is_ag": false,
+      "acres": 278638.51039999997
+    },
+    {
+      "code": 36,
+      "class_name": "Alfalfa",
+      "hex": "#FFA8E3",
+      "is_ag": true,
+      "acres": 272019.2192
+    },
+    {
+      "code": 37,
+      "class_name": "Other Hay/Non Alfalfa",
+      "hex": "#A5F58D",
+      "is_ag": true,
+      "acres": 252254.08639999997
+    },
+    {
+      "code": 124,
+      "class_name": "Developed/High Intensity",
+      "hex": "#9C9C9C",
+      "is_ag": false,
+      "acres": 161291.5968
+    },
+    {
+      "code": 142,
+      "class_name": "Evergreen Forest",
+      "hex": "#95CE93",
+      "is_ag": false,
+      "acres": 108933.0768
+    },
+    {
+      "code": 190,
+      "class_name": "Woody Wetlands",
+      "hex": "#80B3B3",
+      "is_ag": false,
+      "acres": 84321.1808
+    },
+    {
+      "code": 26,
+      "class_name": "Dbl Crop WinWht/Soybeans",
+      "hex": "#737300",
+      "is_ag": true,
+      "acres": 50480.7968
+    },
+    {
+      "code": 195,
+      "class_name": "Herbaceous Wetlands",
+      "hex": "#80B3B3",
+      "is_ag": false,
+      "acres": 46734.246399999996
+    },
+    {
+      "code": 131,
+      "class_name": "Barren",
+      "hex": "#CCBFA3",
+      "is_ag": false,
+      "acres": 34769.3488
+    },
+    {
+      "code": 61,
+      "class_name": "Fallow/Idle Cropland",
+      "hex": "#BFBF7A",
+      "is_ag": true,
+      "acres": 32768.860799999995
+    },
+    {
+      "code": 13,
+      "class_name": "Pop or Orn Corn",
+      "hex": "#E0A60F",
+      "is_ag": true,
+      "acres": 18119.5952
+    },
+    {
+      "code": 152,
+      "class_name": "Shrubland",
+      "hex": "#C7D79E",
+      "is_ag": false,
+      "acres": 14612.569599999999
+    },
+    {
+      "code": 28,
+      "class_name": "Oats",
+      "hex": "#A15889",
+      "is_ag": true,
+      "acres": 9246.5024
+    },
+    {
+      "code": 143,
+      "class_name": "Mixed Forest",
+      "hex": "#95CE93",
+      "is_ag": false,
+      "acres": 7609.1936
+    },
+    {
+      "code": 58,
+      "class_name": "Clover/Wildflowers",
+      "hex": "#E8BEFF",
+      "is_ag": true,
+      "acres": 1963.3472
+    },
+    {
+      "code": 54,
+      "class_name": "Tomatoes",
+      "hex": "#F5A27A",
+      "is_ag": true,
+      "acres": 1623.52
+    },
+    {
+      "code": 30,
+      "class_name": "Speltz",
+      "hex": "#D69DBC",
+      "is_ag": true,
+      "acres": 1288.1408
+    },
+    {
+      "code": 59,
+      "class_name": "Sod/Grass Seed",
+      "hex": "#B2FFDE",
+      "is_ag": true,
+      "acres": 1258.7839999999999
+    },
+    {
+      "code": 42,
+      "class_name": "Dry Beans",
+      "hex": "#A80000",
+      "is_ag": true,
+      "acres": 1078.6399999999999
+    },
+    {
+      "code": 12,
+      "class_name": "Sweet Corn",
+      "hex": "#E0A60F",
+      "is_ag": true,
+      "acres": 918.0672
+    },
+    {
+      "code": 206,
+      "class_name": "Carrots",
+      "hex": "#FF6666",
+      "is_ag": true,
+      "acres": 904.2783999999999
+    },
+    {
+      "code": 43,
+      "class_name": "Potatoes",
+      "hex": "#732600",
+      "is_ag": true,
+      "acres": 815.7632
+    },
+    {
+      "code": 243,
+      "class_name": "Cabbage",
+      "hex": "#FF6666",
+      "is_ag": true,
+      "acres": 675.2063999999999
+    },
+    {
+      "code": 50,
+      "class_name": "Cucumbers",
+      "hex": "#FF6666",
+      "is_ag": true,
+      "acres": 365.62559999999996
+    },
+    {
+      "code": 4,
+      "class_name": "Sorghum",
+      "hex": "#FF9E0F",
+      "is_ag": true,
+      "acres": 317.3648
+    },
+    {
+      "code": 21,
+      "class_name": "Barley",
+      "hex": "#E2007F",
+      "is_ag": true,
+      "acres": 268.6592
+    },
+    {
+      "code": 68,
+      "class_name": "Apples",
+      "hex": "#B90050",
+      "is_ag": true,
+      "acres": 263.0992
+    },
+    {
+      "code": 27,
+      "class_name": "Rye",
+      "hex": "#AE017E",
+      "is_ag": true,
+      "acres": 193.7104
+    },
+    {
+      "code": 219,
+      "class_name": "Greens",
+      "hex": "#FF6666",
+      "is_ag": true,
+      "acres": 188.8176
+    },
+    {
+      "code": 69,
+      "class_name": "Grapes",
+      "hex": "#704489",
+      "is_ag": true,
+      "acres": 156.792
+    },
+    {
+      "code": 254,
+      "class_name": "Dbl Crop Barley/Soybeans",
+      "hex": "#267300",
+      "is_ag": true,
+      "acres": 141.224
+    },
+    {
+      "code": 229,
+      "class_name": "Pumpkins",
+      "hex": "#FF6666",
+      "is_ag": true,
+      "acres": 129.6592
+    },
+    {
+      "code": 236,
+      "class_name": "Dbl Crop WinWht/Sorghum",
+      "hex": "#A87000",
+      "is_ag": true,
+      "acres": 68.2768
+    },
+    {
+      "code": 44,
+      "class_name": "Other Crops",
+      "hex": "#00AF4D",
+      "is_ag": true,
+      "acres": 61.6048
+    },
+    {
+      "code": 216,
+      "class_name": "Peppers",
+      "hex": "#FF6666",
+      "is_ag": true,
+      "acres": 60.937599999999996
+    },
+    {
+      "code": 57,
+      "class_name": "Herbs",
+      "hex": "#80D4FF",
+      "is_ag": true,
+      "acres": 48.928
+    },
+    {
+      "code": 41,
+      "class_name": "Sugarbeets",
+      "hex": "#A900E6",
+      "is_ag": true,
+      "acres": 34.472
+    },
+    {
+      "code": 70,
+      "class_name": "Christmas Trees",
+      "hex": "#007878",
+      "is_ag": true,
+      "acres": 31.803199999999997
+    },
+    {
+      "code": 222,
+      "class_name": "Squash",
+      "hex": "#FF6666",
+      "is_ag": true,
+      "acres": 30.9136
+    },
+    {
+      "code": 205,
+      "class_name": "Triticale",
+      "hex": "#D69DBC",
+      "is_ag": true,
+      "acres": 30.246399999999998
+    },
+    {
+      "code": 11,
+      "class_name": "Tobacco",
+      "hex": "#00AF4D",
+      "is_ag": true,
+      "acres": 28.4672
+    },
+    {
+      "code": 225,
+      "class_name": "Dbl Crop WinWht/Corn",
+      "hex": "#FFD400",
+      "is_ag": true,
+      "acres": 21.128
+    },
+    {
+      "code": 6,
+      "class_name": "Sunflower",
+      "hex": "#FFFF00",
+      "is_ag": true,
+      "acres": 8.4512
+    },
+    {
+      "code": 67,
+      "class_name": "Peaches",
+      "hex": "#FF91AB",
+      "is_ag": true,
+      "acres": 7.784
+    },
+    {
+      "code": 209,
+      "class_name": "Cantaloupes",
+      "hex": "#FF6666",
+      "is_ag": true,
+      "acres": 6.0047999999999995
+    },
+    {
+      "code": 237,
+      "class_name": "Dbl Crop Barley/Corn",
+      "hex": "#FFD400",
+      "is_ag": true,
+      "acres": 3.336
+    },
+    {
+      "code": 227,
+      "class_name": "Lettuce",
+      "hex": "#FF6666",
+      "is_ag": true,
+      "acres": 2.4463999999999997
+    }
+  ],
+  "2009": [
+    {
+      "code": 141,
+      "class_name": "Deciduous Forest",
+      "hex": "#95CE93",
+      "is_ag": false,
+      "acres": 8582502.5136
+    },
+    {
+      "code": 5,
+      "class_name": "Soybeans",
+      "hex": "#267300",
+      "is_ag": true,
+      "acres": 4675246.5408
+    },
+    {
+      "code": 176,
+      "class_name": "Grass/Pasture",
+      "hex": "#E9FFBE",
+      "is_ag": true,
+      "acres": 4106448.7551999995
+    },
+    {
+      "code": 1,
+      "class_name": "Corn",
+      "hex": "#FFD400",
+      "is_ag": true,
+      "acres": 3259891.8288
+    },
+    {
+      "code": 121,
+      "class_name": "Developed/Open Space",
+      "hex": "#9C9C9C",
+      "is_ag": false,
+      "acres": 2025576.2767999999
+    },
+    {
+      "code": 122,
+      "class_name": "Developed/Low Intensity",
+      "hex": "#9C9C9C",
+      "is_ag": false,
+      "acres": 1165471.8543999998
+    },
+    {
+      "code": 24,
+      "class_name": "Winter Wheat",
+      "hex": "#A87000",
+      "is_ag": true,
+      "acres": 894319.5504
+    },
+    {
+      "code": 123,
+      "class_name": "Developed/Med Intensity",
+      "hex": "#9C9C9C",
+      "is_ag": false,
+      "acres": 406708.2176
+    },
+    {
+      "code": 111,
+      "class_name": "Open Water",
+      "hex": "#4D70A3",
+      "is_ag": false,
+      "acres": 274657.1056
+    },
+    {
+      "code": 36,
+      "class_name": "Alfalfa",
+      "hex": "#FFA8E3",
+      "is_ag": true,
+      "acres": 244857.952
+    },
+    {
+      "code": 37,
+      "class_name": "Other Hay/Non Alfalfa",
+      "hex": "#A5F58D",
+      "is_ag": true,
+      "acres": 218212.20799999998
+    },
+    {
+      "code": 124,
+      "class_name": "Developed/High Intensity",
+      "hex": "#9C9C9C",
+      "is_ag": false,
+      "acres": 160658.6464
+    },
+    {
+      "code": 142,
+      "class_name": "Evergreen Forest",
+      "hex": "#95CE93",
+      "is_ag": false,
+      "acres": 105866.4032
+    },
+    {
+      "code": 190,
+      "class_name": "Woody Wetlands",
+      "hex": "#80B3B3",
+      "is_ag": false,
+      "acres": 89599.6224
+    },
+    {
+      "code": 195,
+      "class_name": "Herbaceous Wetlands",
+      "hex": "#80B3B3",
+      "is_ag": false,
+      "acres": 48291.935999999994
+    },
+    {
+      "code": 26,
+      "class_name": "Dbl Crop WinWht/Soybeans",
+      "hex": "#737300",
+      "is_ag": true,
+      "acres": 44995.523199999996
+    },
+    {
+      "code": 131,
+      "class_name": "Barren",
+      "hex": "#CCBFA3",
+      "is_ag": false,
+      "acres": 30743.908799999997
+    },
+    {
+      "code": 61,
+      "class_name": "Fallow/Idle Cropland",
+      "hex": "#BFBF7A",
+      "is_ag": true,
+      "acres": 18169.4128
+    },
+    {
+      "code": 13,
+      "class_name": "Pop or Orn Corn",
+      "hex": "#E0A60F",
+      "is_ag": true,
+      "acres": 12829.5888
+    },
+    {
+      "code": 152,
+      "class_name": "Shrubland",
+      "hex": "#C7D79E",
+      "is_ag": false,
+      "acres": 10683.6512
+    },
+    {
+      "code": 143,
+      "class_name": "Mixed Forest",
+      "hex": "#95CE93",
+      "is_ag": false,
+      "acres": 8275.2816
+    },
+    {
+      "code": 28,
+      "class_name": "Oats",
+      "hex": "#A15889",
+      "is_ag": true,
+      "acres": 5471.04
+    },
+    {
+      "code": 58,
+      "class_name": "Clover/Wildflowers",
+      "hex": "#E8BEFF",
+      "is_ag": true,
+      "acres": 4770.035199999999
+    },
+    {
+      "code": 54,
+      "class_name": "Tomatoes",
+      "hex": "#F5A27A",
+      "is_ag": true,
+      "acres": 1851.7024
+    },
+    {
+      "code": 42,
+      "class_name": "Dry Beans",
+      "hex": "#A80000",
+      "is_ag": true,
+      "acres": 1269.2368
+    },
+    {
+      "code": 243,
+      "class_name": "Cabbage",
+      "hex": "#FF6666",
+      "is_ag": true,
+      "acres": 1107.7744
+    },
+    {
+      "code": 12,
+      "class_name": "Sweet Corn",
+      "hex": "#E0A60F",
+      "is_ag": true,
+      "acres": 1035.4944
+    },
+    {
+      "code": 43,
+      "class_name": "Potatoes",
+      "hex": "#732600",
+      "is_ag": true,
+      "acres": 890.4896
+    },
+    {
+      "code": 30,
+      "class_name": "Speltz",
+      "hex": "#D69DBC",
+      "is_ag": true,
+      "acres": 819.7664
+    },
+    {
+      "code": 59,
+      "class_name": "Sod/Grass Seed",
+      "hex": "#B2FFDE",
+      "is_ag": true,
+      "acres": 796.192
+    },
+    {
+      "code": 206,
+      "class_name": "Carrots",
+      "hex": "#FF6666",
+      "is_ag": true,
+      "acres": 531.536
+    },
+    {
+      "code": 50,
+      "class_name": "Cucumbers",
+      "hex": "#FF6666",
+      "is_ag": true,
+      "acres": 430.1216
+    },
+    {
+      "code": 254,
+      "class_name": "Dbl Crop Barley/Soybeans",
+      "hex": "#267300",
+      "is_ag": true,
+      "acres": 280.0016
+    },
+    {
+      "code": 4,
+      "class_name": "Sorghum",
+      "hex": "#FF9E0F",
+      "is_ag": true,
+      "acres": 206.832
+    },
+    {
+      "code": 229,
+      "class_name": "Pumpkins",
+      "hex": "#FF6666",
+      "is_ag": true,
+      "acres": 205.0528
+    },
+    {
+      "code": 27,
+      "class_name": "Rye",
+      "hex": "#AE017E",
+      "is_ag": true,
+      "acres": 192.15359999999998
+    },
+    {
+      "code": 225,
+      "class_name": "Dbl Crop WinWht/Corn",
+      "hex": "#FFD400",
+      "is_ag": true,
+      "acres": 167.2448
+    },
+    {
+      "code": 68,
+      "class_name": "Apples",
+      "hex": "#B90050",
+      "is_ag": true,
+      "acres": 146.784
+    },
+    {
+      "code": 21,
+      "class_name": "Barley",
+      "hex": "#E2007F",
+      "is_ag": true,
+      "acres": 132.328
+    },
+    {
+      "code": 216,
+      "class_name": "Peppers",
+      "hex": "#FF6666",
+      "is_ag": true,
+      "acres": 113.42399999999999
+    },
+    {
+      "code": 44,
+      "class_name": "Other Crops",
+      "hex": "#00AF4D",
+      "is_ag": true,
+      "acres": 93.1856
+    },
+    {
+      "code": 222,
+      "class_name": "Squash",
+      "hex": "#FF6666",
+      "is_ag": true,
+      "acres": 70.9456
+    },
+    {
+      "code": 47,
+      "class_name": "Misc Vegs & Fruits",
+      "hex": "#FF6666",
+      "is_ag": true,
+      "acres": 44.035199999999996
+    },
+    {
+      "code": 11,
+      "class_name": "Tobacco",
+      "hex": "#00AF4D",
+      "is_ag": true,
+      "acres": 27.1328
+    },
+    {
+      "code": 241,
+      "class_name": "Dbl Crop Corn/Soybeans",
+      "hex": "#FFD400",
+      "is_ag": true,
+      "acres": 26.4656
+    },
+    {
+      "code": 6,
+      "class_name": "Sunflower",
+      "hex": "#FFFF00",
+      "is_ag": true,
+      "acres": 21.572799999999997
+    },
+    {
+      "code": 31,
+      "class_name": "Canola",
+      "hex": "#D1FF00",
+      "is_ag": true,
+      "acres": 21.572799999999997
+    },
+    {
+      "code": 70,
+      "class_name": "Christmas Trees",
+      "hex": "#007878",
+      "is_ag": true,
+      "acres": 17.569599999999998
+    },
+    {
+      "code": 205,
+      "class_name": "Triticale",
+      "hex": "#D69DBC",
+      "is_ag": true,
+      "acres": 13.344
+    },
+    {
+      "code": 57,
+      "class_name": "Herbs",
+      "hex": "#80D4FF",
+      "is_ag": true,
+      "acres": 7.3392
+    },
+    {
+      "code": 69,
+      "class_name": "Grapes",
+      "hex": "#704489",
+      "is_ag": true,
+      "acres": 3.1136
+    },
+    {
+      "code": 71,
+      "class_name": "Other Tree Crops",
+      "hex": "#B39C70",
+      "is_ag": true,
+      "acres": 2.8912
+    },
+    {
+      "code": 39,
+      "class_name": "Buckwheat",
+      "hex": "#D69DBC",
+      "is_ag": true,
+      "acres": 2.6688
+    }
+  ],
+  "2010": [
+    {
+      "code": 141,
+      "class_name": "Deciduous Forest",
+      "hex": "#95CE93",
+      "is_ag": false,
+      "acres": 8719461.548799999
+    },
+    {
+      "code": 5,
+      "class_name": "Soybeans",
+      "hex": "#267300",
+      "is_ag": true,
+      "acres": 4598035.710399999
+    },
+    {
+      "code": 176,
+      "class_name": "Grass/Pasture",
+      "hex": "#E9FFBE",
+      "is_ag": true,
+      "acres": 4584615.2047999995
+    },
+    {
+      "code": 1,
+      "class_name": "Corn",
+      "hex": "#FFD400",
+      "is_ag": true,
+      "acres": 3338623.2079999996
+    },
+    {
+      "code": 121,
+      "class_name": "Developed/Open Space",
+      "hex": "#9C9C9C",
+      "is_ag": false,
+      "acres": 1966785.9488
+    },
+    {
+      "code": 122,
+      "class_name": "Developed/Low Intensity",
+      "hex": "#9C9C9C",
+      "is_ag": false,
+      "acres": 1103290.3712
+    },
+    {
+      "code": 24,
+      "class_name": "Winter Wheat",
+      "hex": "#A87000",
+      "is_ag": true,
+      "acres": 598314.936
+    },
+    {
+      "code": 123,
+      "class_name": "Developed/Med Intensity",
+      "hex": "#9C9C9C",
+      "is_ag": false,
+      "acres": 363671.14879999997
+    },
+    {
+      "code": 111,
+      "class_name": "Open Water",
+      "hex": "#4D70A3",
+      "is_ag": false,
+      "acres": 287980.6448
+    },
+    {
+      "code": 36,
+      "class_name": "Alfalfa",
+      "hex": "#FFA8E3",
+      "is_ag": true,
+      "acres": 203299.17599999998
+    },
+    {
+      "code": 124,
+      "class_name": "Developed/High Intensity",
+      "hex": "#9C9C9C",
+      "is_ag": false,
+      "acres": 146910.76799999998
+    },
+    {
+      "code": 37,
+      "class_name": "Other Hay/Non Alfalfa",
+      "hex": "#A5F58D",
+      "is_ag": true,
+      "acres": 141537.8064
+    },
+    {
+      "code": 142,
+      "class_name": "Evergreen Forest",
+      "hex": "#95CE93",
+      "is_ag": false,
+      "acres": 91183.33279999999
+    },
+    {
+      "code": 190,
+      "class_name": "Woody Wetlands",
+      "hex": "#80B3B3",
+      "is_ag": false,
+      "acres": 77234.40479999999
+    },
+    {
+      "code": 195,
+      "class_name": "Herbaceous Wetlands",
+      "hex": "#80B3B3",
+      "is_ag": false,
+      "acres": 44466.2112
+    },
+    {
+      "code": 26,
+      "class_name": "Dbl Crop WinWht/Soybeans",
+      "hex": "#737300",
+      "is_ag": true,
+      "acres": 36488.500799999994
+    },
+    {
+      "code": 131,
+      "class_name": "Barren",
+      "hex": "#CCBFA3",
+      "is_ag": false,
+      "acres": 29962.839999999997
+    },
+    {
+      "code": 61,
+      "class_name": "Fallow/Idle Cropland",
+      "hex": "#BFBF7A",
+      "is_ag": true,
+      "acres": 15928.955199999999
+    },
+    {
+      "code": 152,
+      "class_name": "Shrubland",
+      "hex": "#C7D79E",
+      "is_ag": false,
+      "acres": 15851.115199999998
+    },
+    {
+      "code": 143,
+      "class_name": "Mixed Forest",
+      "hex": "#95CE93",
+      "is_ag": false,
+      "acres": 11037.712
+    },
+    {
+      "code": 13,
+      "class_name": "Pop or Orn Corn",
+      "hex": "#E0A60F",
+      "is_ag": true,
+      "acres": 9309.4416
+    },
+    {
+      "code": 28,
+      "class_name": "Oats",
+      "hex": "#A15889",
+      "is_ag": true,
+      "acres": 6014.808
+    },
+    {
+      "code": 58,
+      "class_name": "Clover/Wildflowers",
+      "hex": "#E8BEFF",
+      "is_ag": true,
+      "acres": 5483.049599999999
+    },
+    {
+      "code": 42,
+      "class_name": "Dry Beans",
+      "hex": "#A80000",
+      "is_ag": true,
+      "acres": 1548.1263999999999
+    },
+    {
+      "code": 54,
+      "class_name": "Tomatoes",
+      "hex": "#F5A27A",
+      "is_ag": true,
+      "acres": 1336.1791999999998
+    },
+    {
+      "code": 30,
+      "class_name": "Speltz",
+      "hex": "#D69DBC",
+      "is_ag": true,
+      "acres": 1151.1424
+    },
+    {
+      "code": 12,
+      "class_name": "Sweet Corn",
+      "hex": "#E0A60F",
+      "is_ag": true,
+      "acres": 1080.4192
+    },
+    {
+      "code": 206,
+      "class_name": "Carrots",
+      "hex": "#FF6666",
+      "is_ag": true,
+      "acres": 903.1664
+    },
+    {
+      "code": 43,
+      "class_name": "Potatoes",
+      "hex": "#732600",
+      "is_ag": true,
+      "acres": 642.736
+    },
+    {
+      "code": 59,
+      "class_name": "Sod/Grass Seed",
+      "hex": "#B2FFDE",
+      "is_ag": true,
+      "acres": 440.57439999999997
+    },
+    {
+      "code": 243,
+      "class_name": "Cabbage",
+      "hex": "#FF6666",
+      "is_ag": true,
+      "acres": 344.0528
+    },
+    {
+      "code": 27,
+      "class_name": "Rye",
+      "hex": "#AE017E",
+      "is_ag": true,
+      "acres": 310.6928
+    },
+    {
+      "code": 47,
+      "class_name": "Misc Vegs & Fruits",
+      "hex": "#FF6666",
+      "is_ag": true,
+      "acres": 286.89599999999996
+    },
+    {
+      "code": 21,
+      "class_name": "Barley",
+      "hex": "#E2007F",
+      "is_ag": true,
+      "acres": 228.84959999999998
+    },
+    {
+      "code": 229,
+      "class_name": "Pumpkins",
+      "hex": "#FF6666",
+      "is_ag": true,
+      "acres": 155.45759999999999
+    },
+    {
+      "code": 222,
+      "class_name": "Squash",
+      "hex": "#FF6666",
+      "is_ag": true,
+      "acres": 113.8688
+    },
+    {
+      "code": 44,
+      "class_name": "Other Crops",
+      "hex": "#00AF4D",
+      "is_ag": true,
+      "acres": 96.2992
+    },
+    {
+      "code": 57,
+      "class_name": "Herbs",
+      "hex": "#80D4FF",
+      "is_ag": true,
+      "acres": 91.40639999999999
+    },
+    {
+      "code": 241,
+      "class_name": "Dbl Crop Corn/Soybeans",
+      "hex": "#FFD400",
+      "is_ag": true,
+      "acres": 87.848
+    },
+    {
+      "code": 4,
+      "class_name": "Sorghum",
+      "hex": "#FF9E0F",
+      "is_ag": true,
+      "acres": 49.8176
+    },
+    {
+      "code": 68,
+      "class_name": "Apples",
+      "hex": "#B90050",
+      "is_ag": true,
+      "acres": 43.367999999999995
+    },
+    {
+      "code": 205,
+      "class_name": "Triticale",
+      "hex": "#D69DBC",
+      "is_ag": true,
+      "acres": 43.367999999999995
+    },
+    {
+      "code": 32,
+      "class_name": "Flaxseed",
+      "hex": "#8099FF",
+      "is_ag": true,
+      "acres": 40.9216
+    },
+    {
+      "code": 69,
+      "class_name": "Grapes",
+      "hex": "#704489",
+      "is_ag": true,
+      "acres": 29.3568
+    },
+    {
+      "code": 41,
+      "class_name": "Sugarbeets",
+      "hex": "#A900E6",
+      "is_ag": true,
+      "acres": 28.6896
+    },
+    {
+      "code": 11,
+      "class_name": "Tobacco",
+      "hex": "#00AF4D",
+      "is_ag": true,
+      "acres": 26.688
+    },
+    {
+      "code": 242,
+      "class_name": "Blueberries",
+      "hex": "#000099",
+      "is_ag": true,
+      "acres": 26.4656
+    },
+    {
+      "code": 225,
+      "class_name": "Dbl Crop WinWht/Corn",
+      "hex": "#FFD400",
+      "is_ag": true,
+      "acres": 24.464
+    },
+    {
+      "code": 216,
+      "class_name": "Peppers",
+      "hex": "#FF6666",
+      "is_ag": true,
+      "acres": 23.796799999999998
+    },
+    {
+      "code": 70,
+      "class_name": "Christmas Trees",
+      "hex": "#007878",
+      "is_ag": true,
+      "acres": 22.9072
+    },
+    {
+      "code": 237,
+      "class_name": "Dbl Crop Barley/Corn",
+      "hex": "#FFD400",
+      "is_ag": true,
+      "acres": 22.4624
+    },
+    {
+      "code": 53,
+      "class_name": "Peas",
+      "hex": "#55FF00",
+      "is_ag": true,
+      "acres": 22.24
+    },
+    {
+      "code": 221,
+      "class_name": "Strawberries",
+      "hex": "#FF6666",
+      "is_ag": true,
+      "acres": 12.232
+    },
+    {
+      "code": 6,
+      "class_name": "Sunflower",
+      "hex": "#FFFF00",
+      "is_ag": true,
+      "acres": 11.5648
+    },
+    {
+      "code": 67,
+      "class_name": "Peaches",
+      "hex": "#FF91AB",
+      "is_ag": true,
+      "acres": 11.12
+    },
+    {
+      "code": 71,
+      "class_name": "Other Tree Crops",
+      "hex": "#B39C70",
+      "is_ag": true,
+      "acres": 9.3408
+    },
+    {
+      "code": 236,
+      "class_name": "Dbl Crop WinWht/Sorghum",
+      "hex": "#A87000",
+      "is_ag": true,
+      "acres": 9.3408
+    },
+    {
+      "code": 60,
+      "class_name": "Switchgrass",
+      "hex": "#00AF4D",
+      "is_ag": true,
+      "acres": 6.894399999999999
+    },
+    {
+      "code": 250,
+      "class_name": "Cranberries",
+      "hex": "#FF6666",
+      "is_ag": true,
+      "acres": 6.0047999999999995
+    }
+  ],
+  "2011": [
+    {
+      "code": 141,
+      "class_name": "Deciduous Forest",
+      "hex": "#95CE93",
+      "is_ag": false,
+      "acres": 8606448.9888
+    },
+    {
+      "code": 176,
+      "class_name": "Grass/Pasture",
+      "hex": "#E9FFBE",
+      "is_ag": true,
+      "acres": 4597941.635199999
+    },
+    {
+      "code": 5,
+      "class_name": "Soybeans",
+      "hex": "#267300",
+      "is_ag": true,
+      "acres": 4386529.751999999
+    },
+    {
+      "code": 1,
+      "class_name": "Corn",
+      "hex": "#FFD400",
+      "is_ag": true,
+      "acres": 3330262.0799999996
+    },
+    {
+      "code": 121,
+      "class_name": "Developed/Open Space",
+      "hex": "#9C9C9C",
+      "is_ag": false,
+      "acres": 2073213.2448
+    },
+    {
+      "code": 122,
+      "class_name": "Developed/Low Intensity",
+      "hex": "#9C9C9C",
+      "is_ag": false,
+      "acres": 1148428.2304
+    },
+    {
+      "code": 24,
+      "class_name": "Winter Wheat",
+      "hex": "#A87000",
+      "is_ag": true,
+      "acres": 765002.624
+    },
+    {
+      "code": 123,
+      "class_name": "Developed/Med Intensity",
+      "hex": "#9C9C9C",
+      "is_ag": false,
+      "acres": 390504.59839999996
+    },
+    {
+      "code": 111,
+      "class_name": "Open Water",
+      "hex": "#4D70A3",
+      "is_ag": false,
+      "acres": 291832.3904
+    },
+    {
+      "code": 36,
+      "class_name": "Alfalfa",
+      "hex": "#FFA8E3",
+      "is_ag": true,
+      "acres": 232444.9184
+    },
+    {
+      "code": 124,
+      "class_name": "Developed/High Intensity",
+      "hex": "#9C9C9C",
+      "is_ag": false,
+      "acres": 155179.8224
+    },
+    {
+      "code": 142,
+      "class_name": "Evergreen Forest",
+      "hex": "#95CE93",
+      "is_ag": false,
+      "acres": 103607.264
+    },
+    {
+      "code": 190,
+      "class_name": "Woody Wetlands",
+      "hex": "#80B3B3",
+      "is_ag": false,
+      "acres": 86914.1424
+    },
+    {
+      "code": 26,
+      "class_name": "Dbl Crop WinWht/Soybeans",
+      "hex": "#737300",
+      "is_ag": true,
+      "acres": 62719.468799999995
+    },
+    {
+      "code": 195,
+      "class_name": "Herbaceous Wetlands",
+      "hex": "#80B3B3",
+      "is_ag": false,
+      "acres": 55731.6608
+    },
+    {
+      "code": 131,
+      "class_name": "Barren",
+      "hex": "#CCBFA3",
+      "is_ag": false,
+      "acres": 43921.776
+    },
+    {
+      "code": 152,
+      "class_name": "Shrubland",
+      "hex": "#C7D79E",
+      "is_ag": false,
+      "acres": 19849.199999999997
+    },
+    {
+      "code": 143,
+      "class_name": "Mixed Forest",
+      "hex": "#95CE93",
+      "is_ag": false,
+      "acres": 13653.135999999999
+    },
+    {
+      "code": 61,
+      "class_name": "Fallow/Idle Cropland",
+      "hex": "#BFBF7A",
+      "is_ag": true,
+      "acres": 13333.1024
+    },
+    {
+      "code": 13,
+      "class_name": "Pop or Orn Corn",
+      "hex": "#E0A60F",
+      "is_ag": true,
+      "acres": 9761.3584
+    },
+    {
+      "code": 54,
+      "class_name": "Tomatoes",
+      "hex": "#F5A27A",
+      "is_ag": true,
+      "acres": 4928.161599999999
+    },
+    {
+      "code": 28,
+      "class_name": "Oats",
+      "hex": "#A15889",
+      "is_ag": true,
+      "acres": 3128.2783999999997
+    },
+    {
+      "code": 58,
+      "class_name": "Clover/Wildflowers",
+      "hex": "#E8BEFF",
+      "is_ag": true,
+      "acres": 2785.3376
+    },
+    {
+      "code": 12,
+      "class_name": "Sweet Corn",
+      "hex": "#E0A60F",
+      "is_ag": true,
+      "acres": 1244.7728
+    },
+    {
+      "code": 30,
+      "class_name": "Speltz",
+      "hex": "#D69DBC",
+      "is_ag": true,
+      "acres": 938.3055999999999
+    },
+    {
+      "code": 243,
+      "class_name": "Cabbage",
+      "hex": "#FF6666",
+      "is_ag": true,
+      "acres": 346.2768
+    },
+    {
+      "code": 47,
+      "class_name": "Misc Vegs & Fruits",
+      "hex": "#FF6666",
+      "is_ag": true,
+      "acres": 319.3664
+    },
+    {
+      "code": 254,
+      "class_name": "Dbl Crop Barley/Soybeans",
+      "hex": "#267300",
+      "is_ag": true,
+      "acres": 314.2512
+    },
+    {
+      "code": 27,
+      "class_name": "Rye",
+      "hex": "#AE017E",
+      "is_ag": true,
+      "acres": 311.8048
+    },
+    {
+      "code": 4,
+      "class_name": "Sorghum",
+      "hex": "#FF9E0F",
+      "is_ag": true,
+      "acres": 298.01599999999996
+    },
+    {
+      "code": 21,
+      "class_name": "Barley",
+      "hex": "#E2007F",
+      "is_ag": true,
+      "acres": 283.11519999999996
+    },
+    {
+      "code": 59,
+      "class_name": "Sod/Grass Seed",
+      "hex": "#B2FFDE",
+      "is_ag": true,
+      "acres": 270.216
+    },
+    {
+      "code": 42,
+      "class_name": "Dry Beans",
+      "hex": "#A80000",
+      "is_ag": true,
+      "acres": 264.21119999999996
+    },
+    {
+      "code": 225,
+      "class_name": "Dbl Crop WinWht/Corn",
+      "hex": "#FFD400",
+      "is_ag": true,
+      "acres": 203.0512
+    },
+    {
+      "code": 68,
+      "class_name": "Apples",
+      "hex": "#B90050",
+      "is_ag": true,
+      "acres": 198.1584
+    },
+    {
+      "code": 43,
+      "class_name": "Potatoes",
+      "hex": "#732600",
+      "is_ag": true,
+      "acres": 162.7968
+    },
+    {
+      "code": 49,
+      "class_name": "Onions",
+      "hex": "#FFCC66",
+      "is_ag": true,
+      "acres": 158.34879999999998
+    },
+    {
+      "code": 229,
+      "class_name": "Pumpkins",
+      "hex": "#FF6666",
+      "is_ag": true,
+      "acres": 145.22719999999998
+    },
+    {
+      "code": 206,
+      "class_name": "Carrots",
+      "hex": "#FF6666",
+      "is_ag": true,
+      "acres": 144.56
+    },
+    {
+      "code": 216,
+      "class_name": "Peppers",
+      "hex": "#FF6666",
+      "is_ag": true,
+      "acres": 142.33599999999998
+    },
+    {
+      "code": 44,
+      "class_name": "Other Crops",
+      "hex": "#00AF4D",
+      "is_ag": true,
+      "acres": 124.0992
+    },
+    {
+      "code": 23,
+      "class_name": "Spring Wheat",
+      "hex": "#D9B56C",
+      "is_ag": true,
+      "acres": 111.4224
+    },
+    {
+      "code": 60,
+      "class_name": "Switchgrass",
+      "hex": "#00AF4D",
+      "is_ag": true,
+      "acres": 109.19839999999999
+    },
+    {
+      "code": 241,
+      "class_name": "Dbl Crop Corn/Soybeans",
+      "hex": "#FFD400",
+      "is_ag": true,
+      "acres": 76.728
+    },
+    {
+      "code": 76,
+      "class_name": "Walnuts",
+      "hex": "#EBD6B0",
+      "is_ag": true,
+      "acres": 62.9392
+    },
+    {
+      "code": 250,
+      "class_name": "Cranberries",
+      "hex": "#FF6666",
+      "is_ag": true,
+      "acres": 55.822399999999995
+    },
+    {
+      "code": 11,
+      "class_name": "Tobacco",
+      "hex": "#00AF4D",
+      "is_ag": true,
+      "acres": 54.7104
+    },
+    {
+      "code": 70,
+      "class_name": "Christmas Trees",
+      "hex": "#007878",
+      "is_ag": true,
+      "acres": 43.812799999999996
+    },
+    {
+      "code": 249,
+      "class_name": "Gourds",
+      "hex": "#FF6666",
+      "is_ag": true,
+      "acres": 36.696
+    },
+    {
+      "code": 236,
+      "class_name": "Dbl Crop WinWht/Sorghum",
+      "hex": "#A87000",
+      "is_ag": true,
+      "acres": 36.0288
+    },
+    {
+      "code": 205,
+      "class_name": "Triticale",
+      "hex": "#D69DBC",
+      "is_ag": true,
+      "acres": 35.583999999999996
+    },
+    {
+      "code": 6,
+      "class_name": "Sunflower",
+      "hex": "#FFFF00",
+      "is_ag": true,
+      "acres": 28.6896
+    },
+    {
+      "code": 29,
+      "class_name": "Millet",
+      "hex": "#73004C",
+      "is_ag": true,
+      "acres": 28.4672
+    },
+    {
+      "code": 69,
+      "class_name": "Grapes",
+      "hex": "#704489",
+      "is_ag": true,
+      "acres": 27.3552
+    },
+    {
+      "code": 222,
+      "class_name": "Squash",
+      "hex": "#FF6666",
+      "is_ag": true,
+      "acres": 16.9024
+    },
+    {
+      "code": 237,
+      "class_name": "Dbl Crop Barley/Corn",
+      "hex": "#FFD400",
+      "is_ag": true,
+      "acres": 14.900799999999998
+    },
+    {
+      "code": 209,
+      "class_name": "Cantaloupes",
+      "hex": "#FF6666",
+      "is_ag": true,
+      "acres": 13.5664
+    },
+    {
+      "code": 67,
+      "class_name": "Peaches",
+      "hex": "#FF91AB",
+      "is_ag": true,
+      "acres": 10.4528
+    },
+    {
+      "code": 71,
+      "class_name": "Other Tree Crops",
+      "hex": "#B39C70",
+      "is_ag": true,
+      "acres": 10.4528
+    },
+    {
+      "code": 247,
+      "class_name": "Turnips",
+      "hex": "#FF6666",
+      "is_ag": true,
+      "acres": 9.1184
+    },
+    {
+      "code": 221,
+      "class_name": "Strawberries",
+      "hex": "#FF6666",
+      "is_ag": true,
+      "acres": 2.4463999999999997
+    },
+    {
+      "code": 37,
+      "class_name": "Other Hay/Non Alfalfa",
+      "hex": "#A5F58D",
+      "is_ag": true,
+      "acres": 0.2224
+    }
+  ],
+  "2012": [
+    {
+      "code": 141,
+      "class_name": "Deciduous Forest",
+      "hex": "#95CE93",
+      "is_ag": false,
+      "acres": 8614158.2624
+    },
+    {
+      "code": 5,
+      "class_name": "Soybeans",
+      "hex": "#267300",
+      "is_ag": true,
+      "acres": 4383550.4816
+    },
+    {
+      "code": 176,
+      "class_name": "Grass/Pasture",
+      "hex": "#E9FFBE",
+      "is_ag": true,
+      "acres": 4345158.904
+    },
+    {
+      "code": 1,
+      "class_name": "Corn",
+      "hex": "#FFD400",
+      "is_ag": true,
+      "acres": 3903722.4815999996
+    },
+    {
+      "code": 121,
+      "class_name": "Developed/Open Space",
+      "hex": "#9C9C9C",
+      "is_ag": false,
+      "acres": 2077397.4784
+    },
+    {
+      "code": 122,
+      "class_name": "Developed/Low Intensity",
+      "hex": "#9C9C9C",
+      "is_ag": false,
+      "acres": 1153253.6431999998
+    },
+    {
+      "code": 123,
+      "class_name": "Developed/Med Intensity",
+      "hex": "#9C9C9C",
+      "is_ag": false,
+      "acres": 388127.3648
+    },
+    {
+      "code": 24,
+      "class_name": "Winter Wheat",
+      "hex": "#A87000",
+      "is_ag": true,
+      "acres": 351152.25279999996
+    },
+    {
+      "code": 111,
+      "class_name": "Open Water",
+      "hex": "#4D70A3",
+      "is_ag": false,
+      "acres": 288381.8544
+    },
+    {
+      "code": 36,
+      "class_name": "Alfalfa",
+      "hex": "#FFA8E3",
+      "is_ag": true,
+      "acres": 200208.0384
+    },
+    {
+      "code": 124,
+      "class_name": "Developed/High Intensity",
+      "hex": "#9C9C9C",
+      "is_ag": false,
+      "acres": 154903.3792
+    },
+    {
+      "code": 37,
+      "class_name": "Other Hay/Non Alfalfa",
+      "hex": "#A5F58D",
+      "is_ag": true,
+      "acres": 146037.6256
+    },
+    {
+      "code": 142,
+      "class_name": "Evergreen Forest",
+      "hex": "#95CE93",
+      "is_ag": false,
+      "acres": 98439.13279999999
+    },
+    {
+      "code": 190,
+      "class_name": "Woody Wetlands",
+      "hex": "#80B3B3",
+      "is_ag": false,
+      "acres": 83964.6736
+    },
+    {
+      "code": 195,
+      "class_name": "Herbaceous Wetlands",
+      "hex": "#80B3B3",
+      "is_ag": false,
+      "acres": 54417.05439999999
+    },
+    {
+      "code": 26,
+      "class_name": "Dbl Crop WinWht/Soybeans",
+      "hex": "#737300",
+      "is_ag": true,
+      "acres": 48141.371199999994
+    },
+    {
+      "code": 131,
+      "class_name": "Barren",
+      "hex": "#CCBFA3",
+      "is_ag": false,
+      "acres": 40094.9392
+    },
+    {
+      "code": 152,
+      "class_name": "Shrubland",
+      "hex": "#C7D79E",
+      "is_ag": false,
+      "acres": 18060.4368
+    },
+    {
+      "code": 61,
+      "class_name": "Fallow/Idle Cropland",
+      "hex": "#BFBF7A",
+      "is_ag": true,
+      "acres": 13021.7424
+    },
+    {
+      "code": 13,
+      "class_name": "Pop or Orn Corn",
+      "hex": "#E0A60F",
+      "is_ag": true,
+      "acres": 11928.201599999999
+    },
+    {
+      "code": 143,
+      "class_name": "Mixed Forest",
+      "hex": "#95CE93",
+      "is_ag": false,
+      "acres": 10924.7328
+    },
+    {
+      "code": 28,
+      "class_name": "Oats",
+      "hex": "#A15889",
+      "is_ag": true,
+      "acres": 6862.151999999999
+    },
+    {
+      "code": 58,
+      "class_name": "Clover/Wildflowers",
+      "hex": "#E8BEFF",
+      "is_ag": true,
+      "acres": 3428.5184
+    },
+    {
+      "code": 54,
+      "class_name": "Tomatoes",
+      "hex": "#F5A27A",
+      "is_ag": true,
+      "acres": 2236.6767999999997
+    },
+    {
+      "code": 12,
+      "class_name": "Sweet Corn",
+      "hex": "#E0A60F",
+      "is_ag": true,
+      "acres": 1027.7104
+    },
+    {
+      "code": 225,
+      "class_name": "Dbl Crop WinWht/Corn",
+      "hex": "#FFD400",
+      "is_ag": true,
+      "acres": 905.8352
+    },
+    {
+      "code": 59,
+      "class_name": "Sod/Grass Seed",
+      "hex": "#B2FFDE",
+      "is_ag": true,
+      "acres": 708.5663999999999
+    },
+    {
+      "code": 243,
+      "class_name": "Cabbage",
+      "hex": "#FF6666",
+      "is_ag": true,
+      "acres": 601.3696
+    },
+    {
+      "code": 42,
+      "class_name": "Dry Beans",
+      "hex": "#A80000",
+      "is_ag": true,
+      "acres": 573.1247999999999
+    },
+    {
+      "code": 229,
+      "class_name": "Pumpkins",
+      "hex": "#FF6666",
+      "is_ag": true,
+      "acres": 456.14239999999995
+    },
+    {
+      "code": 254,
+      "class_name": "Dbl Crop Barley/Soybeans",
+      "hex": "#267300",
+      "is_ag": true,
+      "acres": 356.06239999999997
+    },
+    {
+      "code": 68,
+      "class_name": "Apples",
+      "hex": "#B90050",
+      "is_ag": true,
+      "acres": 322.9248
+    },
+    {
+      "code": 43,
+      "class_name": "Potatoes",
+      "hex": "#732600",
+      "is_ag": true,
+      "acres": 240.41439999999997
+    },
+    {
+      "code": 4,
+      "class_name": "Sorghum",
+      "hex": "#FF9E0F",
+      "is_ag": true,
+      "acres": 227.95999999999998
+    },
+    {
+      "code": 216,
+      "class_name": "Peppers",
+      "hex": "#FF6666",
+      "is_ag": true,
+      "acres": 196.3792
+    },
+    {
+      "code": 70,
+      "class_name": "Christmas Trees",
+      "hex": "#007878",
+      "is_ag": true,
+      "acres": 175.696
+    },
+    {
+      "code": 41,
+      "class_name": "Sugarbeets",
+      "hex": "#A900E6",
+      "is_ag": true,
+      "acres": 158.34879999999998
+    },
+    {
+      "code": 30,
+      "class_name": "Speltz",
+      "hex": "#D69DBC",
+      "is_ag": true,
+      "acres": 147.22879999999998
+    },
+    {
+      "code": 44,
+      "class_name": "Other Crops",
+      "hex": "#00AF4D",
+      "is_ag": true,
+      "acres": 140.7792
+    },
+    {
+      "code": 50,
+      "class_name": "Cucumbers",
+      "hex": "#FF6666",
+      "is_ag": true,
+      "acres": 84.0672
+    },
+    {
+      "code": 236,
+      "class_name": "Dbl Crop WinWht/Sorghum",
+      "hex": "#A87000",
+      "is_ag": true,
+      "acres": 78.28479999999999
+    },
+    {
+      "code": 21,
+      "class_name": "Barley",
+      "hex": "#E2007F",
+      "is_ag": true,
+      "acres": 71.16799999999999
+    },
+    {
+      "code": 222,
+      "class_name": "Squash",
+      "hex": "#FF6666",
+      "is_ag": true,
+      "acres": 70.72319999999999
+    },
+    {
+      "code": 60,
+      "class_name": "Switchgrass",
+      "hex": "#00AF4D",
+      "is_ag": true,
+      "acres": 64.2736
+    },
+    {
+      "code": 219,
+      "class_name": "Greens",
+      "hex": "#FF6666",
+      "is_ag": true,
+      "acres": 60.270399999999995
+    },
+    {
+      "code": 11,
+      "class_name": "Tobacco",
+      "hex": "#00AF4D",
+      "is_ag": true,
+      "acres": 58.4912
+    },
+    {
+      "code": 27,
+      "class_name": "Rye",
+      "hex": "#AE017E",
+      "is_ag": true,
+      "acres": 54.2656
+    },
+    {
+      "code": 57,
+      "class_name": "Herbs",
+      "hex": "#80D4FF",
+      "is_ag": true,
+      "acres": 53.5984
+    },
+    {
+      "code": 49,
+      "class_name": "Onions",
+      "hex": "#FFCC66",
+      "is_ag": true,
+      "acres": 52.486399999999996
+    },
+    {
+      "code": 69,
+      "class_name": "Grapes",
+      "hex": "#704489",
+      "is_ag": true,
+      "acres": 46.2592
+    },
+    {
+      "code": 71,
+      "class_name": "Other Tree Crops",
+      "hex": "#B39C70",
+      "is_ag": true,
+      "acres": 45.1472
+    },
+    {
+      "code": 249,
+      "class_name": "Gourds",
+      "hex": "#FF6666",
+      "is_ag": true,
+      "acres": 44.2576
+    },
+    {
+      "code": 205,
+      "class_name": "Triticale",
+      "hex": "#D69DBC",
+      "is_ag": true,
+      "acres": 37.808
+    },
+    {
+      "code": 241,
+      "class_name": "Dbl Crop Corn/Soybeans",
+      "hex": "#FFD400",
+      "is_ag": true,
+      "acres": 28.912
+    },
+    {
+      "code": 6,
+      "class_name": "Sunflower",
+      "hex": "#FFFF00",
+      "is_ag": true,
+      "acres": 25.1312
+    },
+    {
+      "code": 206,
+      "class_name": "Carrots",
+      "hex": "#FF6666",
+      "is_ag": true,
+      "acres": 20.2384
+    },
+    {
+      "code": 67,
+      "class_name": "Peaches",
+      "hex": "#FF91AB",
+      "is_ag": true,
+      "acres": 18.904
+    },
+    {
+      "code": 29,
+      "class_name": "Millet",
+      "hex": "#73004C",
+      "is_ag": true,
+      "acres": 18.4592
+    },
+    {
+      "code": 76,
+      "class_name": "Walnuts",
+      "hex": "#EBD6B0",
+      "is_ag": true,
+      "acres": 11.787199999999999
+    },
+    {
+      "code": 39,
+      "class_name": "Buckwheat",
+      "hex": "#D69DBC",
+      "is_ag": true,
+      "acres": 8.673599999999999
+    },
+    {
+      "code": 209,
+      "class_name": "Cantaloupes",
+      "hex": "#FF6666",
+      "is_ag": true,
+      "acres": 7.3392
+    },
+    {
+      "code": 55,
+      "class_name": "Caneberries",
+      "hex": "#FF6666",
+      "is_ag": true,
+      "acres": 5.3376
+    }
+  ],
+  "2013": [
+    {
+      "code": 141,
+      "class_name": "Deciduous Forest",
+      "hex": "#95CE93",
+      "is_ag": false,
+      "acres": 8613142.116799999
+    },
+    {
+      "code": 5,
+      "class_name": "Soybeans",
+      "hex": "#267300",
+      "is_ag": true,
+      "acres": 4416213.2576
+    },
+    {
+      "code": 176,
+      "class_name": "Grass/Pasture",
+      "hex": "#E9FFBE",
+      "is_ag": true,
+      "acres": 4191901.7295999997
+    },
+    {
+      "code": 1,
+      "class_name": "Corn",
+      "hex": "#FFD400",
+      "is_ag": true,
+      "acres": 3726777.2608
+    },
+    {
+      "code": 121,
+      "class_name": "Developed/Open Space",
+      "hex": "#9C9C9C",
+      "is_ag": false,
+      "acres": 2065428.3551999999
+    },
+    {
+      "code": 122,
+      "class_name": "Developed/Low Intensity",
+      "hex": "#9C9C9C",
+      "is_ag": false,
+      "acres": 1145965.3728
+    },
+    {
+      "code": 24,
+      "class_name": "Winter Wheat",
+      "hex": "#A87000",
+      "is_ag": true,
+      "acres": 602428.8912
+    },
+    {
+      "code": 123,
+      "class_name": "Developed/Med Intensity",
+      "hex": "#9C9C9C",
+      "is_ag": false,
+      "acres": 388838.37759999995
+    },
+    {
+      "code": 111,
+      "class_name": "Open Water",
+      "hex": "#4D70A3",
+      "is_ag": false,
+      "acres": 289092.8672
+    },
+    {
+      "code": 36,
+      "class_name": "Alfalfa",
+      "hex": "#FFA8E3",
+      "is_ag": true,
+      "acres": 208007.1616
+    },
+    {
+      "code": 37,
+      "class_name": "Other Hay/Non Alfalfa",
+      "hex": "#A5F58D",
+      "is_ag": true,
+      "acres": 201472.8272
+    },
+    {
+      "code": 124,
+      "class_name": "Developed/High Intensity",
+      "hex": "#9C9C9C",
+      "is_ag": false,
+      "acres": 155568.8
+    },
+    {
+      "code": 142,
+      "class_name": "Evergreen Forest",
+      "hex": "#95CE93",
+      "is_ag": false,
+      "acres": 117275.968
+    },
+    {
+      "code": 190,
+      "class_name": "Woody Wetlands",
+      "hex": "#80B3B3",
+      "is_ag": false,
+      "acres": 79184.408
+    },
+    {
+      "code": 195,
+      "class_name": "Herbaceous Wetlands",
+      "hex": "#80B3B3",
+      "is_ag": false,
+      "acres": 57454.371199999994
+    },
+    {
+      "code": 131,
+      "class_name": "Barren",
+      "hex": "#CCBFA3",
+      "is_ag": false,
+      "acres": 40809.288
+    },
+    {
+      "code": 26,
+      "class_name": "Dbl Crop WinWht/Soybeans",
+      "hex": "#737300",
+      "is_ag": true,
+      "acres": 25871.5696
+    },
+    {
+      "code": 13,
+      "class_name": "Pop or Orn Corn",
+      "hex": "#E0A60F",
+      "is_ag": true,
+      "acres": 20671.4128
+    },
+    {
+      "code": 61,
+      "class_name": "Fallow/Idle Cropland",
+      "hex": "#BFBF7A",
+      "is_ag": true,
+      "acres": 18719.8528
+    },
+    {
+      "code": 152,
+      "class_name": "Shrubland",
+      "hex": "#C7D79E",
+      "is_ag": false,
+      "acres": 16353.071999999998
+    },
+    {
+      "code": 143,
+      "class_name": "Mixed Forest",
+      "hex": "#95CE93",
+      "is_ag": false,
+      "acres": 5751.4864
+    },
+    {
+      "code": 28,
+      "class_name": "Oats",
+      "hex": "#A15889",
+      "is_ag": true,
+      "acres": 5258.647999999999
+    },
+    {
+      "code": 54,
+      "class_name": "Tomatoes",
+      "hex": "#F5A27A",
+      "is_ag": true,
+      "acres": 1895.5151999999998
+    },
+    {
+      "code": 58,
+      "class_name": "Clover/Wildflowers",
+      "hex": "#E8BEFF",
+      "is_ag": true,
+      "acres": 1620.8511999999998
+    },
+    {
+      "code": 27,
+      "class_name": "Rye",
+      "hex": "#AE017E",
+      "is_ag": true,
+      "acres": 1132.2384
+    },
+    {
+      "code": 12,
+      "class_name": "Sweet Corn",
+      "hex": "#E0A60F",
+      "is_ag": true,
+      "acres": 932.0784
+    },
+    {
+      "code": 225,
+      "class_name": "Dbl Crop WinWht/Corn",
+      "hex": "#FFD400",
+      "is_ag": true,
+      "acres": 666.7552
+    },
+    {
+      "code": 68,
+      "class_name": "Apples",
+      "hex": "#B90050",
+      "is_ag": true,
+      "acres": 595.8095999999999
+    },
+    {
+      "code": 42,
+      "class_name": "Dry Beans",
+      "hex": "#A80000",
+      "is_ag": true,
+      "acres": 567.12
+    },
+    {
+      "code": 243,
+      "class_name": "Cabbage",
+      "hex": "#FF6666",
+      "is_ag": true,
+      "acres": 544.88
+    },
+    {
+      "code": 43,
+      "class_name": "Potatoes",
+      "hex": "#732600",
+      "is_ag": true,
+      "acres": 527.5328
+    },
+    {
+      "code": 59,
+      "class_name": "Sod/Grass Seed",
+      "hex": "#B2FFDE",
+      "is_ag": true,
+      "acres": 523.0848
+    },
+    {
+      "code": 216,
+      "class_name": "Peppers",
+      "hex": "#FF6666",
+      "is_ag": true,
+      "acres": 407.8816
+    },
+    {
+      "code": 229,
+      "class_name": "Pumpkins",
+      "hex": "#FF6666",
+      "is_ag": true,
+      "acres": 357.84159999999997
+    },
+    {
+      "code": 254,
+      "class_name": "Dbl Crop Barley/Soybeans",
+      "hex": "#267300",
+      "is_ag": true,
+      "acres": 307.57919999999996
+    },
+    {
+      "code": 50,
+      "class_name": "Cucumbers",
+      "hex": "#FF6666",
+      "is_ag": true,
+      "acres": 299.5728
+    },
+    {
+      "code": 21,
+      "class_name": "Barley",
+      "hex": "#E2007F",
+      "is_ag": true,
+      "acres": 293.7904
+    },
+    {
+      "code": 4,
+      "class_name": "Sorghum",
+      "hex": "#FF9E0F",
+      "is_ag": true,
+      "acres": 249.75519999999997
+    },
+    {
+      "code": 60,
+      "class_name": "Switchgrass",
+      "hex": "#00AF4D",
+      "is_ag": true,
+      "acres": 235.744
+    },
+    {
+      "code": 44,
+      "class_name": "Other Crops",
+      "hex": "#00AF4D",
+      "is_ag": true,
+      "acres": 175.0288
+    },
+    {
+      "code": 30,
+      "class_name": "Speltz",
+      "hex": "#D69DBC",
+      "is_ag": true,
+      "acres": 147.22879999999998
+    },
+    {
+      "code": 206,
+      "class_name": "Carrots",
+      "hex": "#FF6666",
+      "is_ag": true,
+      "acres": 127.65759999999999
+    },
+    {
+      "code": 240,
+      "class_name": "Dbl Crop Soybeans/Oats",
+      "hex": "#267300",
+      "is_ag": true,
+      "acres": 114.53599999999999
+    },
+    {
+      "code": 222,
+      "class_name": "Squash",
+      "hex": "#FF6666",
+      "is_ag": true,
+      "acres": 110.088
+    },
+    {
+      "code": 236,
+      "class_name": "Dbl Crop WinWht/Sorghum",
+      "hex": "#A87000",
+      "is_ag": true,
+      "acres": 104.08319999999999
+    },
+    {
+      "code": 57,
+      "class_name": "Herbs",
+      "hex": "#80D4FF",
+      "is_ag": true,
+      "acres": 80.7312
+    },
+    {
+      "code": 219,
+      "class_name": "Greens",
+      "hex": "#FF6666",
+      "is_ag": true,
+      "acres": 75.616
+    },
+    {
+      "code": 69,
+      "class_name": "Grapes",
+      "hex": "#704489",
+      "is_ag": true,
+      "acres": 69.83359999999999
+    },
+    {
+      "code": 237,
+      "class_name": "Dbl Crop Barley/Corn",
+      "hex": "#FFD400",
+      "is_ag": true,
+      "acres": 61.6048
+    },
+    {
+      "code": 11,
+      "class_name": "Tobacco",
+      "hex": "#00AF4D",
+      "is_ag": true,
+      "acres": 61.3824
+    },
+    {
+      "code": 70,
+      "class_name": "Christmas Trees",
+      "hex": "#007878",
+      "is_ag": true,
+      "acres": 55.155199999999994
+    },
+    {
+      "code": 209,
+      "class_name": "Cantaloupes",
+      "hex": "#FF6666",
+      "is_ag": true,
+      "acres": 47.593599999999995
+    },
+    {
+      "code": 41,
+      "class_name": "Sugarbeets",
+      "hex": "#A900E6",
+      "is_ag": true,
+      "acres": 39.142399999999995
+    },
+    {
+      "code": 235,
+      "class_name": "Dbl Crop Barley/Sorghum",
+      "hex": "#FF9E0F",
+      "is_ag": true,
+      "acres": 37.1408
+    },
+    {
+      "code": 205,
+      "class_name": "Triticale",
+      "hex": "#D69DBC",
+      "is_ag": true,
+      "acres": 28.912
+    },
+    {
+      "code": 67,
+      "class_name": "Peaches",
+      "hex": "#FF91AB",
+      "is_ag": true,
+      "acres": 19.571199999999997
+    },
+    {
+      "code": 55,
+      "class_name": "Caneberries",
+      "hex": "#FF6666",
+      "is_ag": true,
+      "acres": 18.0144
+    },
+    {
+      "code": 39,
+      "class_name": "Buckwheat",
+      "hex": "#D69DBC",
+      "is_ag": true,
+      "acres": 15.3456
+    },
+    {
+      "code": 71,
+      "class_name": "Other Tree Crops",
+      "hex": "#B39C70",
+      "is_ag": true,
+      "acres": 13.344
+    },
+    {
+      "code": 242,
+      "class_name": "Blueberries",
+      "hex": "#000099",
+      "is_ag": true,
+      "acres": 13.121599999999999
+    },
+    {
+      "code": 220,
+      "class_name": "Plums",
+      "hex": "#FF91AB",
+      "is_ag": true,
+      "acres": 8.4512
+    },
+    {
+      "code": 6,
+      "class_name": "Sunflower",
+      "hex": "#FFFF00",
+      "is_ag": true,
+      "acres": 7.1168
+    }
+  ],
+  "2014": [
+    {
+      "code": 141,
+      "class_name": "Deciduous Forest",
+      "hex": "#95CE93",
+      "is_ag": false,
+      "acres": 8565479.5728
+    },
+    {
+      "code": 5,
+      "class_name": "Soybeans",
+      "hex": "#267300",
+      "is_ag": true,
+      "acres": 4727604.3936
+    },
+    {
+      "code": 176,
+      "class_name": "Grass/Pasture",
+      "hex": "#E9FFBE",
+      "is_ag": true,
+      "acres": 4100272.4847999997
+    },
+    {
+      "code": 1,
+      "class_name": "Corn",
+      "hex": "#FFD400",
+      "is_ag": true,
+      "acres": 3558021.92
+    },
+    {
+      "code": 121,
+      "class_name": "Developed/Open Space",
+      "hex": "#9C9C9C",
+      "is_ag": false,
+      "acres": 2000911.0048
+    },
+    {
+      "code": 122,
+      "class_name": "Developed/Low Intensity",
+      "hex": "#9C9C9C",
+      "is_ag": false,
+      "acres": 1169534.2127999999
+    },
+    {
+      "code": 24,
+      "class_name": "Winter Wheat",
+      "hex": "#A87000",
+      "is_ag": true,
+      "acres": 507694.05279999995
+    },
+    {
+      "code": 123,
+      "class_name": "Developed/Med Intensity",
+      "hex": "#9C9C9C",
+      "is_ag": false,
+      "acres": 446464.88639999996
+    },
+    {
+      "code": 111,
+      "class_name": "Open Water",
+      "hex": "#4D70A3",
+      "is_ag": false,
+      "acres": 299544.7776
+    },
+    {
+      "code": 36,
+      "class_name": "Alfalfa",
+      "hex": "#FFA8E3",
+      "is_ag": true,
+      "acres": 248069.408
+    },
+    {
+      "code": 37,
+      "class_name": "Other Hay/Non Alfalfa",
+      "hex": "#A5F58D",
+      "is_ag": true,
+      "acres": 192629.536
+    },
+    {
+      "code": 124,
+      "class_name": "Developed/High Intensity",
+      "hex": "#9C9C9C",
+      "is_ag": false,
+      "acres": 177984.2736
+    },
+    {
+      "code": 142,
+      "class_name": "Evergreen Forest",
+      "hex": "#95CE93",
+      "is_ag": false,
+      "acres": 103732.25279999999
+    },
+    {
+      "code": 190,
+      "class_name": "Woody Wetlands",
+      "hex": "#80B3B3",
+      "is_ag": false,
+      "acres": 85263.04479999999
+    },
+    {
+      "code": 195,
+      "class_name": "Herbaceous Wetlands",
+      "hex": "#80B3B3",
+      "is_ag": false,
+      "acres": 54110.587199999994
+    },
+    {
+      "code": 26,
+      "class_name": "Dbl Crop WinWht/Soybeans",
+      "hex": "#737300",
+      "is_ag": true,
+      "acres": 40343.137599999995
+    },
+    {
+      "code": 131,
+      "class_name": "Barren",
+      "hex": "#CCBFA3",
+      "is_ag": false,
+      "acres": 40325.3456
+    },
+    {
+      "code": 13,
+      "class_name": "Pop or Orn Corn",
+      "hex": "#E0A60F",
+      "is_ag": true,
+      "acres": 17735.065599999998
+    },
+    {
+      "code": 61,
+      "class_name": "Fallow/Idle Cropland",
+      "hex": "#BFBF7A",
+      "is_ag": true,
+      "acres": 16820.5568
+    },
+    {
+      "code": 152,
+      "class_name": "Shrubland",
+      "hex": "#C7D79E",
+      "is_ag": false,
+      "acres": 14934.16
+    },
+    {
+      "code": 143,
+      "class_name": "Mixed Forest",
+      "hex": "#95CE93",
+      "is_ag": false,
+      "acres": 12120.1328
+    },
+    {
+      "code": 28,
+      "class_name": "Oats",
+      "hex": "#A15889",
+      "is_ag": true,
+      "acres": 5495.281599999999
+    },
+    {
+      "code": 58,
+      "class_name": "Clover/Wildflowers",
+      "hex": "#E8BEFF",
+      "is_ag": true,
+      "acres": 4339.691199999999
+    },
+    {
+      "code": 59,
+      "class_name": "Sod/Grass Seed",
+      "hex": "#B2FFDE",
+      "is_ag": true,
+      "acres": 1861.2656
+    },
+    {
+      "code": 54,
+      "class_name": "Tomatoes",
+      "hex": "#F5A27A",
+      "is_ag": true,
+      "acres": 1521.8832
+    },
+    {
+      "code": 27,
+      "class_name": "Rye",
+      "hex": "#AE017E",
+      "is_ag": true,
+      "acres": 1453.1616
+    },
+    {
+      "code": 225,
+      "class_name": "Dbl Crop WinWht/Corn",
+      "hex": "#FFD400",
+      "is_ag": true,
+      "acres": 1278.3552
+    },
+    {
+      "code": 42,
+      "class_name": "Dry Beans",
+      "hex": "#A80000",
+      "is_ag": true,
+      "acres": 1084.4224
+    },
+    {
+      "code": 12,
+      "class_name": "Sweet Corn",
+      "hex": "#E0A60F",
+      "is_ag": true,
+      "acres": 904.7231999999999
+    },
+    {
+      "code": 68,
+      "class_name": "Apples",
+      "hex": "#B90050",
+      "is_ag": true,
+      "acres": 842.4512
+    },
+    {
+      "code": 30,
+      "class_name": "Speltz",
+      "hex": "#D69DBC",
+      "is_ag": true,
+      "acres": 786.8512
+    },
+    {
+      "code": 50,
+      "class_name": "Cucumbers",
+      "hex": "#FF6666",
+      "is_ag": true,
+      "acres": 686.3263999999999
+    },
+    {
+      "code": 21,
+      "class_name": "Barley",
+      "hex": "#E2007F",
+      "is_ag": true,
+      "acres": 506.40479999999997
+    },
+    {
+      "code": 229,
+      "class_name": "Pumpkins",
+      "hex": "#FF6666",
+      "is_ag": true,
+      "acres": 491.28159999999997
+    },
+    {
+      "code": 44,
+      "class_name": "Other Crops",
+      "hex": "#00AF4D",
+      "is_ag": true,
+      "acres": 438.5728
+    },
+    {
+      "code": 219,
+      "class_name": "Greens",
+      "hex": "#FF6666",
+      "is_ag": true,
+      "acres": 419.0016
+    },
+    {
+      "code": 254,
+      "class_name": "Dbl Crop Barley/Soybeans",
+      "hex": "#267300",
+      "is_ag": true,
+      "acres": 334.9344
+    },
+    {
+      "code": 43,
+      "class_name": "Potatoes",
+      "hex": "#732600",
+      "is_ag": true,
+      "acres": 330.4864
+    },
+    {
+      "code": 243,
+      "class_name": "Cabbage",
+      "hex": "#FF6666",
+      "is_ag": true,
+      "acres": 322.9248
+    },
+    {
+      "code": 4,
+      "class_name": "Sorghum",
+      "hex": "#FF9E0F",
+      "is_ag": true,
+      "acres": 265.3232
+    },
+    {
+      "code": 222,
+      "class_name": "Squash",
+      "hex": "#FF6666",
+      "is_ag": true,
+      "acres": 191.0416
+    },
+    {
+      "code": 206,
+      "class_name": "Carrots",
+      "hex": "#FF6666",
+      "is_ag": true,
+      "acres": 152.1216
+    },
+    {
+      "code": 69,
+      "class_name": "Grapes",
+      "hex": "#704489",
+      "is_ag": true,
+      "acres": 129.21439999999998
+    },
+    {
+      "code": 248,
+      "class_name": "Eggplants",
+      "hex": "#FF6666",
+      "is_ag": true,
+      "acres": 117.64959999999999
+    },
+    {
+      "code": 71,
+      "class_name": "Other Tree Crops",
+      "hex": "#B39C70",
+      "is_ag": true,
+      "acres": 116.75999999999999
+    },
+    {
+      "code": 11,
+      "class_name": "Tobacco",
+      "hex": "#00AF4D",
+      "is_ag": true,
+      "acres": 113.6464
+    },
+    {
+      "code": 205,
+      "class_name": "Triticale",
+      "hex": "#D69DBC",
+      "is_ag": true,
+      "acres": 102.0816
+    },
+    {
+      "code": 236,
+      "class_name": "Dbl Crop WinWht/Sorghum",
+      "hex": "#A87000",
+      "is_ag": true,
+      "acres": 87.848
+    },
+    {
+      "code": 237,
+      "class_name": "Dbl Crop Barley/Corn",
+      "hex": "#FFD400",
+      "is_ag": true,
+      "acres": 81.3984
+    },
+    {
+      "code": 242,
+      "class_name": "Blueberries",
+      "hex": "#000099",
+      "is_ag": true,
+      "acres": 79.17439999999999
+    },
+    {
+      "code": 6,
+      "class_name": "Sunflower",
+      "hex": "#FFFF00",
+      "is_ag": true,
+      "acres": 66.05279999999999
+    },
+    {
+      "code": 67,
+      "class_name": "Peaches",
+      "hex": "#FF91AB",
+      "is_ag": true,
+      "acres": 65.3856
+    },
+    {
+      "code": 49,
+      "class_name": "Onions",
+      "hex": "#FFCC66",
+      "is_ag": true,
+      "acres": 65.16319999999999
+    },
+    {
+      "code": 216,
+      "class_name": "Peppers",
+      "hex": "#FF6666",
+      "is_ag": true,
+      "acres": 64.496
+    },
+    {
+      "code": 241,
+      "class_name": "Dbl Crop Corn/Soybeans",
+      "hex": "#FFD400",
+      "is_ag": true,
+      "acres": 47.593599999999995
+    },
+    {
+      "code": 41,
+      "class_name": "Sugarbeets",
+      "hex": "#A900E6",
+      "is_ag": true,
+      "acres": 44.7024
+    },
+    {
+      "code": 235,
+      "class_name": "Dbl Crop Barley/Sorghum",
+      "hex": "#FF9E0F",
+      "is_ag": true,
+      "acres": 42.7008
+    },
+    {
+      "code": 70,
+      "class_name": "Christmas Trees",
+      "hex": "#007878",
+      "is_ag": true,
+      "acres": 36.696
+    },
+    {
+      "code": 60,
+      "class_name": "Switchgrass",
+      "hex": "#00AF4D",
+      "is_ag": true,
+      "acres": 30.6912
+    },
+    {
+      "code": 221,
+      "class_name": "Strawberries",
+      "hex": "#FF6666",
+      "is_ag": true,
+      "acres": 28.022399999999998
+    },
+    {
+      "code": 207,
+      "class_name": "Asparagus",
+      "hex": "#FF6666",
+      "is_ag": true,
+      "acres": 25.575999999999997
+    },
+    {
+      "code": 57,
+      "class_name": "Herbs",
+      "hex": "#80D4FF",
+      "is_ag": true,
+      "acres": 23.1296
+    },
+    {
+      "code": 23,
+      "class_name": "Spring Wheat",
+      "hex": "#D9B56C",
+      "is_ag": true,
+      "acres": 22.6848
+    },
+    {
+      "code": 249,
+      "class_name": "Gourds",
+      "hex": "#FF6666",
+      "is_ag": true,
+      "acres": 21.128
+    },
+    {
+      "code": 48,
+      "class_name": "Watermelons",
+      "hex": "#FF6666",
+      "is_ag": true,
+      "acres": 18.0144
+    },
+    {
+      "code": 39,
+      "class_name": "Buckwheat",
+      "hex": "#D69DBC",
+      "is_ag": true,
+      "acres": 13.788799999999998
+    },
+    {
+      "code": 226,
+      "class_name": "Dbl Crop Oats/Corn",
+      "hex": "#FFD400",
+      "is_ag": true,
+      "acres": 12.009599999999999
+    },
+    {
+      "code": 55,
+      "class_name": "Caneberries",
+      "hex": "#FF6666",
+      "is_ag": true,
+      "acres": 8.0064
+    },
+    {
+      "code": 220,
+      "class_name": "Plums",
+      "hex": "#FF91AB",
+      "is_ag": true,
+      "acres": 6.449599999999999
+    },
+    {
+      "code": 47,
+      "class_name": "Misc Vegs & Fruits",
+      "hex": "#FF6666",
+      "is_ag": true,
+      "acres": 4.4479999999999995
+    }
+  ],
+  "2015": [
+    {
+      "code": 141,
+      "class_name": "Deciduous Forest",
+      "hex": "#95CE93",
+      "is_ag": false,
+      "acres": 8856855.820799999
+    },
+    {
+      "code": 5,
+      "class_name": "Soybeans",
+      "hex": "#267300",
+      "is_ag": true,
+      "acres": 4941290.7616
+    },
+    {
+      "code": 1,
+      "class_name": "Corn",
+      "hex": "#FFD400",
+      "is_ag": true,
+      "acres": 3513487.4319999996
+    },
+    {
+      "code": 176,
+      "class_name": "Grass/Pasture",
+      "hex": "#E9FFBE",
+      "is_ag": true,
+      "acres": 3412218.9263999998
+    },
+    {
+      "code": 121,
+      "class_name": "Developed/Open Space",
+      "hex": "#9C9C9C",
+      "is_ag": false,
+      "acres": 2009148.7008
+    },
+    {
+      "code": 122,
+      "class_name": "Developed/Low Intensity",
+      "hex": "#9C9C9C",
+      "is_ag": false,
+      "acres": 1161842.064
+    },
+    {
+      "code": 24,
+      "class_name": "Winter Wheat",
+      "hex": "#A87000",
+      "is_ag": true,
+      "acres": 494683.43039999995
+    },
+    {
+      "code": 123,
+      "class_name": "Developed/Med Intensity",
+      "hex": "#9C9C9C",
+      "is_ag": false,
+      "acres": 447497.4896
+    },
+    {
+      "code": 111,
+      "class_name": "Open Water",
+      "hex": "#4D70A3",
+      "is_ag": false,
+      "acres": 302504.6992
+    },
+    {
+      "code": 36,
+      "class_name": "Alfalfa",
+      "hex": "#FFA8E3",
+      "is_ag": true,
+      "acres": 257527.6352
+    },
+    {
+      "code": 37,
+      "class_name": "Other Hay/Non Alfalfa",
+      "hex": "#A5F58D",
+      "is_ag": true,
+      "acres": 244331.08639999997
+    },
+    {
+      "code": 124,
+      "class_name": "Developed/High Intensity",
+      "hex": "#9C9C9C",
+      "is_ag": false,
+      "acres": 177673.5808
+    },
+    {
+      "code": 61,
+      "class_name": "Fallow/Idle Cropland",
+      "hex": "#BFBF7A",
+      "is_ag": true,
+      "acres": 135112.8928
+    },
+    {
+      "code": 190,
+      "class_name": "Woody Wetlands",
+      "hex": "#80B3B3",
+      "is_ag": false,
+      "acres": 84535.5744
+    },
+    {
+      "code": 142,
+      "class_name": "Evergreen Forest",
+      "hex": "#95CE93",
+      "is_ag": false,
+      "acres": 83780.52639999999
+    },
+    {
+      "code": 152,
+      "class_name": "Shrubland",
+      "hex": "#C7D79E",
+      "is_ag": false,
+      "acres": 75362.46399999999
+    },
+    {
+      "code": 195,
+      "class_name": "Herbaceous Wetlands",
+      "hex": "#80B3B3",
+      "is_ag": false,
+      "acres": 71094.83039999999
+    },
+    {
+      "code": 131,
+      "class_name": "Barren",
+      "hex": "#CCBFA3",
+      "is_ag": false,
+      "acres": 62346.9488
+    },
+    {
+      "code": 26,
+      "class_name": "Dbl Crop WinWht/Soybeans",
+      "hex": "#737300",
+      "is_ag": true,
+      "acres": 19907.9136
+    },
+    {
+      "code": 143,
+      "class_name": "Mixed Forest",
+      "hex": "#95CE93",
+      "is_ag": false,
+      "acres": 14196.6816
+    },
+    {
+      "code": 13,
+      "class_name": "Pop or Orn Corn",
+      "hex": "#E0A60F",
+      "is_ag": true,
+      "acres": 14171.105599999999
+    },
+    {
+      "code": 28,
+      "class_name": "Oats",
+      "hex": "#A15889",
+      "is_ag": true,
+      "acres": 7424.6016
+    },
+    {
+      "code": 58,
+      "class_name": "Clover/Wildflowers",
+      "hex": "#E8BEFF",
+      "is_ag": true,
+      "acres": 5418.553599999999
+    },
+    {
+      "code": 59,
+      "class_name": "Sod/Grass Seed",
+      "hex": "#B2FFDE",
+      "is_ag": true,
+      "acres": 2281.1567999999997
+    },
+    {
+      "code": 27,
+      "class_name": "Rye",
+      "hex": "#AE017E",
+      "is_ag": true,
+      "acres": 1279.0223999999998
+    },
+    {
+      "code": 12,
+      "class_name": "Sweet Corn",
+      "hex": "#E0A60F",
+      "is_ag": true,
+      "acres": 1243.8832
+    },
+    {
+      "code": 54,
+      "class_name": "Tomatoes",
+      "hex": "#F5A27A",
+      "is_ag": true,
+      "acres": 1019.2592
+    },
+    {
+      "code": 243,
+      "class_name": "Cabbage",
+      "hex": "#FF6666",
+      "is_ag": true,
+      "acres": 750.8223999999999
+    },
+    {
+      "code": 30,
+      "class_name": "Speltz",
+      "hex": "#D69DBC",
+      "is_ag": true,
+      "acres": 601.3696
+    },
+    {
+      "code": 68,
+      "class_name": "Apples",
+      "hex": "#B90050",
+      "is_ag": true,
+      "acres": 573.7919999999999
+    },
+    {
+      "code": 50,
+      "class_name": "Cucumbers",
+      "hex": "#FF6666",
+      "is_ag": true,
+      "acres": 488.6128
+    },
+    {
+      "code": 21,
+      "class_name": "Barley",
+      "hex": "#E2007F",
+      "is_ag": true,
+      "acres": 466.81759999999997
+    },
+    {
+      "code": 4,
+      "class_name": "Sorghum",
+      "hex": "#FF9E0F",
+      "is_ag": true,
+      "acres": 375.18879999999996
+    },
+    {
+      "code": 225,
+      "class_name": "Dbl Crop WinWht/Corn",
+      "hex": "#FFD400",
+      "is_ag": true,
+      "acres": 360.7328
+    },
+    {
+      "code": 42,
+      "class_name": "Dry Beans",
+      "hex": "#A80000",
+      "is_ag": true,
+      "acres": 290.8992
+    },
+    {
+      "code": 229,
+      "class_name": "Pumpkins",
+      "hex": "#FF6666",
+      "is_ag": true,
+      "acres": 252.8688
+    },
+    {
+      "code": 43,
+      "class_name": "Potatoes",
+      "hex": "#732600",
+      "is_ag": true,
+      "acres": 250.42239999999998
+    },
+    {
+      "code": 70,
+      "class_name": "Christmas Trees",
+      "hex": "#007878",
+      "is_ag": true,
+      "acres": 230.62879999999998
+    },
+    {
+      "code": 31,
+      "class_name": "Canola",
+      "hex": "#D1FF00",
+      "is_ag": true,
+      "acres": 219.73119999999997
+    },
+    {
+      "code": 53,
+      "class_name": "Peas",
+      "hex": "#55FF00",
+      "is_ag": true,
+      "acres": 180.14399999999998
+    },
+    {
+      "code": 216,
+      "class_name": "Peppers",
+      "hex": "#FF6666",
+      "is_ag": true,
+      "acres": 156.3472
+    },
+    {
+      "code": 205,
+      "class_name": "Triticale",
+      "hex": "#D69DBC",
+      "is_ag": true,
+      "acres": 151.00959999999998
+    },
+    {
+      "code": 57,
+      "class_name": "Herbs",
+      "hex": "#80D4FF",
+      "is_ag": true,
+      "acres": 147.6736
+    },
+    {
+      "code": 236,
+      "class_name": "Dbl Crop WinWht/Sorghum",
+      "hex": "#A87000",
+      "is_ag": true,
+      "acres": 117.872
+    },
+    {
+      "code": 39,
+      "class_name": "Buckwheat",
+      "hex": "#D69DBC",
+      "is_ag": true,
+      "acres": 116.0928
+    },
+    {
+      "code": 67,
+      "class_name": "Peaches",
+      "hex": "#FF91AB",
+      "is_ag": true,
+      "acres": 114.3136
+    },
+    {
+      "code": 69,
+      "class_name": "Grapes",
+      "hex": "#704489",
+      "is_ag": true,
+      "acres": 78.28479999999999
+    },
+    {
+      "code": 47,
+      "class_name": "Misc Vegs & Fruits",
+      "hex": "#FF6666",
+      "is_ag": true,
+      "acres": 69.38879999999999
+    },
+    {
+      "code": 254,
+      "class_name": "Dbl Crop Barley/Soybeans",
+      "hex": "#267300",
+      "is_ag": true,
+      "acres": 62.9392
+    },
+    {
+      "code": 221,
+      "class_name": "Strawberries",
+      "hex": "#FF6666",
+      "is_ag": true,
+      "acres": 60.715199999999996
+    },
+    {
+      "code": 60,
+      "class_name": "Switchgrass",
+      "hex": "#00AF4D",
+      "is_ag": true,
+      "acres": 58.7136
+    },
+    {
+      "code": 11,
+      "class_name": "Tobacco",
+      "hex": "#00AF4D",
+      "is_ag": true,
+      "acres": 48.038399999999996
+    },
+    {
+      "code": 206,
+      "class_name": "Carrots",
+      "hex": "#FF6666",
+      "is_ag": true,
+      "acres": 45.592
+    },
+    {
+      "code": 71,
+      "class_name": "Other Tree Crops",
+      "hex": "#B39C70",
+      "is_ag": true,
+      "acres": 39.587199999999996
+    },
+    {
+      "code": 246,
+      "class_name": "Radishes",
+      "hex": "#FF6666",
+      "is_ag": true,
+      "acres": 33.1376
+    },
+    {
+      "code": 66,
+      "class_name": "Cherries",
+      "hex": "#FF00FF",
+      "is_ag": true,
+      "acres": 29.1344
+    },
+    {
+      "code": 44,
+      "class_name": "Other Crops",
+      "hex": "#00AF4D",
+      "is_ag": true,
+      "acres": 27.1328
+    },
+    {
+      "code": 247,
+      "class_name": "Turnips",
+      "hex": "#FF6666",
+      "is_ag": true,
+      "acres": 26.020799999999998
+    },
+    {
+      "code": 29,
+      "class_name": "Millet",
+      "hex": "#73004C",
+      "is_ag": true,
+      "acres": 23.796799999999998
+    },
+    {
+      "code": 222,
+      "class_name": "Squash",
+      "hex": "#FF6666",
+      "is_ag": true,
+      "acres": 21.572799999999997
+    },
+    {
+      "code": 242,
+      "class_name": "Blueberries",
+      "hex": "#000099",
+      "is_ag": true,
+      "acres": 21.128
+    },
+    {
+      "code": 41,
+      "class_name": "Sugarbeets",
+      "hex": "#A900E6",
+      "is_ag": true,
+      "acres": 18.0144
+    },
+    {
+      "code": 6,
+      "class_name": "Sunflower",
+      "hex": "#FFFF00",
+      "is_ag": true,
+      "acres": 15.568
+    },
+    {
+      "code": 237,
+      "class_name": "Dbl Crop Barley/Corn",
+      "hex": "#FFD400",
+      "is_ag": true,
+      "acres": 14.6784
+    }
+  ],
+  "2016": [
+    {
+      "code": 141,
+      "class_name": "Deciduous Forest",
+      "hex": "#95CE93",
+      "is_ag": false,
+      "acres": 8832514.808
+    },
+    {
+      "code": 5,
+      "class_name": "Soybeans",
+      "hex": "#267300",
+      "is_ag": true,
+      "acres": 4993082.384
+    },
+    {
+      "code": 1,
+      "class_name": "Corn",
+      "hex": "#FFD400",
+      "is_ag": true,
+      "acres": 3520615.352
+    },
+    {
+      "code": 176,
+      "class_name": "Grass/Pasture",
+      "hex": "#E9FFBE",
+      "is_ag": true,
+      "acres": 3363117.232
+    },
+    {
+      "code": 121,
+      "class_name": "Developed/Open Space",
+      "hex": "#9C9C9C",
+      "is_ag": false,
+      "acres": 2001028.2096
+    },
+    {
+      "code": 122,
+      "class_name": "Developed/Low Intensity",
+      "hex": "#9C9C9C",
+      "is_ag": false,
+      "acres": 1166656.5792
+    },
+    {
+      "code": 24,
+      "class_name": "Winter Wheat",
+      "hex": "#A87000",
+      "is_ag": true,
+      "acres": 475154.9312
+    },
+    {
+      "code": 123,
+      "class_name": "Developed/Med Intensity",
+      "hex": "#9C9C9C",
+      "is_ag": false,
+      "acres": 444546.9088
+    },
+    {
+      "code": 111,
+      "class_name": "Open Water",
+      "hex": "#4D70A3",
+      "is_ag": false,
+      "acres": 302499.8064
+    },
+    {
+      "code": 36,
+      "class_name": "Alfalfa",
+      "hex": "#FFA8E3",
+      "is_ag": true,
+      "acres": 286376.0288
+    },
+    {
+      "code": 37,
+      "class_name": "Other Hay/Non Alfalfa",
+      "hex": "#A5F58D",
+      "is_ag": true,
+      "acres": 253955.66879999998
+    },
+    {
+      "code": 124,
+      "class_name": "Developed/High Intensity",
+      "hex": "#9C9C9C",
+      "is_ag": false,
+      "acres": 178948.37759999998
+    },
+    {
+      "code": 142,
+      "class_name": "Evergreen Forest",
+      "hex": "#95CE93",
+      "is_ag": false,
+      "acres": 104925.87359999999
+    },
+    {
+      "code": 190,
+      "class_name": "Woody Wetlands",
+      "hex": "#80B3B3",
+      "is_ag": false,
+      "acres": 99129.01759999999
+    },
+    {
+      "code": 195,
+      "class_name": "Herbaceous Wetlands",
+      "hex": "#80B3B3",
+      "is_ag": false,
+      "acres": 75780.3536
+    },
+    {
+      "code": 152,
+      "class_name": "Shrubland",
+      "hex": "#C7D79E",
+      "is_ag": false,
+      "acres": 74741.0784
+    },
+    {
+      "code": 131,
+      "class_name": "Barren",
+      "hex": "#CCBFA3",
+      "is_ag": false,
+      "acres": 61403.3056
+    },
+    {
+      "code": 61,
+      "class_name": "Fallow/Idle Cropland",
+      "hex": "#BFBF7A",
+      "is_ag": true,
+      "acres": 58259.4592
+    },
+    {
+      "code": 26,
+      "class_name": "Dbl Crop WinWht/Soybeans",
+      "hex": "#737300",
+      "is_ag": true,
+      "acres": 42073.632
+    },
+    {
+      "code": 13,
+      "class_name": "Pop or Orn Corn",
+      "hex": "#E0A60F",
+      "is_ag": true,
+      "acres": 25166.3392
+    },
+    {
+      "code": 143,
+      "class_name": "Mixed Forest",
+      "hex": "#95CE93",
+      "is_ag": false,
+      "acres": 9259.4016
+    },
+    {
+      "code": 28,
+      "class_name": "Oats",
+      "hex": "#A15889",
+      "is_ag": true,
+      "acres": 7287.158399999999
+    },
+    {
+      "code": 58,
+      "class_name": "Clover/Wildflowers",
+      "hex": "#E8BEFF",
+      "is_ag": true,
+      "acres": 6440.926399999999
+    },
+    {
+      "code": 27,
+      "class_name": "Rye",
+      "hex": "#AE017E",
+      "is_ag": true,
+      "acres": 6386.6608
+    },
+    {
+      "code": 54,
+      "class_name": "Tomatoes",
+      "hex": "#F5A27A",
+      "is_ag": true,
+      "acres": 2684.5904
+    },
+    {
+      "code": 59,
+      "class_name": "Sod/Grass Seed",
+      "hex": "#B2FFDE",
+      "is_ag": true,
+      "acres": 2578.0607999999997
+    },
+    {
+      "code": 68,
+      "class_name": "Apples",
+      "hex": "#B90050",
+      "is_ag": true,
+      "acres": 1698.6912
+    },
+    {
+      "code": 12,
+      "class_name": "Sweet Corn",
+      "hex": "#E0A60F",
+      "is_ag": true,
+      "acres": 1674.6719999999998
+    },
+    {
+      "code": 42,
+      "class_name": "Dry Beans",
+      "hex": "#A80000",
+      "is_ag": true,
+      "acres": 1289.6976
+    },
+    {
+      "code": 30,
+      "class_name": "Speltz",
+      "hex": "#D69DBC",
+      "is_ag": true,
+      "acres": 624.944
+    },
+    {
+      "code": 4,
+      "class_name": "Sorghum",
+      "hex": "#FF9E0F",
+      "is_ag": true,
+      "acres": 540.8768
+    },
+    {
+      "code": 50,
+      "class_name": "Cucumbers",
+      "hex": "#FF6666",
+      "is_ag": true,
+      "acres": 538.208
+    },
+    {
+      "code": 21,
+      "class_name": "Barley",
+      "hex": "#E2007F",
+      "is_ag": true,
+      "acres": 536.6512
+    },
+    {
+      "code": 44,
+      "class_name": "Other Crops",
+      "hex": "#00AF4D",
+      "is_ag": true,
+      "acres": 535.9839999999999
+    },
+    {
+      "code": 225,
+      "class_name": "Dbl Crop WinWht/Corn",
+      "hex": "#FFD400",
+      "is_ag": true,
+      "acres": 339.60479999999995
+    },
+    {
+      "code": 43,
+      "class_name": "Potatoes",
+      "hex": "#732600",
+      "is_ag": true,
+      "acres": 330.4864
+    },
+    {
+      "code": 243,
+      "class_name": "Cabbage",
+      "hex": "#FF6666",
+      "is_ag": true,
+      "acres": 319.3664
+    },
+    {
+      "code": 229,
+      "class_name": "Pumpkins",
+      "hex": "#FF6666",
+      "is_ag": true,
+      "acres": 274.8864
+    },
+    {
+      "code": 206,
+      "class_name": "Carrots",
+      "hex": "#FF6666",
+      "is_ag": true,
+      "acres": 233.0752
+    },
+    {
+      "code": 69,
+      "class_name": "Grapes",
+      "hex": "#704489",
+      "is_ag": true,
+      "acres": 211.7248
+    },
+    {
+      "code": 216,
+      "class_name": "Peppers",
+      "hex": "#FF6666",
+      "is_ag": true,
+      "acres": 195.26719999999997
+    },
+    {
+      "code": 70,
+      "class_name": "Christmas Trees",
+      "hex": "#007878",
+      "is_ag": true,
+      "acres": 138.3328
+    },
+    {
+      "code": 205,
+      "class_name": "Triticale",
+      "hex": "#D69DBC",
+      "is_ag": true,
+      "acres": 131.21599999999998
+    },
+    {
+      "code": 254,
+      "class_name": "Dbl Crop Barley/Soybeans",
+      "hex": "#267300",
+      "is_ag": true,
+      "acres": 103.416
+    },
+    {
+      "code": 60,
+      "class_name": "Switchgrass",
+      "hex": "#00AF4D",
+      "is_ag": true,
+      "acres": 80.064
+    },
+    {
+      "code": 29,
+      "class_name": "Millet",
+      "hex": "#73004C",
+      "is_ag": true,
+      "acres": 67.832
+    },
+    {
+      "code": 247,
+      "class_name": "Turnips",
+      "hex": "#FF6666",
+      "is_ag": true,
+      "acres": 55.822399999999995
+    },
+    {
+      "code": 57,
+      "class_name": "Herbs",
+      "hex": "#80D4FF",
+      "is_ag": true,
+      "acres": 49.5952
+    },
+    {
+      "code": 222,
+      "class_name": "Squash",
+      "hex": "#FF6666",
+      "is_ag": true,
+      "acres": 43.145599999999995
+    },
+    {
+      "code": 236,
+      "class_name": "Dbl Crop WinWht/Sorghum",
+      "hex": "#A87000",
+      "is_ag": true,
+      "acres": 39.587199999999996
+    },
+    {
+      "code": 67,
+      "class_name": "Peaches",
+      "hex": "#FF91AB",
+      "is_ag": true,
+      "acres": 31.136
+    },
+    {
+      "code": 11,
+      "class_name": "Tobacco",
+      "hex": "#00AF4D",
+      "is_ag": true,
+      "acres": 26.4656
+    },
+    {
+      "code": 246,
+      "class_name": "Radishes",
+      "hex": "#FF6666",
+      "is_ag": true,
+      "acres": 25.798399999999997
+    },
+    {
+      "code": 226,
+      "class_name": "Dbl Crop Oats/Corn",
+      "hex": "#FFD400",
+      "is_ag": true,
+      "acres": 16.9024
+    },
+    {
+      "code": 209,
+      "class_name": "Cantaloupes",
+      "hex": "#FF6666",
+      "is_ag": true,
+      "acres": 5.7824
+    },
+    {
+      "code": 237,
+      "class_name": "Dbl Crop Barley/Corn",
+      "hex": "#FFD400",
+      "is_ag": true,
+      "acres": 2.2239999999999998
+    },
+    {
+      "code": 241,
+      "class_name": "Dbl Crop Corn/Soybeans",
+      "hex": "#FFD400",
+      "is_ag": true,
+      "acres": 2.2239999999999998
+    }
+  ],
+  "2017": [
+    {
+      "code": 141,
+      "class_name": "Deciduous Forest",
+      "hex": "#95CE93",
+      "is_ag": false,
+      "acres": 8898316.740799999
+    },
+    {
+      "code": 5,
+      "class_name": "Soybeans",
+      "hex": "#267300",
+      "is_ag": true,
+      "acres": 5289070.5408
+    },
+    {
+      "code": 1,
+      "class_name": "Corn",
+      "hex": "#FFD400",
+      "is_ag": true,
+      "acres": 3436954.4768
+    },
+    {
+      "code": 176,
+      "class_name": "Grass/Pasture",
+      "hex": "#E9FFBE",
+      "is_ag": true,
+      "acres": 3336495.7295999997
+    },
+    {
+      "code": 121,
+      "class_name": "Developed/Open Space",
+      "hex": "#9C9C9C",
+      "is_ag": false,
+      "acres": 2003900.9504
+    },
+    {
+      "code": 122,
+      "class_name": "Developed/Low Intensity",
+      "hex": "#9C9C9C",
+      "is_ag": false,
+      "acres": 1165751.6335999998
+    },
+    {
+      "code": 123,
+      "class_name": "Developed/Med Intensity",
+      "hex": "#9C9C9C",
+      "is_ag": false,
+      "acres": 444085.8736
+    },
+    {
+      "code": 24,
+      "class_name": "Winter Wheat",
+      "hex": "#A87000",
+      "is_ag": true,
+      "acres": 353635.5712
+    },
+    {
+      "code": 37,
+      "class_name": "Other Hay/Non Alfalfa",
+      "hex": "#A5F58D",
+      "is_ag": true,
+      "acres": 319131.54559999995
+    },
+    {
+      "code": 111,
+      "class_name": "Open Water",
+      "hex": "#4D70A3",
+      "is_ag": false,
+      "acres": 309820.5472
+    },
+    {
+      "code": 36,
+      "class_name": "Alfalfa",
+      "hex": "#FFA8E3",
+      "is_ag": true,
+      "acres": 219751.88319999998
+    },
+    {
+      "code": 124,
+      "class_name": "Developed/High Intensity",
+      "hex": "#9C9C9C",
+      "is_ag": false,
+      "acres": 178622.3392
+    },
+    {
+      "code": 190,
+      "class_name": "Woody Wetlands",
+      "hex": "#80B3B3",
+      "is_ag": false,
+      "acres": 78941.7696
+    },
+    {
+      "code": 152,
+      "class_name": "Shrubland",
+      "hex": "#C7D79E",
+      "is_ag": false,
+      "acres": 74421.9344
+    },
+    {
+      "code": 195,
+      "class_name": "Herbaceous Wetlands",
+      "hex": "#80B3B3",
+      "is_ag": false,
+      "acres": 65673.83039999999
+    },
+    {
+      "code": 131,
+      "class_name": "Barren",
+      "hex": "#CCBFA3",
+      "is_ag": false,
+      "acres": 57186.379199999996
+    },
+    {
+      "code": 142,
+      "class_name": "Evergreen Forest",
+      "hex": "#95CE93",
+      "is_ag": false,
+      "acres": 56060.8128
+    },
+    {
+      "code": 61,
+      "class_name": "Fallow/Idle Cropland",
+      "hex": "#BFBF7A",
+      "is_ag": true,
+      "acres": 35699.648
+    },
+    {
+      "code": 26,
+      "class_name": "Dbl Crop WinWht/Soybeans",
+      "hex": "#737300",
+      "is_ag": true,
+      "acres": 28905.327999999998
+    },
+    {
+      "code": 13,
+      "class_name": "Pop or Orn Corn",
+      "hex": "#E0A60F",
+      "is_ag": true,
+      "acres": 23698.2768
+    },
+    {
+      "code": 143,
+      "class_name": "Mixed Forest",
+      "hex": "#95CE93",
+      "is_ag": false,
+      "acres": 9703.0896
+    },
+    {
+      "code": 58,
+      "class_name": "Clover/Wildflowers",
+      "hex": "#E8BEFF",
+      "is_ag": true,
+      "acres": 4030.1103999999996
+    },
+    {
+      "code": 28,
+      "class_name": "Oats",
+      "hex": "#A15889",
+      "is_ag": true,
+      "acres": 3079.1279999999997
+    },
+    {
+      "code": 59,
+      "class_name": "Sod/Grass Seed",
+      "hex": "#B2FFDE",
+      "is_ag": true,
+      "acres": 1684.2351999999998
+    },
+    {
+      "code": 27,
+      "class_name": "Rye",
+      "hex": "#AE017E",
+      "is_ag": true,
+      "acres": 1650.6527999999998
+    },
+    {
+      "code": 54,
+      "class_name": "Tomatoes",
+      "hex": "#F5A27A",
+      "is_ag": true,
+      "acres": 1637.7536
+    },
+    {
+      "code": 68,
+      "class_name": "Apples",
+      "hex": "#B90050",
+      "is_ag": true,
+      "acres": 1117.56
+    },
+    {
+      "code": 44,
+      "class_name": "Other Crops",
+      "hex": "#00AF4D",
+      "is_ag": true,
+      "acres": 981.896
+    },
+    {
+      "code": 53,
+      "class_name": "Peas",
+      "hex": "#55FF00",
+      "is_ag": true,
+      "acres": 576.016
+    },
+    {
+      "code": 42,
+      "class_name": "Dry Beans",
+      "hex": "#A80000",
+      "is_ag": true,
+      "acres": 403.8784
+    },
+    {
+      "code": 229,
+      "class_name": "Pumpkins",
+      "hex": "#FF6666",
+      "is_ag": true,
+      "acres": 398.3184
+    },
+    {
+      "code": 243,
+      "class_name": "Cabbage",
+      "hex": "#FF6666",
+      "is_ag": true,
+      "acres": 356.50719999999995
+    },
+    {
+      "code": 254,
+      "class_name": "Dbl Crop Barley/Soybeans",
+      "hex": "#267300",
+      "is_ag": true,
+      "acres": 328.26239999999996
+    },
+    {
+      "code": 43,
+      "class_name": "Potatoes",
+      "hex": "#732600",
+      "is_ag": true,
+      "acres": 315.14079999999996
+    },
+    {
+      "code": 50,
+      "class_name": "Cucumbers",
+      "hex": "#FF6666",
+      "is_ag": true,
+      "acres": 302.2416
+    },
+    {
+      "code": 70,
+      "class_name": "Christmas Trees",
+      "hex": "#007878",
+      "is_ag": true,
+      "acres": 268.4368
+    },
+    {
+      "code": 21,
+      "class_name": "Barley",
+      "hex": "#E2007F",
+      "is_ag": true,
+      "acres": 227.7376
+    },
+    {
+      "code": 216,
+      "class_name": "Peppers",
+      "hex": "#FF6666",
+      "is_ag": true,
+      "acres": 215.72799999999998
+    },
+    {
+      "code": 30,
+      "class_name": "Speltz",
+      "hex": "#D69DBC",
+      "is_ag": true,
+      "acres": 172.58239999999998
+    },
+    {
+      "code": 219,
+      "class_name": "Greens",
+      "hex": "#FF6666",
+      "is_ag": true,
+      "acres": 169.69119999999998
+    },
+    {
+      "code": 57,
+      "class_name": "Herbs",
+      "hex": "#80D4FF",
+      "is_ag": true,
+      "acres": 152.5664
+    },
+    {
+      "code": 4,
+      "class_name": "Sorghum",
+      "hex": "#FF9E0F",
+      "is_ag": true,
+      "acres": 150.5648
+    },
+    {
+      "code": 69,
+      "class_name": "Grapes",
+      "hex": "#704489",
+      "is_ag": true,
+      "acres": 149.4528
+    },
+    {
+      "code": 225,
+      "class_name": "Dbl Crop WinWht/Corn",
+      "hex": "#FFD400",
+      "is_ag": true,
+      "acres": 149.2304
+    },
+    {
+      "code": 222,
+      "class_name": "Squash",
+      "hex": "#FF6666",
+      "is_ag": true,
+      "acres": 130.9936
+    },
+    {
+      "code": 205,
+      "class_name": "Triticale",
+      "hex": "#D69DBC",
+      "is_ag": true,
+      "acres": 100.74719999999999
+    },
+    {
+      "code": 6,
+      "class_name": "Sunflower",
+      "hex": "#FFFF00",
+      "is_ag": true,
+      "acres": 75.1712
+    },
+    {
+      "code": 206,
+      "class_name": "Carrots",
+      "hex": "#FF6666",
+      "is_ag": true,
+      "acres": 26.4656
+    },
+    {
+      "code": 41,
+      "class_name": "Sugarbeets",
+      "hex": "#A900E6",
+      "is_ag": true,
+      "acres": 24.9088
+    },
+    {
+      "code": 236,
+      "class_name": "Dbl Crop WinWht/Sorghum",
+      "hex": "#A87000",
+      "is_ag": true,
+      "acres": 16.2352
+    },
+    {
+      "code": 11,
+      "class_name": "Tobacco",
+      "hex": "#00AF4D",
+      "is_ag": true,
+      "acres": 14.6784
+    },
+    {
+      "code": 60,
+      "class_name": "Switchgrass",
+      "hex": "#00AF4D",
+      "is_ag": true,
+      "acres": 13.5664
+    },
+    {
+      "code": 242,
+      "class_name": "Blueberries",
+      "hex": "#000099",
+      "is_ag": true,
+      "acres": 8.673599999999999
+    },
+    {
+      "code": 247,
+      "class_name": "Turnips",
+      "hex": "#FF6666",
+      "is_ag": true,
+      "acres": 7.1168
+    },
+    {
+      "code": 49,
+      "class_name": "Onions",
+      "hex": "#FFCC66",
+      "is_ag": true,
+      "acres": 6.0047999999999995
+    },
+    {
+      "code": 71,
+      "class_name": "Other Tree Crops",
+      "hex": "#B39C70",
+      "is_ag": true,
+      "acres": 4.6704
+    }
+  ],
+  "2018": [
+    {
+      "code": 141,
+      "class_name": "Deciduous Forest",
+      "hex": "#95CE93",
+      "is_ag": false,
+      "acres": 8683011.3008
+    },
+    {
+      "code": 5,
+      "class_name": "Soybeans",
+      "hex": "#267300",
+      "is_ag": true,
+      "acres": 5278007.2528
+    },
+    {
+      "code": 1,
+      "class_name": "Corn",
+      "hex": "#FFD400",
+      "is_ag": true,
+      "acres": 3410835.5984
+    },
+    {
+      "code": 176,
+      "class_name": "Grass/Pasture",
+      "hex": "#E9FFBE",
+      "is_ag": true,
+      "acres": 3301542.2336
+    },
+    {
+      "code": 121,
+      "class_name": "Developed/Open Space",
+      "hex": "#9C9C9C",
+      "is_ag": false,
+      "acres": 2012633.7088
+    },
+    {
+      "code": 122,
+      "class_name": "Developed/Low Intensity",
+      "hex": "#9C9C9C",
+      "is_ag": false,
+      "acres": 1158480.9327999998
+    },
+    {
+      "code": 123,
+      "class_name": "Developed/Med Intensity",
+      "hex": "#9C9C9C",
+      "is_ag": false,
+      "acres": 436499.8096
+    },
+    {
+      "code": 24,
+      "class_name": "Winter Wheat",
+      "hex": "#A87000",
+      "is_ag": true,
+      "acres": 388233.8944
+    },
+    {
+      "code": 37,
+      "class_name": "Other Hay/Non Alfalfa",
+      "hex": "#A5F58D",
+      "is_ag": true,
+      "acres": 353039.5392
+    },
+    {
+      "code": 111,
+      "class_name": "Open Water",
+      "hex": "#4D70A3",
+      "is_ag": false,
+      "acres": 308315.344
+    },
+    {
+      "code": 36,
+      "class_name": "Alfalfa",
+      "hex": "#FFA8E3",
+      "is_ag": true,
+      "acres": 259538.35359999997
+    },
+    {
+      "code": 124,
+      "class_name": "Developed/High Intensity",
+      "hex": "#9C9C9C",
+      "is_ag": false,
+      "acres": 177017.72319999998
+    },
+    {
+      "code": 142,
+      "class_name": "Evergreen Forest",
+      "hex": "#95CE93",
+      "is_ag": false,
+      "acres": 145503.8656
+    },
+    {
+      "code": 190,
+      "class_name": "Woody Wetlands",
+      "hex": "#80B3B3",
+      "is_ag": false,
+      "acres": 117199.01759999999
+    },
+    {
+      "code": 152,
+      "class_name": "Shrubland",
+      "hex": "#C7D79E",
+      "is_ag": false,
+      "acres": 94476.1872
+    },
+    {
+      "code": 195,
+      "class_name": "Herbaceous Wetlands",
+      "hex": "#80B3B3",
+      "is_ag": false,
+      "acres": 79075.2096
+    },
+    {
+      "code": 131,
+      "class_name": "Barren",
+      "hex": "#CCBFA3",
+      "is_ag": false,
+      "acres": 69387.2432
+    },
+    {
+      "code": 61,
+      "class_name": "Fallow/Idle Cropland",
+      "hex": "#BFBF7A",
+      "is_ag": true,
+      "acres": 40364.2656
+    },
+    {
+      "code": 26,
+      "class_name": "Dbl Crop WinWht/Soybeans",
+      "hex": "#737300",
+      "is_ag": true,
+      "acres": 37429.6976
+    },
+    {
+      "code": 143,
+      "class_name": "Mixed Forest",
+      "hex": "#95CE93",
+      "is_ag": false,
+      "acres": 18902.2208
+    },
+    {
+      "code": 13,
+      "class_name": "Pop or Orn Corn",
+      "hex": "#E0A60F",
+      "is_ag": true,
+      "acres": 11940.2112
+    },
+    {
+      "code": 54,
+      "class_name": "Tomatoes",
+      "hex": "#F5A27A",
+      "is_ag": true,
+      "acres": 3424.7376
+    },
+    {
+      "code": 58,
+      "class_name": "Clover/Wildflowers",
+      "hex": "#E8BEFF",
+      "is_ag": true,
+      "acres": 3390.9327999999996
+    },
+    {
+      "code": 28,
+      "class_name": "Oats",
+      "hex": "#A15889",
+      "is_ag": true,
+      "acres": 3213.2351999999996
+    },
+    {
+      "code": 59,
+      "class_name": "Sod/Grass Seed",
+      "hex": "#B2FFDE",
+      "is_ag": true,
+      "acres": 2501.3327999999997
+    },
+    {
+      "code": 254,
+      "class_name": "Dbl Crop Barley/Soybeans",
+      "hex": "#267300",
+      "is_ag": true,
+      "acres": 1612.6224
+    },
+    {
+      "code": 68,
+      "class_name": "Apples",
+      "hex": "#B90050",
+      "is_ag": true,
+      "acres": 1428.4751999999999
+    },
+    {
+      "code": 27,
+      "class_name": "Rye",
+      "hex": "#AE017E",
+      "is_ag": true,
+      "acres": 1271.4607999999998
+    },
+    {
+      "code": 42,
+      "class_name": "Dry Beans",
+      "hex": "#A80000",
+      "is_ag": true,
+      "acres": 992.3488
+    },
+    {
+      "code": 225,
+      "class_name": "Dbl Crop WinWht/Corn",
+      "hex": "#FFD400",
+      "is_ag": true,
+      "acres": 732.808
+    },
+    {
+      "code": 21,
+      "class_name": "Barley",
+      "hex": "#E2007F",
+      "is_ag": true,
+      "acres": 716.1279999999999
+    },
+    {
+      "code": 70,
+      "class_name": "Christmas Trees",
+      "hex": "#007878",
+      "is_ag": true,
+      "acres": 620.7184
+    },
+    {
+      "code": 229,
+      "class_name": "Pumpkins",
+      "hex": "#FF6666",
+      "is_ag": true,
+      "acres": 575.7936
+    },
+    {
+      "code": 53,
+      "class_name": "Peas",
+      "hex": "#55FF00",
+      "is_ag": true,
+      "acres": 515.968
+    },
+    {
+      "code": 4,
+      "class_name": "Sorghum",
+      "hex": "#FF9E0F",
+      "is_ag": true,
+      "acres": 479.7168
+    },
+    {
+      "code": 243,
+      "class_name": "Cabbage",
+      "hex": "#FF6666",
+      "is_ag": true,
+      "acres": 397.42879999999997
+    },
+    {
+      "code": 205,
+      "class_name": "Triticale",
+      "hex": "#D69DBC",
+      "is_ag": true,
+      "acres": 363.4016
+    },
+    {
+      "code": 69,
+      "class_name": "Grapes",
+      "hex": "#704489",
+      "is_ag": true,
+      "acres": 247.3088
+    },
+    {
+      "code": 30,
+      "class_name": "Speltz",
+      "hex": "#D69DBC",
+      "is_ag": true,
+      "acres": 147.896
+    },
+    {
+      "code": 41,
+      "class_name": "Sugarbeets",
+      "hex": "#A900E6",
+      "is_ag": true,
+      "acres": 100.08
+    },
+    {
+      "code": 43,
+      "class_name": "Potatoes",
+      "hex": "#732600",
+      "is_ag": true,
+      "acres": 86.29119999999999
+    },
+    {
+      "code": 50,
+      "class_name": "Cucumbers",
+      "hex": "#FF6666",
+      "is_ag": true,
+      "acres": 78.0624
+    },
+    {
+      "code": 57,
+      "class_name": "Herbs",
+      "hex": "#80D4FF",
+      "is_ag": true,
+      "acres": 66.2752
+    },
+    {
+      "code": 6,
+      "class_name": "Sunflower",
+      "hex": "#FFFF00",
+      "is_ag": true,
+      "acres": 52.486399999999996
+    },
+    {
+      "code": 222,
+      "class_name": "Squash",
+      "hex": "#FF6666",
+      "is_ag": true,
+      "acres": 51.819199999999995
+    },
+    {
+      "code": 242,
+      "class_name": "Blueberries",
+      "hex": "#000099",
+      "is_ag": true,
+      "acres": 50.92959999999999
+    },
+    {
+      "code": 206,
+      "class_name": "Carrots",
+      "hex": "#FF6666",
+      "is_ag": true,
+      "acres": 50.4848
+    },
+    {
+      "code": 39,
+      "class_name": "Buckwheat",
+      "hex": "#D69DBC",
+      "is_ag": true,
+      "acres": 41.3664
+    },
+    {
+      "code": 241,
+      "class_name": "Dbl Crop Corn/Soybeans",
+      "hex": "#FFD400",
+      "is_ag": true,
+      "acres": 30.023999999999997
+    },
+    {
+      "code": 11,
+      "class_name": "Tobacco",
+      "hex": "#00AF4D",
+      "is_ag": true,
+      "acres": 22.6848
+    },
+    {
+      "code": 240,
+      "class_name": "Dbl Crop Soybeans/Oats",
+      "hex": "#267300",
+      "is_ag": true,
+      "acres": 22.017599999999998
+    },
+    {
+      "code": 237,
+      "class_name": "Dbl Crop Barley/Corn",
+      "hex": "#FFD400",
+      "is_ag": true,
+      "acres": 16.0128
+    },
+    {
+      "code": 60,
+      "class_name": "Switchgrass",
+      "hex": "#00AF4D",
+      "is_ag": true,
+      "acres": 14.456
+    },
+    {
+      "code": 71,
+      "class_name": "Other Tree Crops",
+      "hex": "#B39C70",
+      "is_ag": true,
+      "acres": 12.6768
+    },
+    {
+      "code": 236,
+      "class_name": "Dbl Crop WinWht/Sorghum",
+      "hex": "#A87000",
+      "is_ag": true,
+      "acres": 8.4512
+    },
+    {
+      "code": 219,
+      "class_name": "Greens",
+      "hex": "#FF6666",
+      "is_ag": true,
+      "acres": 3.7807999999999997
+    },
+    {
+      "code": 44,
+      "class_name": "Other Crops",
+      "hex": "#00AF4D",
+      "is_ag": true,
+      "acres": 2.0016
+    }
+  ],
+  "2019": [
+    {
+      "code": 141,
+      "class_name": "Deciduous Forest",
+      "hex": "#95CE93",
+      "is_ag": false,
+      "acres": 8749241.7984
+    },
+    {
+      "code": 5,
+      "class_name": "Soybeans",
+      "hex": "#267300",
+      "is_ag": true,
+      "acres": 4352526.5712
+    },
+    {
+      "code": 1,
+      "class_name": "Corn",
+      "hex": "#FFD400",
+      "is_ag": true,
+      "acres": 2792275.368
+    },
+    {
+      "code": 176,
+      "class_name": "Grass/Pasture",
+      "hex": "#E9FFBE",
+      "is_ag": true,
+      "acres": 2564649.4128
+    },
+    {
+      "code": 61,
+      "class_name": "Fallow/Idle Cropland",
+      "hex": "#BFBF7A",
+      "is_ag": true,
+      "acres": 1811835.8656
+    },
+    {
+      "code": 121,
+      "class_name": "Developed/Open Space",
+      "hex": "#9C9C9C",
+      "is_ag": false,
+      "acres": 1776466.704
+    },
+    {
+      "code": 122,
+      "class_name": "Developed/Low Intensity",
+      "hex": "#9C9C9C",
+      "is_ag": false,
+      "acres": 1185690.2384
+    },
+    {
+      "code": 143,
+      "class_name": "Mixed Forest",
+      "hex": "#95CE93",
+      "is_ag": false,
+      "acres": 638106.744
+    },
+    {
+      "code": 123,
+      "class_name": "Developed/Med Intensity",
+      "hex": "#9C9C9C",
+      "is_ag": false,
+      "acres": 465558.3712
+    },
+    {
+      "code": 37,
+      "class_name": "Other Hay/Non Alfalfa",
+      "hex": "#A5F58D",
+      "is_ag": true,
+      "acres": 424709.496
+    },
+    {
+      "code": 24,
+      "class_name": "Winter Wheat",
+      "hex": "#A87000",
+      "is_ag": true,
+      "acres": 367032.9472
+    },
+    {
+      "code": 111,
+      "class_name": "Open Water",
+      "hex": "#4D70A3",
+      "is_ag": false,
+      "acres": 295712.15839999996
+    },
+    {
+      "code": 36,
+      "class_name": "Alfalfa",
+      "hex": "#FFA8E3",
+      "is_ag": true,
+      "acres": 261473.23359999998
+    },
+    {
+      "code": 124,
+      "class_name": "Developed/High Intensity",
+      "hex": "#9C9C9C",
+      "is_ag": false,
+      "acres": 190331.25439999998
+    },
+    {
+      "code": 190,
+      "class_name": "Woody Wetlands",
+      "hex": "#80B3B3",
+      "is_ag": false,
+      "acres": 175385.97439999998
+    },
+    {
+      "code": 142,
+      "class_name": "Evergreen Forest",
+      "hex": "#95CE93",
+      "is_ag": false,
+      "acres": 112016.4304
+    },
+    {
+      "code": 195,
+      "class_name": "Herbaceous Wetlands",
+      "hex": "#80B3B3",
+      "is_ag": false,
+      "acres": 70339.7824
+    },
+    {
+      "code": 131,
+      "class_name": "Barren",
+      "hex": "#CCBFA3",
+      "is_ag": false,
+      "acres": 63820.3488
+    },
+    {
+      "code": 26,
+      "class_name": "Dbl Crop WinWht/Soybeans",
+      "hex": "#737300",
+      "is_ag": true,
+      "acres": 40136.3056
+    },
+    {
+      "code": 152,
+      "class_name": "Shrubland",
+      "hex": "#C7D79E",
+      "is_ag": false,
+      "acres": 36089.515199999994
+    },
+    {
+      "code": 28,
+      "class_name": "Oats",
+      "hex": "#A15889",
+      "is_ag": true,
+      "acres": 6440.2591999999995
+    },
+    {
+      "code": 58,
+      "class_name": "Clover/Wildflowers",
+      "hex": "#E8BEFF",
+      "is_ag": true,
+      "acres": 6153.808
+    },
+    {
+      "code": 59,
+      "class_name": "Sod/Grass Seed",
+      "hex": "#B2FFDE",
+      "is_ag": true,
+      "acres": 2702.6047999999996
+    },
+    {
+      "code": 13,
+      "class_name": "Pop or Orn Corn",
+      "hex": "#E0A60F",
+      "is_ag": true,
+      "acres": 2644.336
+    },
+    {
+      "code": 27,
+      "class_name": "Rye",
+      "hex": "#AE017E",
+      "is_ag": true,
+      "acres": 2235.5647999999997
+    },
+    {
+      "code": 4,
+      "class_name": "Sorghum",
+      "hex": "#FF9E0F",
+      "is_ag": true,
+      "acres": 2051.64
+    },
+    {
+      "code": 68,
+      "class_name": "Apples",
+      "hex": "#B90050",
+      "is_ag": true,
+      "acres": 1955.7856
+    },
+    {
+      "code": 254,
+      "class_name": "Dbl Crop Barley/Soybeans",
+      "hex": "#267300",
+      "is_ag": true,
+      "acres": 1485.6319999999998
+    },
+    {
+      "code": 54,
+      "class_name": "Tomatoes",
+      "hex": "#F5A27A",
+      "is_ag": true,
+      "acres": 798.4159999999999
+    },
+    {
+      "code": 12,
+      "class_name": "Sweet Corn",
+      "hex": "#E0A60F",
+      "is_ag": true,
+      "acres": 663.8639999999999
+    },
+    {
+      "code": 21,
+      "class_name": "Barley",
+      "hex": "#E2007F",
+      "is_ag": true,
+      "acres": 547.3263999999999
+    },
+    {
+      "code": 243,
+      "class_name": "Cabbage",
+      "hex": "#FF6666",
+      "is_ag": true,
+      "acres": 381.416
+    },
+    {
+      "code": 225,
+      "class_name": "Dbl Crop WinWht/Corn",
+      "hex": "#FFD400",
+      "is_ag": true,
+      "acres": 341.6064
+    },
+    {
+      "code": 70,
+      "class_name": "Christmas Trees",
+      "hex": "#007878",
+      "is_ag": true,
+      "acres": 332.2656
+    },
+    {
+      "code": 6,
+      "class_name": "Sunflower",
+      "hex": "#FFFF00",
+      "is_ag": true,
+      "acres": 318.92159999999996
+    },
+    {
+      "code": 30,
+      "class_name": "Speltz",
+      "hex": "#D69DBC",
+      "is_ag": true,
+      "acres": 285.784
+    },
+    {
+      "code": 237,
+      "class_name": "Dbl Crop Barley/Corn",
+      "hex": "#FFD400",
+      "is_ag": true,
+      "acres": 274.4416
+    },
+    {
+      "code": 44,
+      "class_name": "Other Crops",
+      "hex": "#00AF4D",
+      "is_ag": true,
+      "acres": 257.984
+    },
+    {
+      "code": 229,
+      "class_name": "Pumpkins",
+      "hex": "#FF6666",
+      "is_ag": true,
+      "acres": 254.20319999999998
+    },
+    {
+      "code": 42,
+      "class_name": "Dry Beans",
+      "hex": "#A80000",
+      "is_ag": true,
+      "acres": 241.30399999999997
+    },
+    {
+      "code": 39,
+      "class_name": "Buckwheat",
+      "hex": "#D69DBC",
+      "is_ag": true,
+      "acres": 193.7104
+    },
+    {
+      "code": 228,
+      "class_name": "Dbl Crop Triticale/Corn",
+      "hex": "#FFD400",
+      "is_ag": true,
+      "acres": 133.2176
+    },
+    {
+      "code": 206,
+      "class_name": "Carrots",
+      "hex": "#FF6666",
+      "is_ag": true,
+      "acres": 115.648
+    },
+    {
+      "code": 205,
+      "class_name": "Triticale",
+      "hex": "#D69DBC",
+      "is_ag": true,
+      "acres": 74.7264
+    },
+    {
+      "code": 69,
+      "class_name": "Grapes",
+      "hex": "#704489",
+      "is_ag": true,
+      "acres": 71.16799999999999
+    },
+    {
+      "code": 71,
+      "class_name": "Other Tree Crops",
+      "hex": "#B39C70",
+      "is_ag": true,
+      "acres": 63.38399999999999
+    },
+    {
+      "code": 57,
+      "class_name": "Herbs",
+      "hex": "#80D4FF",
+      "is_ag": true,
+      "acres": 47.148799999999994
+    },
+    {
+      "code": 43,
+      "class_name": "Potatoes",
+      "hex": "#732600",
+      "is_ag": true,
+      "acres": 43.812799999999996
+    },
+    {
+      "code": 219,
+      "class_name": "Greens",
+      "hex": "#FF6666",
+      "is_ag": true,
+      "acres": 43.590399999999995
+    },
+    {
+      "code": 216,
+      "class_name": "Peppers",
+      "hex": "#FF6666",
+      "is_ag": true,
+      "acres": 30.9136
+    },
+    {
+      "code": 60,
+      "class_name": "Switchgrass",
+      "hex": "#00AF4D",
+      "is_ag": true,
+      "acres": 28.022399999999998
+    },
+    {
+      "code": 41,
+      "class_name": "Sugarbeets",
+      "hex": "#A900E6",
+      "is_ag": true,
+      "acres": 27.577599999999997
+    },
+    {
+      "code": 236,
+      "class_name": "Dbl Crop WinWht/Sorghum",
+      "hex": "#A87000",
+      "is_ag": true,
+      "acres": 26.9104
+    },
+    {
+      "code": 241,
+      "class_name": "Dbl Crop Corn/Soybeans",
+      "hex": "#FFD400",
+      "is_ag": true,
+      "acres": 26.9104
+    },
+    {
+      "code": 29,
+      "class_name": "Millet",
+      "hex": "#73004C",
+      "is_ag": true,
+      "acres": 22.6848
+    },
+    {
+      "code": 50,
+      "class_name": "Cucumbers",
+      "hex": "#FF6666",
+      "is_ag": true,
+      "acres": 18.6816
+    },
+    {
+      "code": 67,
+      "class_name": "Peaches",
+      "hex": "#FF91AB",
+      "is_ag": true,
+      "acres": 12.899199999999999
+    },
+    {
+      "code": 249,
+      "class_name": "Gourds",
+      "hex": "#FF6666",
+      "is_ag": true,
+      "acres": 8.4512
+    },
+    {
+      "code": 23,
+      "class_name": "Spring Wheat",
+      "hex": "#D9B56C",
+      "is_ag": true,
+      "acres": 6.894399999999999
+    },
+    {
+      "code": 222,
+      "class_name": "Squash",
+      "hex": "#FF6666",
+      "is_ag": true,
+      "acres": 4.892799999999999
+    },
+    {
+      "code": 240,
+      "class_name": "Dbl Crop Soybeans/Oats",
+      "hex": "#267300",
+      "is_ag": true,
+      "acres": 4.892799999999999
+    },
+    {
+      "code": 11,
+      "class_name": "Tobacco",
+      "hex": "#00AF4D",
+      "is_ag": true,
+      "acres": 4.0032
+    }
+  ],
+  "2020": [
+    {
+      "code": 141,
+      "class_name": "Deciduous Forest",
+      "hex": "#95CE93",
+      "is_ag": false,
+      "acres": 8772224.391999999
+    },
+    {
+      "code": 5,
+      "class_name": "Soybeans",
+      "hex": "#267300",
+      "is_ag": true,
+      "acres": 5212919.223999999
+    },
+    {
+      "code": 1,
+      "class_name": "Corn",
+      "hex": "#FFD400",
+      "is_ag": true,
+      "acres": 3496855.0256
+    },
+    {
+      "code": 176,
+      "class_name": "Grass/Pasture",
+      "hex": "#E9FFBE",
+      "is_ag": true,
+      "acres": 2523273.8943999996
+    },
+    {
+      "code": 121,
+      "class_name": "Developed/Open Space",
+      "hex": "#9C9C9C",
+      "is_ag": false,
+      "acres": 1770223.936
+    },
+    {
+      "code": 122,
+      "class_name": "Developed/Low Intensity",
+      "hex": "#9C9C9C",
+      "is_ag": false,
+      "acres": 1184128.3232
+    },
+    {
+      "code": 143,
+      "class_name": "Mixed Forest",
+      "hex": "#95CE93",
+      "is_ag": false,
+      "acres": 611532.6128
+    },
+    {
+      "code": 123,
+      "class_name": "Developed/Med Intensity",
+      "hex": "#9C9C9C",
+      "is_ag": false,
+      "acres": 465378.22719999996
+    },
+    {
+      "code": 24,
+      "class_name": "Winter Wheat",
+      "hex": "#A87000",
+      "is_ag": true,
+      "acres": 463275.43519999995
+    },
+    {
+      "code": 37,
+      "class_name": "Other Hay/Non Alfalfa",
+      "hex": "#A5F58D",
+      "is_ag": true,
+      "acres": 431180.6688
+    },
+    {
+      "code": 36,
+      "class_name": "Alfalfa",
+      "hex": "#FFA8E3",
+      "is_ag": true,
+      "acres": 321645.5552
+    },
+    {
+      "code": 111,
+      "class_name": "Open Water",
+      "hex": "#4D70A3",
+      "is_ag": false,
+      "acres": 293279.5472
+    },
+    {
+      "code": 124,
+      "class_name": "Developed/High Intensity",
+      "hex": "#9C9C9C",
+      "is_ag": false,
+      "acres": 190331.25439999998
+    },
+    {
+      "code": 190,
+      "class_name": "Woody Wetlands",
+      "hex": "#80B3B3",
+      "is_ag": false,
+      "acres": 181627.6304
+    },
+    {
+      "code": 142,
+      "class_name": "Evergreen Forest",
+      "hex": "#95CE93",
+      "is_ag": false,
+      "acres": 113448.2416
+    },
+    {
+      "code": 61,
+      "class_name": "Fallow/Idle Cropland",
+      "hex": "#BFBF7A",
+      "is_ag": true,
+      "acres": 87876.0224
+    },
+    {
+      "code": 195,
+      "class_name": "Herbaceous Wetlands",
+      "hex": "#80B3B3",
+      "is_ag": false,
+      "acres": 70859.3088
+    },
+    {
+      "code": 131,
+      "class_name": "Barren",
+      "hex": "#CCBFA3",
+      "is_ag": false,
+      "acres": 69294.28
+    },
+    {
+      "code": 26,
+      "class_name": "Dbl Crop WinWht/Soybeans",
+      "hex": "#737300",
+      "is_ag": true,
+      "acres": 61198.030399999996
+    },
+    {
+      "code": 152,
+      "class_name": "Shrubland",
+      "hex": "#C7D79E",
+      "is_ag": false,
+      "acres": 31602.8176
+    },
+    {
+      "code": 28,
+      "class_name": "Oats",
+      "hex": "#A15889",
+      "is_ag": true,
+      "acres": 9450.4432
+    },
+    {
+      "code": 13,
+      "class_name": "Pop or Orn Corn",
+      "hex": "#E0A60F",
+      "is_ag": true,
+      "acres": 9081.704
+    },
+    {
+      "code": 58,
+      "class_name": "Clover/Wildflowers",
+      "hex": "#E8BEFF",
+      "is_ag": true,
+      "acres": 7427.4928
+    },
+    {
+      "code": 254,
+      "class_name": "Dbl Crop Barley/Soybeans",
+      "hex": "#267300",
+      "is_ag": true,
+      "acres": 5150.784
+    },
+    {
+      "code": 21,
+      "class_name": "Barley",
+      "hex": "#E2007F",
+      "is_ag": true,
+      "acres": 3603.7695999999996
+    },
+    {
+      "code": 59,
+      "class_name": "Sod/Grass Seed",
+      "hex": "#B2FFDE",
+      "is_ag": true,
+      "acres": 2365.6688
+    },
+    {
+      "code": 27,
+      "class_name": "Rye",
+      "hex": "#AE017E",
+      "is_ag": true,
+      "acres": 2267.368
+    },
+    {
+      "code": 68,
+      "class_name": "Apples",
+      "hex": "#B90050",
+      "is_ag": true,
+      "acres": 1888.3983999999998
+    },
+    {
+      "code": 4,
+      "class_name": "Sorghum",
+      "hex": "#FF9E0F",
+      "is_ag": true,
+      "acres": 1785.8719999999998
+    },
+    {
+      "code": 54,
+      "class_name": "Tomatoes",
+      "hex": "#F5A27A",
+      "is_ag": true,
+      "acres": 1474.7343999999998
+    },
+    {
+      "code": 12,
+      "class_name": "Sweet Corn",
+      "hex": "#E0A60F",
+      "is_ag": true,
+      "acres": 992.3488
+    },
+    {
+      "code": 70,
+      "class_name": "Christmas Trees",
+      "hex": "#007878",
+      "is_ag": true,
+      "acres": 816.8752
+    },
+    {
+      "code": 30,
+      "class_name": "Speltz",
+      "hex": "#D69DBC",
+      "is_ag": true,
+      "acres": 794.1904
+    },
+    {
+      "code": 44,
+      "class_name": "Other Crops",
+      "hex": "#00AF4D",
+      "is_ag": true,
+      "acres": 776.6207999999999
+    },
+    {
+      "code": 229,
+      "class_name": "Pumpkins",
+      "hex": "#FF6666",
+      "is_ag": true,
+      "acres": 549.7728
+    },
+    {
+      "code": 43,
+      "class_name": "Potatoes",
+      "hex": "#732600",
+      "is_ag": true,
+      "acres": 515.0784
+    },
+    {
+      "code": 205,
+      "class_name": "Triticale",
+      "hex": "#D69DBC",
+      "is_ag": true,
+      "acres": 386.75359999999995
+    },
+    {
+      "code": 60,
+      "class_name": "Switchgrass",
+      "hex": "#00AF4D",
+      "is_ag": true,
+      "acres": 368.9616
+    },
+    {
+      "code": 243,
+      "class_name": "Cabbage",
+      "hex": "#FF6666",
+      "is_ag": true,
+      "acres": 333.59999999999997
+    },
+    {
+      "code": 42,
+      "class_name": "Dry Beans",
+      "hex": "#A80000",
+      "is_ag": true,
+      "acres": 321.1456
+    },
+    {
+      "code": 69,
+      "class_name": "Grapes",
+      "hex": "#704489",
+      "is_ag": true,
+      "acres": 299.79519999999997
+    },
+    {
+      "code": 206,
+      "class_name": "Carrots",
+      "hex": "#FF6666",
+      "is_ag": true,
+      "acres": 292.6784
+    },
+    {
+      "code": 6,
+      "class_name": "Sunflower",
+      "hex": "#FFFF00",
+      "is_ag": true,
+      "acres": 291.5664
+    },
+    {
+      "code": 50,
+      "class_name": "Cucumbers",
+      "hex": "#FF6666",
+      "is_ag": true,
+      "acres": 210.6128
+    },
+    {
+      "code": 225,
+      "class_name": "Dbl Crop WinWht/Corn",
+      "hex": "#FFD400",
+      "is_ag": true,
+      "acres": 176.808
+    },
+    {
+      "code": 222,
+      "class_name": "Squash",
+      "hex": "#FF6666",
+      "is_ag": true,
+      "acres": 161.6848
+    },
+    {
+      "code": 216,
+      "class_name": "Peppers",
+      "hex": "#FF6666",
+      "is_ag": true,
+      "acres": 146.784
+    },
+    {
+      "code": 57,
+      "class_name": "Herbs",
+      "hex": "#80D4FF",
+      "is_ag": true,
+      "acres": 124.544
+    },
+    {
+      "code": 219,
+      "class_name": "Greens",
+      "hex": "#FF6666",
+      "is_ag": true,
+      "acres": 123.87679999999999
+    },
+    {
+      "code": 53,
+      "class_name": "Peas",
+      "hex": "#55FF00",
+      "is_ag": true,
+      "acres": 93.1856
+    },
+    {
+      "code": 228,
+      "class_name": "Dbl Crop Triticale/Corn",
+      "hex": "#FFD400",
+      "is_ag": true,
+      "acres": 73.392
+    },
+    {
+      "code": 23,
+      "class_name": "Spring Wheat",
+      "hex": "#D9B56C",
+      "is_ag": true,
+      "acres": 72.7248
+    },
+    {
+      "code": 71,
+      "class_name": "Other Tree Crops",
+      "hex": "#B39C70",
+      "is_ag": true,
+      "acres": 53.376
+    },
+    {
+      "code": 41,
+      "class_name": "Sugarbeets",
+      "hex": "#A900E6",
+      "is_ag": true,
+      "acres": 44.9248
+    },
+    {
+      "code": 29,
+      "class_name": "Millet",
+      "hex": "#73004C",
+      "is_ag": true,
+      "acres": 42.7008
+    },
+    {
+      "code": 236,
+      "class_name": "Dbl Crop WinWht/Sorghum",
+      "hex": "#A87000",
+      "is_ag": true,
+      "acres": 23.574399999999997
+    },
+    {
+      "code": 237,
+      "class_name": "Dbl Crop Barley/Corn",
+      "hex": "#FFD400",
+      "is_ag": true,
+      "acres": 20.4608
+    },
+    {
+      "code": 31,
+      "class_name": "Canola",
+      "hex": "#D1FF00",
+      "is_ag": true,
+      "acres": 9.3408
+    },
+    {
+      "code": 11,
+      "class_name": "Tobacco",
+      "hex": "#00AF4D",
+      "is_ag": true,
+      "acres": 2.8912
+    },
+    {
+      "code": 67,
+      "class_name": "Peaches",
+      "hex": "#FF91AB",
+      "is_ag": true,
+      "acres": 2.6688
+    },
+    {
+      "code": 240,
+      "class_name": "Dbl Crop Soybeans/Oats",
+      "hex": "#267300",
+      "is_ag": true,
+      "acres": 2.2239999999999998
+    }
+  ],
+  "2021": [
+    {
+      "code": 141,
+      "class_name": "Deciduous Forest",
+      "hex": "#95CE93",
+      "is_ag": false,
+      "acres": 8296694.494399999
+    },
+    {
+      "code": 5,
+      "class_name": "Soybeans",
+      "hex": "#267300",
+      "is_ag": true,
+      "acres": 5220377.6304
+    },
+    {
+      "code": 1,
+      "class_name": "Corn",
+      "hex": "#FFD400",
+      "is_ag": true,
+      "acres": 3462166.8528
+    },
+    {
+      "code": 176,
+      "class_name": "Grass/Pasture",
+      "hex": "#E9FFBE",
+      "is_ag": true,
+      "acres": 3267759.6736
+    },
+    {
+      "code": 121,
+      "class_name": "Developed/Open Space",
+      "hex": "#9C9C9C",
+      "is_ag": false,
+      "acres": 1602443.152
+    },
+    {
+      "code": 122,
+      "class_name": "Developed/Low Intensity",
+      "hex": "#9C9C9C",
+      "is_ag": false,
+      "acres": 1331210.5616
+    },
+    {
+      "code": 123,
+      "class_name": "Developed/Med Intensity",
+      "hex": "#9C9C9C",
+      "is_ag": false,
+      "acres": 734634.5712
+    },
+    {
+      "code": 24,
+      "class_name": "Winter Wheat",
+      "hex": "#A87000",
+      "is_ag": true,
+      "acres": 474717.24799999996
+    },
+    {
+      "code": 143,
+      "class_name": "Mixed Forest",
+      "hex": "#95CE93",
+      "is_ag": false,
+      "acres": 347741.5264
+    },
+    {
+      "code": 36,
+      "class_name": "Alfalfa",
+      "hex": "#FFA8E3",
+      "is_ag": true,
+      "acres": 288414.99199999997
+    },
+    {
+      "code": 124,
+      "class_name": "Developed/High Intensity",
+      "hex": "#9C9C9C",
+      "is_ag": false,
+      "acres": 283960.5424
+    },
+    {
+      "code": 111,
+      "class_name": "Open Water",
+      "hex": "#4D70A3",
+      "is_ag": false,
+      "acres": 282933.05439999996
+    },
+    {
+      "code": 37,
+      "class_name": "Other Hay/Non Alfalfa",
+      "hex": "#A5F58D",
+      "is_ag": true,
+      "acres": 261788.59679999997
+    },
+    {
+      "code": 190,
+      "class_name": "Woody Wetlands",
+      "hex": "#80B3B3",
+      "is_ag": false,
+      "acres": 188484.4448
+    },
+    {
+      "code": 142,
+      "class_name": "Evergreen Forest",
+      "hex": "#95CE93",
+      "is_ag": false,
+      "acres": 112173.8896
+    },
+    {
+      "code": 195,
+      "class_name": "Herbaceous Wetlands",
+      "hex": "#80B3B3",
+      "is_ag": false,
+      "acres": 68294.59199999999
+    },
+    {
+      "code": 26,
+      "class_name": "Dbl Crop WinWht/Soybeans",
+      "hex": "#737300",
+      "is_ag": true,
+      "acres": 63992.9312
+    },
+    {
+      "code": 131,
+      "class_name": "Barren",
+      "hex": "#CCBFA3",
+      "is_ag": false,
+      "acres": 46258.087999999996
+    },
+    {
+      "code": 152,
+      "class_name": "Shrubland",
+      "hex": "#C7D79E",
+      "is_ag": false,
+      "acres": 30351.372799999997
+    },
+    {
+      "code": 13,
+      "class_name": "Pop or Orn Corn",
+      "hex": "#E0A60F",
+      "is_ag": true,
+      "acres": 10901.8256
+    },
+    {
+      "code": 58,
+      "class_name": "Clover/Wildflowers",
+      "hex": "#E8BEFF",
+      "is_ag": true,
+      "acres": 3784.3583999999996
+    },
+    {
+      "code": 28,
+      "class_name": "Oats",
+      "hex": "#A15889",
+      "is_ag": true,
+      "acres": 3354.0144
+    },
+    {
+      "code": 61,
+      "class_name": "Fallow/Idle Cropland",
+      "hex": "#BFBF7A",
+      "is_ag": true,
+      "acres": 3300.1935999999996
+    },
+    {
+      "code": 59,
+      "class_name": "Sod/Grass Seed",
+      "hex": "#B2FFDE",
+      "is_ag": true,
+      "acres": 2475.5344
+    },
+    {
+      "code": 27,
+      "class_name": "Rye",
+      "hex": "#AE017E",
+      "is_ag": true,
+      "acres": 2474.6448
+    },
+    {
+      "code": 254,
+      "class_name": "Dbl Crop Barley/Soybeans",
+      "hex": "#267300",
+      "is_ag": true,
+      "acres": 1861.0431999999998
+    },
+    {
+      "code": 21,
+      "class_name": "Barley",
+      "hex": "#E2007F",
+      "is_ag": true,
+      "acres": 1408.6816
+    },
+    {
+      "code": 12,
+      "class_name": "Sweet Corn",
+      "hex": "#E0A60F",
+      "is_ag": true,
+      "acres": 1258.5616
+    },
+    {
+      "code": 54,
+      "class_name": "Tomatoes",
+      "hex": "#F5A27A",
+      "is_ag": true,
+      "acres": 991.904
+    },
+    {
+      "code": 42,
+      "class_name": "Dry Beans",
+      "hex": "#A80000",
+      "is_ag": true,
+      "acres": 956.7647999999999
+    },
+    {
+      "code": 70,
+      "class_name": "Christmas Trees",
+      "hex": "#007878",
+      "is_ag": true,
+      "acres": 925.8512
+    },
+    {
+      "code": 30,
+      "class_name": "Speltz",
+      "hex": "#D69DBC",
+      "is_ag": true,
+      "acres": 708.5663999999999
+    },
+    {
+      "code": 31,
+      "class_name": "Canola",
+      "hex": "#D1FF00",
+      "is_ag": true,
+      "acres": 642.9584
+    },
+    {
+      "code": 44,
+      "class_name": "Other Crops",
+      "hex": "#00AF4D",
+      "is_ag": true,
+      "acres": 632.0608
+    },
+    {
+      "code": 69,
+      "class_name": "Grapes",
+      "hex": "#704489",
+      "is_ag": true,
+      "acres": 630.5039999999999
+    },
+    {
+      "code": 228,
+      "class_name": "Dbl Crop Triticale/Corn",
+      "hex": "#FFD400",
+      "is_ag": true,
+      "acres": 533.0928
+    },
+    {
+      "code": 4,
+      "class_name": "Sorghum",
+      "hex": "#FF9E0F",
+      "is_ag": true,
+      "acres": 505.07039999999995
+    },
+    {
+      "code": 68,
+      "class_name": "Apples",
+      "hex": "#B90050",
+      "is_ag": true,
+      "acres": 470.376
+    },
+    {
+      "code": 6,
+      "class_name": "Sunflower",
+      "hex": "#FFFF00",
+      "is_ag": true,
+      "acres": 429.0096
+    },
+    {
+      "code": 229,
+      "class_name": "Pumpkins",
+      "hex": "#FF6666",
+      "is_ag": true,
+      "acres": 400.32
+    },
+    {
+      "code": 243,
+      "class_name": "Cabbage",
+      "hex": "#FF6666",
+      "is_ag": true,
+      "acres": 287.1184
+    },
+    {
+      "code": 225,
+      "class_name": "Dbl Crop WinWht/Corn",
+      "hex": "#FFD400",
+      "is_ag": true,
+      "acres": 270.8832
+    },
+    {
+      "code": 205,
+      "class_name": "Triticale",
+      "hex": "#D69DBC",
+      "is_ag": true,
+      "acres": 265.768
+    },
+    {
+      "code": 43,
+      "class_name": "Potatoes",
+      "hex": "#732600",
+      "is_ag": true,
+      "acres": 251.31199999999998
+    },
+    {
+      "code": 206,
+      "class_name": "Carrots",
+      "hex": "#FF6666",
+      "is_ag": true,
+      "acres": 121.6528
+    },
+    {
+      "code": 57,
+      "class_name": "Herbs",
+      "hex": "#80D4FF",
+      "is_ag": true,
+      "acres": 117.872
+    },
+    {
+      "code": 50,
+      "class_name": "Cucumbers",
+      "hex": "#FF6666",
+      "is_ag": true,
+      "acres": 97.856
+    },
+    {
+      "code": 222,
+      "class_name": "Squash",
+      "hex": "#FF6666",
+      "is_ag": true,
+      "acres": 93.1856
+    },
+    {
+      "code": 67,
+      "class_name": "Peaches",
+      "hex": "#FF91AB",
+      "is_ag": true,
+      "acres": 61.16
+    },
+    {
+      "code": 39,
+      "class_name": "Buckwheat",
+      "hex": "#D69DBC",
+      "is_ag": true,
+      "acres": 47.815999999999995
+    },
+    {
+      "code": 60,
+      "class_name": "Switchgrass",
+      "hex": "#00AF4D",
+      "is_ag": true,
+      "acres": 42.4784
+    },
+    {
+      "code": 47,
+      "class_name": "Misc Vegs & Fruits",
+      "hex": "#FF6666",
+      "is_ag": true,
+      "acres": 13.5664
+    },
+    {
+      "code": 226,
+      "class_name": "Dbl Crop Oats/Corn",
+      "hex": "#FFD400",
+      "is_ag": true,
+      "acres": 13.344
+    },
+    {
+      "code": 41,
+      "class_name": "Sugarbeets",
+      "hex": "#A900E6",
+      "is_ag": true,
+      "acres": 12.899199999999999
+    },
+    {
+      "code": 216,
+      "class_name": "Peppers",
+      "hex": "#FF6666",
+      "is_ag": true,
+      "acres": 7.3392
+    },
+    {
+      "code": 71,
+      "class_name": "Other Tree Crops",
+      "hex": "#B39C70",
+      "is_ag": true,
+      "acres": 6.2272
+    },
+    {
+      "code": 76,
+      "class_name": "Walnuts",
+      "hex": "#EBD6B0",
+      "is_ag": true,
+      "acres": 4.4479999999999995
+    },
+    {
+      "code": 221,
+      "class_name": "Strawberries",
+      "hex": "#FF6666",
+      "is_ag": true,
+      "acres": 4.4479999999999995
+    },
+    {
+      "code": 237,
+      "class_name": "Dbl Crop Barley/Corn",
+      "hex": "#FFD400",
+      "is_ag": true,
+      "acres": 3.1136
+    },
+    {
+      "code": 236,
+      "class_name": "Dbl Crop WinWht/Sorghum",
+      "hex": "#A87000",
+      "is_ag": true,
+      "acres": 2.2239999999999998
+    },
+    {
+      "code": 29,
+      "class_name": "Millet",
+      "hex": "#73004C",
+      "is_ag": true,
+      "acres": 2.0016
+    },
+    {
+      "code": 242,
+      "class_name": "Blueberries",
+      "hex": "#000099",
+      "is_ag": true,
+      "acres": 2.0016
+    },
+    {
+      "code": 209,
+      "class_name": "Cantaloupes",
+      "hex": "#FF6666",
+      "is_ag": true,
+      "acres": 1.7792
+    },
+    {
+      "code": 11,
+      "class_name": "Tobacco",
+      "hex": "#00AF4D",
+      "is_ag": true,
+      "acres": 1.1119999999999999
+    },
+    {
+      "code": 240,
+      "class_name": "Dbl Crop Soybeans/Oats",
+      "hex": "#267300",
+      "is_ag": true,
+      "acres": 0.6672
+    }
+  ],
+  "2022": [
+    {
+      "code": 141,
+      "class_name": "Deciduous Forest",
+      "hex": "#95CE93",
+      "is_ag": false,
+      "acres": 8249766.315199999
+    },
+    {
+      "code": 5,
+      "class_name": "Soybeans",
+      "hex": "#267300",
+      "is_ag": true,
+      "acres": 5228551.72
+    },
+    {
+      "code": 176,
+      "class_name": "Grass/Pasture",
+      "hex": "#E9FFBE",
+      "is_ag": true,
+      "acres": 3464553.872
+    },
+    {
+      "code": 1,
+      "class_name": "Corn",
+      "hex": "#FFD400",
+      "is_ag": true,
+      "acres": 3378336.7312
+    },
+    {
+      "code": 121,
+      "class_name": "Developed/Open Space",
+      "hex": "#9C9C9C",
+      "is_ag": false,
+      "acres": 1615130.1823999998
+    },
+    {
+      "code": 122,
+      "class_name": "Developed/Low Intensity",
+      "hex": "#9C9C9C",
+      "is_ag": false,
+      "acres": 1334170.0384
+    },
+    {
+      "code": 123,
+      "class_name": "Developed/Med Intensity",
+      "hex": "#9C9C9C",
+      "is_ag": false,
+      "acres": 735115.8448
+    },
+    {
+      "code": 143,
+      "class_name": "Mixed Forest",
+      "hex": "#95CE93",
+      "is_ag": false,
+      "acres": 358470.7696
+    },
+    {
+      "code": 24,
+      "class_name": "Winter Wheat",
+      "hex": "#A87000",
+      "is_ag": true,
+      "acres": 351948.8896
+    },
+    {
+      "code": 124,
+      "class_name": "Developed/High Intensity",
+      "hex": "#9C9C9C",
+      "is_ag": false,
+      "acres": 283928.072
+    },
+    {
+      "code": 111,
+      "class_name": "Open Water",
+      "hex": "#4D70A3",
+      "is_ag": false,
+      "acres": 283724.576
+    },
+    {
+      "code": 36,
+      "class_name": "Alfalfa",
+      "hex": "#FFA8E3",
+      "is_ag": true,
+      "acres": 253894.95359999998
+    },
+    {
+      "code": 37,
+      "class_name": "Other Hay/Non Alfalfa",
+      "hex": "#A5F58D",
+      "is_ag": true,
+      "acres": 249044.63199999998
+    },
+    {
+      "code": 190,
+      "class_name": "Woody Wetlands",
+      "hex": "#80B3B3",
+      "is_ag": false,
+      "acres": 188841.3968
+    },
+    {
+      "code": 142,
+      "class_name": "Evergreen Forest",
+      "hex": "#95CE93",
+      "is_ag": false,
+      "acres": 109346.9632
+    },
+    {
+      "code": 26,
+      "class_name": "Dbl Crop WinWht/Soybeans",
+      "hex": "#737300",
+      "is_ag": true,
+      "acres": 93790.97279999999
+    },
+    {
+      "code": 195,
+      "class_name": "Herbaceous Wetlands",
+      "hex": "#80B3B3",
+      "is_ag": false,
+      "acres": 68114.00319999999
+    },
+    {
+      "code": 61,
+      "class_name": "Fallow/Idle Cropland",
+      "hex": "#BFBF7A",
+      "is_ag": true,
+      "acres": 49163.9664
+    },
+    {
+      "code": 131,
+      "class_name": "Barren",
+      "hex": "#CCBFA3",
+      "is_ag": false,
+      "acres": 42123.4496
+    },
+    {
+      "code": 152,
+      "class_name": "Shrubland",
+      "hex": "#C7D79E",
+      "is_ag": false,
+      "acres": 29736.4368
+    },
+    {
+      "code": 13,
+      "class_name": "Pop or Orn Corn",
+      "hex": "#E0A60F",
+      "is_ag": true,
+      "acres": 11058.6176
+    },
+    {
+      "code": 58,
+      "class_name": "Clover/Wildflowers",
+      "hex": "#E8BEFF",
+      "is_ag": true,
+      "acres": 5143.2224
+    },
+    {
+      "code": 28,
+      "class_name": "Oats",
+      "hex": "#A15889",
+      "is_ag": true,
+      "acres": 4684.6336
+    },
+    {
+      "code": 59,
+      "class_name": "Sod/Grass Seed",
+      "hex": "#B2FFDE",
+      "is_ag": true,
+      "acres": 1879.0575999999999
+    },
+    {
+      "code": 54,
+      "class_name": "Tomatoes",
+      "hex": "#F5A27A",
+      "is_ag": true,
+      "acres": 1658.4368
+    },
+    {
+      "code": 228,
+      "class_name": "Dbl Crop Triticale/Corn",
+      "hex": "#FFD400",
+      "is_ag": true,
+      "acres": 1158.704
+    },
+    {
+      "code": 12,
+      "class_name": "Sweet Corn",
+      "hex": "#E0A60F",
+      "is_ag": true,
+      "acres": 1065.9632
+    },
+    {
+      "code": 254,
+      "class_name": "Dbl Crop Barley/Soybeans",
+      "hex": "#267300",
+      "is_ag": true,
+      "acres": 1059.5136
+    },
+    {
+      "code": 43,
+      "class_name": "Potatoes",
+      "hex": "#732600",
+      "is_ag": true,
+      "acres": 876.9232
+    },
+    {
+      "code": 27,
+      "class_name": "Rye",
+      "hex": "#AE017E",
+      "is_ag": true,
+      "acres": 859.5759999999999
+    },
+    {
+      "code": 42,
+      "class_name": "Dry Beans",
+      "hex": "#A80000",
+      "is_ag": true,
+      "acres": 858.6863999999999
+    },
+    {
+      "code": 4,
+      "class_name": "Sorghum",
+      "hex": "#FF9E0F",
+      "is_ag": true,
+      "acres": 711.0128
+    },
+    {
+      "code": 30,
+      "class_name": "Speltz",
+      "hex": "#D69DBC",
+      "is_ag": true,
+      "acres": 694.7776
+    },
+    {
+      "code": 68,
+      "class_name": "Apples",
+      "hex": "#B90050",
+      "is_ag": true,
+      "acres": 658.304
+    },
+    {
+      "code": 229,
+      "class_name": "Pumpkins",
+      "hex": "#FF6666",
+      "is_ag": true,
+      "acres": 596.4767999999999
+    },
+    {
+      "code": 69,
+      "class_name": "Grapes",
+      "hex": "#704489",
+      "is_ag": true,
+      "acres": 564.6736
+    },
+    {
+      "code": 50,
+      "class_name": "Cucumbers",
+      "hex": "#FF6666",
+      "is_ag": true,
+      "acres": 515.0784
+    },
+    {
+      "code": 243,
+      "class_name": "Cabbage",
+      "hex": "#FF6666",
+      "is_ag": true,
+      "acres": 503.29119999999995
+    },
+    {
+      "code": 6,
+      "class_name": "Sunflower",
+      "hex": "#FFFF00",
+      "is_ag": true,
+      "acres": 483.0528
+    },
+    {
+      "code": 216,
+      "class_name": "Peppers",
+      "hex": "#FF6666",
+      "is_ag": true,
+      "acres": 467.26239999999996
+    },
+    {
+      "code": 70,
+      "class_name": "Christmas Trees",
+      "hex": "#007878",
+      "is_ag": true,
+      "acres": 317.3648
+    },
+    {
+      "code": 21,
+      "class_name": "Barley",
+      "hex": "#E2007F",
+      "is_ag": true,
+      "acres": 306.0224
+    },
+    {
+      "code": 225,
+      "class_name": "Dbl Crop WinWht/Corn",
+      "hex": "#FFD400",
+      "is_ag": true,
+      "acres": 177.6976
+    },
+    {
+      "code": 236,
+      "class_name": "Dbl Crop WinWht/Sorghum",
+      "hex": "#A87000",
+      "is_ag": true,
+      "acres": 112.53439999999999
+    },
+    {
+      "code": 57,
+      "class_name": "Herbs",
+      "hex": "#80D4FF",
+      "is_ag": true,
+      "acres": 94.74239999999999
+    },
+    {
+      "code": 205,
+      "class_name": "Triticale",
+      "hex": "#D69DBC",
+      "is_ag": true,
+      "acres": 94.74239999999999
+    },
+    {
+      "code": 67,
+      "class_name": "Peaches",
+      "hex": "#FF91AB",
+      "is_ag": true,
+      "acres": 78.952
+    },
+    {
+      "code": 47,
+      "class_name": "Misc Vegs & Fruits",
+      "hex": "#FF6666",
+      "is_ag": true,
+      "acres": 78.28479999999999
+    },
+    {
+      "code": 219,
+      "class_name": "Greens",
+      "hex": "#FF6666",
+      "is_ag": true,
+      "acres": 62.7168
+    },
+    {
+      "code": 44,
+      "class_name": "Other Crops",
+      "hex": "#00AF4D",
+      "is_ag": true,
+      "acres": 41.5888
+    },
+    {
+      "code": 11,
+      "class_name": "Tobacco",
+      "hex": "#00AF4D",
+      "is_ag": true,
+      "acres": 32.6928
+    },
+    {
+      "code": 206,
+      "class_name": "Carrots",
+      "hex": "#FF6666",
+      "is_ag": true,
+      "acres": 29.1344
+    },
+    {
+      "code": 71,
+      "class_name": "Other Tree Crops",
+      "hex": "#B39C70",
+      "is_ag": true,
+      "acres": 25.798399999999997
+    },
+    {
+      "code": 222,
+      "class_name": "Squash",
+      "hex": "#FF6666",
+      "is_ag": true,
+      "acres": 18.904
+    },
+    {
+      "code": 60,
+      "class_name": "Switchgrass",
+      "hex": "#00AF4D",
+      "is_ag": true,
+      "acres": 16.9024
+    },
+    {
+      "code": 41,
+      "class_name": "Sugarbeets",
+      "hex": "#A900E6",
+      "is_ag": true,
+      "acres": 11.5648
+    },
+    {
+      "code": 237,
+      "class_name": "Dbl Crop Barley/Corn",
+      "hex": "#FFD400",
+      "is_ag": true,
+      "acres": 9.5632
+    },
+    {
+      "code": 38,
+      "class_name": "Camelina",
+      "hex": "#00AF4D",
+      "is_ag": true,
+      "acres": 6.0047999999999995
+    },
+    {
+      "code": 39,
+      "class_name": "Buckwheat",
+      "hex": "#D69DBC",
+      "is_ag": true,
+      "acres": 4.0032
+    },
+    {
+      "code": 31,
+      "class_name": "Canola",
+      "hex": "#D1FF00",
+      "is_ag": true,
+      "acres": 3.7807999999999997
+    },
+    {
+      "code": 221,
+      "class_name": "Strawberries",
+      "hex": "#FF6666",
+      "is_ag": true,
+      "acres": 1.1119999999999999
+    },
+    {
+      "code": 29,
+      "class_name": "Millet",
+      "hex": "#73004C",
+      "is_ag": true,
+      "acres": 0.2224
+    },
+    {
+      "code": 240,
+      "class_name": "Dbl Crop Soybeans/Oats",
+      "hex": "#267300",
+      "is_ag": true,
+      "acres": 0.2224
+    },
+    {
+      "code": 241,
+      "class_name": "Dbl Crop Corn/Soybeans",
+      "hex": "#FFD400",
+      "is_ag": true,
+      "acres": 0.2224
+    }
+  ],
+  "2023": [
+    {
+      "code": 141,
+      "class_name": "Deciduous Forest",
+      "hex": "#95CE93",
+      "is_ag": false,
+      "acres": 8204468.9952
+    },
+    {
+      "code": 5,
+      "class_name": "Soybeans",
+      "hex": "#267300",
+      "is_ag": true,
+      "acres": 4947147.6656
+    },
+    {
+      "code": 1,
+      "class_name": "Corn",
+      "hex": "#FFD400",
+      "is_ag": true,
+      "acres": 3534553.3824
+    },
+    {
+      "code": 176,
+      "class_name": "Grass/Pasture",
+      "hex": "#E9FFBE",
+      "is_ag": true,
+      "acres": 3522350.5168
+    },
+    {
+      "code": 121,
+      "class_name": "Developed/Open Space",
+      "hex": "#9C9C9C",
+      "is_ag": false,
+      "acres": 1611994.7872
+    },
+    {
+      "code": 122,
+      "class_name": "Developed/Low Intensity",
+      "hex": "#9C9C9C",
+      "is_ag": false,
+      "acres": 1333076.72
+    },
+    {
+      "code": 123,
+      "class_name": "Developed/Med Intensity",
+      "hex": "#9C9C9C",
+      "is_ag": false,
+      "acres": 734828.9488
+    },
+    {
+      "code": 24,
+      "class_name": "Winter Wheat",
+      "hex": "#A87000",
+      "is_ag": true,
+      "acres": 523955.9408
+    },
+    {
+      "code": 143,
+      "class_name": "Mixed Forest",
+      "hex": "#95CE93",
+      "is_ag": false,
+      "acres": 372466.62399999995
+    },
+    {
+      "code": 111,
+      "class_name": "Open Water",
+      "hex": "#4D70A3",
+      "is_ag": false,
+      "acres": 284310.1552
+    },
+    {
+      "code": 124,
+      "class_name": "Developed/High Intensity",
+      "hex": "#9C9C9C",
+      "is_ag": false,
+      "acres": 283925.4032
+    },
+    {
+      "code": 37,
+      "class_name": "Other Hay/Non Alfalfa",
+      "hex": "#A5F58D",
+      "is_ag": true,
+      "acres": 245306.3104
+    },
+    {
+      "code": 36,
+      "class_name": "Alfalfa",
+      "hex": "#FFA8E3",
+      "is_ag": true,
+      "acres": 241143.42719999998
+    },
+    {
+      "code": 190,
+      "class_name": "Woody Wetlands",
+      "hex": "#80B3B3",
+      "is_ag": false,
+      "acres": 194380.7136
+    },
+    {
+      "code": 142,
+      "class_name": "Evergreen Forest",
+      "hex": "#95CE93",
+      "is_ag": false,
+      "acres": 106177.76319999999
+    },
+    {
+      "code": 26,
+      "class_name": "Dbl Crop WinWht/Soybeans",
+      "hex": "#737300",
+      "is_ag": true,
+      "acres": 85691.6096
+    },
+    {
+      "code": 195,
+      "class_name": "Herbaceous Wetlands",
+      "hex": "#80B3B3",
+      "is_ag": false,
+      "acres": 69989.28
+    },
+    {
+      "code": 131,
+      "class_name": "Barren",
+      "hex": "#CCBFA3",
+      "is_ag": false,
+      "acres": 41810.7552
+    },
+    {
+      "code": 152,
+      "class_name": "Shrubland",
+      "hex": "#C7D79E",
+      "is_ag": false,
+      "acres": 25061.8112
+    },
+    {
+      "code": 13,
+      "class_name": "Pop or Orn Corn",
+      "hex": "#E0A60F",
+      "is_ag": true,
+      "acres": 14869.441599999998
+    },
+    {
+      "code": 58,
+      "class_name": "Clover/Wildflowers",
+      "hex": "#E8BEFF",
+      "is_ag": true,
+      "acres": 4012.3183999999997
+    },
+    {
+      "code": 28,
+      "class_name": "Oats",
+      "hex": "#A15889",
+      "is_ag": true,
+      "acres": 3493.0143999999996
+    },
+    {
+      "code": 59,
+      "class_name": "Sod/Grass Seed",
+      "hex": "#B2FFDE",
+      "is_ag": true,
+      "acres": 2379.9024
+    },
+    {
+      "code": 54,
+      "class_name": "Tomatoes",
+      "hex": "#F5A27A",
+      "is_ag": true,
+      "acres": 2110.576
+    },
+    {
+      "code": 27,
+      "class_name": "Rye",
+      "hex": "#AE017E",
+      "is_ag": true,
+      "acres": 2039.6303999999998
+    },
+    {
+      "code": 12,
+      "class_name": "Sweet Corn",
+      "hex": "#E0A60F",
+      "is_ag": true,
+      "acres": 1664.8863999999999
+    },
+    {
+      "code": 228,
+      "class_name": "Dbl Crop Triticale/Corn",
+      "hex": "#FFD400",
+      "is_ag": true,
+      "acres": 1300.5952
+    },
+    {
+      "code": 42,
+      "class_name": "Dry Beans",
+      "hex": "#A80000",
+      "is_ag": true,
+      "acres": 1210.7456
+    },
+    {
+      "code": 47,
+      "class_name": "Misc Vegs & Fruits",
+      "hex": "#FF6666",
+      "is_ag": true,
+      "acres": 963.8815999999999
+    },
+    {
+      "code": 43,
+      "class_name": "Potatoes",
+      "hex": "#732600",
+      "is_ag": true,
+      "acres": 961.88
+    },
+    {
+      "code": 229,
+      "class_name": "Pumpkins",
+      "hex": "#FF6666",
+      "is_ag": true,
+      "acres": 763.7216
+    },
+    {
+      "code": 21,
+      "class_name": "Barley",
+      "hex": "#E2007F",
+      "is_ag": true,
+      "acres": 606.9295999999999
+    },
+    {
+      "code": 50,
+      "class_name": "Cucumbers",
+      "hex": "#FF6666",
+      "is_ag": true,
+      "acres": 604.0383999999999
+    },
+    {
+      "code": 6,
+      "class_name": "Sunflower",
+      "hex": "#FFFF00",
+      "is_ag": true,
+      "acres": 582.2432
+    },
+    {
+      "code": 61,
+      "class_name": "Fallow/Idle Cropland",
+      "hex": "#BFBF7A",
+      "is_ag": true,
+      "acres": 512.632
+    },
+    {
+      "code": 30,
+      "class_name": "Speltz",
+      "hex": "#D69DBC",
+      "is_ag": true,
+      "acres": 463.03679999999997
+    },
+    {
+      "code": 4,
+      "class_name": "Sorghum",
+      "hex": "#FF9E0F",
+      "is_ag": true,
+      "acres": 452.36159999999995
+    },
+    {
+      "code": 254,
+      "class_name": "Dbl Crop Barley/Soybeans",
+      "hex": "#267300",
+      "is_ag": true,
+      "acres": 439.01759999999996
+    },
+    {
+      "code": 69,
+      "class_name": "Grapes",
+      "hex": "#704489",
+      "is_ag": true,
+      "acres": 380.97119999999995
+    },
+    {
+      "code": 243,
+      "class_name": "Cabbage",
+      "hex": "#FF6666",
+      "is_ag": true,
+      "acres": 359.176
+    },
+    {
+      "code": 39,
+      "class_name": "Buckwheat",
+      "hex": "#D69DBC",
+      "is_ag": true,
+      "acres": 249.3104
+    },
+    {
+      "code": 216,
+      "class_name": "Peppers",
+      "hex": "#FF6666",
+      "is_ag": true,
+      "acres": 222.17759999999998
+    },
+    {
+      "code": 23,
+      "class_name": "Spring Wheat",
+      "hex": "#D9B56C",
+      "is_ag": true,
+      "acres": 218.39679999999998
+    },
+    {
+      "code": 70,
+      "class_name": "Christmas Trees",
+      "hex": "#007878",
+      "is_ag": true,
+      "acres": 201.49439999999998
+    },
+    {
+      "code": 68,
+      "class_name": "Apples",
+      "hex": "#B90050",
+      "is_ag": true,
+      "acres": 196.15679999999998
+    },
+    {
+      "code": 205,
+      "class_name": "Triticale",
+      "hex": "#D69DBC",
+      "is_ag": true,
+      "acres": 149.00799999999998
+    },
+    {
+      "code": 44,
+      "class_name": "Other Crops",
+      "hex": "#00AF4D",
+      "is_ag": true,
+      "acres": 132.99519999999998
+    },
+    {
+      "code": 225,
+      "class_name": "Dbl Crop WinWht/Corn",
+      "hex": "#FFD400",
+      "is_ag": true,
+      "acres": 113.6464
+    },
+    {
+      "code": 29,
+      "class_name": "Millet",
+      "hex": "#73004C",
+      "is_ag": true,
+      "acres": 97.856
+    },
+    {
+      "code": 236,
+      "class_name": "Dbl Crop WinWht/Sorghum",
+      "hex": "#A87000",
+      "is_ag": true,
+      "acres": 84.0672
+    },
+    {
+      "code": 222,
+      "class_name": "Squash",
+      "hex": "#FF6666",
+      "is_ag": true,
+      "acres": 70.5008
+    },
+    {
+      "code": 206,
+      "class_name": "Carrots",
+      "hex": "#FF6666",
+      "is_ag": true,
+      "acres": 62.272
+    },
+    {
+      "code": 57,
+      "class_name": "Herbs",
+      "hex": "#80D4FF",
+      "is_ag": true,
+      "acres": 46.4816
+    },
+    {
+      "code": 237,
+      "class_name": "Dbl Crop Barley/Corn",
+      "hex": "#FFD400",
+      "is_ag": true,
+      "acres": 28.6896
+    },
+    {
+      "code": 219,
+      "class_name": "Greens",
+      "hex": "#FF6666",
+      "is_ag": true,
+      "acres": 22.9072
+    },
+    {
+      "code": 240,
+      "class_name": "Dbl Crop Soybeans/Oats",
+      "hex": "#267300",
+      "is_ag": true,
+      "acres": 21.128
+    },
+    {
+      "code": 60,
+      "class_name": "Switchgrass",
+      "hex": "#00AF4D",
+      "is_ag": true,
+      "acres": 13.5664
+    },
+    {
+      "code": 71,
+      "class_name": "Other Tree Crops",
+      "hex": "#B39C70",
+      "is_ag": true,
+      "acres": 8.4512
+    },
+    {
+      "code": 38,
+      "class_name": "Camelina",
+      "hex": "#00AF4D",
+      "is_ag": true,
+      "acres": 8.0064
+    },
+    {
+      "code": 67,
+      "class_name": "Peaches",
+      "hex": "#FF91AB",
+      "is_ag": true,
+      "acres": 8.0064
+    },
+    {
+      "code": 41,
+      "class_name": "Sugarbeets",
+      "hex": "#A900E6",
+      "is_ag": true,
+      "acres": 5.3376
+    },
+    {
+      "code": 221,
+      "class_name": "Strawberries",
+      "hex": "#FF6666",
+      "is_ag": true,
+      "acres": 1.5568
+    },
+    {
+      "code": 11,
+      "class_name": "Tobacco",
+      "hex": "#00AF4D",
+      "is_ag": true,
+      "acres": 1.3344
+    },
+    {
+      "code": 31,
+      "class_name": "Canola",
+      "hex": "#D1FF00",
+      "is_ag": true,
+      "acres": 0.6672
+    }
+  ],
+  "2024": [
+    {
+      "code": 141,
+      "class_name": "Deciduous Forest",
+      "hex": "#95CE93",
+      "is_ag": false,
+      "acres": 8526624.068799999
+    },
+    {
+      "code": 5,
+      "class_name": "Soybeans",
+      "hex": "#267300",
+      "is_ag": true,
+      "acres": 5202058.319999999
+    },
+    {
+      "code": 176,
+      "class_name": "Grass/Pasture",
+      "hex": "#E9FFBE",
+      "is_ag": true,
+      "acres": 4038550.0352
+    },
+    {
+      "code": 1,
+      "class_name": "Corn",
+      "hex": "#FFD400",
+      "is_ag": true,
+      "acres": 3294072.9296
+    },
+    {
+      "code": 121,
+      "class_name": "Developed/Open Space",
+      "hex": "#9C9C9C",
+      "is_ag": false,
+      "acres": 1674707.8064
+    },
+    {
+      "code": 122,
+      "class_name": "Developed/Low Intensity",
+      "hex": "#9C9C9C",
+      "is_ag": false,
+      "acres": 1325729.5136
+    },
+    {
+      "code": 123,
+      "class_name": "Developed/Med Intensity",
+      "hex": "#9C9C9C",
+      "is_ag": false,
+      "acres": 655886.9567999999
+    },
+    {
+      "code": 24,
+      "class_name": "Winter Wheat",
+      "hex": "#A87000",
+      "is_ag": true,
+      "acres": 361166.25759999995
+    },
+    {
+      "code": 111,
+      "class_name": "Open Water",
+      "hex": "#4D70A3",
+      "is_ag": false,
+      "acres": 275761.0992
+    },
+    {
+      "code": 124,
+      "class_name": "Developed/High Intensity",
+      "hex": "#9C9C9C",
+      "is_ag": false,
+      "acres": 255309.1952
+    },
+    {
+      "code": 36,
+      "class_name": "Alfalfa",
+      "hex": "#FFA8E3",
+      "is_ag": true,
+      "acres": 123999.12
+    },
+    {
+      "code": 143,
+      "class_name": "Mixed Forest",
+      "hex": "#95CE93",
+      "is_ag": false,
+      "acres": 114760.624
+    },
+    {
+      "code": 26,
+      "class_name": "Dbl Crop WinWht/Soybeans",
+      "hex": "#737300",
+      "is_ag": true,
+      "acres": 111615.2208
+    },
+    {
+      "code": 142,
+      "class_name": "Evergreen Forest",
+      "hex": "#95CE93",
+      "is_ag": false,
+      "acres": 108110.41919999999
+    },
+    {
+      "code": 190,
+      "class_name": "Woody Wetlands",
+      "hex": "#80B3B3",
+      "is_ag": false,
+      "acres": 100963.5952
+    },
+    {
+      "code": 195,
+      "class_name": "Herbaceous Wetlands",
+      "hex": "#80B3B3",
+      "is_ag": false,
+      "acres": 62997.024
+    },
+    {
+      "code": 131,
+      "class_name": "Barren",
+      "hex": "#CCBFA3",
+      "is_ag": false,
+      "acres": 57011.128
+    },
+    {
+      "code": 61,
+      "class_name": "Fallow/Idle Cropland",
+      "hex": "#BFBF7A",
+      "is_ag": true,
+      "acres": 23227.2336
+    },
+    {
+      "code": 13,
+      "class_name": "Pop or Orn Corn",
+      "hex": "#E0A60F",
+      "is_ag": true,
+      "acres": 10088.063999999998
+    },
+    {
+      "code": 37,
+      "class_name": "Other Hay/Non Alfalfa",
+      "hex": "#A5F58D",
+      "is_ag": true,
+      "acres": 8780.351999999999
+    },
+    {
+      "code": 28,
+      "class_name": "Oats",
+      "hex": "#A15889",
+      "is_ag": true,
+      "acres": 8044.208
+    },
+    {
+      "code": 58,
+      "class_name": "Clover/Wildflowers",
+      "hex": "#E8BEFF",
+      "is_ag": true,
+      "acres": 5501.9536
+    },
+    {
+      "code": 228,
+      "class_name": "Dbl Crop Triticale/Corn",
+      "hex": "#FFD400",
+      "is_ag": true,
+      "acres": 5266.8768
+    },
+    {
+      "code": 12,
+      "class_name": "Sweet Corn",
+      "hex": "#E0A60F",
+      "is_ag": true,
+      "acres": 4931.719999999999
+    },
+    {
+      "code": 42,
+      "class_name": "Dry Beans",
+      "hex": "#A80000",
+      "is_ag": true,
+      "acres": 3791.4752
+    },
+    {
+      "code": 21,
+      "class_name": "Barley",
+      "hex": "#E2007F",
+      "is_ag": true,
+      "acres": 3790.5856
+    },
+    {
+      "code": 60,
+      "class_name": "Switchgrass",
+      "hex": "#00AF4D",
+      "is_ag": true,
+      "acres": 3775.4624
+    },
+    {
+      "code": 254,
+      "class_name": "Dbl Crop Barley/Soybeans",
+      "hex": "#267300",
+      "is_ag": true,
+      "acres": 3332.6639999999998
+    },
+    {
+      "code": 225,
+      "class_name": "Dbl Crop WinWht/Corn",
+      "hex": "#FFD400",
+      "is_ag": true,
+      "acres": 3036.4271999999996
+    },
+    {
+      "code": 27,
+      "class_name": "Rye",
+      "hex": "#AE017E",
+      "is_ag": true,
+      "acres": 2704.6063999999997
+    },
+    {
+      "code": 229,
+      "class_name": "Pumpkins",
+      "hex": "#FF6666",
+      "is_ag": true,
+      "acres": 2129.2576
+    },
+    {
+      "code": 43,
+      "class_name": "Potatoes",
+      "hex": "#732600",
+      "is_ag": true,
+      "acres": 1968.4624
+    },
+    {
+      "code": 216,
+      "class_name": "Peppers",
+      "hex": "#FF6666",
+      "is_ag": true,
+      "acres": 1892.1791999999998
+    },
+    {
+      "code": 54,
+      "class_name": "Tomatoes",
+      "hex": "#F5A27A",
+      "is_ag": true,
+      "acres": 1798.1039999999998
+    },
+    {
+      "code": 68,
+      "class_name": "Apples",
+      "hex": "#B90050",
+      "is_ag": true,
+      "acres": 1684.2351999999998
+    },
+    {
+      "code": 70,
+      "class_name": "Christmas Trees",
+      "hex": "#007878",
+      "is_ag": true,
+      "acres": 1646.4271999999999
+    },
+    {
+      "code": 47,
+      "class_name": "Misc Vegs & Fruits",
+      "hex": "#FF6666",
+      "is_ag": true,
+      "acres": 1639.9776
+    },
+    {
+      "code": 4,
+      "class_name": "Sorghum",
+      "hex": "#FF9E0F",
+      "is_ag": true,
+      "acres": 1547.0143999999998
+    },
+    {
+      "code": 30,
+      "class_name": "Speltz",
+      "hex": "#D69DBC",
+      "is_ag": true,
+      "acres": 1514.7664
+    },
+    {
+      "code": 50,
+      "class_name": "Cucumbers",
+      "hex": "#FF6666",
+      "is_ag": true,
+      "acres": 1356.4176
+    },
+    {
+      "code": 69,
+      "class_name": "Grapes",
+      "hex": "#704489",
+      "is_ag": true,
+      "acres": 1339.2928
+    },
+    {
+      "code": 205,
+      "class_name": "Triticale",
+      "hex": "#D69DBC",
+      "is_ag": true,
+      "acres": 1253.0015999999998
+    },
+    {
+      "code": 59,
+      "class_name": "Sod/Grass Seed",
+      "hex": "#B2FFDE",
+      "is_ag": true,
+      "acres": 1220.3088
+    },
+    {
+      "code": 6,
+      "class_name": "Sunflower",
+      "hex": "#FFFF00",
+      "is_ag": true,
+      "acres": 1065.9632
+    },
+    {
+      "code": 44,
+      "class_name": "Other Crops",
+      "hex": "#00AF4D",
+      "is_ag": true,
+      "acres": 983.4527999999999
+    },
+    {
+      "code": 29,
+      "class_name": "Millet",
+      "hex": "#73004C",
+      "is_ag": true,
+      "acres": 621.3856
+    },
+    {
+      "code": 76,
+      "class_name": "Walnuts",
+      "hex": "#EBD6B0",
+      "is_ag": true,
+      "acres": 618.2719999999999
+    },
+    {
+      "code": 237,
+      "class_name": "Dbl Crop Barley/Corn",
+      "hex": "#FFD400",
+      "is_ag": true,
+      "acres": 616.9376
+    },
+    {
+      "code": 11,
+      "class_name": "Tobacco",
+      "hex": "#00AF4D",
+      "is_ag": true,
+      "acres": 549.1056
+    },
+    {
+      "code": 23,
+      "class_name": "Spring Wheat",
+      "hex": "#D9B56C",
+      "is_ag": true,
+      "acres": 457.69919999999996
+    },
+    {
+      "code": 243,
+      "class_name": "Cabbage",
+      "hex": "#FF6666",
+      "is_ag": true,
+      "acres": 408.54879999999997
+    },
+    {
+      "code": 206,
+      "class_name": "Carrots",
+      "hex": "#FF6666",
+      "is_ag": true,
+      "acres": 402.7664
+    },
+    {
+      "code": 221,
+      "class_name": "Strawberries",
+      "hex": "#FF6666",
+      "is_ag": true,
+      "acres": 396.7616
+    },
+    {
+      "code": 209,
+      "class_name": "Cantaloupes",
+      "hex": "#FF6666",
+      "is_ag": true,
+      "acres": 305.57759999999996
+    },
+    {
+      "code": 152,
+      "class_name": "Shrubland",
+      "hex": "#C7D79E",
+      "is_ag": false,
+      "acres": 300.01759999999996
+    },
+    {
+      "code": 67,
+      "class_name": "Peaches",
+      "hex": "#FF91AB",
+      "is_ag": true,
+      "acres": 280.89119999999997
+    },
+    {
+      "code": 53,
+      "class_name": "Peas",
+      "hex": "#55FF00",
+      "is_ag": true,
+      "acres": 180.5888
+    },
+    {
+      "code": 214,
+      "class_name": "Broccoli",
+      "hex": "#FF6666",
+      "is_ag": true,
+      "acres": 147.22879999999998
+    },
+    {
+      "code": 236,
+      "class_name": "Dbl Crop WinWht/Sorghum",
+      "hex": "#A87000",
+      "is_ag": true,
+      "acres": 141.224
+    },
+    {
+      "code": 226,
+      "class_name": "Dbl Crop Oats/Corn",
+      "hex": "#FFD400",
+      "is_ag": true,
+      "acres": 118.5392
+    },
+    {
+      "code": 224,
+      "class_name": "Vetch",
+      "hex": "#00AF4D",
+      "is_ag": true,
+      "acres": 110.088
+    },
+    {
+      "code": 71,
+      "class_name": "Other Tree Crops",
+      "hex": "#B39C70",
+      "is_ag": true,
+      "acres": 104.08319999999999
+    },
+    {
+      "code": 39,
+      "class_name": "Buckwheat",
+      "hex": "#D69DBC",
+      "is_ag": true,
+      "acres": 92.5184
+    },
+    {
+      "code": 25,
+      "class_name": "Other Small Grains",
+      "hex": "#D69DBC",
+      "is_ag": true,
+      "acres": 75.616
+    },
+    {
+      "code": 242,
+      "class_name": "Blueberries",
+      "hex": "#000099",
+      "is_ag": true,
+      "acres": 45.592
+    },
+    {
+      "code": 220,
+      "class_name": "Plums",
+      "hex": "#FF91AB",
+      "is_ag": true,
+      "acres": 42.7008
+    },
+    {
+      "code": 66,
+      "class_name": "Cherries",
+      "hex": "#FF00FF",
+      "is_ag": true,
+      "acres": 35.361599999999996
+    },
+    {
+      "code": 56,
+      "class_name": "Hops",
+      "hex": "#00AF4D",
+      "is_ag": true,
+      "acres": 25.575999999999997
+    },
+    {
+      "code": 249,
+      "class_name": "Gourds",
+      "hex": "#FF6666",
+      "is_ag": true,
+      "acres": 14.900799999999998
+    },
+    {
+      "code": 222,
+      "class_name": "Squash",
+      "hex": "#FF6666",
+      "is_ag": true,
+      "acres": 10.2304
+    },
+    {
+      "code": 240,
+      "class_name": "Dbl Crop Soybeans/Oats",
+      "hex": "#267300",
+      "is_ag": true,
+      "acres": 10.2304
+    },
+    {
+      "code": 22,
+      "class_name": "Durum Wheat",
+      "hex": "#8A6453",
+      "is_ag": true,
+      "acres": 9.1184
+    },
+    {
+      "code": 31,
+      "class_name": "Canola",
+      "hex": "#D1FF00",
+      "is_ag": true,
+      "acres": 6.672
+    },
+    {
+      "code": 48,
+      "class_name": "Watermelons",
+      "hex": "#FF6666",
+      "is_ag": true,
+      "acres": 6.449599999999999
+    },
+    {
+      "code": 77,
+      "class_name": "Pears",
+      "hex": "#B39C70",
+      "is_ag": true,
+      "acres": 4.4479999999999995
+    },
+    {
+      "code": 207,
+      "class_name": "Asparagus",
+      "hex": "#FF6666",
+      "is_ag": true,
+      "acres": 2.2239999999999998
+    },
+    {
+      "code": 41,
+      "class_name": "Sugarbeets",
+      "hex": "#A900E6",
+      "is_ag": true,
+      "acres": 0.4448
+    }
+  ],
+  "2025": [
+    {
+      "code": 141,
+      "class_name": "Deciduous Forest",
+      "hex": "#95CE93",
+      "is_ag": false,
+      "acres": 7435742.2831999995
+    },
+    {
+      "code": 5,
+      "class_name": "Soybeans",
+      "hex": "#267300",
+      "is_ag": true,
+      "acres": 4829762.4991999995
+    },
+    {
+      "code": 176,
+      "class_name": "Grass/Pasture",
+      "hex": "#E9FFBE",
+      "is_ag": true,
+      "acres": 3542022.2416
+    },
+    {
+      "code": 1,
+      "class_name": "Corn",
+      "hex": "#FFD400",
+      "is_ag": true,
+      "acres": 3325925.9472
+    },
+    {
+      "code": 121,
+      "class_name": "Developed/Open Space",
+      "hex": "#9C9C9C",
+      "is_ag": false,
+      "acres": 1727303.8495999998
+    },
+    {
+      "code": 122,
+      "class_name": "Developed/Low Intensity",
+      "hex": "#9C9C9C",
+      "is_ag": false,
+      "acres": 1634526.1312
+    },
+    {
+      "code": 123,
+      "class_name": "Developed/Med Intensity",
+      "hex": "#9C9C9C",
+      "is_ag": false,
+      "acres": 756828.7568
+    },
+    {
+      "code": 24,
+      "class_name": "Winter Wheat",
+      "hex": "#A87000",
+      "is_ag": true,
+      "acres": 367290.26399999997
+    },
+    {
+      "code": 143,
+      "class_name": "Mixed Forest",
+      "hex": "#95CE93",
+      "is_ag": false,
+      "acres": 281160.304
+    },
+    {
+      "code": 190,
+      "class_name": "Woody Wetlands",
+      "hex": "#80B3B3",
+      "is_ag": false,
+      "acres": 266273.07039999997
+    },
+    {
+      "code": 111,
+      "class_name": "Open Water",
+      "hex": "#4D70A3",
+      "is_ag": false,
+      "acres": 261675.39519999997
+    },
+    {
+      "code": 36,
+      "class_name": "Alfalfa",
+      "hex": "#FFA8E3",
+      "is_ag": true,
+      "acres": 236940.95679999999
+    },
+    {
+      "code": 61,
+      "class_name": "Fallow/Idle Cropland",
+      "hex": "#BFBF7A",
+      "is_ag": true,
+      "acres": 234347.10559999998
+    },
+    {
+      "code": 124,
+      "class_name": "Developed/High Intensity",
+      "hex": "#9C9C9C",
+      "is_ag": false,
+      "acres": 232332.384
+    },
+    {
+      "code": 195,
+      "class_name": "Herbaceous Wetlands",
+      "hex": "#80B3B3",
+      "is_ag": false,
+      "acres": 214968.72639999999
+    },
+    {
+      "code": 37,
+      "class_name": "Other Hay/Non Alfalfa",
+      "hex": "#A5F58D",
+      "is_ag": true,
+      "acres": 211582.24159999998
+    },
+    {
+      "code": 26,
+      "class_name": "Dbl Crop WinWht/Soybeans",
+      "hex": "#737300",
+      "is_ag": true,
+      "acres": 185852.11839999998
+    },
+    {
+      "code": 131,
+      "class_name": "Barren",
+      "hex": "#CCBFA3",
+      "is_ag": false,
+      "acres": 180007.0016
+    },
+    {
+      "code": 152,
+      "class_name": "Shrubland",
+      "hex": "#C7D79E",
+      "is_ag": false,
+      "acres": 154059.5936
+    },
+    {
+      "code": 142,
+      "class_name": "Evergreen Forest",
+      "hex": "#95CE93",
+      "is_ag": false,
+      "acres": 119739.2704
+    },
+    {
+      "code": 28,
+      "class_name": "Oats",
+      "hex": "#A15889",
+      "is_ag": true,
+      "acres": 28366.230399999997
+    },
+    {
+      "code": 13,
+      "class_name": "Pop or Orn Corn",
+      "hex": "#E0A60F",
+      "is_ag": true,
+      "acres": 26770.065599999998
+    },
+    {
+      "code": 228,
+      "class_name": "Dbl Crop Triticale/Corn",
+      "hex": "#FFD400",
+      "is_ag": true,
+      "acres": 15453.2416
+    },
+    {
+      "code": 12,
+      "class_name": "Sweet Corn",
+      "hex": "#E0A60F",
+      "is_ag": true,
+      "acres": 12421.484799999998
+    },
+    {
+      "code": 58,
+      "class_name": "Clover/Wildflowers",
+      "hex": "#E8BEFF",
+      "is_ag": true,
+      "acres": 12413.4784
+    },
+    {
+      "code": 27,
+      "class_name": "Rye",
+      "hex": "#AE017E",
+      "is_ag": true,
+      "acres": 12375.2256
+    },
+    {
+      "code": 229,
+      "class_name": "Pumpkins",
+      "hex": "#FF6666",
+      "is_ag": true,
+      "acres": 8910.2336
+    },
+    {
+      "code": 254,
+      "class_name": "Dbl Crop Barley/Soybeans",
+      "hex": "#267300",
+      "is_ag": true,
+      "acres": 7724.3967999999995
+    },
+    {
+      "code": 225,
+      "class_name": "Dbl Crop WinWht/Corn",
+      "hex": "#FFD400",
+      "is_ag": true,
+      "acres": 7489.7648
+    },
+    {
+      "code": 4,
+      "class_name": "Sorghum",
+      "hex": "#FF9E0F",
+      "is_ag": true,
+      "acres": 6500.5296
+    },
+    {
+      "code": 21,
+      "class_name": "Barley",
+      "hex": "#E2007F",
+      "is_ag": true,
+      "acres": 6384.4367999999995
+    },
+    {
+      "code": 68,
+      "class_name": "Apples",
+      "hex": "#B90050",
+      "is_ag": true,
+      "acres": 5737.6975999999995
+    },
+    {
+      "code": 59,
+      "class_name": "Sod/Grass Seed",
+      "hex": "#B2FFDE",
+      "is_ag": true,
+      "acres": 5687.212799999999
+    },
+    {
+      "code": 47,
+      "class_name": "Misc Vegs & Fruits",
+      "hex": "#FF6666",
+      "is_ag": true,
+      "acres": 5548.6576
+    },
+    {
+      "code": 70,
+      "class_name": "Christmas Trees",
+      "hex": "#007878",
+      "is_ag": true,
+      "acres": 4987.32
+    },
+    {
+      "code": 60,
+      "class_name": "Switchgrass",
+      "hex": "#00AF4D",
+      "is_ag": true,
+      "acres": 4357.705599999999
+    },
+    {
+      "code": 30,
+      "class_name": "Speltz",
+      "hex": "#D69DBC",
+      "is_ag": true,
+      "acres": 4211.5887999999995
+    },
+    {
+      "code": 205,
+      "class_name": "Triticale",
+      "hex": "#D69DBC",
+      "is_ag": true,
+      "acres": 3791.9199999999996
+    },
+    {
+      "code": 54,
+      "class_name": "Tomatoes",
+      "hex": "#F5A27A",
+      "is_ag": true,
+      "acres": 3746.5503999999996
+    },
+    {
+      "code": 44,
+      "class_name": "Other Crops",
+      "hex": "#00AF4D",
+      "is_ag": true,
+      "acres": 3017.968
+    },
+    {
+      "code": 216,
+      "class_name": "Peppers",
+      "hex": "#FF6666",
+      "is_ag": true,
+      "acres": 2705.0512
+    },
+    {
+      "code": 69,
+      "class_name": "Grapes",
+      "hex": "#704489",
+      "is_ag": true,
+      "acres": 1968.0176
+    },
+    {
+      "code": 42,
+      "class_name": "Dry Beans",
+      "hex": "#A80000",
+      "is_ag": true,
+      "acres": 1956.6752
+    },
+    {
+      "code": 50,
+      "class_name": "Cucumbers",
+      "hex": "#FF6666",
+      "is_ag": true,
+      "acres": 1941.7743999999998
+    },
+    {
+      "code": 237,
+      "class_name": "Dbl Crop Barley/Corn",
+      "hex": "#FFD400",
+      "is_ag": true,
+      "acres": 1609.9535999999998
+    },
+    {
+      "code": 11,
+      "class_name": "Tobacco",
+      "hex": "#00AF4D",
+      "is_ag": true,
+      "acres": 1326.8383999999999
+    },
+    {
+      "code": 43,
+      "class_name": "Potatoes",
+      "hex": "#732600",
+      "is_ag": true,
+      "acres": 1274.1296
+    },
+    {
+      "code": 6,
+      "class_name": "Sunflower",
+      "hex": "#FFFF00",
+      "is_ag": true,
+      "acres": 1059.7359999999999
+    },
+    {
+      "code": 71,
+      "class_name": "Other Tree Crops",
+      "hex": "#B39C70",
+      "is_ag": true,
+      "acres": 1007.6944
+    },
+    {
+      "code": 236,
+      "class_name": "Dbl Crop WinWht/Sorghum",
+      "hex": "#A87000",
+      "is_ag": true,
+      "acres": 844.6751999999999
+    },
+    {
+      "code": 226,
+      "class_name": "Dbl Crop Oats/Corn",
+      "hex": "#FFD400",
+      "is_ag": true,
+      "acres": 769.7263999999999
+    },
+    {
+      "code": 243,
+      "class_name": "Cabbage",
+      "hex": "#FF6666",
+      "is_ag": true,
+      "acres": 752.3792
+    },
+    {
+      "code": 25,
+      "class_name": "Other Small Grains",
+      "hex": "#D69DBC",
+      "is_ag": true,
+      "acres": 543.3231999999999
+    },
+    {
+      "code": 57,
+      "class_name": "Herbs",
+      "hex": "#80D4FF",
+      "is_ag": true,
+      "acres": 493.0608
+    },
+    {
+      "code": 23,
+      "class_name": "Spring Wheat",
+      "hex": "#D9B56C",
+      "is_ag": true,
+      "acres": 384.30719999999997
+    },
+    {
+      "code": 67,
+      "class_name": "Peaches",
+      "hex": "#FF91AB",
+      "is_ag": true,
+      "acres": 352.0592
+    },
+    {
+      "code": 222,
+      "class_name": "Squash",
+      "hex": "#FF6666",
+      "is_ag": true,
+      "acres": 297.1264
+    },
+    {
+      "code": 76,
+      "class_name": "Walnuts",
+      "hex": "#EBD6B0",
+      "is_ag": true,
+      "acres": 275.9984
+    },
+    {
+      "code": 53,
+      "class_name": "Peas",
+      "hex": "#55FF00",
+      "is_ag": true,
+      "acres": 262.20959999999997
+    },
+    {
+      "code": 29,
+      "class_name": "Millet",
+      "hex": "#73004C",
+      "is_ag": true,
+      "acres": 192.5984
+    },
+    {
+      "code": 221,
+      "class_name": "Strawberries",
+      "hex": "#FF6666",
+      "is_ag": true,
+      "acres": 140.3344
+    },
+    {
+      "code": 240,
+      "class_name": "Dbl Crop Soybeans/Oats",
+      "hex": "#267300",
+      "is_ag": true,
+      "acres": 137.2208
+    },
+    {
+      "code": 209,
+      "class_name": "Cantaloupes",
+      "hex": "#FF6666",
+      "is_ag": true,
+      "acres": 107.41919999999999
+    },
+    {
+      "code": 241,
+      "class_name": "Dbl Crop Corn/Soybeans",
+      "hex": "#FFD400",
+      "is_ag": true,
+      "acres": 103.19359999999999
+    },
+    {
+      "code": 39,
+      "class_name": "Buckwheat",
+      "hex": "#D69DBC",
+      "is_ag": true,
+      "acres": 58.936
+    },
+    {
+      "code": 242,
+      "class_name": "Blueberries",
+      "hex": "#000099",
+      "is_ag": true,
+      "acres": 47.148799999999994
+    },
+    {
+      "code": 246,
+      "class_name": "Radishes",
+      "hex": "#FF6666",
+      "is_ag": true,
+      "acres": 22.6848
+    },
+    {
+      "code": 214,
+      "class_name": "Broccoli",
+      "hex": "#FF6666",
+      "is_ag": true,
+      "acres": 22.24
+    },
+    {
+      "code": 31,
+      "class_name": "Canola",
+      "hex": "#D1FF00",
+      "is_ag": true,
+      "acres": 21.572799999999997
+    },
+    {
+      "code": 249,
+      "class_name": "Gourds",
+      "hex": "#FF6666",
+      "is_ag": true,
+      "acres": 21.3504
+    },
+    {
+      "code": 48,
+      "class_name": "Watermelons",
+      "hex": "#FF6666",
+      "is_ag": true,
+      "acres": 18.904
+    },
+    {
+      "code": 247,
+      "class_name": "Turnips",
+      "hex": "#FF6666",
+      "is_ag": true,
+      "acres": 18.2368
+    },
+    {
+      "code": 66,
+      "class_name": "Cherries",
+      "hex": "#FF00FF",
+      "is_ag": true,
+      "acres": 10.008
+    },
+    {
+      "code": 244,
+      "class_name": "Cauliflower",
+      "hex": "#FF6666",
+      "is_ag": true,
+      "acres": 6.449599999999999
+    },
+    {
+      "code": 220,
+      "class_name": "Plums",
+      "hex": "#FF91AB",
+      "is_ag": true,
+      "acres": 3.1136
+    },
+    {
+      "code": 77,
+      "class_name": "Pears",
+      "hex": "#B39C70",
+      "is_ag": true,
+      "acres": 2.8912
+    },
+    {
+      "code": 56,
+      "class_name": "Hops",
+      "hex": "#00AF4D",
+      "is_ag": true,
+      "acres": 0.6672
+    },
+    {
+      "code": 92,
+      "class_name": "Aquaculture",
+      "hex": "#00FFFF",
+      "is_ag": false,
+      "acres": 0.6672
+    },
+    {
+      "code": 49,
+      "class_name": "Onions",
+      "hex": "#FFCC66",
+      "is_ag": true,
+      "acres": 0.4448
+    }
+  ]
+}
