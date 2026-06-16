@@ -73,25 +73,6 @@ description: "Interactive tools, data insights, and datasets on Ohio rural-urban
         </div>
       </a>
 
-      <a class="tool-card" href="{{ '/data/insights/biofuels-renewable-fuel-standard/' | relative_url }}">
-        <div class="tool-thumb"><span class="tool-thumb-label">Biofuels &amp; the Renewable Fuel Standard</span></div>
-        <div class="tool-card-body">
-          <p class="tool-tag">Data insight</p>
-          <h3>Biofuels &amp; the Renewable Fuel Standard <span class="tool-badge">Coming soon</span></h3>
-          <p>How the federal Renewable Fuel Standard shapes demand for Ohio corn and soybeans and the economics of biofuel production.</p>
-          <span class="tool-card-link">Learn more →</span>
-        </div>
-      </a>
-
-      <a class="tool-card" href="{{ '/data/insights/what-crops-ohio-grows/' | relative_url }}">
-        <div class="tool-thumb"><span class="tool-thumb-label">What Crops Ohio Grows</span></div>
-        <div class="tool-card-body">
-          <p class="tool-tag">Data insight</p>
-          <h3>What crops Ohio grows <span class="tool-badge">Coming soon</span></h3>
-          <p>A look at Ohio's major crops and how production has shifted across the state over time.</p>
-          <span class="tool-card-link">Learn more →</span>
-        </div>
-      </a>
 
     </div>
 
