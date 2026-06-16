@@ -5,15 +5,33 @@ permalink: /data/hilliard-housing-tracker/
 description: "Quarterly residential sale prices, rents, and affordability metrics for Hilliard compared with peer central Ohio communities."
 ---
 
-<!-- The dashboard itself lives in /data/hilliard-housing-tracker.html as a
-     standalone file (city staff edit that one file to update the data). We embed
-     it here through the site layout so it gains the Swank Program header/nav.
-     The iframe auto-sizes to the dashboard's height so there is no inner scroll. -->
-<iframe
-  id="hilliard-frame"
-  class="dashboard-frame"
-  src="{{ '/data/hilliard-housing-tracker.html' | relative_url }}"
-  title="Hilliard Housing Affordability Tracker"></iframe>
+<article class="page">
+  <header class="page-header">
+    <h1>Hilliard Housing Affordability Tracker</h1>
+    <p class="page-subtitle">Tracking Hilliard's home prices, rents, and housing production against peer communities in Franklin County, Ohio.</p>
+    <div class="page-meta">
+      <p><strong>Author:</strong> <a href="https://gabe-lade.github.io/">Gabriel E. Lade</a>.</p>
+    </div>
+  </header>
+
+  <div class="page-content">
+    <p class="section-intro">
+      From 2025 to 2026, I volunteered on the Hilliard, Ohio housing steering committee to review the city's <a href="https://communityscale.github.io/Hilliard/">housing study</a>. One goal of the study was to track whether Hilliard has met its goal of remaining a place that meets the needs of its current and future residents. I developed this tool to help the city track its housing prices and production relative to other comparison cities in Franklin County, Ohio.
+    </p>
+
+    <section class="data-section">
+      <!-- The dashboard itself lives in /data/hilliard-housing-tracker.html as a
+           standalone file (city staff edit that one file to update the data). We embed
+           it here through the site layout so it gains the Swank Program header/nav.
+           The iframe auto-sizes to the dashboard's height so there is no inner scroll. -->
+      <iframe
+        id="hilliard-frame"
+        class="dashboard-frame"
+        src="{{ '/data/hilliard-housing-tracker.html' | relative_url }}"
+        title="Hilliard Housing Affordability Tracker"></iframe>
+    </section>
+  </div>
+</article>
 
 <script>
   (function () {
