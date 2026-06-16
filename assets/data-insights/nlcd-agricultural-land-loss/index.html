@@ -1,0 +1,384 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Tracking Agricultural Land Loss with NLCD</title>
+  <link rel="stylesheet" href="lib/leaflet/leaflet.css" />
+  <style>
+    :root { --ink:#1f2933; --muted:#667085; --line:#d9dee5; --panel:#fff; --bg:#f4f6f3; }
+    * { box-sizing: border-box; }
+    body { margin:0; font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; color:var(--ink); background:var(--bg); }
+    header { height:64px; display:flex; align-items:center; padding:0 28px; border-bottom:1px solid var(--line); background:#fff; }
+    .brand { display:flex; align-items:baseline; gap:14px; min-width:0; }
+    .brand small, .control-label { color:var(--muted); font-weight:700; text-transform:uppercase; letter-spacing:.08em; font-size:12px; }
+    h1 { margin:0; font-size:21px; line-height:1.2; font-weight:750; }
+    .app { height:calc(100vh - 64px); display:grid; grid-template-columns:minmax(0,1fr) 380px; }
+    .map-side { min-width:0; display:grid; grid-template-rows:auto minmax(0,1fr); border-right:1px solid var(--line); position:relative; }
+    .controls { display:grid; grid-template-columns:minmax(320px,1fr) auto auto; gap:18px; align-items:end; padding:14px 18px 12px; background:#fff; border-bottom:1px solid var(--line); }
+    .control-label { margin-bottom:8px; }
+    .year-readout { font-weight:760; font-size:15px; margin-bottom:8px; }
+    .range-wrap { position:relative; height:42px; padding:0 8px; }
+    .range-track { position:absolute; top:12px; left:8px; right:8px; height:4px; border-radius:999px; background:#d8ddd4; }
+    .range-selected { position:absolute; top:12px; height:4px; border-radius:999px; background:#2f5d3b; }
+    input[type=range] { position:absolute; left:0; right:0; top:2px; width:100%; pointer-events:none; appearance:none; background:transparent; }
+    input[type=range]::-webkit-slider-thumb { appearance:none; pointer-events:auto; width:18px; height:18px; border-radius:50%; background:#fff; border:3px solid #1f2933; cursor:pointer; }
+    input[type=range]::-webkit-slider-runnable-track { height:4px; background:transparent; }
+    .ticks { display:flex; justify-content:space-between; color:var(--muted); font-size:11px; padding-top:22px; }
+    .segmented { display:flex; border:1px solid var(--line); border-radius:8px; overflow:hidden; background:#fff; }
+    .segmented button { border:0; border-right:1px solid var(--line); background:#fff; padding:9px 11px; color:var(--ink); cursor:pointer; font-size:13px; white-space:nowrap; }
+    .segmented button:last-child { border-right:0; }
+    .segmented button.active { background:#1f2933; color:#fff; }
+    .mode-dots { display:flex; gap:14px; align-items:center; padding-bottom:2px; }
+    .mode-dots button { border:0; background:transparent; display:flex; align-items:center; gap:6px; cursor:pointer; color:var(--ink); font-size:13px; }
+    .dot { width:15px; height:15px; border-radius:50%; border:1.5px solid #1f2933; background:#fff; display:inline-block; }
+    button.active .dot { background:#1f2933; }
+    #map { min-height:0; width:100%; height:100%; background:#eef1ec url("data/rasters/grid_2010_2024_preview.png") center / contain no-repeat; }
+    .side-panel { overflow:auto; background:#fff; padding:18px; }
+    .panel-head { display:flex; justify-content:space-between; gap:12px; align-items:start; margin-bottom:14px; }
+    .region-title { font-size:18px; font-weight:760; }
+    .reset { border:1px solid var(--line); background:#fff; border-radius:7px; padding:6px 8px; cursor:pointer; color:var(--muted); }
+    .panel-card { border:1px solid var(--line); border-radius:8px; padding:14px; margin-bottom:14px; background:var(--panel); }
+    .panel-card h2 { font-size:14px; margin:0 0 12px; }
+    .metrics { display:grid; grid-template-columns:1fr auto; gap:8px 12px; font-size:13px; }
+    .metrics .label { color:var(--muted); }
+    .metrics .value { font-weight:750; text-align:right; }
+    canvas.chart { width:100%; height:180px; border-top:1px solid #eef1f4; }
+    .legend { position:absolute; z-index:500; left:18px; bottom:18px; background:rgba(255,255,255,.96); border:1px solid var(--line); border-radius:8px; padding:10px 12px; font-size:12px; box-shadow:0 8px 26px rgba(17,24,39,.12); }
+    .legend-row { display:flex; align-items:center; gap:8px; margin:5px 0; }
+    .swatch { width:14px; height:14px; border:1px solid #c7ccd1; }
+    .note { color:var(--muted); font-size:12px; line-height:1.45; }
+    @media (max-width:980px) { .app { grid-template-columns:1fr; grid-template-rows:minmax(560px,65vh) auto; } .controls { grid-template-columns:1fr; } }
+  </style>
+</head>
+<body>
+  <header><div class="brand"><small>Data Insights</small><h1>Tracking Agricultural Land Loss with NLCD</h1></div></header>
+  <main class="app">
+    <section class="map-side">
+      <div class="controls">
+        <div>
+          <div class="control-label">Comparison years</div>
+          <div class="year-readout"><span id="beginYearLabel">2010</span> -> <span id="endYearLabel">2024</span></div>
+          <div class="range-wrap">
+            <div class="range-track"></div><div class="range-selected" id="rangeSelected"></div>
+            <input id="beginYear" type="range" min="1985" max="2024" step="1" value="2010" aria-label="Begin year">
+            <input id="endYear" type="range" min="1985" max="2024" step="1" value="2024" aria-label="End year">
+            <div class="ticks"><span>1985</span><span>1995</span><span>2005</span><span>2015</span><span>2024</span></div>
+          </div>
+        </div>
+        <div>
+          <div class="control-label">County metric</div>
+          <div class="segmented" id="metricButtons">
+            <button data-metric="gross_loss_acres">Gross loss</button>
+            <button data-metric="gross_gain_acres">Gross gain</button>
+            <button data-metric="net_loss_acres" class="active">Net loss</button>
+            <button data-metric="lost_to_development_acres">Lost to development</button>
+          </div>
+        </div>
+        <div>
+          <div class="control-label">Map mode</div>
+          <div class="mode-dots" id="modeButtons">
+            <button data-mode="grid" class="active"><span class="dot"></span><span>Grid</span></button>
+            <button data-mode="county"><span class="dot"></span><span>County</span></button>
+          </div>
+        </div>
+      </div>
+      <div id="map"></div>
+      <div class="legend" id="legend"></div>
+    </section>
+    <aside class="side-panel">
+      <div class="panel-head">
+        <div><div class="control-label">Selected area</div><div class="region-title" id="regionTitle">Ohio</div></div>
+        <button class="reset" id="resetRegion">Ohio statewide</button>
+      </div>
+      <div class="panel-card"><h2>Summary metrics</h2><div class="metrics" id="summaryMetrics"><div class="label">Agricultural land, begin year (acres)</div><div class="value">13,207,212</div><div class="label">Agricultural land, end year (acres)</div><div class="value">12,954,971</div><div class="label">Gross loss (acres)</div><div class="value">346,241</div><div class="label">Gross gain (acres)</div><div class="value">94,000</div><div class="label">Net loss (acres)</div><div class="value">252,241</div><div class="label">Lost to development (acres)</div><div class="value">251,206</div><div class="label">Share of loss to development</div><div class="value">72.6%</div><div class="label">Net loss rate</div><div class="value">1.9%</div></div></div>
+      <div class="panel-card"><h2>Ag land over time</h2><canvas class="chart" id="timeChart" width="640" height="260"></canvas></div>
+      <div class="panel-card"><h2>Where lost ag land went</h2><canvas class="chart" id="destChart" width="640" height="260"></canvas></div>
+      <p class="note">Agricultural land is NLCD 81 Pasture/Hay plus 82 Cultivated Crops. Area metrics are counted from the original 30 m Albers Equal Area NLCD pixels; the web map is displayed in EPSG:3857. Gross loss is begin-year agricultural land that is non-agricultural by the end year. Gross gain is begin-year non-agricultural land that is agricultural by the end year. Net loss equals gross loss minus gross gain. Share of loss to development equals Lost to development (acres) divided by Gross loss (acres). Net loss rate is net loss divided by Agricultural land, begin year (acres).</p>
+    </aside>
+  </main>
+  <script src="lib/leaflet/leaflet.js"></script>
+  <script>
+    const state = { begin:2010, end:2024, mode:"grid", metric:"net_loss_acres", regionId:"state:OH", regionName:"Ohio" };
+    const metricLabels = { gross_loss_acres:"Gross loss (acres)", gross_gain_acres:"Gross gain (acres)", net_loss_acres:"Net loss (acres)", lost_to_development_acres:"Lost to development (acres)" };
+    const fmt = new Intl.NumberFormat("en-US", { maximumFractionDigits:0 });
+    const fmt2 = new Intl.NumberFormat("en-US", { minimumFractionDigits:2, maximumFractionDigits:2 });
+    const compactFmt = new Intl.NumberFormat("en-US", { notation:"compact", maximumFractionDigits:1 });
+    const pct = new Intl.NumberFormat("en-US", { style:"percent", maximumFractionDigits:1 });
+    let map, gridOverlay, countyLayer, gridBoundaryLayer, rasterManifest, metadata, countyFeatures, ohioBoundaryFeature, currentPairRows = new Map();
+    const pairCache = new Map(), annualMetrics = new Map(), imageCache = new Map();
+    const pairKey = (b,e) => `${b}_${e}`;
+    const metricKey = (year, regionId) => `${year}|${regionId}`;
+    function setStatus(value) { document.documentElement.setAttribute("data-app-status", value); }
+    async function fetchText(path) { const r = await fetch(path); if (!r.ok) throw new Error(path); return r.text(); }
+    function parseCsv(text) {
+      const lines = text.trim().split(/\r?\n/); const headers = lines.shift().split(",");
+      return lines.map(line => { const out = {}; const cells = line.split(","); headers.forEach((h,i) => out[h] = cells[i]); return out; });
+    }
+    async function loadPairRows(b,e) {
+      setStatus(`load-pair-${b}-${e}`);
+      const key = pairKey(b,e);
+      if (!pairCache.has(key)) {
+        const rows = await fetch(`data/pairs/pair_${b}_${e}.json`).then(r => { if (!r.ok) throw new Error(`Missing pair ${b}-${e}`); return r.json(); });
+        pairCache.set(key, new Map(rows.map(row => [row.region_id, row])));
+      }
+      currentPairRows = pairCache.get(key);
+      setStatus(`loaded-pair-${b}-${e}`);
+      return currentPairRows;
+    }
+    function loadImage(path) {
+      if (imageCache.has(path)) return imageCache.get(path);
+      const p = new Promise((resolve, reject) => { const img = new Image(); img.onload = () => resolve(img); img.onerror = reject; img.src = path; });
+      imageCache.set(path, p); return p;
+    }
+    function setupMap() {
+      setStatus("setup-map");
+      const b = rasterManifest.bounds;
+      map = L.map("map", { zoomControl:true }).fitBounds([[b.south,b.west],[b.north,b.east]]);
+      L.tileLayer("https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png", {
+        subdomains:"abcd",
+        maxZoom:19,
+        attribution:"&copy; OpenStreetMap &copy; CARTO"
+      }).addTo(map);
+    }
+    async function renderGrid() {
+      const [beginImg, endImg] = await Promise.all([loadImage(rasterManifest.categoryImages[state.begin]), loadImage(rasterManifest.categoryImages[state.end])]);
+      const w = beginImg.width, h = beginImg.height;
+      const c1 = document.createElement("canvas"), c2 = document.createElement("canvas"), out = document.createElement("canvas");
+      c1.width = c2.width = out.width = w; c1.height = c2.height = out.height = h;
+      const x1 = c1.getContext("2d"), x2 = c2.getContext("2d"), xo = out.getContext("2d");
+      x1.drawImage(beginImg,0,0); x2.drawImage(endImg,0,0);
+      const a = x1.getImageData(0,0,w,h).data, b = x2.getImageData(0,0,w,h).data, o = xo.createImageData(w,h);
+      for (let i=0; i<a.length; i+=4) {
+        const ba = a[i]===137 && a[i+1]===205 && a[i+2]===102;
+        const ea = b[i]===137 && b[i+1]===205 && b[i+2]===102;
+        const ed = b[i]===178 && b[i+1]===178 && b[i+2]===178;
+        const valid = b[i+3] > 0;
+        let r=255, g=255, bl=255, alpha=valid ? 255 : 0;
+        if (ba && !ea) { r=255; g=0; bl=0; alpha=255; }
+        else if (!ba && ea) { r=0; g=92; bl=230; alpha=255; }
+        else if (ea) { r=137; g=205; bl=102; alpha=255; }
+        else if (ed) { r=178; g=178; bl=178; alpha=255; }
+        o.data[i]=r; o.data[i+1]=g; o.data[i+2]=bl; o.data[i+3]=alpha;
+      }
+      xo.putImageData(o,0,0);
+      const bounds = [[rasterManifest.bounds.south,rasterManifest.bounds.west],[rasterManifest.bounds.north,rasterManifest.bounds.east]];
+      if (gridOverlay) gridOverlay.setUrl(out.toDataURL("image/png"));
+      else gridOverlay = L.imageOverlay(out.toDataURL("image/png"), bounds, { opacity:1 }).addTo(map);
+    }
+    function currentCountyRows() {
+      return [...currentPairRows.values()].filter(d => d.region_type === "county");
+    }
+    function metricDomain() {
+      const vals = currentCountyRows().map(d => Number(d[state.metric])).filter(Number.isFinite);
+      if (!vals.length) return { min:0, max:1 };
+      let min = Math.min(...vals), max = Math.max(...vals);
+      if (min === max) max = min + 1;
+      return { min, max };
+    }
+    function rampColor(t) {
+      const clamped = Math.max(0, Math.min(1, t));
+      return `rgb(${Math.round(255-92*clamped)},${Math.round(244-174*clamped)},${Math.round(214-170*clamped)})`;
+    }
+    function countyStyle(feature) {
+      const row = currentPairRows.get(`county:${feature.properties.GEOID}`);
+      const value = row ? Number(row[state.metric]) : NaN;
+      const { min, max } = metricDomain();
+      const t = Number.isFinite(value) ? (value-min)/(max-min) : 0;
+      return { color:"#fff", weight:`county:${feature.properties.GEOID}` === state.regionId ? 3 : 1, fillColor:rampColor(t), fillOpacity:.84 };
+    }
+    function ensureGridBoundary() {
+      if (!gridBoundaryLayer) {
+        gridBoundaryLayer = L.geoJSON(ohioBoundaryFeature, {
+          style: { color:"#5f6368", weight:1.4, opacity:0.95, fill:false, fillOpacity:0 },
+          interactive:false
+        });
+      }
+      if (state.mode === "grid" && !map.hasLayer(gridBoundaryLayer)) gridBoundaryLayer.addTo(map);
+      if (state.mode !== "grid" && map.hasLayer(gridBoundaryLayer)) map.removeLayer(gridBoundaryLayer);
+    }
+    function renderCounties() {
+      if (!countyLayer) {
+        countyLayer = L.geoJSON(countyFeatures, {
+          style: countyStyle,
+          onEachFeature: (feature, layer) => layer.on("click", () => {
+            state.regionId = `county:${feature.properties.GEOID}`;
+            state.regionName = feature.properties.display_name || `${feature.properties.NAME} County`;
+            countyLayer.setStyle(countyStyle);
+            updatePanel();
+          })
+        });
+      }
+      countyLayer.setStyle(countyStyle);
+      if (state.mode === "county" && !map.hasLayer(countyLayer)) countyLayer.addTo(map);
+      if (state.mode !== "county" && map.hasLayer(countyLayer)) map.removeLayer(countyLayer);
+    }
+    function updateLegend() {
+      const el = document.getElementById("legend");
+      if (state.mode === "grid") el.innerHTML = `
+        <div class="legend-row"><span class="swatch" style="background:rgb(255,0,0)"></span>Ag to non-ag</div>
+        <div class="legend-row"><span class="swatch" style="background:rgb(0,92,230)"></span>Non-ag to ag</div>
+        <div class="legend-row"><span class="swatch" style="background:#89cd66"></span>End-year ag</div>
+        <div class="legend-row"><span class="swatch" style="background:#b2b2b2"></span>End-year developed</div>
+        <div class="legend-row"><span class="swatch" style="background:#fff"></span>Other land cover</div>`;
+      else {
+        const { min, max } = metricDomain();
+        const bins = 5;
+        const rows = [];
+        for (let i=0; i<bins; i++) {
+          const start = min + (max-min) * i / bins;
+          const end = min + (max-min) * (i+1) / bins;
+          rows.push(`<div class="legend-row"><span class="swatch" style="background:${rampColor((i+0.5)/bins)}"></span>${fmt2.format(start)} - ${fmt2.format(end)}</div>`);
+        }
+        el.innerHTML = `<strong>${metricLabels[state.metric]}</strong><br><span class="note">County totals for ${state.begin} -> ${state.end}</span>${rows.join("")}`;
+      }
+    }
+    async function setMode(mode) {
+      state.mode = mode;
+      document.querySelectorAll("#modeButtons button").forEach(b => b.classList.toggle("active", b.dataset.mode === mode));
+      if (mode === "grid") {
+        if (countyLayer && map.hasLayer(countyLayer)) map.removeLayer(countyLayer);
+        if (gridOverlay && !map.hasLayer(gridOverlay)) gridOverlay.addTo(map);
+        await renderGrid();
+        ensureGridBoundary();
+      } else {
+        if (gridOverlay && map.hasLayer(gridOverlay)) map.removeLayer(gridOverlay);
+        if (gridBoundaryLayer && map.hasLayer(gridBoundaryLayer)) map.removeLayer(gridBoundaryLayer);
+        renderCounties();
+      }
+      updateLegend();
+    }
+    async function updateYears() {
+      setStatus("update-years-start");
+      const min = Number(document.getElementById("beginYear").min), max = Number(document.getElementById("beginYear").max);
+      let b = Number(document.getElementById("beginYear").value), e = Number(document.getElementById("endYear").value);
+      if (b >= e) b = e - 1; if (e <= b) e = b + 1;
+      state.begin = b; state.end = e;
+      document.getElementById("beginYear").value = b; document.getElementById("endYear").value = e;
+      document.getElementById("beginYearLabel").textContent = b; document.getElementById("endYearLabel").textContent = e;
+      const left = ((b-min)/(max-min))*100, right = ((e-min)/(max-min))*100;
+      const selected = document.getElementById("rangeSelected");
+      selected.style.left = `calc(${left}% + 8px)`; selected.style.width = `calc(${right-left}% - 16px)`;
+      await loadPairRows(b,e);
+      setStatus("pair-ready");
+      if (state.mode === "grid") { await renderGrid(); ensureGridBoundary(); } else renderCounties();
+      setStatus("rendered-map");
+      updatePanel(); updateLegend();
+      setStatus("panel-ready");
+    }
+    function updatePanel() {
+      document.getElementById("regionTitle").textContent = state.regionName;
+      const row = currentPairRows.get(state.regionId);
+      const metricsEl = document.getElementById("summaryMetrics");
+      if (!row) { metricsEl.innerHTML = `<div class="label">Metrics</div><div class="value">Loading</div>`; return; }
+      const rows = [
+        ["Agricultural land, begin year (acres)", row.begin_ag_acres],
+        ["Agricultural land, end year (acres)", row.end_ag_acres],
+        ["Gross loss (acres)", row.gross_loss_acres],
+        ["Gross gain (acres)", row.gross_gain_acres],
+        ["Net loss (acres)", row.net_loss_acres],
+        ["Lost to development (acres)", row.lost_to_development_acres],
+        ["Share of loss to development", row.share_loss_to_development, "pct"],
+        ["Net loss rate", row.net_loss_rate, "pct"]
+      ];
+      metricsEl.innerHTML = rows.map(([label,value,type]) => `<div class="label">${label}</div><div class="value">${type==="pct" ? pct.format(Number(value||0)) : fmt.format(Number(value||0))}</div>`).join("");
+      drawTimeChart(); drawDestChart(row);
+    }
+    function drawTimeChart() {
+      const canvas = document.getElementById("timeChart"), ctx = canvas.getContext("2d");
+      const dpr = window.devicePixelRatio || 1;
+      const cw = Math.max(canvas.clientWidth || 320, 280);
+      const ch = Math.max(canvas.clientHeight || 180, 180);
+      canvas.width = Math.round(cw * dpr);
+      canvas.height = Math.round(ch * dpr);
+      ctx.setTransform(dpr,0,0,dpr,0,0);
+      ctx.clearRect(0,0,cw,ch);
+      const data = [];
+      for (let y=state.begin; y<=state.end; y++) { const row = annualMetrics.get(metricKey(y,state.regionId)); if (row) data.push({year:y, acres:Number(row.ag_acres)}); }
+      if (data.length < 2) return;
+      const padL=58, padR=14, padT=16, padB=42, axisW=cw-padL-padR, h=ch-padT-padB;
+      const xPad=18, plotX0=padL+xPad, plotW=Math.max(axisW-xPad, 1);
+      const rawMin=Math.min(...data.map(d=>d.acres)), rawMax=Math.max(...data.map(d=>d.acres));
+      const span=Math.max(rawMax-rawMin,1), minY=rawMin-span*0.06, maxY=rawMax+span*0.06;
+      const xFor = d => plotX0 + ((d.year-state.begin)/Math.max(state.end-state.begin,1))*plotW;
+      const yFor = v => padT + h - ((v-minY)/(maxY-minY))*h;
+      ctx.strokeStyle="#d9dee5"; ctx.lineWidth=1; ctx.beginPath(); ctx.moveTo(padL,padT); ctx.lineTo(padL,padT+h); ctx.lineTo(padL+axisW,padT+h); ctx.stroke();
+      ctx.fillStyle="#667085"; ctx.font="10px system-ui"; ctx.textAlign="right"; ctx.textBaseline="middle";
+      for (let i=0; i<4; i++) {
+        const value = minY + (maxY-minY)*i/3;
+        const y = yFor(value);
+        ctx.strokeStyle="#eef1f4"; ctx.beginPath(); ctx.moveTo(padL,y); ctx.lineTo(padL+axisW,y); ctx.stroke();
+        ctx.fillText(compactFmt.format(value), padL-7, y);
+      }
+      ctx.strokeStyle="#2f5d3b"; ctx.lineWidth=3; ctx.beginPath();
+      data.forEach((d,i) => { const x=xFor(d), y=yFor(d.acres); if (i===0) ctx.moveTo(x,y); else ctx.lineTo(x,y); });
+      ctx.stroke();
+      ctx.fillStyle="#667085"; ctx.font="10px system-ui"; ctx.textAlign="center"; ctx.textBaseline="alphabetic";
+      const midYear = Math.round((state.begin + state.end)/2);
+      [[state.begin,state.begin],[midYear,midYear],[state.end,state.end]].forEach(([year,label]) => ctx.fillText(String(label), xFor({year}), padT+h+17));
+      ctx.font="11px system-ui"; ctx.fillText("Year", plotX0+plotW/2, ch-5);
+      ctx.save(); ctx.translate(12, padT+h/2); ctx.rotate(-Math.PI/2); ctx.fillText("Acres", 0, 0); ctx.restore();
+      ctx.textAlign="left"; ctx.textBaseline="alphabetic";
+    }
+    function drawDestChart(row) {
+      const canvas = document.getElementById("destChart"), ctx = canvas.getContext("2d");
+      const dpr = window.devicePixelRatio || 1;
+      const cw = Math.max(canvas.clientWidth || 320, 280);
+      const ch = Math.max(canvas.clientHeight || 180, 180);
+      canvas.width = Math.round(cw * dpr);
+      canvas.height = Math.round(ch * dpr);
+      ctx.setTransform(dpr,0,0,dpr,0,0);
+      ctx.clearRect(0,0,cw,ch);
+      const cats = [
+        ["Developed, Open Space",Number(row.loss_to_dev21_acres),"#e8d1d1"],
+        ["Developed, Low Intensity",Number(row.loss_to_dev22_acres),"#e29e8c"],
+        ["Developed, Medium Intensity",Number(row.loss_to_dev23_acres),"#ff0000"],
+        ["Developed, High Intensity",Number(row.loss_to_dev24_acres),"#b50000"],
+        ["Grassland/Herbaceous",Number(row.loss_to_grass71_acres),"#dfdfc2"],
+        ["Other",Number(row.loss_to_other_acres),"#9ca3af"]
+      ];
+      const total = cats.reduce((s,d)=>s+d[1],0) || 1; let x=16, y=38, w=cw-32, h=34;
+      cats.forEach(d => { const seg=w*d[1]/total; ctx.fillStyle=d[2]; ctx.fillRect(x,y,seg,h); x+=seg; });
+      ctx.fillStyle="#1f2933"; ctx.font="11px system-ui";
+      cats.forEach((d,i) => {
+        const lx = 16;
+        const ly = 94 + i * 16;
+        ctx.fillStyle=d[2]; ctx.fillRect(lx,ly-10,10,10);
+        ctx.fillStyle="#1f2933"; ctx.fillText(d[0],lx+15,ly);
+      });
+    }
+    async function boot() {
+      setStatus("boot-start");
+      [rasterManifest, metadata, countyFeatures, ohioBoundaryFeature] = await Promise.all([
+        fetch("data/annual_raster_manifest.json").then(r=>r.json()),
+        fetch("data/metadata.json").then(r=>r.json()),
+        fetch("data/oh_counties.geojson").then(r=>r.json()),
+        fetch("data/ohio_boundary.geojson").then(r=>r.json())
+      ]);
+      const params = new URLSearchParams(window.location.search);
+      state.begin = metadata.defaultBegin; state.end = metadata.defaultEnd;
+      const requestedBegin = Number(params.get("begin"));
+      const requestedEnd = Number(params.get("end"));
+      if (Number.isInteger(requestedBegin) && requestedBegin >= metadata.startYear && requestedBegin < metadata.endYear) state.begin = requestedBegin;
+      if (Number.isInteger(requestedEnd) && requestedEnd > state.begin && requestedEnd <= metadata.endYear) state.end = requestedEnd;
+      if (metricLabels[params.get("metric")]) state.metric = params.get("metric");
+      const requestedMode = params.get("mode") === "county" ? "county" : "grid";
+      setStatus("metadata-ready");
+      document.getElementById("beginYear").value = state.begin; document.getElementById("endYear").value = state.end;
+      document.querySelectorAll("#metricButtons button").forEach(b=>b.classList.toggle("active", b.dataset.metric === state.metric));
+      parseCsv(await fetchText("data/annual_region_metrics.csv")).forEach(r => annualMetrics.set(metricKey(Number(r.year), r.region_id), r));
+      setStatus("annual-ready");
+      setupMap();
+      await updateYears();
+      await setMode(requestedMode);
+      setStatus("app-ready");
+      document.getElementById("beginYear").addEventListener("input", () => updateYears().catch(console.error));
+      document.getElementById("endYear").addEventListener("input", () => updateYears().catch(console.error));
+      document.querySelectorAll("#metricButtons button").forEach(btn => btn.addEventListener("click", () => { state.metric=btn.dataset.metric; document.querySelectorAll("#metricButtons button").forEach(b=>b.classList.toggle("active", b===btn)); if (state.mode==="county") renderCounties(); updateLegend(); }));
+      document.querySelectorAll("#modeButtons button").forEach(btn => btn.addEventListener("click", () => setMode(btn.dataset.mode).catch(console.error)));
+      document.getElementById("resetRegion").addEventListener("click", () => { state.regionId="state:OH"; state.regionName="Ohio"; if (countyLayer) countyLayer.setStyle(countyStyle); updatePanel(); });
+    }
+    boot().catch(err => { console.error(err); document.body.insertAdjacentHTML("beforeend", `<pre>${err.stack || err}</pre>`); });
+  </script>
+</body>
+</html>

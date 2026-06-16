@@ -43,6 +43,15 @@ description: "Short, plain-language explainers with maps and charts on rural-urb
 
         <article class="insight-list-item">
           <div class="insight-list-copy">
+            <h3><a href="{{ '/data/insights/nlcd-agricultural-land-loss/' | relative_url }}">Tracking agricultural land loss with NLCD</a></h3>
+            <p>
+              Interactive map of Ohio agricultural land-cover change from 1985 to 2024, with pixel-level transitions and county-level summaries.
+            </p>
+          </div>
+        </article>
+
+        <article class="insight-list-item">
+          <div class="insight-list-copy">
             <h3><a href="{{ '/data/insights/biofuels-renewable-fuel-standard/' | relative_url }}">Biofuels and Renewable Fuel Standard</a></h3>
           </div>
         </article>

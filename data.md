@@ -43,6 +43,16 @@ description: "Interactive tools, data insights, and datasets on Ohio rural-urban
         </div>
       </a>
 
+      <a class="tool-card" href="{{ '/data/insights/nlcd-agricultural-land-loss/' | relative_url }}">
+        <div class="tool-thumb"><span class="tool-thumb-label">Agricultural Land Loss (NLCD)</span></div>
+        <div class="tool-card-body">
+          <p class="tool-tag">Interactive map</p>
+          <h3>Tracking agricultural land loss with NLCD</h3>
+          <p>Compare Ohio agricultural land cover across any pair of years from 1985 to 2024, with pixel-level transitions and county-level summaries of loss, gain, and conversion to development.</p>
+          <span class="tool-card-link">Explore the map →</span>
+        </div>
+      </a>
+
       <a class="tool-card" href="{{ '/data/insights/ohio-township-zoning-coverage/' | relative_url }}">
         <div class="tool-thumb"><span class="tool-thumb-label">Ohio Township Zoning Coverage</span></div>
         <div class="tool-card-body">
