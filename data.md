@@ -44,7 +44,7 @@ description: "Interactive tools, data insights, and datasets on Ohio rural-urban
       </a>
 
       <a class="tool-card" href="{{ '/data/insights/nlcd-agricultural-land-loss/' | relative_url }}">
-        <div class="tool-thumb"><span class="tool-thumb-label">Agricultural Land Loss (NLCD)</span></div>
+        <img class="tool-thumb" src="{{ '/assets/img/tools/nlcd-agricultural-land-loss.png' | relative_url }}" alt="Map of Ohio agricultural land cover with areas of loss and conversion to development">
         <div class="tool-card-body">
           <p class="tool-tag">Interactive map</p>
           <h3>Tracking agricultural land loss with NLCD</h3>
