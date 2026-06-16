@@ -720,6 +720,69 @@ main {
   font-size: 0.9rem;
 }
 
+/* Policy Facts — distinct series panel on the Policy Briefs page */
+.policy-facts {
+  background: #f7f7f7;
+  border: 1px solid var(--color-border);
+  border-left: 4px solid var(--color-accent);
+  border-radius: 8px;
+  padding: 1.5rem 1.75rem;
+  margin-bottom: 2.5rem;
+}
+
+.policy-facts-tag {
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--color-accent);
+  margin-bottom: 0.15rem;
+}
+
+.policy-facts-head h2 {
+  margin: 0 0 0.5rem;
+}
+
+.policy-facts-blurb {
+  color: var(--color-text-secondary);
+  font-size: 0.95rem;
+  margin-bottom: 1.25rem;
+}
+
+.policy-facts-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.policy-fact {
+  padding-top: 1rem;
+  border-top: 1px solid var(--color-border);
+}
+
+.policy-fact:first-child {
+  padding-top: 0;
+  border-top: none;
+}
+
+.policy-fact + .policy-fact {
+  margin-top: 1rem;
+}
+
+.policy-fact-title {
+  font-weight: 600;
+  margin-bottom: 0.25rem;
+}
+
+.policy-fact-summary {
+  color: var(--color-text-secondary);
+  margin-bottom: 0.25rem;
+}
+
+.policy-briefs-heading {
+  margin-bottom: 1rem;
+}
+
 /* Outreach filter + search controls */
 .outreach-controls {
   margin: 0 0 1.75rem;

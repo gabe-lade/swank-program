@@ -14,6 +14,27 @@ description: "Short, accessible policy briefs and popular-press explainers from 
   </header>
 
   <div class="page-content">
+
+    <section class="policy-facts">
+      <div class="policy-facts-head">
+        <p class="policy-facts-tag">Policy Facts</p>
+        <h2>Policy Facts</h2>
+        <p class="policy-facts-blurb">
+          Short, succinct summaries of the best available evidence on pressing policy issues facing Ohioans. The series reports facts and evidence; it does not make explicit policy recommendations.
+        </p>
+      </div>
+      <ul class="policy-facts-list">
+        {% for item in site.data.policy_facts %}
+        <li class="policy-fact">
+          <p class="policy-fact-title"><a href="{{ item.url | relative_url }}">{{ item.title }}</a></p>
+          {% if item.summary %}<p class="policy-fact-summary">{{ item.summary }}</p>{% endif %}
+          <span class="outreach-entry-meta">{{ item.date }}{% if item.url contains '.pdf' %} · PDF{% endif %}</span>
+        </li>
+        {% endfor %}
+      </ul>
+    </section>
+
+    <h2 class="policy-briefs-heading">Policy Briefs</h2>
     {% include outreach-filter.html items=site.data.policy_briefs label="policy briefs" %}
   </div>
 </article>

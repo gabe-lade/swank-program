@@ -41,9 +41,9 @@ description: "Newsletter, presentations, policy briefs, and media coverage from 
       <a class="tool-card" href="{{ '/outreach/policy-briefs/' | relative_url }}">
         <div class="tool-thumb"><span class="tool-thumb-label">Policy Briefs</span></div>
         <div class="tool-card-body">
-          <p class="tool-tag">Briefs &amp; explainers</p>
+          <p class="tool-tag">Briefs &amp; Policy Facts</p>
           <h3>Policy Briefs</h3>
-          <p>Short, accessible briefs that translate research for policymakers and the public.</p>
+          <p>Accessible briefs that translate research, plus the Policy Facts series of short, evidence-based summaries for Ohioans.</p>
           <span class="tool-card-link">Read briefs →</span>
         </div>
       </a>

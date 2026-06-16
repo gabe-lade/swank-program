@@ -1,0 +1,8 @@
+# Policy Facts — short, evidence-based summaries of pressing policy issues facing Ohioans.
+# A distinct series from the longer-form policy briefs. Newest first.
+# Fields: title, url (PDF or link), date (display string), summary (one line), topics (slugs)
+- title: "Data Centers in Ohio: Growth, Tax Treatment, and Local Impacts"
+  url: "/assets/documents/data-centers-policy-facts.pdf"
+  date: "June 2026"
+  summary: "What Ohio's data center boom means for tax revenue, schools, electricity prices, and water."
+  topics: [energy-land-use, property-tax, water-environment]
