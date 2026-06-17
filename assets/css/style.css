@@ -440,6 +440,59 @@ main {
   text-decoration: underline;
 }
 
+/* --- Audience / task routing (homepage) --- */
+.audience {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 3rem var(--spacing-md) var(--spacing-lg);
+  border-top: 1px solid var(--color-border);
+}
+
+.audience-heading {
+  text-align: center;
+  margin-bottom: 1.75rem;
+}
+
+.audience-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.25rem;
+}
+
+.audience-card {
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  padding: 1.25rem 1.5rem;
+}
+
+.audience-card h3 {
+  margin-bottom: 0.4rem;
+}
+
+.audience-card p {
+  color: var(--color-text-secondary);
+  line-height: 1.55;
+  margin-bottom: 0.85rem;
+}
+
+.audience-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem 1.5rem;
+  margin-bottom: 0 !important;
+}
+
+.audience-links a {
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+
+@media (min-width: 700px) {
+  .audience-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
 /* --- Newsletter CTA (homepage) --- */
 .newsletter-cta {
   text-align: center;

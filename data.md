@@ -53,41 +53,18 @@ description: "Interactive tools, data insights, and datasets on Ohio rural-urban
         </div>
       </a>
 
-      <a class="tool-card" href="{{ '/data/insights/ohio-township-zoning-coverage/' | relative_url }}">
-        <div class="tool-thumb"><span class="tool-thumb-label">Ohio Township Zoning Coverage</span></div>
-        <div class="tool-card-body">
-          <p class="tool-tag">Data insight</p>
-          <h3>Ohio township zoning coverage <span class="tool-badge">Coming soon</span></h3>
-          <p>A plain-language explainer with maps and source notes on how zoning authority is distributed across Ohio's townships, and where land remains unzoned.</p>
-          <span class="tool-card-link">Learn more →</span>
-        </div>
-      </a>
-
-      <a class="tool-card" href="{{ '/data/insights/ohio-property-tax-reform/' | relative_url }}">
-        <div class="tool-thumb"><span class="tool-thumb-label">Ohio Property Tax Reform</span></div>
-        <div class="tool-card-body">
-          <p class="tool-tag">Data insight</p>
-          <h3>Ohio property tax reform <span class="tool-badge">Coming soon</span></h3>
-          <p>Background, maps, and source notes on recent Ohio property tax reform proposals and their effects on local governments and homeowners.</p>
-          <span class="tool-card-link">Learn more →</span>
-        </div>
-      </a>
-
-
     </div>
 
-    <!-- Datasets -->
-    <h2 class="tools-section-label">Datasets</h2>
-    <div class="tools-grid">
-      <div class="tool-card">
-        <div class="tool-thumb"><span class="tool-thumb-label">Datasets</span></div>
-        <div class="tool-card-body">
-          <p class="tool-tag">Datasets</p>
-          <h3>Downloadable datasets <span class="tool-badge">Coming soon</span></h3>
-          <p>Documented datasets on Ohio agricultural economics, rural-urban demographics, energy, and environmental outcomes — published here with documentation and download links.</p>
-        </div>
-      </div>
-    </div>
+    <!-- In development -->
+    <h2 class="tools-section-label">In development</h2>
+    <p class="section-intro">
+      Planned tools and datasets. Want preliminary information or to collaborate? <a href="mailto:lade.10@osu.edu">Get in touch</a>.
+    </p>
+    <ul class="notes-list">
+      <li><a href="{{ '/data/insights/ohio-township-zoning-coverage/' | relative_url }}">Ohio township zoning coverage</a> — mapping where zoning authority applies across Ohio's townships, and where land remains unzoned.</li>
+      <li><a href="{{ '/data/insights/ohio-property-tax-reform/' | relative_url }}">Ohio property tax reform</a> — how recent reform proposals would affect local governments and homeowners.</li>
+      <li><strong>Downloadable datasets</strong> — documented datasets on Ohio agriculture, rural-urban demographics, energy, and environment, with documentation and download links.</li>
+    </ul>
 
   </div>
 </article>
