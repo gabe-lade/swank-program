@@ -19,6 +19,17 @@ description: "A Data Insights explainer on Ohio urbanization and the rural-urban
       Urban growth often appears first at the rural-urban fringe, where formerly rural places begin to take on urban land use and housing patterns. The two maps below identify Ohio's urban and rural areas using two different lenses, and let you watch the fringe move outward from 2000 to 2020.
     </p>
 
+    <div class="use-box">
+      <h2>Use &amp; cite these maps</h2>
+      <p><strong>Best for:</strong> residents, local officials, and researchers tracking urban growth and the rural-urban fringe.</p>
+      <p><strong>How to use:</strong> zoom to your community on either map, use each map's layer control to switch between 2000, 2010, and 2020, and compare the two lenses below. Read small boundary changes cautiously — the maps are best for broad patterns.</p>
+      <p><strong>Suggested citation:</strong></p>
+      <div class="cite-block">
+        <p class="cite-text" id="urb-citation">Lade, Gabriel E., and Jingke Wu. "Ohio Urbanization." C. William Swank Program in Rural-Urban Policy, The Ohio State University, 2026.</p>
+        <button type="button" class="cite-copy" data-copy-target="urb-citation">Copy citation</button>
+      </div>
+    </div>
+
     <section class="data-section">
       <h2>Two ways to measure "urban"</h2>
       <p>
@@ -81,3 +92,5 @@ description: "A Data Insights explainer on Ohio urbanization and the rural-urban
     </section>
   </div>
 </article>
+
+<script src="{{ '/assets/js/copy-citation.js' | relative_url }}" defer></script>

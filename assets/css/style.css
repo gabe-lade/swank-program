@@ -784,6 +784,69 @@ main {
   color: var(--color-text-secondary);
 }
 
+/* "Use this / Cite this" box on data tool pages */
+.use-box {
+  background: #f7f7f7;
+  border: 1px solid var(--color-border);
+  border-left: 4px solid var(--color-accent);
+  border-radius: 8px;
+  padding: 1.25rem 1.5rem;
+  margin: 1.5rem 0;
+}
+
+.use-box h2 {
+  font-size: 1.15rem;
+  margin: 0 0 0.75rem;
+}
+
+.use-box p {
+  margin-bottom: 0.6rem;
+}
+
+.use-box ol,
+.use-box ul {
+  margin: 0 0 0.6rem 1.25rem;
+  color: var(--color-text-secondary);
+  line-height: 1.6;
+}
+
+.cite-block {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  gap: 0.5rem 0.75rem;
+  margin-top: 0.4rem;
+}
+
+.cite-text {
+  flex: 1 1 320px;
+  margin: 0;
+  font-size: 0.9rem;
+  color: var(--color-text-secondary);
+  background: var(--color-bg);
+  border: 1px solid var(--color-border);
+  border-radius: 6px;
+  padding: 0.6rem 0.75rem;
+}
+
+.cite-copy {
+  flex: 0 0 auto;
+  font-family: inherit;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #fff;
+  background: var(--color-accent);
+  border: 0;
+  border-radius: 6px;
+  padding: 0.55rem 0.9rem;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.cite-copy:hover {
+  background: var(--color-accent-hover);
+}
+
 /* Policy Facts — distinct series panel on the Policy Briefs page */
 .policy-facts {
   background: #f7f7f7;

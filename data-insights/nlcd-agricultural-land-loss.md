@@ -19,6 +19,32 @@ description: "Interactive map of Ohio agricultural land-cover change from 1985 t
       This tool uses Annual NLCD land-cover rasters to compare agricultural land across any pair of years from 1985 to 2024. It maps gross loss, gross gain, net loss, and agricultural land converted to development, with statewide and county-level summaries.
     </p>
 
+    <div class="use-box">
+      <h2>Use this map</h2>
+      <p><strong>Best for:</strong> journalists, local officials, and researchers tracking farmland conversion in Ohio.</p>
+      <p><strong>What it shows:</strong> agricultural land-cover change across Ohio from 1985 to 2024 from annual NLCD satellite data — gross loss, gross gain, net loss, and farmland converted to development, statewide and by county.</p>
+      <p><strong>Caveat:</strong> land cover is classified from remotely sensed imagery; it is not the same as parcel ownership, zoning, or farmland-program enrollment, and small year-to-year changes can reflect classification noise.</p>
+      <p><strong>Suggested citation:</strong></p>
+      <div class="cite-block">
+        <p class="cite-text" id="nlcd-citation">Wu, Jingke, Gabriel E. Lade, Zhining Sun, and Ani Katchova. "Tracking Agricultural Land Loss with NLCD." C. William Swank Program in Rural-Urban Policy, The Ohio State University, 2026. Data from the Annual National Land Cover Database (MRLC/USGS), 1985–2024.</p>
+        <button type="button" class="cite-copy" data-copy-target="nlcd-citation">Copy citation</button>
+      </div>
+    </div>
+
+    <section class="data-section">
+      <h2>Key numbers (1985&ndash;2024)</h2>
+      <p>Statewide totals computed from the annual NLCD data behind the map. Agricultural land is NLCD Pasture/Hay (81) plus Cultivated Crops (82); acres are counted from the original 30&nbsp;m pixels.</p>
+      <ul class="notes-list">
+        <li><strong>Agricultural land, 1985:</strong> about 13.6 million acres (13,640,765).</li>
+        <li><strong>Agricultural land, 2024:</strong> about 13.0 million acres (12,954,971).</li>
+        <li><strong>Net loss, 1985&ndash;2024:</strong> about 686,000 acres — a 5.0% decline.</li>
+        <li><strong>Farmland converted to development:</strong> about 726,000 acres, which is 77% of all gross agricultural-land loss.</li>
+        <li><strong>Counties with the most net farmland loss:</strong> Franklin (about 53,000 acres), Delaware (38,000), Warren (34,000), Butler (33,000), and Lorain (22,000).</li>
+      </ul>
+      <p>Download the underlying data: <a href="{{ '/assets/data-insights/nlcd-agricultural-land-loss/data/annual_region_metrics.csv' | relative_url }}">annual agricultural and developed land by county and year (CSV)</a>.</p>
+      <p class="last-updated">Source: Annual National Land Cover Database (MRLC/USGS), 1985–2024, processed by the Swank Program. Updated June 2026.</p>
+    </section>
+
     <section class="data-section">
       <h2>Interactive map</h2>
       <p>
@@ -76,3 +102,4 @@ description: "Interactive map of Ohio agricultural land-cover change from 1985 t
     window.addEventListener('resize', resize);
   })();
 </script>
+<script src="{{ '/assets/js/copy-citation.js' | relative_url }}" defer></script>
