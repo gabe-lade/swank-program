@@ -1,0 +1,43 @@
+{
+  "title": "Ohio CDL Crop Change Explorer",
+  "startYear": 2006,
+  "endYear": 2025,
+  "defaultBegin": 2010,
+  "defaultEnd": 2025,
+  "landCoverReferenceBegin": 2008,
+  "years": [2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025],
+  "webResolutionMeters": 300,
+  "sourceResolutionNote": "CDL 2006 and 2007 are 56 m source rasters; 2008-2025 are 30 m source rasters. Acreage statistics use each source raster's native pixel area. Web display rasters are reprojected to a shared EPSG:3857 grid for browser interaction only.",
+  "agClassDefinition": {
+    "CDL_PASTURE_HAY": [62, 176, 36, 37, 58, 59],
+    "CDL_CULTIVATED": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 60, 61, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 77, 204, 205, 206, 207, 208, 209, 210, 211, 212, 213, 214, 215, 216, 217, 218, 219, 220, 221, 222, 223, 224, 225, 226, 227, 228, 229, 230, 231, 232, 233, 234, 235, 236, 237, 238, 239, 240, 241, 242, 243, 244, 245, 246, 247, 248, 249, 250, 254]
+  },
+  "primaryClasses": [
+    {
+      "key": "corn",
+      "code": 1,
+      "label": "Corn"
+    },
+    {
+      "key": "soybeans",
+      "code": 5,
+      "label": "Soybeans"
+    },
+    {
+      "key": "grassland_pasture",
+      "code": 176,
+      "label": "Grassland/Pasture"
+    },
+    {
+      "key": "winter_wheat",
+      "code": 24,
+      "label": "Winter Wheat"
+    },
+    {
+      "key": "alfalfa",
+      "code": 36,
+      "label": "Alfalfa"
+    }
+  ],
+  "numericDisplay": "Values are displayed with two decimal places in the web app."
+}

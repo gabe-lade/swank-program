@@ -1,0 +1,986 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Ohio CDL Crop Change Explorer</title>
+  <link rel="stylesheet" href="lib/leaflet/leaflet.css" />
+  <style>
+    :root {
+      --ink:#20242a;
+      --muted:#667085;
+      --line:#d9dee5;
+      --panel:#ffffff;
+      --bg:#f5f6f4;
+      --accent:#273f59;
+      --accent-2:#2f6f4e;
+      --loss:#d73027;
+      --gain:#2166ac;
+    }
+    * { box-sizing:border-box; }
+    body {
+      margin:0;
+      font-family:Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color:var(--ink);
+      background:var(--bg);
+    }
+    header {
+      height:64px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:18px;
+      padding:0 26px;
+      border-bottom:1px solid var(--line);
+      background:#fff;
+    }
+    .brand { display:flex; align-items:baseline; gap:14px; min-width:0; }
+    .brand small, .control-label {
+      color:var(--muted);
+      font-weight:760;
+      text-transform:uppercase;
+      letter-spacing:.08em;
+      font-size:12px;
+    }
+    h1 { margin:0; font-size:21px; line-height:1.2; font-weight:780; }
+    .status-pill {
+      border:1px solid var(--line);
+      border-radius:8px;
+      padding:6px 9px;
+      color:var(--muted);
+      background:#fff;
+      font-size:12px;
+      white-space:nowrap;
+    }
+    .app {
+      height:100vh;
+      display:grid;
+      grid-template-columns:minmax(0, 1fr) 410px;
+    }
+    .map-side {
+      min-width:0;
+      min-height:0;
+      display:grid;
+      grid-template-rows:auto auto minmax(0, 1fr);
+      border-right:1px solid var(--line);
+      position:relative;
+    }
+    .controls {
+      display:grid;
+      grid-template-columns:minmax(320px, 1fr) auto auto;
+      gap:18px;
+      align-items:end;
+      padding:14px 18px 12px;
+      background:#fff;
+      border-bottom:1px solid var(--line);
+    }
+    .control-label { margin-bottom:8px; }
+    .year-readout {
+      font-weight:760;
+      font-size:15px;
+      margin-bottom:8px;
+      white-space:nowrap;
+    }
+    body.land-mode #beginYearLabel,
+    body.land-mode #yearArrow {
+      display:none;
+    }
+    .range-wrap { position:relative; height:42px; padding:0 8px; }
+    .range-track {
+      position:absolute;
+      top:12px;
+      left:8px;
+      right:8px;
+      height:4px;
+      border-radius:999px;
+      background:#d8ddd4;
+    }
+    .range-selected {
+      position:absolute;
+      top:12px;
+      height:4px;
+      border-radius:999px;
+      background:var(--accent-2);
+    }
+    body.land-mode .range-selected { display:none; }
+    input[type=range] {
+      position:absolute;
+      left:8px;
+      right:8px;
+      top:2px;
+      width:calc(100% - 16px);
+      pointer-events:none;
+      appearance:none;
+      background:transparent;
+    }
+    input[type=range]::-webkit-slider-thumb {
+      appearance:none;
+      pointer-events:auto;
+      width:18px;
+      height:18px;
+      border-radius:50%;
+      background:#fff;
+      border:3px solid #20242a;
+      cursor:pointer;
+    }
+    input[type=range]::-webkit-slider-runnable-track { height:4px; background:transparent; }
+    body.land-mode #beginYear { display:none; }
+    .ticks {
+      position:absolute;
+      left:8px;
+      right:8px;
+      top:24px;
+      height:16px;
+      color:var(--muted);
+      font-size:11px;
+    }
+    .ticks span { position:absolute; transform:translateX(-50%); }
+    .ticks span:first-child { transform:translateX(0); }
+    .ticks span:last-child { transform:translateX(-100%); }
+    .mode-dots { display:flex; gap:13px; align-items:center; padding-bottom:2px; }
+    .mode-dots button {
+      border:0;
+      background:transparent;
+      display:flex;
+      align-items:center;
+      gap:6px;
+      cursor:pointer;
+      color:var(--ink);
+      font-size:13px;
+      white-space:nowrap;
+      padding:0;
+    }
+    .dot {
+      width:15px;
+      height:15px;
+      border-radius:50%;
+      border:1.5px solid var(--ink);
+      background:#fff;
+      display:inline-block;
+    }
+    button.active .dot { background:var(--ink); }
+    .crop-bar {
+      position:relative;
+      display:flex;
+      align-items:center;
+      gap:8px;
+      flex-wrap:wrap;
+      padding:10px 18px;
+      background:#fff;
+      border-bottom:1px solid var(--line);
+    }
+    .crop-button, .tab-button, .reset {
+      border:1px solid var(--line);
+      background:#fff;
+      color:var(--ink);
+      border-radius:8px;
+      cursor:pointer;
+      font-size:13px;
+      line-height:1.15;
+    }
+    .crop-button { padding:8px 10px; display:flex; align-items:center; gap:7px; }
+    .crop-button.active { background:var(--accent); border-color:var(--accent); color:#fff; }
+    .mini-swatch {
+      width:12px;
+      height:12px;
+      border:1px solid rgba(0,0,0,.18);
+      flex:0 0 auto;
+    }
+    .more-menu {
+      display:none;
+      position:absolute;
+      z-index:700;
+      top:48px;
+      left:72px;
+      width:min(330px, calc(100vw - 90px));
+      max-height:330px;
+      overflow:auto;
+      border:1px solid var(--line);
+      border-radius:8px;
+      background:#fff;
+      box-shadow:0 14px 34px rgba(17,24,39,.18);
+      padding:8px;
+    }
+    .more-menu.open { display:block; }
+    .more-option {
+      width:100%;
+      display:grid;
+      grid-template-columns:18px 14px minmax(0,1fr) auto;
+      gap:7px;
+      align-items:center;
+      border:0;
+      border-radius:6px;
+      padding:7px 8px;
+      background:#fff;
+      color:var(--ink);
+      cursor:pointer;
+      text-align:left;
+      font-size:13px;
+    }
+    .more-option:hover, .more-option.active { background:#eef2f6; }
+    .checkmark { color:var(--accent); font-weight:800; }
+    #map { min-height:0; width:100%; height:100%; background:#eef1ec; }
+    .legend {
+      position:absolute;
+      z-index:500;
+      left:18px;
+      bottom:18px;
+      max-width:340px;
+      background:rgba(255,255,255,.96);
+      border:1px solid var(--line);
+      border-radius:8px;
+      padding:10px 12px;
+      font-size:12px;
+      box-shadow:0 8px 26px rgba(17,24,39,.12);
+    }
+    .legend-row { display:flex; align-items:center; gap:8px; margin:5px 0; }
+    .legend-title { font-weight:760; margin-bottom:5px; }
+    .side-panel { overflow:auto; background:#fff; padding:18px; }
+    .panel-head {
+      display:flex;
+      justify-content:space-between;
+      gap:12px;
+      align-items:flex-start;
+      margin-bottom:14px;
+    }
+    .region-title { font-size:18px; font-weight:780; }
+    .reset { padding:6px 8px; color:var(--muted); }
+    .panel-card {
+      border:1px solid var(--line);
+      border-radius:8px;
+      padding:14px;
+      margin-bottom:14px;
+      background:var(--panel);
+    }
+    .card-head {
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+      margin-bottom:12px;
+    }
+    .panel-card h2 { font-size:14px; margin:0; }
+    .tabs { display:flex; border:1px solid var(--line); border-radius:8px; overflow:hidden; flex:0 0 auto; }
+    .tab-button { border:0; border-right:1px solid var(--line); border-radius:0; padding:6px 8px; color:var(--muted); }
+    .tab-button:last-child { border-right:0; }
+    .tab-button.active { background:#20242a; color:#fff; }
+    .top-list { display:grid; gap:7px; }
+    .top-row {
+      display:grid;
+      grid-template-columns:18px minmax(0,1fr) auto auto;
+      gap:8px;
+      align-items:center;
+      font-size:13px;
+    }
+    .class-name { overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+    .acre-value { font-weight:760; text-align:right; white-space:nowrap; }
+    .change-value { min-width:72px; text-align:right; font-weight:760; white-space:nowrap; }
+    .change-value.gain { color:var(--gain); }
+    .change-value.loss { color:var(--loss); }
+    .chart { width:100%; height:220px; border-top:1px solid #eef1f4; }
+    #stackedChart { height:275px; }
+    .note { color:var(--muted); font-size:12px; line-height:1.45; }
+    .muted { color:var(--muted); }
+    @media (max-width:1050px) {
+      .app { grid-template-columns:1fr; grid-template-rows:minmax(620px, 68vh) auto; height:auto; min-height:100vh; }
+      .controls { grid-template-columns:1fr; align-items:stretch; }
+      .map-side { border-right:0; border-bottom:1px solid var(--line); }
+    }
+    @media (max-width:640px) {
+      header { padding:0 14px; }
+      .brand { display:block; }
+      h1 { font-size:17px; }
+      .status-pill { display:none; }
+      .crop-button { padding:8px; }
+      .side-panel { padding:14px; }
+      .top-row { grid-template-columns:18px minmax(0,1fr) auto; }
+      .change-value { grid-column:3; }
+    }
+  </style>
+</head>
+<body class="land-mode">
+  <main class="app">
+    <section class="map-side">
+      <div class="controls">
+        <div>
+          <div class="control-label">Years</div>
+          <div class="year-readout"><span id="beginYearLabel">2010</span><span id="yearArrow"> -> </span><span id="endYearLabel">2025</span></div>
+          <div class="range-wrap">
+            <div class="range-track"></div><div class="range-selected" id="rangeSelected"></div>
+            <input id="beginYear" type="range" min="2006" max="2025" step="1" value="2010" aria-label="Begin year">
+            <input id="endYear" type="range" min="2006" max="2025" step="1" value="2025" aria-label="End year">
+            <div class="ticks"><span style="left:0%">2006</span><span style="left:21.0526%">2010</span><span style="left:47.3684%">2015</span><span style="left:73.6842%">2020</span><span style="left:100%">2025</span></div>
+          </div>
+        </div>
+        <div>
+          <div class="control-label">Map Mode</div>
+          <div class="mode-dots" id="modeButtons">
+            <button data-mode="land" class="active"><span class="dot"></span><span>Land cover</span></button>
+            <button data-mode="change"><span class="dot"></span><span>Change</span></button>
+          </div>
+        </div>
+        <div>
+          <div class="control-label">Boundaries</div>
+          <div class="mode-dots" id="boundaryButtons">
+            <button data-boundary="state" class="active"><span class="dot"></span><span>State</span></button>
+            <button data-boundary="counties"><span class="dot"></span><span>Counties</span></button>
+          </div>
+        </div>
+      </div>
+      <div class="crop-bar" id="cropBar"></div>
+      <div id="map"></div>
+      <div class="legend" id="legend"></div>
+    </section>
+    <aside class="side-panel">
+      <div class="panel-head">
+        <div><div class="control-label">Selected Area</div><div class="region-title" id="regionTitle">Ohio</div></div>
+        <button class="reset" id="resetRegion">Ohio statewide</button>
+      </div>
+      <div class="panel-card">
+        <div class="card-head">
+          <h2>End-year top 10 classes (Acres)</h2>
+          <div class="tabs" id="topTabs">
+            <button class="tab-button active" data-tab="all">All CDL Classes</button>
+            <button class="tab-button" data-tab="ag">Agricultural</button>
+          </div>
+        </div>
+        <div class="top-list" id="topList"></div>
+      </div>
+      <div class="panel-card"><h2>Major crop acres over time</h2><canvas class="chart" id="timeChart" width="700" height="300"></canvas></div>
+      <div class="panel-card"><h2>Begin and end class composition</h2><canvas class="chart" id="stackedChart" width="700" height="300"></canvas></div>
+      <p class="note">Acreage statistics use the native CDL source pixels: 56 m for 2006-2007 and 30 m for 2008-2025. The map display uses a shared browser grid for interaction only. County metrics are assigned by rasterized county IDs. Values are shown to two decimal places.</p>
+    </aside>
+  </main>
+  <script src="lib/leaflet/leaflet.js"></script>
+  <script>
+    const state = {
+      mode:"land",
+      boundary:"state",
+      begin:2010,
+      end:2025,
+      regionId:"state:OH",
+      regionName:"Ohio",
+      full:true,
+      selectedCodes:new Set(),
+      topTab:"all",
+      moreOpen:false
+    };
+    const fmt2 = new Intl.NumberFormat("en-US", { minimumFractionDigits:2, maximumFractionDigits:2 });
+    const compactFmt = new Intl.NumberFormat("en-US", { notation:"compact", maximumFractionDigits:1 });
+    let map, rasterOverlay, countyLayer, stateLayer, ohioBounds, selectedCountyLayer;
+    let metadata, manifest, classPresence, countyFeatures, ohioBoundaryFeature;
+    const classByCode = new Map();
+    const annualRows = new Map();
+    const imageCache = new Map();
+    const primaryCodes = [1, 5, 176, 24, 36];
+    const lossColor = [215, 48, 39];
+    const gainColor = [33, 102, 172];
+    const ohioViewOffset = [-110, 20];
+    const countyViewOffset = [-125, 0];
+    const ohioDefaultZoomBoost = Math.log2(1.5);
+
+    function setStatus(value) {
+      document.documentElement.setAttribute("data-app-status", value);
+      const pill = document.getElementById("statusPill");
+      if (pill) pill.textContent = value;
+    }
+    function parseCsv(text) {
+      const lines = text.trim().split(/\r?\n/);
+      const headers = splitCsvLine(lines.shift());
+      return lines.filter(Boolean).map(line => {
+        const cells = splitCsvLine(line);
+        const out = {};
+        headers.forEach((h, i) => out[h] = cells[i] ?? "");
+        return out;
+      });
+    }
+    function splitCsvLine(line) {
+      const out = [];
+      let value = "", quoted = false;
+      for (let i = 0; i < line.length; i++) {
+        const ch = line[i];
+        if (ch === '"' && line[i + 1] === '"') { value += '"'; i++; }
+        else if (ch === '"') quoted = !quoted;
+        else if (ch === "," && !quoted) { out.push(value); value = ""; }
+        else value += ch;
+      }
+      out.push(value);
+      return out;
+    }
+    function rowKey(regionId, year, code) { return `${regionId}|${year}|${code}`; }
+    function loadImage(path) {
+      if (imageCache.has(path)) return imageCache.get(path);
+      const p = new Promise((resolve, reject) => {
+        const img = new Image();
+        img.onload = () => resolve(img);
+        img.onerror = () => reject(new Error(`Could not load ${path}`));
+        img.src = path;
+      });
+      imageCache.set(path, p);
+      return p;
+    }
+    function cls(code) {
+      return classByCode.get(Number(code)) || { code:Number(code), class_name:`Code ${code}`, hex:"#C8C8C8", red:200, green:200, blue:200, is_ag:false };
+    }
+    function colorFor(code) {
+      const c = cls(code);
+      return [Number(c.red) || 0, Number(c.green) || 0, Number(c.blue) || 0];
+    }
+    function stackedColorFor(code) {
+      const developedColors = {
+        121:[232, 209, 209],
+        122:[226, 158, 140],
+        123:[255, 0, 0],
+        124:[181, 0, 0]
+      };
+      return developedColors[Number(code)] || colorFor(code);
+    }
+    function acres(regionId, year, code) {
+      const row = annualRows.get(rowKey(regionId, year, code));
+      return row ? Number(row.acres) || 0 : 0;
+    }
+    function rowsFor(regionId, year) {
+      const prefix = `${regionId}|${year}|`;
+      return [...annualRows.entries()].filter(([k]) => k.startsWith(prefix)).map(([, v]) => v);
+    }
+    function panelBeginYear() {
+      const reference = Number(metadata.landCoverReferenceBegin || 2008);
+      return state.mode === "change" ? state.begin : Math.min(reference, state.end);
+    }
+    function setupMap() {
+      const b = manifest.bounds;
+      ohioBounds = L.latLngBounds([[b.south, b.west], [b.north, b.east]]);
+      map = L.map("map", { zoomControl:true });
+      L.tileLayer("https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png", {
+        subdomains:"abcd",
+        maxZoom:19,
+        attribution:"&copy; OpenStreetMap &copy; CARTO"
+      }).addTo(map);
+      stateLayer = L.geoJSON(ohioBoundaryFeature, {
+        style:{ color:"#20242a", weight:1.5, opacity:.9, fill:false },
+        interactive:false
+      }).addTo(map);
+      countyLayer = L.geoJSON(countyFeatures, {
+        style:f => countyStyle(f),
+        onEachFeature:(feature, layer) => layer.on("click", () => {
+          state.regionId = `county:${feature.properties.GEOID}`;
+          state.regionName = feature.properties.display_name || `${feature.properties.NAME} County`;
+          selectedCountyLayer = layer;
+          countyLayer.setStyle(f => countyStyle(f));
+          layer.bringToFront();
+          fitCountyView(layer);
+          updatePanel();
+        })
+      });
+    }
+    function fitOhioView(animate = false) {
+      if (!map || !ohioBounds) return;
+      map.invalidateSize({ pan:false, animate:false });
+      map.fitBounds(ohioBounds, { padding:[22, 22], animate:false });
+      map.panBy(ohioViewOffset, { animate:false });
+      alignOhioView();
+      const snap = map.options.zoomSnap;
+      map.options.zoomSnap = 0.01;
+      map.setZoomAround(ohioTargetPoint(), map.getZoom() + ohioDefaultZoomBoost, { animate:false });
+      map.options.zoomSnap = snap;
+      alignOhioView();
+    }
+    function ohioTargetPoint() {
+      const rect = map.getContainer().getBoundingClientRect();
+      return L.point(
+        Math.round(rect.width / 2 + Math.abs(ohioViewOffset[0])),
+        Math.floor(rect.height / 2)
+      );
+    }
+    function alignOhioView() {
+      const target = ohioTargetPoint();
+      const point = map.latLngToContainerPoint(ohioBounds.getCenter());
+      const dx = Math.round(point.x - target.x);
+      const dy = Math.round(point.y - target.y);
+      if (dx || dy) map.panBy([dx, dy], { animate:false });
+    }
+    function fitCountyView(layer) {
+      if (!map || !layer) return;
+      map.fitBounds(layer.getBounds(), { padding:[72, 72], maxZoom:10, animate:false });
+      map.panBy(countyViewOffset, { animate:false });
+    }
+    function countyStyle(feature) {
+      const selected = `county:${feature.properties.GEOID}` === state.regionId;
+      return {
+        color:selected ? "#20242a" : "#ffffff",
+        weight:selected ? 2.4 : .85,
+        opacity:selected ? 1 : .86,
+        lineCap:"round",
+        lineJoin:"round",
+        fill:true,
+        fillColor:"#ffffff",
+        fillOpacity:selected ? .08 : .015
+      };
+    }
+    function applyBoundaryMode() {
+      document.querySelectorAll("#boundaryButtons button").forEach(btn => btn.classList.toggle("active", btn.dataset.boundary === state.boundary));
+      if (state.boundary === "counties") {
+        if (stateLayer && map.hasLayer(stateLayer)) map.removeLayer(stateLayer);
+        if (!map.hasLayer(countyLayer)) countyLayer.addTo(map);
+      } else {
+        if (map.hasLayer(countyLayer)) map.removeLayer(countyLayer);
+        if (stateLayer && !map.hasLayer(stateLayer)) stateLayer.addTo(map);
+        state.regionId = "state:OH";
+        state.regionName = "Ohio";
+        selectedCountyLayer = null;
+        if (countyLayer) countyLayer.setStyle(f => countyStyle(f));
+        fitOhioView();
+        updatePanel();
+      }
+    }
+    function updateYearUi() {
+      const min = Number(document.getElementById("beginYear").min);
+      const max = Number(document.getElementById("beginYear").max);
+      let begin = Number(document.getElementById("beginYear").value);
+      let end = Number(document.getElementById("endYear").value);
+      if (state.mode === "change") {
+        if (begin >= end) begin = Math.max(min, end - 1);
+        if (end <= begin) end = Math.min(max, begin + 1);
+      } else {
+        begin = Math.min(begin, Math.max(min, end - 1));
+      }
+      state.begin = begin;
+      state.end = end;
+      document.getElementById("beginYear").value = begin;
+      document.getElementById("endYear").value = end;
+      document.getElementById("beginYearLabel").textContent = begin;
+      document.getElementById("endYearLabel").textContent = end;
+      const leftYear = state.mode === "change" ? begin : end;
+      const left = ((leftYear - min) / (max - min)) * 100;
+      const right = ((end - min) / (max - min)) * 100;
+      const selected = document.getElementById("rangeSelected");
+      const wrap = selected.parentElement;
+      const trackInset = 8;
+      const trackWidth = Math.max(0, wrap.clientWidth - trackInset * 2);
+      const xFor = year => trackInset + ((year - min) / (max - min)) * trackWidth;
+      const startX = xFor(Math.min(leftYear, end));
+      const endX = xFor(Math.max(leftYear, end));
+      selected.style.left = `${startX}px`;
+      selected.style.width = state.mode === "change" ? `${Math.max(endX - startX, 0)}px` : "0px";
+      document.body.classList.toggle("land-mode", state.mode === "land");
+    }
+    function availableMoreClasses() {
+      const seen = new Map();
+      const years = state.mode === "change" ? [state.begin, state.end] : [state.end];
+      years.forEach(year => {
+        (classPresence[String(year)] || []).forEach(item => {
+          if (!primaryCodes.includes(Number(item.code))) seen.set(Number(item.code), item);
+        });
+      });
+      return [...seen.values()].sort((a, b) => Number(a.code) - Number(b.code));
+    }
+    function isCodeActive(code) {
+      return !state.full && state.selectedCodes.has(Number(code));
+    }
+    function toggleCode(code) {
+      code = Number(code);
+      if (state.mode === "change") {
+        state.full = false;
+        state.selectedCodes = new Set([code]);
+      } else {
+        if (state.full) {
+          state.full = false;
+          state.selectedCodes = new Set([code]);
+        } else if (state.selectedCodes.has(code)) {
+          state.selectedCodes.delete(code);
+          if (state.selectedCodes.size === 0) state.full = true;
+        } else {
+          state.selectedCodes.add(code);
+        }
+      }
+      renderCropButtons();
+      renderMapAndPanel();
+    }
+    function setFullCdl() {
+      state.full = true;
+      state.selectedCodes.clear();
+      renderCropButtons();
+      renderMapAndPanel();
+    }
+    function renderCropButtons() {
+      const bar = document.getElementById("cropBar");
+      const primary = primaryCodes.map(code => {
+        const c = cls(code);
+        return `<button class="crop-button ${isCodeActive(code) ? "active" : ""}" data-code="${code}">
+          <span class="mini-swatch" style="background:${c.hex}"></span>${c.class_name}</button>`;
+      }).join("");
+      const moreActive = [...state.selectedCodes].some(code => !primaryCodes.includes(code));
+      bar.innerHTML = `
+        <button class="crop-button ${state.full ? "active" : ""}" id="fullCdl">Full CDL</button>
+        ${primary}
+        <button class="crop-button ${moreActive ? "active" : ""}" id="moreButton">More <span aria-hidden="true">▼</span></button>
+        <div class="more-menu ${state.moreOpen ? "open" : ""}" id="moreMenu"></div>`;
+      document.getElementById("fullCdl").addEventListener("click", setFullCdl);
+      bar.querySelectorAll("[data-code]").forEach(btn => btn.addEventListener("click", () => toggleCode(btn.dataset.code)));
+      document.getElementById("moreButton").addEventListener("click", () => {
+        state.moreOpen = !state.moreOpen;
+        renderCropButtons();
+      });
+      renderMoreMenu();
+    }
+    function renderMoreMenu() {
+      const menu = document.getElementById("moreMenu");
+      const indicator = state.mode === "change" ? "○" : "□";
+      const activeIndicator = state.mode === "change" ? "●" : "✓";
+      menu.innerHTML = availableMoreClasses().map(item => {
+        const code = Number(item.code);
+        const active = isCodeActive(code);
+        return `<button class="more-option ${active ? "active" : ""}" data-more-code="${code}">
+          <span class="checkmark">${active ? activeIndicator : indicator}</span>
+          <span class="mini-swatch" style="background:${item.hex}"></span>
+          <span class="class-name">${item.class_name}</span>
+          <span class="muted">${code}</span>
+        </button>`;
+      }).join("");
+      menu.querySelectorAll("[data-more-code]").forEach(btn => btn.addEventListener("click", () => toggleCode(btn.dataset.moreCode)));
+    }
+    async function renderMap() {
+      setStatus("Rendering map");
+      updateYearUi();
+      const endImg = await loadImage(manifest.codeImages[String(state.end)]);
+      const beginImg = state.mode === "change" ? await loadImage(manifest.codeImages[String(state.begin)]) : null;
+      const width = endImg.width, height = endImg.height;
+      const endCanvas = document.createElement("canvas");
+      const outCanvas = document.createElement("canvas");
+      endCanvas.width = outCanvas.width = width;
+      endCanvas.height = outCanvas.height = height;
+      const endCtx = endCanvas.getContext("2d", { willReadFrequently:true });
+      const outCtx = outCanvas.getContext("2d");
+      endCtx.drawImage(endImg, 0, 0);
+      const endData = endCtx.getImageData(0, 0, width, height).data;
+      let beginData = null;
+      if (beginImg) {
+        const beginCanvas = document.createElement("canvas");
+        beginCanvas.width = width;
+        beginCanvas.height = height;
+        const beginCtx = beginCanvas.getContext("2d", { willReadFrequently:true });
+        beginCtx.drawImage(beginImg, 0, 0);
+        beginData = beginCtx.getImageData(0, 0, width, height).data;
+      }
+      const out = outCtx.createImageData(width, height);
+      const selected = state.selectedCodes;
+      const selectedCode = selected.size ? [...selected][0] : null;
+      for (let i = 0; i < endData.length; i += 4) {
+        const endCode = endData[i];
+        if (!endCode) {
+          out.data[i + 3] = 0;
+          continue;
+        }
+        let rgb = colorFor(endCode);
+        let alpha = 255;
+        if (state.mode === "land") {
+          if (!state.full && !selected.has(endCode)) alpha = 70;
+        } else {
+          const beginCode = beginData ? beginData[i] : 0;
+          if (state.full) {
+            if (beginCode === endCode) alpha = 62;
+          } else {
+            const loss = beginCode === selectedCode && endCode !== selectedCode;
+            const gain = beginCode !== selectedCode && endCode === selectedCode;
+            const stable = beginCode === selectedCode && endCode === selectedCode;
+            if (loss) rgb = lossColor;
+            else if (gain) rgb = gainColor;
+            else if (stable) rgb = colorFor(selectedCode);
+            else alpha = 42;
+          }
+        }
+        out.data[i] = rgb[0];
+        out.data[i + 1] = rgb[1];
+        out.data[i + 2] = rgb[2];
+        out.data[i + 3] = alpha;
+      }
+      outCtx.putImageData(out, 0, 0);
+      const b = manifest.bounds;
+      const bounds = [[b.south, b.west], [b.north, b.east]];
+      if (rasterOverlay) rasterOverlay.setUrl(outCanvas.toDataURL("image/png"));
+      else rasterOverlay = L.imageOverlay(outCanvas.toDataURL("image/png"), bounds, { opacity:1 }).addTo(map);
+      updateLegend();
+      setStatus("Ready");
+    }
+    function updateLegend() {
+      const legend = document.getElementById("legend");
+      if (state.mode === "change" && !state.full) {
+        const code = [...state.selectedCodes][0];
+        const c = cls(code);
+        legend.innerHTML = `
+          <div class="legend-title">${c.class_name}: ${state.begin} -> ${state.end}</div>
+          <div class="legend-row"><span class="mini-swatch" style="background:${c.hex}"></span>Stable selected class</div>
+          <div class="legend-row"><span class="mini-swatch" style="background:rgb(${lossColor.join(",")})"></span>Loss from selected class</div>
+          <div class="legend-row"><span class="mini-swatch" style="background:rgb(${gainColor.join(",")})"></span>Gain into selected class</div>`;
+        return;
+      }
+      if (state.mode === "change") {
+        legend.innerHTML = `
+          <div class="legend-title">Full CDL change: ${state.begin} -> ${state.end}</div>
+          <div class="legend-row"><span class="mini-swatch" style="background:#273f59"></span>Changed cells use end-year class colors</div>
+          <div class="legend-row"><span class="mini-swatch" style="background:#d8ddd4"></span>Unchanged cells are faded</div>`;
+        return;
+      }
+      const rows = state.full
+        ? (classPresence[String(state.end)] || []).slice(0, 10)
+        : [...state.selectedCodes].map(code => cls(code));
+      legend.innerHTML = `<div class="legend-title">${state.end} CDL classes</div>` + rows.map(item =>
+        `<div class="legend-row"><span class="mini-swatch" style="background:${item.hex}"></span>${item.class_name}</div>`
+      ).join("") + (state.full ? `<div class="legend-row muted">Top classes shown; remaining CDL classes use their source colors.</div>` : "");
+    }
+    function renderMapAndPanel() {
+      renderMap().catch(showError);
+      updatePanel();
+    }
+    function pctChange(beginValue, endValue) {
+      if (!beginValue) return "";
+      return (endValue - beginValue) / beginValue;
+    }
+    function updatePanel() {
+      if (!annualRows.size) return;
+      document.getElementById("regionTitle").textContent = state.regionName;
+      document.getElementById("resetRegion").disabled = state.boundary !== "counties" || state.regionId === "state:OH";
+      if (selectedCountyLayer && state.regionId !== "state:OH") selectedCountyLayer.bringToFront();
+      updateTopList();
+      drawTimeChart();
+      drawStackedChart();
+    }
+    function updateTopList() {
+      const begin = panelBeginYear();
+      let rows = rowsFor(state.regionId, state.end).filter(row => Number(row.acres) > 0);
+      if (state.topTab === "ag") rows = rows.filter(row => String(row.is_ag).toLowerCase() === "true");
+      rows.sort((a, b) => Number(b.acres) - Number(a.acres));
+      rows = rows.slice(0, 10);
+      const list = document.getElementById("topList");
+      list.innerHTML = rows.map(row => {
+        const endAcres = Number(row.acres) || 0;
+        const beginAcres = acres(state.regionId, begin, row.code);
+        const change = state.mode === "change" ? pctChange(beginAcres, endAcres) : "";
+        let changeHtml = "";
+        if (state.mode === "change") {
+          if (change === "") changeHtml = `<span class="change-value muted">--</span>`;
+          else {
+            const clsName = change >= 0 ? "gain" : "loss";
+            const symbol = change >= 0 ? "&#9650;" : "&#9660;";
+            const sign = change >= 0 ? "+" : "";
+            changeHtml = `<span class="change-value ${clsName}">${symbol} ${sign}${fmt2.format(change * 100)}%</span>`;
+          }
+        }
+        return `<div class="top-row">
+          <span class="mini-swatch" style="background:${row.hex}"></span>
+          <span class="class-name">${row.class_name}</span>
+          <span class="acre-value">${fmt2.format(endAcres)}</span>
+          ${changeHtml}
+        </div>`;
+      }).join("") || `<div class="note">No class acreage for this selection.</div>`;
+    }
+    function drawTimeChart() {
+      const canvas = document.getElementById("timeChart");
+      const ctx = setupCanvas(canvas);
+      const cw = canvas.clientWidth || 330, ch = canvas.clientHeight || 205;
+      const begin = panelBeginYear();
+      const years = [];
+      for (let y = begin; y <= state.end; y++) years.push(y);
+      const series = primaryCodes.map(code => ({
+        code,
+        label:cls(code).class_name,
+        color:colorFor(code),
+        values:years.map(year => acres(state.regionId, year, code))
+      }));
+      const maxY = Math.max(1, ...series.flatMap(s => s.values));
+      const padL = 58, padR = 16, padT = 18, padB = 68;
+      const plotW = cw - padL - padR, plotH = ch - padT - padB;
+      ctx.clearRect(0, 0, cw, ch);
+      drawAxes(ctx, padL, padT, plotW, plotH, maxY);
+      const xFor = year => padL + ((year - begin) / Math.max(state.end - begin, 1)) * plotW;
+      const yFor = val => padT + plotH - (val / maxY) * plotH;
+      series.forEach(s => {
+        ctx.strokeStyle = `rgb(${s.color.join(",")})`;
+        ctx.lineWidth = 2.4;
+        ctx.beginPath();
+        s.values.forEach((v, i) => {
+          const x = xFor(years[i]), y = yFor(v);
+          if (i === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
+        });
+        ctx.stroke();
+      });
+      ctx.fillStyle = "#667085";
+      ctx.font = "10px system-ui";
+      ctx.textAlign = "center";
+      [begin, Math.round((begin + state.end) / 2), state.end].forEach(year => ctx.fillText(String(year), xFor(year), padT + plotH + 17));
+      let lx = padL, ly = ch - 22;
+      series.forEach(s => {
+        ctx.fillStyle = `rgb(${s.color.join(",")})`;
+        ctx.fillRect(lx, ly - 8, 10, 10);
+        ctx.fillStyle = "#20242a";
+        ctx.textAlign = "left";
+        ctx.fillText(s.label, lx + 14, ly + 1);
+        lx += Math.min(118, Math.max(68, s.label.length * 6 + 24));
+        if (lx > cw - 105) { lx = padL; ly -= 15; }
+      });
+    }
+    function drawAxes(ctx, x, y, w, h, maxY) {
+      ctx.strokeStyle = "#d9dee5";
+      ctx.lineWidth = 1;
+      ctx.beginPath();
+      ctx.moveTo(x, y);
+      ctx.lineTo(x, y + h);
+      ctx.lineTo(x + w, y + h);
+      ctx.stroke();
+      ctx.fillStyle = "#667085";
+      ctx.font = "10px system-ui";
+      ctx.textAlign = "right";
+      ctx.textBaseline = "middle";
+      for (let i = 0; i <= 3; i++) {
+        const value = maxY * i / 3;
+        const yy = y + h - (value / maxY) * h;
+        ctx.strokeStyle = "#eef1f4";
+        ctx.beginPath();
+        ctx.moveTo(x, yy);
+        ctx.lineTo(x + w, yy);
+        ctx.stroke();
+        ctx.fillText(compactFmt.format(value), x - 7, yy);
+      }
+      ctx.textBaseline = "alphabetic";
+    }
+    function drawStackedChart() {
+      const canvas = document.getElementById("stackedChart");
+      const ctx = setupCanvas(canvas);
+      const cw = canvas.clientWidth || 330, ch = canvas.clientHeight || 205;
+      ctx.clearRect(0, 0, cw, ch);
+      const begin = panelBeginYear();
+      const endRows = rowsFor(state.regionId, state.end).filter(r => Number(r.acres) > 0).sort((a, b) => Number(b.acres) - Number(a.acres));
+      const topCodes = endRows.slice(0, 5).map(r => Number(r.code));
+      const years = [begin, state.end];
+      const padL = 62, padR = 16, barH = 32, gap = 32, y0 = 34;
+      years.forEach((year, idx) => {
+        const y = y0 + idx * (barH + gap);
+        const rows = rowsFor(state.regionId, year);
+        const total = rows.reduce((s, r) => s + Number(r.acres || 0), 0) || 1;
+        let x = padL;
+        topCodes.forEach(code => {
+          const value = acres(state.regionId, year, code);
+          const w = (cw - padL - padR) * value / total;
+          const rgb = stackedColorFor(code);
+          ctx.fillStyle = `rgb(${rgb.join(",")})`;
+          ctx.fillRect(x, y, w, barH);
+          x += w;
+        });
+        const other = Math.max(total - topCodes.reduce((s, code) => s + acres(state.regionId, year, code), 0), 0);
+        ctx.fillStyle = "#9ca3af";
+        ctx.fillRect(x, y, (cw - padL - padR) * other / total, barH);
+        ctx.fillStyle = "#20242a";
+        ctx.font = "12px system-ui";
+        ctx.textAlign = "right";
+        ctx.fillText(String(year), padL - 10, y + 21);
+        ctx.strokeStyle = "#ffffff";
+        ctx.strokeRect(padL, y, cw - padL - padR, barH);
+      });
+      const legendX = padL;
+      let ly = y0 + 2 * (barH + gap) - 4;
+      topCodes.concat(["other"]).forEach(code => {
+        const label = code === "other" ? "Other" : cls(code).class_name;
+        const rgb = code === "other" ? [156, 163, 175] : stackedColorFor(code);
+        ctx.fillStyle = `rgb(${rgb.join(",")})`;
+        ctx.fillRect(legendX, ly - 9, 10, 10);
+        ctx.fillStyle = "#20242a";
+        ctx.font = "11px system-ui";
+        ctx.textAlign = "left";
+        ctx.fillText(label, legendX + 16, ly);
+        ly += 18;
+      });
+    }
+    function setupCanvas(canvas) {
+      const dpr = window.devicePixelRatio || 1;
+      const cw = Math.max(canvas.clientWidth || 330, 280);
+      const ch = Math.max(canvas.clientHeight || 205, 180);
+      canvas.width = Math.round(cw * dpr);
+      canvas.height = Math.round(ch * dpr);
+      const ctx = canvas.getContext("2d");
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      return ctx;
+    }
+    function showError(err) {
+      console.error(err);
+      setStatus("Error");
+      document.body.insertAdjacentHTML("beforeend", `<pre style="position:fixed;left:12px;right:12px;bottom:12px;z-index:9999;white-space:pre-wrap;background:#fff;border:1px solid #d73027;padding:12px;max-height:45vh;overflow:auto;">${String(err.stack || err)}</pre>`);
+    }
+    async function boot() {
+      setStatus("Loading data");
+      [metadata, manifest, classPresence, countyFeatures, ohioBoundaryFeature] = await Promise.all([
+        fetch("data/metadata.json").then(r => r.json()),
+        fetch("data/annual_raster_manifest.json").then(r => r.json()),
+        fetch("data/class_presence.json").then(r => r.json()),
+        fetch("data/oh_counties.geojson").then(r => r.json()),
+        fetch("data/ohio_boundary.geojson").then(r => r.json())
+      ]);
+      const classRows = await fetch("data/class_metadata.csv").then(r => r.text()).then(parseCsv);
+      classRows.forEach(row => {
+        row.code = Number(row.code);
+        row.red = Number(row.red);
+        row.green = Number(row.green);
+        row.blue = Number(row.blue);
+        row.is_ag = String(row.is_ag).toLowerCase() === "true";
+        classByCode.set(row.code, row);
+      });
+      const metricRows = await fetch("data/annual_class_metrics.csv").then(r => r.text()).then(parseCsv);
+      metricRows.forEach(row => {
+        row.year = Number(row.year);
+        row.code = Number(row.code);
+        annualRows.set(rowKey(row.region_id, row.year, row.code), row);
+      });
+      state.begin = Number(metadata.defaultBegin || 2010);
+      state.end = Number(metadata.defaultEnd || 2025);
+      document.getElementById("beginYear").min = metadata.startYear;
+      document.getElementById("beginYear").max = metadata.endYear;
+      document.getElementById("endYear").min = metadata.startYear;
+      document.getElementById("endYear").max = metadata.endYear;
+      document.getElementById("beginYear").value = state.begin;
+      document.getElementById("endYear").value = state.end;
+      setupMap();
+      renderCropButtons();
+      updateYearUi();
+      await renderMap();
+      updatePanel();
+      await new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve)));
+      fitOhioView(false);
+      document.getElementById("beginYear").addEventListener("input", () => { updateYearUi(); renderMapAndPanel(); renderCropButtons(); });
+      document.getElementById("endYear").addEventListener("input", () => { updateYearUi(); renderMapAndPanel(); renderCropButtons(); });
+      document.querySelectorAll("#modeButtons button").forEach(btn => btn.addEventListener("click", () => {
+        state.mode = btn.dataset.mode;
+        document.querySelectorAll("#modeButtons button").forEach(b => b.classList.toggle("active", b === btn));
+        if (state.mode === "change" && state.selectedCodes.size > 1) setFullCdl();
+        updateYearUi();
+        renderCropButtons();
+        renderMapAndPanel();
+      }));
+      document.querySelectorAll("#boundaryButtons button").forEach(btn => btn.addEventListener("click", () => {
+        state.boundary = btn.dataset.boundary;
+        applyBoundaryMode();
+      }));
+      document.querySelectorAll("#topTabs button").forEach(btn => btn.addEventListener("click", () => {
+        state.topTab = btn.dataset.tab;
+        document.querySelectorAll("#topTabs button").forEach(b => b.classList.toggle("active", b === btn));
+        updateTopList();
+      }));
+      document.getElementById("resetRegion").addEventListener("click", () => {
+        if (state.boundary !== "counties") return;
+        state.regionId = "state:OH";
+        state.regionName = "Ohio";
+        selectedCountyLayer = null;
+        if (countyLayer) countyLayer.setStyle(f => countyStyle(f));
+        if (stateLayer && map.hasLayer(stateLayer)) map.removeLayer(stateLayer);
+        if (countyLayer && !map.hasLayer(countyLayer)) countyLayer.addTo(map);
+        fitOhioView();
+        updatePanel();
+      });
+      window.addEventListener("resize", () => {
+        updatePanel();
+        if (state.regionId === "state:OH") requestAnimationFrame(() => fitOhioView());
+      });
+      setStatus("Ready");
+    }
+    boot().catch(showError);
+  </script>
+</body>
+</html>

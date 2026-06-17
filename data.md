@@ -52,6 +52,15 @@ description: "Interactive tools, data insights, and datasets on Ohio rural-urban
           <span class="tool-card-link">Explore the map →</span>
         </div>
       </a>
+      <a class="tool-card" href="{{ '/data/insights/ohio-cdl-crop-change/' | relative_url }}">
+        <img class="tool-thumb" src="{{ '/assets/img/tools/ohio-cdl-crop-change.png' | relative_url }}" alt="Ohio CDL crop change explorer showing crop and land-cover transitions across Ohio">
+        <div class="tool-card-body">
+          <p class="tool-tag">Interactive map</p>
+          <h3>Ohio CDL crop change explorer</h3>
+          <p>Explore Ohio Cropland Data Layer classes and crop changes from 2006 to 2025, with land-cover views, change comparisons, county boundaries, and acreage summaries.</p>
+          <span class="tool-card-link">Explore the map &rarr;</span>
+        </div>
+      </a>
 
     </div>
 
