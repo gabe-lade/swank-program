@@ -53,9 +53,9 @@
       white-space:nowrap;
     }
     .app {
-      height:100vh;
       display:grid;
       grid-template-columns:minmax(0, 1fr) 410px;
+      align-items:start;
     }
     .map-side {
       min-width:0;
@@ -219,7 +219,7 @@
     }
     .more-option:hover, .more-option.active { background:#eef2f6; }
     .checkmark { color:var(--accent); font-weight:800; }
-    #map { min-height:0; width:100%; height:100%; background:#eef1ec; }
+    #map { min-height:0; width:100%; height:600px; background:#eef1ec; }
     .legend {
       position:absolute;
       z-index:500;
@@ -235,7 +235,7 @@
     }
     .legend-row { display:flex; align-items:center; gap:8px; margin:5px 0; }
     .legend-title { font-weight:760; margin-bottom:5px; }
-    .side-panel { overflow:auto; background:#fff; padding:18px; }
+    .side-panel { overflow:visible; background:#fff; padding:18px; }
     .panel-head {
       display:flex;
       justify-content:space-between;
@@ -282,7 +282,7 @@
     .note { color:var(--muted); font-size:12px; line-height:1.45; }
     .muted { color:var(--muted); }
     @media (max-width:1050px) {
-      .app { grid-template-columns:1fr; grid-template-rows:minmax(620px, 68vh) auto; height:auto; min-height:100vh; }
+      .app { grid-template-columns:1fr; }
       .controls { grid-template-columns:1fr; align-items:stretch; }
       .map-side { border-right:0; border-bottom:1px solid var(--line); }
     }
