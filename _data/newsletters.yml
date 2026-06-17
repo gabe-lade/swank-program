@@ -1,5 +1,10 @@
 # Substack newsletter posts. Newest first.
 # Fields: title, url, date (display string), topics (slugs from outreach_topics.yml)
+- title: "How Much Farmland Is Ohio Losing?"
+  url: "https://gelade1.substack.com/p/how-much-farmland-is-ohio-losing"
+  date: "June 2026"
+  topics: [agriculture, energy-land-use, rural-urban]
+
 - title: "Has the U.S.-Iran War Raised Prices for Ohio Soybean Producers?"
   url: "https://gelade1.substack.com/p/has-the-us-iran-war-raised-prices"
   date: "May 2026"
