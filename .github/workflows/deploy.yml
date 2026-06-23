@@ -27,6 +27,10 @@ jobs:
         with:
           source: ./
           destination: ./_site
+        env:
+          # jekyll-build-pages already builds in production, but set it
+          # explicitly so the GoatCounter snippet is guaranteed to load.
+          JEKYLL_ENV: production
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
 

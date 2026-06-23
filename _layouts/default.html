@@ -9,6 +9,10 @@
   <link rel="stylesheet" href="{{ '/assets/css/style.css' | relative_url }}">
   {% feed_meta %}
   {% seo %}
+  {% if jekyll.environment == "production" and site.goatcounter_code %}
+  <script data-goatcounter="https://{{ site.goatcounter_code }}.goatcounter.com/count"
+          async src="//gc.zgo.at/count.js"></script>
+  {% endif %}
 </head>
 <body>
   <a href="#main-content" class="skip-link">Skip to content</a>
