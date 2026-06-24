@@ -67,6 +67,49 @@ description: "The C. William Swank Program in Rural-Urban Policy at The Ohio Sta
   </div>
 </section>
 
+<!-- Latest updates -->
+<section class="latest">
+  <h2 class="latest-heading">Latest</h2>
+  <div class="latest-grid">
+    {% assign latest_newsletter = site.data.newsletters | first %}
+    {% if latest_newsletter %}
+    <a class="latest-card" href="{{ latest_newsletter.url }}">
+      <span class="latest-tag">Newsletter</span>
+      <p class="latest-title">{{ latest_newsletter.title }}</p>
+      <span class="latest-date">{{ latest_newsletter.date }}</span>
+    </a>
+    {% endif %}
+
+    {% assign latest_media = site.data.media | first %}
+    {% if latest_media %}
+    <a class="latest-card" href="{{ latest_media.url }}">
+      <span class="latest-tag">Recent Media</span>
+      <p class="latest-title">{{ latest_media.title }}</p>
+      <span class="latest-date">{% if latest_media.source %}{{ latest_media.source }} &middot; {% endif %}{{ latest_media.date }}</span>
+    </a>
+    {% endif %}
+
+    {% assign latest_policy = site.data.policy_facts | first %}
+    {% if latest_policy %}
+    <a class="latest-card" href="{{ latest_policy.url | relative_url }}">
+      <span class="latest-tag">Policy Facts</span>
+      <p class="latest-title">{{ latest_policy.title }}</p>
+      <span class="latest-date">{{ latest_policy.date }}</span>
+    </a>
+    {% endif %}
+
+    {% assign latest_presentation = site.data.presentations | first %}
+    {% if latest_presentation %}
+    <a class="latest-card" href="{{ latest_presentation.url }}">
+      <span class="latest-tag">Presentation</span>
+      <p class="latest-title">{{ latest_presentation.title }}</p>
+      <span class="latest-date">{{ latest_presentation.date }}</span>
+    </a>
+    {% endif %}
+  </div>
+  <p class="latest-alllink"><a href="{{ '/outreach' | relative_url }}">See all outreach &rarr;</a></p>
+</section>
+
 <!-- Newsletter CTA -->
 <section class="newsletter-cta">
   <p>Stay up to date on rural-urban policy research and data</p>
