@@ -33,6 +33,16 @@ description: "Interactive tools, data insights, and datasets on Ohio rural-urban
     <h2 class="tools-section-label">More tools &amp; data insights</h2>
     <div class="tools-grid">
 
+      <a class="tool-card" href="{{ '/data/insights/ohio-tax-explainer/' | relative_url }}">
+        <div class="tool-thumb"><span class="tool-thumb-label">Ohio Tax Explainer</span></div>
+        <div class="tool-card-body">
+          <p class="tool-tag">Interactive map</p>
+          <h3>Ohio Tax Explainer</h3>
+          <p>An interactive guide to the state and local taxes Ohioans pay — and who actually collects them. Hover anywhere in Ohio to see every government that taxes that spot.</p>
+          <span class="tool-card-link">Explore the map &rarr;</span>
+        </div>
+      </a>
+
       <a class="tool-card" href="{{ '/data/hilliard-housing-tracker/' | relative_url }}">
         <img class="tool-thumb" src="{{ '/assets/img/tools/hilliard-housing-tracker.png' | relative_url }}" alt="Hilliard Housing Affordability Tracker dashboard showing sale prices and affordability metrics">
         <div class="tool-card-body">
