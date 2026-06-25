@@ -81,6 +81,7 @@ description: "An interactive guide to the state and local taxes Ohioans pay — 
         <li>The map names general-purpose governments only; special districts (library, parks, transit, etc.) also levy taxes and are not shown.</li>
         <li>Income tax follows where you work, not only where you live, so it isn't fully captured by a residence map.</li>
       </ul>
+      <p><strong>Accuracy &amp; corrections.</strong> These maps are our best effort to represent Ohio's taxing jurisdictions and tax data accurately from public sources (Ohio Department of Taxation, U.S. Census/TIGER, Ohio ODOT/OGRIP). With thousands of overlapping governments, some inaccuracies are inevitable. If you find an error, please report it to <a href="mailto:lade.10@osu.edu">lade.10@osu.edu</a> and we'll correct it.</p>
       <p class="last-updated">Last updated: June 25, 2026</p>
     </section>
   </div>
