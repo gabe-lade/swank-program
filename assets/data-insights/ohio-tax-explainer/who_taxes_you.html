@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Who Taxes You in Ohio?</title>
+
+<!-- PROTOTYPE (2026-06-18). Hover/move anywhere in Ohio to see every taxing
+     authority over that point. Self-contained except Leaflet + Turf from CDN and
+     the four GeoJSON layers in ./data/ (generated from the project shapefiles).
+     UNTESTED in a browser yet — Gabe: open it locally (the data/ folder must sit
+     next to this file) and tell me what breaks. Next layer: collection amounts. -->
+
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="https://unpkg.com/@turf/turf@6/turf.min.js"></script>
+<script src="data/oh_layers.js"></script>
+<style>
+  html,body{margin:0;height:100%;font-family:-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;color:#1f2933}
+  #map{position:absolute;inset:0}
+  #panel{position:absolute;top:14px;right:14px;z-index:1000;width:300px;background:#fff;
+         border-radius:10px;box-shadow:0 2px 12px rgba(0,0,0,.18);padding:14px 16px}
+  #panel h2{margin:0 0 2px;font-size:16px}
+  #panel .sub{color:#6b7280;font-size:12px;margin:0 0 10px}
+  .auth{display:flex;justify-content:space-between;gap:8px;padding:6px 0;border-top:1px solid #f0f0f0;font-size:14px}
+  .auth .k{color:#6b7280}
+  .auth .v{font-weight:600;text-align:right}
+  .badge{display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:6px;vertical-align:middle}
+  #hint{color:#9aa5b1;font-size:12px;margin-top:10px;border-top:1px solid #f0f0f0;padding-top:8px}
+</style>
+</head>
+<body>
+<div id="map"></div>
+<div id="panel">
+  <h2>Who taxes you in Ohio?</h2>
+  <p class="sub">Move the cursor over the map. Every government below can tax that spot.</p>
+  <div class="auth"><span class="k"><span class="badge" style="background:#6b7280"></span>State</span><span class="v" id="v-state">Ohio</span></div>
+  <div class="auth"><span class="k"><span class="badge" style="background:#1f3864"></span>County</span><span class="v" id="v-county">—</span></div>
+  <div class="auth"><span class="k"><span class="badge" style="background:#bb0000"></span>City / Village</span><span class="v" id="v-city">—</span></div>
+  <div class="auth"><span class="k"><span class="badge" style="background:#2e7d32"></span>Township</span><span class="v" id="v-township">—</span></div>
+  <div class="auth"><span class="k"><span class="badge" style="background:#ed7d31"></span>School district</span><span class="v" id="v-sd">—</span></div>
+  <div class="auth"><span class="k"><span class="badge" style="background:#8a8f99"></span>Special districts</span><span class="v" id="v-special" style="color:#9aa5b1;font-weight:500;font-size:12px">not shown</span></div>
+  <div id="hint">A parcel can fall inside <b>both</b> a city and a township. Whether the township actually taxes you depends on your specific taxing district — some city residents pay their township (e.g. Hilliard/Norwich), others pay none (e.g. Toledo). This map names the general-purpose governments only; <b>special districts</b> — library, parks, JVSD/vocational, zoo, port, ambulance, developmental-disabilities — also tax the parcel but aren't drawn here. For the exact per-parcel stack and rates, see the taxing-district map.</div>
+</div>
+
+<script>
+const map = L.map('map', {minZoom:6, maxZoom:14}).setView([40.3, -82.8], 7);
+L.tileLayer('https://{s}.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{y}{r}.png',
+  {attribution:'&copy; OpenStreetMap &copy; CARTO', subdomains:'abcd'}).addTo(map);
+
+// layer config: id -> {file, panel element id, boundary colour}
+const LAYERS = [
+  {id:'counties',         file:'data/counties.geojson',         el:'v-county',   color:'#1f3864'},
+  {id:'cities',           file:'data/cities.geojson',           el:'v-city',     color:'#bb0000'},
+  {id:'townships',        file:'data/townships.geojson',        el:'v-township', color:'#2e7d32'},
+  {id:'school_districts', file:'data/school_districts.geojson', el:'v-sd',       color:'#ed7d31'},
+];
+
+const store = {};        // id -> {features:[{name, bbox, geom}], leaflet:layer}
+const highlight = L.geoJSON(null, {style:{color:'#111',weight:2,fill:false}}).addTo(map);
+
+// Data is loaded as a <script> (window.OH_LAYERS) rather than via fetch(), so the
+// page works when opened directly as a local file:// (Safari blocks fetch of
+// local files). On a real web server you could switch back to fetch() if you want
+// to lazy-load the layers.
+LAYERS.forEach(cfg => {
+  const gj = window.OH_LAYERS[cfg.id];
+  L.geoJSON(gj, {style:{color:cfg.color, weight:0.6, opacity:0.5, fill:false},
+                 interactive:false}).addTo(map);
+  store[cfg.id] = gj.features.map(f => ({name: f.properties.NAME_, bbox: turf.bbox(f), geom: f}));
+});
+
+function inBbox(pt, b){ return pt[0]>=b[0] && pt[0]<=b[2] && pt[1]>=b[1] && pt[1]<=b[3]; }
+const toTitle = s => (s||'').toLowerCase().replace(/\b\w/g, c => c.toUpperCase());
+
+function identify(lat, lng){
+  const pt = [lng, lat];
+  highlight.clearLayers();
+  LAYERS.forEach(cfg => {
+    const feats = store[cfg.id] || [];
+    let hit = null;
+    for (const f of feats){
+      if (!inBbox(pt, f.bbox)) continue;                 // cheap pre-filter
+      if (turf.booleanPointInPolygon(pt, f.geom)){ hit = f; break; }
+    }
+    document.getElementById(cfg.el).textContent = hit ? toTitle(hit.name) : '—';
+    if (hit) highlight.addData(hit.geom);
+  });
+}
+
+// throttle the hover lookups (~12/sec)
+let last = 0;
+map.on('mousemove', e => {
+  const now = Date.now();
+  if (now - last < 80) return;
+  last = now;
+  identify(e.latlng.lat, e.latlng.lng);
+});
+// click works too (and pins the highlight on touch devices)
+map.on('click', e => identify(e.latlng.lat, e.latlng.lng));
+</script>
+</body>
+</html>
