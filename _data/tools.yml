@@ -1,0 +1,21 @@
+# Data & tools featured on the homepage "Explore the data yourself" band.
+# Fields: name, tag (short kicker label), description (one line), url (site-relative)
+- name: "Ohio Urbanization Explorer"
+  tag: "Interactive map"
+  description: "Where the rural–urban fringe is expanding, county by county."
+  url: "/data/insights/ohio-urbanization-rural-urban-fringe"
+
+- name: "Hilliard Housing Tracker"
+  tag: "Dashboard"
+  description: "Housing affordability in a fast-growing Columbus suburb."
+  url: "/data/hilliard-housing-tracker/"
+
+- name: "Ohio Tax Explainer"
+  tag: "Explainer"
+  description: "How Ohio taxes work — in plain language."
+  url: "/data/insights/ohio-tax-explainer"
+
+- name: "Agricultural Land Loss"
+  tag: "Data"
+  description: "Citable statistics on farmland loss, from NLCD."
+  url: "/data/insights/nlcd-agricultural-land-loss"

@@ -3,115 +3,152 @@ layout: default
 description: "The C. William Swank Program in Rural-Urban Policy at The Ohio State University conducts research and outreach on economic and policy affecting rural and urban communities in Ohio."
 ---
 
-<!-- Hero Image — sits directly below the nav, no text overlay -->
-<section class="hero" role="banner">
-  <img
-    src="{{ '/assets/images/hero-final.jpg' | relative_url }}"
-    alt="Rural and urban landscape"
-    class="hero-image"
-    loading="eager"
-  >
-</section>
+<!-- Homepage sections ported from the design reference. Header and footer come
+     from the default layout (_includes/nav.html, _includes/footer.html) — do not
+     duplicate them here. All homepage styles are scoped under .home in the theme
+     stylesheet so other pages are unaffected. -->
+<div class="home">
 
-<!-- Mission Section -->
-<section class="mission">
-  <p class="mission-statement">
-    The C. William Swank Program in Rural-Urban Policy at The Ohio State University conducts research and outreach on the economic and policy issues connecting rural and urban communities in Ohio.
-  </p>
-  <p class="mission-detail">
-    The program brings together researchers, extension educators, and stakeholders to address critical questions about land use, agriculture, energy, environment, and economic development across the rural-urban landscape.
-  </p>
-</section>
-
-<!-- Audience / task routing -->
-<section class="audience">
-  <h2 class="audience-heading">What are you looking for?</h2>
-  <div class="audience-grid">
-
-    <div class="audience-card">
-      <h3>For local officials</h3>
-      <p>Policy facts, local data tools, and charts you can use in public meetings.</p>
-      <p class="audience-links">
-        <a href="{{ '/outreach/policy-briefs/' | relative_url }}">Policy Facts &amp; briefs</a>
-        <a href="{{ '/data' | relative_url }}">Data &amp; tools</a>
-      </p>
+  <!-- ===== HERO ===== -->
+  <section class="hero container">
+    <div>
+      <p class="eyebrow">C. William Swank Program in Rural-Urban Policy at The Ohio State University</p>
+      <h1>Economic insights for Ohio&rsquo;s changing communities</h1>
+      <p class="lead">Research and outreach on pressing policy issues connecting Ohio&rsquo;s rural and urban communities.</p>
+      <div class="btn-row">
+        <a class="btn btn-primary" href="{{ '/data' | relative_url }}">Explore data &amp; tools</a>
+        <a class="btn btn-secondary" href="{{ '/research' | relative_url }}">Read the research</a>
+      </div>
     </div>
-
-    <div class="audience-card">
-      <h3>For journalists</h3>
-      <p>Recent Ohio policy facts, citable statistics, charts, and an expert contact.</p>
-      <p class="audience-links">
-        <a href="{{ '/data/insights/nlcd-agricultural-land-loss/' | relative_url }}">Citable farmland-loss stats</a>
-        <a href="mailto:lade.10@osu.edu">Media contact</a>
-      </p>
+    <div class="hero-media">
+      <img src="{{ '/assets/images/hero-final.jpg' | relative_url }}" alt="Rural and urban Ohio landscape" loading="eager">
     </div>
+  </section>
 
-    <div class="audience-card">
-      <h3>For residents</h3>
-      <p>Understand how your community is changing through plain-language maps and explainers.</p>
-      <p class="audience-links">
-        <a href="{{ '/data/insights/ohio-urbanization-rural-urban-fringe/' | relative_url }}">Is my area urbanizing?</a>
-        <a href="{{ '/data/hilliard-housing-tracker/' | relative_url }}">Housing affordability</a>
-      </p>
+  <!-- ===== MISSION BAND ===== -->
+  <section class="mission-band">
+    <p>The C. William Swank Program in Rural-Urban Policy brings together researchers, extension educators, and stakeholders to address critical questions about land use, agriculture, energy, environment, and economic development across Ohio&rsquo;s rural-urban landscape.</p>
+  </section>
+
+  <!-- ===== AUDIENCE ROUTER ===== -->
+  <section class="section container">
+    <div class="section-head">
+      <h2>What are you looking for?</h2>
+      <span class="aside">Jump straight to what&rsquo;s useful for you</span>
     </div>
-
-    <div class="audience-card">
-      <h3>For researchers</h3>
-      <p>Working papers, publications, data sources, and the program's research agenda.</p>
-      <p class="audience-links">
-        <a href="{{ '/research' | relative_url }}">Research</a>
-        <a href="{{ '/people' | relative_url }}">People</a>
-      </p>
+    <div class="grid">
+      <div class="audience-card">
+        <h3>For local officials</h3>
+        <p>Policy facts, local data tools, and charts you can use in public meetings.</p>
+        <div class="audience-links">
+          <a href="{{ '/outreach/policy-briefs/' | relative_url }}">Policy facts &amp; briefs &rarr;</a>
+          <a href="{{ '/data' | relative_url }}">Data &amp; tools &rarr;</a>
+        </div>
+      </div>
+      <div class="audience-card">
+        <h3>For journalists</h3>
+        <p>Recent Ohio policy facts, citable statistics, charts, and an expert to call.</p>
+        <div class="audience-links">
+          <a href="{{ '/data/insights/nlcd-agricultural-land-loss/' | relative_url }}">Citable farmland-loss stats &rarr;</a>
+          <a href="mailto:lade.10@osu.edu">Media contact &rarr;</a>
+        </div>
+      </div>
+      <div class="audience-card">
+        <h3>For residents</h3>
+        <p>See how your community is changing through plain-language maps and explainers.</p>
+        <div class="audience-links">
+          <a href="{{ '/data/insights/ohio-urbanization-rural-urban-fringe/' | relative_url }}">Is my area urbanizing? &rarr;</a>
+          <a href="{{ '/data/hilliard-housing-tracker/' | relative_url }}">Housing affordability &rarr;</a>
+        </div>
+      </div>
+      <div class="audience-card">
+        <h3>For researchers</h3>
+        <p>Working papers, publications, data sources, and the research agenda.</p>
+        <div class="audience-links">
+          <a href="{{ '/research' | relative_url }}">Research &rarr;</a>
+          <a href="{{ '/people' | relative_url }}">People &rarr;</a>
+        </div>
+      </div>
     </div>
+  </section>
 
-  </div>
-</section>
+  <!-- ===== DATA & TOOLS (elevated dark band) ===== -->
+  <section class="tools">
+    <div class="container">
+      <div class="section-head">
+        <div>
+          <p class="eyebrow">Interactive &middot; Data &amp; tools</p>
+          <h2>Explore the data yourself</h2>
+        </div>
+        <a href="{{ '/data' | relative_url }}">See all data &amp; tools &rarr;</a>
+      </div>
+      <div class="tool-grid">
+        {% for tool in site.data.tools %}
+        <a class="tool-card" href="{{ tool.url | relative_url }}">
+          <span class="tool-tag">{{ tool.tag }}</span>
+          <h3>{{ tool.name }}</h3>
+          <p>{{ tool.description }}</p>
+          <span class="open">Open &rarr;</span>
+        </a>
+        {% endfor %}
+      </div>
+    </div>
+  </section>
 
-<!-- Latest updates -->
-<section class="latest">
-  <h2 class="latest-heading">Latest Outreach</h2>
-  <div class="latest-grid">
-    {% assign latest_newsletter = site.data.newsletters | first %}
-    {% if latest_newsletter %}
-    <a class="latest-card" href="{{ latest_newsletter.url }}">
-      <span class="latest-tag">Newsletter</span>
-      <p class="latest-title">{{ latest_newsletter.title }}</p>
-      <span class="latest-date">{{ latest_newsletter.date }}</span>
-    </a>
-    {% endif %}
+  <!-- ===== LATEST OUTREACH ===== -->
+  <section class="section container">
+    <div class="section-head">
+      <h2>Latest outreach</h2>
+      <a href="{{ '/outreach' | relative_url }}">See all outreach &rarr;</a>
+    </div>
+    <div class="grid">
+      {% assign latest_newsletter = site.data.newsletters | first %}
+      {% if latest_newsletter %}
+      <a class="latest-card" href="{{ latest_newsletter.url }}">
+        <span class="tag tag--newsletter">Newsletter</span>
+        <p class="latest-title">{{ latest_newsletter.title }}</p>
+        <span class="latest-date">{{ latest_newsletter.date }}</span>
+      </a>
+      {% endif %}
 
-    {% assign latest_media = site.data.media | first %}
-    {% if latest_media %}
-    <a class="latest-card" href="{{ latest_media.url }}">
-      <span class="latest-tag">Recent Media</span>
-      <p class="latest-title">{{ latest_media.title }}</p>
-      <span class="latest-date">{% if latest_media.source %}{{ latest_media.source }} &middot; {% endif %}{{ latest_media.date }}</span>
-    </a>
-    {% endif %}
+      {% assign latest_media = site.data.media | first %}
+      {% if latest_media %}
+      <a class="latest-card" href="{{ latest_media.url }}">
+        <span class="tag tag--media">Recent media</span>
+        <p class="latest-title">{{ latest_media.title }}</p>
+        <span class="latest-date">{% if latest_media.source %}{{ latest_media.source }} &middot; {% endif %}{{ latest_media.date }}</span>
+      </a>
+      {% endif %}
 
-    {% assign latest_policy = site.data.policy_facts | first %}
-    {% if latest_policy %}
-    <a class="latest-card" href="{{ latest_policy.url | relative_url }}">
-      <span class="latest-tag">Policy Facts</span>
-      <p class="latest-title">{{ latest_policy.title }}</p>
-      <span class="latest-date">{{ latest_policy.date }}</span>
-    </a>
-    {% endif %}
+      {% assign latest_policy = site.data.policy_facts | first %}
+      {% if latest_policy %}
+      <a class="latest-card" href="{{ latest_policy.url | relative_url }}">
+        <span class="tag tag--policy">Policy facts</span>
+        <p class="latest-title">{{ latest_policy.title }}</p>
+        <span class="latest-date">{{ latest_policy.date }}</span>
+      </a>
+      {% endif %}
 
-    {% assign latest_presentation = site.data.presentations | first %}
-    {% if latest_presentation %}
-    <a class="latest-card" href="{{ latest_presentation.url }}">
-      <span class="latest-tag">Presentation</span>
-      <p class="latest-title">{{ latest_presentation.title }}</p>
-      <span class="latest-date">{{ latest_presentation.date }}</span>
-    </a>
-    {% endif %}
-  </div>
-  <p class="latest-alllink"><a href="{{ '/outreach' | relative_url }}">See all outreach &rarr;</a></p>
-</section>
+      {% assign latest_presentation = site.data.presentations | first %}
+      {% if latest_presentation %}
+      <a class="latest-card" href="{{ latest_presentation.url }}">
+        <span class="tag tag--presentation">Presentation</span>
+        <p class="latest-title">{{ latest_presentation.title }}</p>
+        <span class="latest-date">{{ latest_presentation.date }}</span>
+      </a>
+      {% endif %}
+    </div>
+  </section>
 
-<!-- Newsletter CTA -->
-<section class="newsletter-cta">
-  <p>Stay up to date on rural-urban policy research and data</p>
-  <a href="https://gelade1.substack.com" class="newsletter-btn">Subscribe to the Newsletter &rarr;</a>
-</section>
+  <!-- ===== NEWSLETTER CTA ===== -->
+  <section class="newsletter-cta">
+    <div class="container">
+      <div>
+        <h2>Stay up to date</h2>
+        <p>Rural&ndash;urban policy research and data, in your inbox.</p>
+      </div>
+      <a class="btn-invert" href="https://gelade1.substack.com">Subscribe to the newsletter &rarr;</a>
+    </div>
+  </section>
+
+</div>
