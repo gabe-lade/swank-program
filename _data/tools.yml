@@ -1,21 +1,69 @@
-# Data & tools featured on the homepage "Explore the data yourself" band.
-# Fields: name, tag (short kicker label), description (one line), url (site-relative)
+# Interactive tools & data insights. Single source for two surfaces:
+#   • Homepage "Explore the data yourself" band  → uses: tag, name, description, url
+#   • Data & Tools page (/data/)                 → uses: title, format, topic,
+#       topics (filter list), blurb, cta, url, image, featured
+# The entry flagged `featured: true` renders in the banner on the data page;
+# the rest render in the grid. Order matters: the homepage shows the first four.
+# `topics` values must match the filter chips on the data page exactly
+# (Housing, Land use, Agriculture, Taxes, Urbanization).
+
 - name: "Ohio Urbanization Explorer"
+  title: "Ohio urbanization & the rural-urban fringe"
   tag: "Interactive map"
+  format: "Interactive maps"
+  topic: "Urbanization"
+  topics: [Urbanization, Land use]
   description: "Where the rural–urban fringe is expanding, county by county."
-  url: "/data/insights/ohio-urbanization-rural-urban-fringe"
+  blurb: "Explore where Ohio's urban footprint expanded from 2000 to 2020 using Census block and block-group classifications, and see where formerly rural places became urban."
+  cta: "View the maps"
+  url: "/data/insights/ohio-urbanization-rural-urban-fringe/"
+  image: "/assets/images/tools/urbanization.jpg"
+  featured: true
 
 - name: "Hilliard Housing Tracker"
+  title: "Hilliard Housing Affordability Tracker"
   tag: "Dashboard"
+  format: "Dashboard"
+  topic: "Housing"
+  topics: [Housing]
   description: "Housing affordability in a fast-growing Columbus suburb."
+  blurb: "Track how home prices, mortgage rates, rents, and area incomes shape housing affordability across Hilliard and the Columbus metro. Updated quarterly from public data."
+  cta: "Explore the tracker"
   url: "/data/hilliard-housing-tracker/"
+  image: "/assets/images/tools/hilliard-housing.jpg"
 
 - name: "Ohio Tax Explainer"
+  title: "Ohio Tax Explainer"
   tag: "Explainer"
+  format: "Interactive map"
+  topic: "Taxes"
+  topics: [Taxes]
   description: "How Ohio taxes work — in plain language."
-  url: "/data/insights/ohio-tax-explainer"
+  blurb: "An interactive guide to the state and local taxes Ohioans pay — and who actually collects them. Hover anywhere in Ohio to see every government that taxes that spot."
+  cta: "Explore the map"
+  url: "/data/insights/ohio-tax-explainer/"
+  image: "/assets/images/tools/tax-explainer.jpg"
 
 - name: "Agricultural Land Loss"
+  title: "Tracking agricultural land loss with NLCD"
   tag: "Data"
+  format: "Interactive map"
+  topic: "Agriculture"
+  topics: [Agriculture, Land use]
   description: "Citable statistics on farmland loss, from NLCD."
-  url: "/data/insights/nlcd-agricultural-land-loss"
+  blurb: "Compare Ohio agricultural land cover across any pair of years from 1985 to 2024, with pixel-level transitions and county-level summaries of loss, gain, and conversion."
+  cta: "Explore the map"
+  url: "/data/insights/nlcd-agricultural-land-loss/"
+  image: "/assets/images/tools/nlcd-land-loss.jpg"
+
+- name: "Ohio CDL Crop Change"
+  title: "Ohio CDL crop change explorer"
+  tag: "Interactive map"
+  format: "Interactive map"
+  topic: "Agriculture"
+  topics: [Agriculture]
+  description: "Ohio cropland and crop changes, 2006 to 2025."
+  blurb: "Explore Ohio Cropland Data Layer classes and crop changes from 2006 to 2025, with land-cover views, change comparisons, county boundaries, and acreage summaries."
+  cta: "Explore the map"
+  url: "/data/insights/ohio-cdl-crop-change/"
+  image: "/assets/images/tools/cdl-crop-change.jpg"

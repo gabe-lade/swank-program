@@ -1,0 +1,169 @@
+---
+layout: default
+title: "Data & Tools"
+permalink: /data/
+description: "Interactive tools, data insights, and datasets on Ohio rural-urban policy, housing, land use, and agriculture."
+---
+
+<!-- Data & Tools page ported from the design reference. Header and footer come
+     from the default layout (_includes/nav.html, _includes/footer.html) — not
+     duplicated here. The featured banner and tool grid are driven by a single
+     Liquid loop over _data/tools.yml; the entry with `featured: true` renders in
+     the banner, the rest in the grid. All styles are scoped under .data-tools in
+     the theme stylesheet. The filter script at the bottom is plug-and-play. -->
+<div class="data-tools">
+
+  <!-- ===== PAGE HEADER ===== -->
+  <section class="page-head container">
+    <p class="eyebrow">Data &amp; tools</p>
+    <h1>Interactive tools &amp; data insights on Ohio&rsquo;s rural&ndash;urban change</h1>
+    <p class="intro">Plain-language explainers and interactive tools that make high-quality data on housing, land use, agriculture, and rural&ndash;urban change accessible to policymakers, researchers, and communities.</p>
+  </section>
+
+  <!-- ===== FILTER BAR ===== -->
+  <section class="container">
+    <div class="filter-bar" id="filterBar">
+      <span class="filter-label">Browse by topic</span>
+      <!-- data-topic="All" shows everything; others match against each card's data-topics -->
+      <button class="chip is-active" data-topic="All">All</button>
+      <button class="chip" data-topic="Housing">Housing</button>
+      <button class="chip" data-topic="Land use">Land use</button>
+      <button class="chip" data-topic="Agriculture">Agriculture</button>
+      <button class="chip" data-topic="Taxes">Taxes</button>
+      <button class="chip" data-topic="Urbanization">Urbanization</button>
+    </div>
+  </section>
+
+  <!-- ===== FEATURED ===== -->
+  {% assign featured_tool = site.data.tools | where: "featured", true | first %}
+  {% if featured_tool %}
+  <section class="featured-wrap container">
+    <a class="featured js-featured" data-topics="{{ featured_tool.topics | join: '|' }}" href="{{ featured_tool.url | relative_url }}">
+      <div class="featured-media">
+        <span class="featured-flag">Featured</span>
+        {% if featured_tool.image %}
+        <img src="{{ featured_tool.image | relative_url }}" alt="{{ featured_tool.title | default: featured_tool.name }} preview">
+        {% else %}
+        <span class="preview-label">Interactive map preview</span>
+        {% endif %}
+      </div>
+      <div class="featured-body">
+        <div class="tags">
+          <span class="tag tag--format">{{ featured_tool.format }}</span>
+          <span class="tag tag--topic">{{ featured_tool.topic }}</span>
+        </div>
+        <h2>{{ featured_tool.title | default: featured_tool.name }}</h2>
+        <p>{{ featured_tool.blurb | default: featured_tool.description }}</p>
+        <span class="go">{{ featured_tool.cta | default: 'Explore' }} &rarr;</span>
+      </div>
+    </a>
+  </section>
+  {% endif %}
+
+  <!-- ===== TOOL GRID ===== -->
+  <section class="grid-wrap container">
+    <p class="count" id="count">Showing all {{ site.data.tools | size }} tools</p>
+    <div class="tool-grid" id="toolGrid">
+      {% for tool in site.data.tools %}{% unless tool.featured %}
+      <a class="tool-card js-card" data-topics="{{ tool.topics | join: '|' }}" href="{{ tool.url | relative_url }}">
+        <div class="tool-media">
+          {% if tool.image %}
+          <img src="{{ tool.image | relative_url }}" alt="{{ tool.title | default: tool.name }} preview">
+          {% else %}
+          <span class="preview-label">Preview</span>
+          {% endif %}
+        </div>
+        <div class="tool-body">
+          <div class="tags">
+            <span class="tag tag--format">{{ tool.format }}</span>
+            <span class="tag tag--topic">{{ tool.topic }}</span>
+          </div>
+          <h3>{{ tool.title | default: tool.name }}</h3>
+          <p>{{ tool.blurb | default: tool.description }}</p>
+          <span class="go">{{ tool.cta | default: 'Explore' }} &rarr;</span>
+        </div>
+      </a>
+      {% endunless %}{% endfor %}
+    </div>
+    <p class="empty-msg is-hidden" id="emptyMsg">No tools in this topic yet — <a href="mailto:lade.10@osu.edu" style="color:var(--accent);font-weight:600;">get in touch</a> if you'd like to collaborate.</p>
+  </section>
+
+  <!-- ===== IN DEVELOPMENT ===== -->
+  <section class="dev-wrap container">
+    <div class="dev-panel">
+      <div class="dev-head">
+        <h2>In development</h2>
+        <span class="aside">Want preliminary data or to collaborate? <a href="mailto:lade.10@osu.edu">Get in touch &rarr;</a></span>
+      </div>
+      <div class="dev-grid">
+        <div class="dev-card">
+          <div class="dev-status"><span class="dev-dot"></span><span>Planned</span></div>
+          <h3>Ohio township zoning coverage</h3>
+          <p>Mapping where zoning authority applies across Ohio&rsquo;s townships, and where land remains unzoned.</p>
+        </div>
+        <div class="dev-card">
+          <div class="dev-status"><span class="dev-dot"></span><span>Planned</span></div>
+          <h3>Ohio property tax reform</h3>
+          <p>How recent reform proposals would affect local governments and homeowners.</p>
+        </div>
+        <div class="dev-card">
+          <div class="dev-status"><span class="dev-dot"></span><span>Planned</span></div>
+          <h3>Downloadable datasets</h3>
+          <p>Documented datasets on Ohio agriculture, rural-urban demographics, energy, and environment.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FILTER SCRIPT (plug-and-play, no build step) ===== -->
+  <script>
+    (function () {
+      var bar = document.getElementById('filterBar');
+      if (!bar) return;
+      var chips = bar.querySelectorAll('.chip');
+      var cards = Array.prototype.slice.call(document.querySelectorAll('.js-card'));
+      var featured = document.querySelector('.js-featured');
+      var countEl = document.getElementById('count');
+      var emptyEl = document.getElementById('emptyMsg');
+
+      function topicsOf(el) {
+        return (el.getAttribute('data-topics') || '').split('|').map(function (s) { return s.trim(); });
+      }
+
+      function apply(topic) {
+        var visible = 0;
+
+        // featured shows only if it matches (or All)
+        if (featured) {
+          var fMatch = topic === 'All' || topicsOf(featured).indexOf(topic) !== -1;
+          featured.classList.toggle('is-hidden', !fMatch);
+          if (fMatch) visible++;
+        }
+
+        cards.forEach(function (card) {
+          var match = topic === 'All' || topicsOf(card).indexOf(topic) !== -1;
+          card.classList.toggle('is-hidden', !match);
+          if (match) visible++;
+        });
+
+        // count label
+        if (countEl) {
+          countEl.textContent = topic === 'All'
+            ? 'Showing all ' + visible + ' tools'
+            : visible + (visible === 1 ? ' tool' : ' tools') + ' in ' + topic;
+        }
+        // empty state
+        if (emptyEl) emptyEl.classList.toggle('is-hidden', visible !== 0);
+      }
+
+      chips.forEach(function (chip) {
+        chip.addEventListener('click', function () {
+          chips.forEach(function (c) { c.classList.remove('is-active'); });
+          chip.classList.add('is-active');
+          apply(chip.getAttribute('data-topic'));
+        });
+      });
+    })();
+  </script>
+
+</div>

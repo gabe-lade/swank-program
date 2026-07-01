@@ -83,7 +83,7 @@ description: "The C. William Swank Program in Rural-Urban Policy at The Ohio Sta
         <a href="{{ '/data' | relative_url }}">See all data &amp; tools &rarr;</a>
       </div>
       <div class="tool-grid">
-        {% for tool in site.data.tools %}
+        {% for tool in site.data.tools limit: 4 %}
         <a class="tool-card" href="{{ tool.url | relative_url }}">
           <span class="tool-tag">{{ tool.tag }}</span>
           <h3>{{ tool.name }}</h3>
