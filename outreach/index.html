@@ -1,0 +1,130 @@
+---
+layout: default
+title: "Outreach"
+permalink: /outreach/
+description: "Newsletter, presentations, policy writings, and media coverage from the Swank Program in Rural-Urban Policy."
+---
+
+<!-- Outreach hub ported from the design reference. Header and footer come from
+     the default layout (_includes/nav.html, _includes/footer.html) — not
+     duplicated here. Each card's "Latest" line is dynamic: the categories are
+     backed by _data/*.yml (there are no Jekyll collections), which are hand-
+     ordered newest-first, so the newest item is `| first`. The reference's
+     hardcoded text is kept as an {% else %} fallback. Styles are scoped under
+     .outreach-hub in the theme stylesheet. -->
+<div class="outreach-hub">
+
+  <!-- ===== PAGE HEADER ===== -->
+  <section class="page-head container">
+    <p class="eyebrow">Outreach</p>
+    <h1>Research, translated for the people who use it</h1>
+    <p class="intro">The Swank Program turns research on rural&ndash;urban policy into essays, talks, policy writings, and media for policymakers, journalists, and the public. Pick a category &mdash; each one can be filtered by topic and searched.</p>
+  </section>
+
+  <!-- ===== CATEGORY CARDS ===== -->
+  <section class="container">
+    <div class="cat-grid">
+
+      <!-- NEWSLETTER -->
+      {% assign latest = site.data.newsletters | first %}
+      <a class="cat-card cat--newsletter" href="{{ '/outreach/newsletter/' | relative_url }}">
+        <span class="cat-strip"></span>
+        <div class="cat-body">
+          <span class="cat-kicker">Newsletter</span>
+          <h2>Newsletter on Ohio policy issues</h2>
+          <p class="desc">Regular essays on rural-urban policy, biofuels, property tax, and Ohio&rsquo;s economy.</p>
+          <div class="cat-latest">
+            <p class="latest-label">Latest</p>
+            {% if latest %}
+            <p class="latest-title">{{ latest.title }}</p>
+            <p class="latest-meta">{{ latest.date }}</p>
+            {% else %}
+            <p class="latest-title">How Much Farmland Is Ohio Losing?</p>
+            <p class="latest-meta">June 2026</p>
+            {% endif %}
+          </div>
+          <span class="cat-cta">Read essays &rarr;</span>
+        </div>
+      </a>
+
+      <!-- PRESENTATIONS -->
+      {% assign latest = site.data.presentations | first %}
+      <a class="cat-card cat--presentations" href="{{ '/outreach/presentations/' | relative_url }}">
+        <span class="cat-strip"></span>
+        <div class="cat-body">
+          <span class="cat-kicker">Talks &amp; primers</span>
+          <h2>Presentations</h2>
+          <p class="desc">Slides and policy primers from talks on property tax, biofuels, and rural policy.</p>
+          <div class="cat-latest">
+            <p class="latest-label">Latest</p>
+            {% if latest %}
+            <p class="latest-title">{{ latest.title }}</p>
+            <p class="latest-meta">{{ latest.date }}</p>
+            {% else %}
+            <p class="latest-title">Ohio&rsquo;s Historic Property Tax Reforms</p>
+            <p class="latest-meta">February 2026</p>
+            {% endif %}
+          </div>
+          <span class="cat-cta">View presentations &rarr;</span>
+        </div>
+      </a>
+
+      <!-- POLICY WRITINGS -->
+      {% assign latest = site.data.policy_facts | first %}
+      <a class="cat-card cat--policy" href="{{ '/outreach/policy-briefs/' | relative_url }}">
+        <span class="cat-strip"></span>
+        <div class="cat-body">
+          <span class="cat-kicker">Facts, briefs &amp; op-eds</span>
+          <h2>Policy writings</h2>
+          <p class="desc">Policy facts, policy briefs, and op-eds for Ohio policymakers, journalists, and the public.</p>
+          <div class="cat-latest">
+            <p class="latest-label">Latest</p>
+            {% if latest %}
+            <p class="latest-title">{{ latest.title }}</p>
+            <p class="latest-meta">{{ latest.date }}</p>
+            {% else %}
+            <p class="latest-title">Data Centers in Ohio: Growth, Tax Treatment &amp; Local Impacts</p>
+            <p class="latest-meta">June 2026</p>
+            {% endif %}
+          </div>
+          <span class="cat-cta">Read policy writings &rarr;</span>
+        </div>
+      </a>
+
+      <!-- RECENT MEDIA -->
+      {% assign latest = site.data.media | first %}
+      <a class="cat-card cat--media" href="{{ '/outreach/recent-media/' | relative_url }}">
+        <span class="cat-strip"></span>
+        <div class="cat-body">
+          <span class="cat-kicker">In the news</span>
+          <h2>Recent media</h2>
+          <p class="desc">News coverage, podcasts, and interviews featuring the Swank Program&rsquo;s work.</p>
+          <div class="cat-latest">
+            <p class="latest-label">Latest</p>
+            {% if latest %}
+            <p class="latest-title">{{ latest.title }}</p>
+            <p class="latest-meta">{% if latest.source %}{{ latest.source }} &middot; {% endif %}{{ latest.date }}</p>
+            {% else %}
+            <p class="latest-title">Farm Office Live: Ohio&rsquo;s Data Center Boom</p>
+            <p class="latest-meta">OSU Extension &middot; June 2026</p>
+            {% endif %}
+          </div>
+          <span class="cat-cta">See coverage &rarr;</span>
+        </div>
+      </a>
+
+    </div>
+  </section>
+
+  <!-- ===== NEWSLETTER CTA ===== -->
+  <section class="newsletter-cta">
+    <div class="container">
+      <div>
+        <h2>Get new essays in your inbox</h2>
+        <p>Rural&ndash;urban policy analysis, roughly monthly, straight from the program.</p>
+      </div>
+      <a class="btn-invert" href="https://gelade1.substack.com">Subscribe to the newsletter &rarr;</a>
+    </div>
+  </section>
+
+</div>
