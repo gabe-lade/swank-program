@@ -1,0 +1,67 @@
+{% comment %}
+  Shared filter/search script for the outreach list pages. Generic and
+  plug-and-play: filters every .js-item by active topic + search text, updates
+  the count, toggles per-group empty states, and works for flat and grouped
+  pages alike. Kept verbatim from the design reference.
+{% endcomment %}
+<script>
+  (function () {
+    var bar = document.getElementById('filterBar');
+    if (!bar) return;
+    var chips = bar.querySelectorAll('.chip');
+    var search = document.getElementById('searchInput');
+    var countEl = document.getElementById('count');
+    var noResults = document.getElementById('noResults');
+    var items = Array.prototype.slice.call(document.querySelectorAll('.js-item'));
+    var groups = Array.prototype.slice.call(document.querySelectorAll('[data-group]'));
+    var activeTopic = 'All';
+
+    function topicsOf(el) {
+      return (el.getAttribute('data-topics') || '').split('|').map(function (s) { return s.trim(); });
+    }
+
+    function apply() {
+      var q = (search && search.value || '').trim().toLowerCase();
+      var total = 0;
+      items.forEach(function (it) {
+        var topicOk = activeTopic === 'All' || topicsOf(it).indexOf(activeTopic) !== -1;
+        var title = (it.getAttribute('data-title') || it.textContent).toLowerCase();
+        var searchOk = q === '' || title.indexOf(q) !== -1;
+        var show = topicOk && searchOk;
+        it.classList.toggle('is-hidden', !show);
+        if (show) total++;
+      });
+
+      // per-group: hide a group whose items are all filtered out; but keep a
+      // group that has a data-group-empty note visible only when unfiltered.
+      groups.forEach(function (g) {
+        var vis = g.querySelectorAll('.js-item:not(.is-hidden)').length;
+        var emptyNote = g.querySelector('[data-group-empty]');
+        var unfiltered = activeTopic === 'All' && q === '';
+        if (emptyNote) emptyNote.classList.toggle('is-hidden', !(unfiltered));
+        // hide the whole group only if it has items AND none are visible AND no note showing
+        if (g.querySelector('.js-item')) {
+          g.classList.toggle('is-hidden', vis === 0 && !(emptyNote && unfiltered));
+        }
+      });
+
+      if (countEl) {
+        countEl.textContent = (activeTopic === 'All' && q === '')
+          ? total + (total === 1 ? ' item' : ' items')
+          : 'Showing ' + total + (total === 1 ? ' item' : ' items') + (activeTopic !== 'All' ? ' in ' + activeTopic : '');
+      }
+      if (noResults) noResults.classList.toggle('is-hidden', total !== 0);
+    }
+
+    chips.forEach(function (chip) {
+      chip.addEventListener('click', function () {
+        chips.forEach(function (c) { c.classList.remove('is-active'); });
+        chip.classList.add('is-active');
+        activeTopic = chip.getAttribute('data-topic');
+        apply();
+      });
+    });
+    if (search) search.addEventListener('input', apply);
+    apply();
+  })();
+</script>

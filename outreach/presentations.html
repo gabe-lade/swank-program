@@ -3,19 +3,42 @@ layout: default
 title: "Presentations"
 permalink: /outreach/presentations/
 description: "Talks, slides, and policy primers from the Swank Program in Rural-Urban Policy."
+accent: "#8A5A12"
 ---
 
-<article class="page">
-  <header class="page-header">
-    <h1>Presentations</h1>
-    <p class="page-subtitle">
-      Talks, slides, and policy primers. Filter by topic or search by title.
-    </p>
-  </header>
+<!-- Outreach list page ported from the design reference (shared shell). Header
+     and footer come from the default layout. The .list-page wrapper carries the
+     per-page accent; the item rows, filter bar, and filter script are shared
+     includes. Styles are scoped under .list-page in the theme stylesheet. -->
+<div class="list-page" style="--page-accent: {{ page.accent }}">
 
-  <div class="page-content">
-    {% include outreach-filter.html items=site.data.presentations label="presentations" %}
-  </div>
-</article>
+  <section class="page-head container">
+    <p class="eyebrow">Presentations</p>
+    <h1>Talks, slides &amp; policy primers</h1>
+    <p class="intro">Slides and policy primers from talks on property tax, biofuels, and rural policy. Filter by topic or search by title.</p>
+  </section>
 
-<script src="{{ '/assets/js/outreach-filter.js' | relative_url }}" defer></script>
+  {% include outreach-list-controls.html %}
+
+  <section class="list-section container">
+    <div class="group" data-group>
+      <div class="item-grid">
+        {% include outreach-list-items.html items=site.data.presentations format="Presentation" %}
+      </div>
+    </div>
+    <p class="no-results is-hidden" id="noResults">No items match. Try a different topic or clear your search.</p>
+  </section>
+
+  <section class="newsletter-cta">
+    <div class="container">
+      <div>
+        <h2>Get new essays in your inbox</h2>
+        <p>Rural&ndash;urban policy analysis, roughly monthly, straight from the program.</p>
+      </div>
+      <a class="btn-invert" href="https://gelade1.substack.com">Subscribe to the newsletter &rarr;</a>
+    </div>
+  </section>
+
+</div>
+
+{% include outreach-list-filter.html %}

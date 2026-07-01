@@ -3,19 +3,42 @@ layout: default
 title: "Newsletter"
 permalink: /outreach/newsletter/
 description: "Essays from the Swank Program newsletter on rural-urban policy, biofuels, property tax, and Ohio's economy."
+accent: "#A5231A"
 ---
 
-<article class="page">
-  <header class="page-header">
-    <h1>Newsletter</h1>
-    <p class="page-subtitle">
-      Essays from <a href="https://gelade1.substack.com">the Swank Program newsletter on Substack</a> — research findings, policy developments, and data insights on rural-urban policy. Filter by topic or search by title.
-    </p>
-  </header>
+<!-- Outreach list page ported from the design reference (shared shell). Header
+     and footer come from the default layout. The .list-page wrapper carries the
+     per-page accent; the item rows, filter bar, and filter script are shared
+     includes. Styles are scoped under .list-page in the theme stylesheet. -->
+<div class="list-page" style="--page-accent: {{ page.accent }}">
 
-  <div class="page-content">
-    {% include outreach-filter.html items=site.data.newsletters label="newsletter posts" %}
-  </div>
-</article>
+  <section class="page-head container">
+    <p class="eyebrow">Newsletter</p>
+    <h1>Newsletter on Ohio policy issues</h1>
+    <p class="intro">Essays from the Swank Program newsletter on Substack &mdash; research findings, policy developments, and data insights on rural-urban policy. Filter by topic or search by title.</p>
+  </section>
 
-<script src="{{ '/assets/js/outreach-filter.js' | relative_url }}" defer></script>
+  {% include outreach-list-controls.html %}
+
+  <section class="list-section container">
+    <div class="group" data-group>
+      <div class="item-grid">
+        {% include outreach-list-items.html items=site.data.newsletters format="Substack" %}
+      </div>
+    </div>
+    <p class="no-results is-hidden" id="noResults">No items match. Try a different topic or clear your search.</p>
+  </section>
+
+  <section class="newsletter-cta">
+    <div class="container">
+      <div>
+        <h2>Get new essays in your inbox</h2>
+        <p>Rural&ndash;urban policy analysis, roughly monthly, straight from the program.</p>
+      </div>
+      <a class="btn-invert" href="https://gelade1.substack.com">Subscribe to the newsletter &rarr;</a>
+    </div>
+  </section>
+
+</div>
+
+{% include outreach-list-filter.html %}

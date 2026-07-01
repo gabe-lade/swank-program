@@ -1,0 +1,31 @@
+{% comment %}
+  Renders the .item rows for an outreach list page (shared by all four).
+  Parameters:
+    include.items  - a data array (e.g. site.data.newsletters)
+    include.format - default format badge when an item has no `format` of its own
+  Each item's `topics:` holds slugs; the shared filter matches on the topic
+  *labels* (so the chips and the "in <topic>" count read nicely), so we map
+  each slug to its label from _data/outreach_topics.yml and expose the labels
+  (pipe-joined) as data-topics. The pill shows the first topic's label.
+{% endcomment %}
+{% for item in include.items %}
+{% assign topic_labels = "" %}
+{% for slug in item.topics %}
+  {% assign t = site.data.outreach_topics | where: "slug", slug | first %}
+  {% if t %}{% assign topic_labels = topic_labels | append: t.label %}{% unless forloop.last %}{% assign topic_labels = topic_labels | append: "|" %}{% endunless %}{% endif %}
+{% endfor %}
+{% assign primary_slug = item.topics | first %}
+{% assign primary_topic = site.data.outreach_topics | where: "slug", primary_slug | first %}
+<a class="item js-item" data-topics="{{ topic_labels | escape }}" data-title="{{ item.title | escape }}" href="{% if item.url contains '://' %}{{ item.url }}{% else %}{{ item.url | relative_url }}{% endif %}">
+  <div class="item-top">
+    {% if primary_topic %}<span class="item-topic">{{ primary_topic.label }}</span>{% endif %}
+    <span class="item-date">{{ item.date }}</span>
+  </div>
+  <h3>{{ item.title }}</h3>
+  {% if item.summary %}<p class="desc">{{ item.summary }}</p>{% elsif item.description %}<p class="desc">{{ item.description }}</p>{% endif %}
+  <div class="item-bottom">
+    <span class="item-source">{% if item.source %}{{ item.source }}{% endif %}</span>
+    <span class="item-format">{{ item.format | default: include.format }}</span>
+  </div>
+</a>
+{% endfor %}

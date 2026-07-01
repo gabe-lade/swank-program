@@ -1,0 +1,22 @@
+{% comment %}
+  Shared filter + search bar for the outreach list pages. Chips are built from
+  _data/outreach_topics.yml; their data-topic values are the topic *labels*,
+  matching the label-joined data-topics on each .item (see outreach-list-items).
+  The shared filter script (outreach-list-filter) reads #filterBar / #searchInput
+  / #count and fills the count on load.
+{% endcomment %}
+<section class="container">
+  <div class="filter-bar" id="filterBar">
+    <div class="chips">
+      <button class="chip is-active" data-topic="All">All</button>
+      {% for topic in site.data.outreach_topics %}
+      <button class="chip" data-topic="{{ topic.label | escape }}">{{ topic.label }}</button>
+      {% endfor %}
+    </div>
+    <div class="search">
+      <span class="icon">&#9906;</span>
+      <input type="text" id="searchInput" placeholder="Search by title&hellip;">
+    </div>
+  </div>
+  <p class="count" id="count"></p>
+</section>

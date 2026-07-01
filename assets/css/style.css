@@ -893,6 +893,174 @@ main {
 }
 .outreach-hub .newsletter-cta .btn-invert:hover { background: #F2EEE7; color: var(--accent); text-decoration: none; }
 
+/* ==========================================================================
+   Outreach list pages (.list-page) — shared by all four outreach sub-pages
+   (newsletter, presentations, policy-briefs, recent-media). Ported from the
+   design reference and scoped under .list-page (like .home / .data-tools /
+   .outreach-hub) so its generic class names (.item, .group, .chip, .count …)
+   don't collide with the rest of the site. Each page sets its own
+   --page-accent on the .list-page wrapper from front matter; --accent is the
+   site-red fallback. Fonts load in the layout head.
+   ========================================================================== */
+.list-page {
+  --accent: #BB0000;
+  font-family: 'Public Sans', system-ui, -apple-system, sans-serif;
+  color: #1A1A19;
+  background: #FBFAF8;
+  -webkit-font-smoothing: antialiased;
+}
+.list-page .container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding-left: 32px;
+  padding-right: 32px;
+}
+.list-page h1,
+.list-page h2,
+.list-page h3 {
+  font-family: 'Source Serif 4', serif;
+  font-weight: 600;
+  letter-spacing: -0.015em;
+}
+.list-page input::placeholder { color: #A5A199; }
+
+/* ---- PAGE HEADER ---- */
+.list-page .page-head { padding-top: 40px; padding-bottom: 24px; }
+.list-page .eyebrow {
+  font-size: 12.5px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--page-accent, var(--accent));
+  margin: 0;
+}
+.list-page .page-head h1 {
+  font-size: clamp(30px, 3.4vw, 40px);
+  line-height: 1.06;
+  letter-spacing: -0.02em;
+  margin: 12px 0 14px;
+  max-width: 22ch;
+}
+.list-page .page-head .intro { font-size: 16.5px; line-height: 1.55; color: #46443F; margin: 0; max-width: 68ch; }
+
+/* ---- FILTER + SEARCH BAR ---- */
+.list-page .filter-bar {
+  border-top: 1px solid #E8E4DD;
+  padding-top: 20px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+.list-page .chips { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.list-page .chip {
+  font-family: inherit;
+  font-size: 12.5px;
+  font-weight: 600;
+  padding: 6px 13px;
+  border-radius: 100px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  background: #fff;
+  color: #46443F;
+  border: 1px solid #DCD7CE;
+}
+.list-page .chip:hover { border-color: #B9B3A8; }
+.list-page .chip.is-active { background: var(--page-accent, var(--accent)); color: #fff; border-color: var(--page-accent, var(--accent)); }
+.list-page .search { position: relative; flex: 0 0 auto; }
+.list-page .search input {
+  font-family: inherit;
+  font-size: 14px;
+  padding: 9px 14px 9px 34px;
+  border: 1px solid #DCD7CE;
+  border-radius: 100px;
+  background: #fff;
+  width: 230px;
+  outline: none;
+  color: #1A1A19;
+}
+.list-page .search input:focus { border-color: var(--page-accent, var(--accent)); }
+.list-page .search .icon { position: absolute; left: 13px; top: 50%; transform: translateY(-50%); color: #A5A199; font-size: 14px; }
+.list-page .count { font-size: 13px; color: #8A8880; margin: 16px 0 0; }
+
+/* ---- LIST ---- */
+.list-page .list-section { padding-top: 22px; }
+.list-page .group { margin-bottom: 30px; }
+.list-page .group-head { margin-bottom: 16px; }
+.list-page .group-head h2 { font-size: 21px; margin: 0 0 5px; display: flex; align-items: center; gap: 10px; }
+.list-page .group-head .dot { width: 9px; height: 9px; border-radius: 100px; background: var(--page-accent, var(--accent)); display: inline-block; }
+.list-page .group-head .blurb { font-size: 14px; line-height: 1.5; color: #6C6A64; margin: 0; max-width: 74ch; padding-left: 19px; }
+.list-page .item-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(400px, 1fr)); gap: 14px; }
+.list-page .item {
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+  border: 1px solid #E5E2DC;
+  border-radius: 11px;
+  background: #fff;
+  padding: 18px 20px;
+  text-decoration: none;
+  color: inherit;
+  transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
+}
+.list-page .item:hover { border-color: #C4BFB4; box-shadow: 0 14px 30px -24px rgba(40, 30, 20, 0.34); transform: translateY(-1px); }
+.list-page .item-top { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.list-page .item-topic {
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: #6C6A64;
+  background: #F0ECE4;
+  padding: 4px 10px;
+  border-radius: 100px;
+}
+.list-page .item-date { font-size: 12.5px; color: #8A8880; white-space: nowrap; }
+.list-page .item h3 { font-size: 17.5px; line-height: 1.28; margin: 0; }
+.list-page .item .desc { font-size: 14px; line-height: 1.5; color: #5C5A55; margin: 0; }
+.list-page .item-bottom { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-top: 2px; }
+.list-page .item-source { font-size: 12.5px; color: #8A8880; font-style: italic; }
+.list-page .item-format {
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--page-accent, var(--accent));
+  background: color-mix(in srgb, var(--page-accent, var(--accent)) 12%, #fff);
+  padding: 3px 9px;
+  border-radius: 4px;
+  white-space: nowrap;
+}
+.list-page .is-hidden { display: none !important; }
+.list-page .group-empty { border: 1px dashed #D3CEC4; border-radius: 10px; background: #F7F4EE; padding: 20px 22px; font-size: 14px; line-height: 1.5; color: #6C6A64; }
+.list-page .no-results { font-size: 15px; color: #8A8880; padding: 8px 0 24px; }
+
+/* ---- NEWSLETTER CTA ---- */
+.list-page .newsletter-cta { margin-top: 40px; background: var(--accent); color: #fff; }
+.list-page .newsletter-cta .container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 28px;
+  flex-wrap: wrap;
+  padding-top: 42px;
+  padding-bottom: 42px;
+}
+.list-page .newsletter-cta h2 { font-size: 24px; margin: 0 0 7px; color: #fff; }
+.list-page .newsletter-cta p { margin: 0; font-size: 15px; opacity: 0.9; }
+.list-page .newsletter-cta .btn-invert {
+  background: #fff;
+  color: var(--accent);
+  padding: 14px 24px;
+  border-radius: 4px;
+  font-weight: 700;
+  font-size: 15px;
+  text-decoration: none;
+  white-space: nowrap;
+}
+.list-page .newsletter-cta .btn-invert:hover { background: #F2EEE7; color: var(--accent); text-decoration: none; }
+
 /* --- People Page --- */
 .people-section {
   margin-bottom: var(--spacing-lg);

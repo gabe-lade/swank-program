@@ -3,89 +3,70 @@ layout: default
 title: "Policy Writings"
 permalink: /outreach/policy-briefs/
 description: "Policy Facts, policy briefs, and other policy-relevant writing from the Swank Program and Gabriel Lade."
+accent: "#2F6B45"
 ---
 
-<article class="page">
-  <header class="page-header">
-    <h1>Policy Writings</h1>
-    <p class="page-subtitle">
-      Short, source-backed materials for local officials, journalists, and Ohio residents &mdash; Policy Facts are concise explainers, Policy Briefs are deeper analysis, and op-eds connect research to current debates. Filter by topic or search by title.
-    </p>
-  </header>
+<!-- Outreach list page (GROUPED variant) ported from the design reference.
+     Header and footer come from the default layout. The .list-page wrapper
+     carries the per-page accent; item rows, filter bar, and filter script are
+     shared includes. Three groups: Policy Facts / Policy Briefs (empty for now)
+     / Op-eds. Styles are scoped under .list-page in the theme stylesheet. -->
+<div class="list-page" style="--page-accent: {{ page.accent }}">
 
-  <div class="page-content">
-    <div class="outreach-filter" data-outreach-filter>
-      <div class="outreach-controls">
-        <input type="search" class="outreach-search" data-search
-               placeholder="Search policy writings…" aria-label="Search policy writings">
-        <div class="outreach-chips" role="group" aria-label="Filter by topic">
-          <button type="button" class="filter-chip is-active" data-topic="all">All</button>
-          {% for topic in site.data.outreach_topics %}
-          <button type="button" class="filter-chip" data-topic="{{ topic.slug }}">{{ topic.label }}</button>
-          {% endfor %}
-        </div>
+  <section class="page-head container">
+    <p class="eyebrow">Policy writings</p>
+    <h1>Policy writings</h1>
+    <p class="intro">Short, source-backed materials for local officials, journalists, and Ohio residents &mdash; Policy Facts are concise explainers, Policy Briefs are deeper analysis, and op-eds connect research to current debates. Filter by topic or search by title.</p>
+  </section>
+
+  {% include outreach-list-controls.html %}
+
+  <section class="list-section container">
+
+    <div class="group" data-group>
+      <div class="group-head">
+        <h2><span class="dot"></span>Policy Facts</h2>
+        <p class="blurb">Short, succinct summaries of the best available evidence on pressing policy issues facing Ohioans. The series reports facts and evidence; it does not make explicit policy recommendations.</p>
       </div>
-
-      <section class="policy-facts">
-        <div class="policy-facts-head">
-          <p class="policy-facts-tag">Policy Facts</p>
-          <h2>Policy Facts</h2>
-          <p class="policy-facts-blurb">
-            Short, succinct summaries of the best available evidence on pressing policy issues facing Ohioans. The series reports facts and evidence; it does not make explicit policy recommendations.
-          </p>
-        </div>
-        <ul class="policy-facts-list">
-          {% for item in site.data.policy_facts %}
-          <li class="policy-fact" data-topics="{{ item.topics | join: ' ' }}" data-title="{{ item.title | downcase }}">
-            <p class="policy-fact-title"><a href="{% if item.url contains '://' %}{{ item.url }}{% else %}{{ item.url | relative_url }}{% endif %}">{{ item.title }}</a></p>
-            {% if item.summary %}<p class="policy-fact-summary">{{ item.summary }}</p>{% endif %}
-            <span class="outreach-entry-meta">{{ item.date }}{% if item.url contains '.pdf' %} · PDF{% endif %}</span>
-          </li>
-          {% endfor %}
-        </ul>
-      </section>
-
-      <section class="policy-facts">
-        <div class="policy-facts-head">
-          <p class="policy-facts-tag">Policy Briefs</p>
-          <h2>Policy Briefs</h2>
-          <p class="policy-facts-blurb">
-            Longer-form summaries of research on specific policy topics relevant to Ohio. The first Swank Program Policy Brief will be published later in summer 2026.
-          </p>
-        </div>
-        {% if site.data.policy_briefs %}
-        <ul class="policy-facts-list">
-          {% for item in site.data.policy_briefs %}
-          <li class="policy-fact" data-topics="{{ item.topics | join: ' ' }}" data-title="{{ item.title | downcase }}">
-            <p class="policy-fact-title"><a href="{% if item.url contains '://' %}{{ item.url }}{% else %}{{ item.url | relative_url }}{% endif %}">{{ item.title }}</a></p>
-            <span class="outreach-entry-meta">{% if item.source %}<em>{{ item.source }}</em> · {% endif %}{{ item.date }}{% if item.url contains '.pdf' %} · PDF{% endif %}</span>
-          </li>
-          {% endfor %}
-        </ul>
-        {% endif %}
-      </section>
-
-      <section class="policy-facts">
-        <div class="policy-facts-head">
-          <p class="policy-facts-tag">Op-eds &amp; Other Writing</p>
-          <h2>Op-eds &amp; Other Writing</h2>
-          <p class="policy-facts-blurb">
-            Op-eds, commentary, and other policy-relevant writing by Gabriel Lade for outlets outside the Swank Program.
-          </p>
-        </div>
-        <ul class="policy-facts-list">
-          {% for item in site.data.other_policy_writings %}
-          <li class="policy-fact" data-topics="{{ item.topics | join: ' ' }}" data-title="{{ item.title | downcase }}">
-            <p class="policy-fact-title"><a href="{% if item.url contains '://' %}{{ item.url }}{% else %}{{ item.url | relative_url }}{% endif %}">{{ item.title }}</a></p>
-            <span class="outreach-entry-meta">{% if item.source %}<em>{{ item.source }}</em>{% if item.date %} · {% endif %}{% endif %}{{ item.date }}{% if item.url contains '.pdf' %} · PDF{% endif %}</span>
-          </li>
-          {% endfor %}
-        </ul>
-      </section>
-
-      <p class="outreach-empty" data-empty hidden>No items match your search.</p>
+      <div class="item-grid">
+        {% include outreach-list-items.html items=site.data.policy_facts format="Policy Fact" %}
+      </div>
     </div>
-  </div>
-</article>
 
-<script src="{{ '/assets/js/outreach-filter.js' | relative_url }}" defer></script>
+    <div class="group" data-group>
+      <div class="group-head">
+        <h2><span class="dot"></span>Policy Briefs</h2>
+        <p class="blurb">Longer-form summaries of research on specific policy topics relevant to Ohio.</p>
+      </div>
+      <div class="item-grid">
+        {% include outreach-list-items.html items=site.data.policy_briefs format="Policy Brief" %}
+      </div>
+      <div class="group-empty" data-group-empty>The first Swank Program Policy Brief will be published later in summer 2026.</div>
+    </div>
+
+    <div class="group" data-group>
+      <div class="group-head">
+        <h2><span class="dot"></span>Op-eds &amp; Other Writing</h2>
+        <p class="blurb">Op-eds, commentary, and other policy-relevant writing by Gabriel Lade for outlets outside the Swank Program.</p>
+      </div>
+      <div class="item-grid">
+        {% include outreach-list-items.html items=site.data.other_policy_writings format="Op-ed" %}
+      </div>
+    </div>
+
+    <p class="no-results is-hidden" id="noResults">No items match. Try a different topic or clear your search.</p>
+  </section>
+
+  <section class="newsletter-cta">
+    <div class="container">
+      <div>
+        <h2>Get new essays in your inbox</h2>
+        <p>Rural&ndash;urban policy analysis, roughly monthly, straight from the program.</p>
+      </div>
+      <a class="btn-invert" href="https://gelade1.substack.com">Subscribe to the newsletter &rarr;</a>
+    </div>
+  </section>
+
+</div>
+
+{% include outreach-list-filter.html %}
