@@ -1,0 +1,94 @@
+---
+layout: default
+title: "People"
+permalink: /people/
+description: "Faculty, graduate students, and advisory board members of the Swank Program in Rural-Urban Policy at Ohio State."
+---
+
+<!-- People page ported from the design reference. Header and footer come from
+     the default layout. Each group is driven by _data/people.yml (faculty,
+     students, affiliates, advisory_board). Advisors without a photo fall back
+     to an .avatar-mono monogram of their initials. Styles are scoped under
+     .people-page in the theme stylesheet. -->
+<div class="people-page">
+
+  <!-- ===== PAGE HEADER ===== -->
+  <section class="page-head container">
+    <p class="eyebrow">People</p>
+    <h1>The people behind the program</h1>
+    <p class="intro">Faculty, graduate students, affiliated researchers, and an advisory board of Ohio leaders working at the intersection of rural and urban policy.</p>
+  </section>
+
+  <!-- ===== FACULTY (feature) ===== -->
+  <section class="people-section container">
+    <div class="section-head"><h2><span class="dot"></span>Faculty</h2></div>
+    {% for p in site.data.people.faculty %}
+    <div class="faculty-card">
+      {% if p.photo %}<img class="photo" src="{{ p.photo | relative_url }}" alt="{{ p.name | strip }}">{% endif %}
+      <div>
+        <h3>{{ p.name | strip }}</h3>
+        <p class="role">{{ p.title }}</p>
+        <p class="org">{{ p.department }}{% if p.university %} &middot; {{ p.university }}{% endif %}</p>
+        {% if p.bio %}<p class="bio">{{ p.bio }}</p>{% endif %}
+        {% if p.website %}<a class="link" href="{{ p.website }}">Personal website <span>&rarr;</span></a>{% endif %}
+      </div>
+    </div>
+    {% endfor %}
+  </section>
+
+  <!-- ===== GRADUATE STUDENTS ===== -->
+  <section class="people-section container">
+    <div class="section-head"><h2><span class="dot"></span>Graduate students</h2></div>
+    <div class="person-grid">
+      {% for p in site.data.people.students %}
+      <div class="person-card">
+        {% if p.photo %}<img class="photo" src="{{ p.photo | relative_url }}" alt="{{ p.name | strip }}">{% endif %}
+        <div class="grow"><h3>{{ p.name | strip }}</h3><p class="role">{{ p.title }}</p></div>
+        {% if p.website %}<a class="link" href="{{ p.website }}">Website &rarr;</a>{% endif %}
+      </div>
+      {% endfor %}
+    </div>
+  </section>
+
+  <!-- ===== AFFILIATES ===== -->
+  <section class="people-section container">
+    <div class="section-head"><h2><span class="dot"></span>Affiliates</h2></div>
+    <div class="person-grid">
+      {% for p in site.data.people.affiliates %}
+      <div class="person-card">
+        {% if p.photo %}<img class="photo" src="{{ p.photo | relative_url }}" alt="{{ p.name | strip }}">{% endif %}
+        <div><h3>{{ p.name | strip }}</h3><p class="role">{{ p.title }}</p></div>
+      </div>
+      {% endfor %}
+    </div>
+  </section>
+
+  <!-- ===== ADVISORY BOARD ===== -->
+  <section class="people-section container">
+    <div class="section-head">
+      <h2><span class="dot"></span>Advisory board</h2>
+      <p class="blurb">Leaders from across Ohio&rsquo;s agricultural, environmental, economic, and local-government sectors.</p>
+    </div>
+    <div class="advisory-grid">
+      {% for p in site.data.people.advisory_board %}
+      {% assign np = p.name | strip | split: ' ' %}
+      <div class="advisor">
+        {% if p.photo %}<img class="photo" src="{{ p.photo | relative_url }}" alt="{{ p.name | strip }}">{% else %}<div class="avatar-mono">{{ np | first | slice: 0 | upcase }}{{ np | last | slice: 0 | upcase }}</div>{% endif %}
+        <div><h3>{{ p.name | strip }}</h3><p class="org">{{ p.title }}</p></div>
+      </div>
+      {% endfor %}
+    </div>
+  </section>
+
+  <!-- ===== CONTACT CTA ===== -->
+  <section class="container">
+    <div class="contact-cta">
+      <div>
+        <h2>Interested in working with the program?</h2>
+        <p>Prospective students and research collaborators are welcome to get in touch.</p>
+      </div>
+      <a class="btn" href="mailto:lade.10@osu.edu">Contact the program &rarr;</a>
+    </div>
+  </section>
+
+</div>

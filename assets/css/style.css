@@ -1061,98 +1061,85 @@ main {
 }
 .list-page .newsletter-cta .btn-invert:hover { background: #F2EEE7; color: var(--accent); text-decoration: none; }
 
-/* --- People Page --- */
-.people-section {
-  margin-bottom: var(--spacing-lg);
+/* ==========================================================================
+   People page (.people-page) — ported from the design reference. Scoped under
+   .people-page (like .home / .data-tools / .outreach-hub / .list-page) so its
+   generic class names (.person-card, .section-head, .container …) don't collide
+   with the rest of the site. Fonts load in the layout head; accent vars here.
+   ========================================================================== */
+.people-page {
+  --accent: #BB0000;
+  --accent-dark: #9a0000;
+  font-family: 'Public Sans', system-ui, -apple-system, sans-serif;
+  color: #1A1A19;
+  background: #FBFAF8;
+  -webkit-font-smoothing: antialiased;
 }
-
-.people-section h2 {
-  padding-bottom: 0.75rem;
-  border-bottom: 1px solid var(--color-border);
+.people-page .container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding-left: 32px;
+  padding-right: 32px;
 }
-
-/* Featured faculty member */
-.faculty-featured {
-  display: flex;
-  gap: 2rem;
-  align-items: flex-start;
-  margin-top: 2rem;
-}
-
-.faculty-photo {
-  width: 200px;
-  min-width: 200px;
-  height: 200px;
-  object-fit: cover;
-  border-radius: 5px;
-  background: var(--color-border);
-}
-
-.faculty-info h3 {
-  font-size: 1.2rem;
-  margin-bottom: 0.25rem;
-}
-
-.faculty-title {
-  color: var(--color-text-secondary);
-  font-size: 0.95rem;
-  margin-bottom: 0.25rem;
-}
-
-.faculty-dept {
-  color: var(--color-text-secondary);
-  font-size: 0.9rem;
-  margin-bottom: 0.75rem;
-}
-
-.faculty-bio {
-  line-height: 1.7;
-  margin-bottom: 0.75rem;
-}
-
-.faculty-link {
-  font-size: 0.95rem;
+.people-page h1,
+.people-page h2,
+.people-page h3 {
+  font-family: 'Source Serif 4', serif;
   font-weight: 600;
+  letter-spacing: -0.015em;
 }
 
-/* People grid */
-.people-grid {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 2rem;
-  margin-top: 2rem;
-}
+/* ---- PAGE HEADER ---- */
+.people-page .page-head { padding-top: 56px; padding-bottom: 30px; }
+.people-page .eyebrow { font-size: 12.5px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); margin: 0; }
+.people-page .page-head h1 { font-size: clamp(32px, 3.6vw, 44px); line-height: 1.06; letter-spacing: -0.02em; margin: 14px 0 16px; max-width: 20ch; }
+.people-page .page-head .intro { font-size: 17.5px; line-height: 1.55; color: #46443F; margin: 0; max-width: 66ch; }
 
-.person-card {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-  transition: transform 0.2s ease;
-}
+/* ---- SECTION HEADS ---- */
+.people-page .people-section { padding-top: 0; }
+.people-page .section-head { border-top: 1px solid #E8E4DD; padding-top: 26px; margin-bottom: 20px; margin-top: 44px; }
+.people-page .section-head:first-of-type { margin-top: 8px; }
+.people-page .section-head h2 { font-size: 21px; margin: 0; display: flex; align-items: center; gap: 10px; }
+.people-page .section-head .dot { width: 9px; height: 9px; border-radius: 100px; background: var(--accent); display: inline-block; }
+.people-page .section-head .blurb { font-size: 14px; line-height: 1.5; color: #6C6A64; margin: 6px 0 0; padding-left: 19px; }
 
-.person-card:hover {
-  transform: translateY(-2px);
-}
+/* ---- FACULTY FEATURE ---- */
+.people-page .faculty-card { display: grid; grid-template-columns: minmax(220px, 280px) 1fr; gap: 34px; align-items: start; border: 1px solid #E5E2DC; border-radius: 14px; background: #fff; padding: 30px; }
+.people-page .faculty-card .photo { width: 100%; aspect-ratio: 1 / 1; object-fit: cover; border-radius: 12px; background: #EAE6DE; display: block; }
+.people-page .faculty-card h3 { font-size: 26px; margin: 0 0 6px; }
+.people-page .faculty-card .role { font-size: 15.5px; font-weight: 600; color: var(--accent); margin: 0 0 4px; }
+.people-page .faculty-card .org { font-size: 14px; line-height: 1.5; color: #6C6A64; margin: 0 0 16px; }
+.people-page .faculty-card .bio { font-size: 15.5px; line-height: 1.62; color: #3A3833; margin: 0 0 18px; max-width: 60ch; }
+.people-page .faculty-card .link { display: inline-flex; align-items: center; gap: 6px; font-size: 14.5px; font-weight: 700; color: var(--accent); text-decoration: none; }
+.people-page .faculty-card .link:hover { gap: 10px; }
 
-.person-photo {
-  width: 150px;
-  height: 150px;
-  object-fit: cover;
-  border-radius: 5px;
-  background: var(--color-border);
-  margin-bottom: 0.75rem;
-}
+/* ---- PERSON CARDS (grad, affiliates) ---- */
+.people-page .person-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(210px, 1fr)); gap: 18px; }
+.people-page .person-card { border: 1px solid #E5E2DC; border-radius: 12px; background: #fff; padding: 22px 20px; display: flex; flex-direction: column; gap: 12px; }
+.people-page .person-card:hover { border-color: #C4BFB4; box-shadow: 0 14px 30px -24px rgba(40, 30, 20, 0.32); }
+.people-page .person-card .photo { width: 84px; height: 84px; object-fit: cover; border-radius: 100px; background: #EAE6DE; display: block; }
+.people-page .person-card h3 { font-size: 18px; margin: 0 0 3px; }
+.people-page .person-card .role { font-size: 13.5px; color: #6C6A64; margin: 0; }
+.people-page .person-card .link { font-size: 13.5px; font-weight: 600; color: var(--accent); text-decoration: none; }
+.people-page .person-card .link:hover { text-decoration: underline; }
+.people-page .person-card .grow { flex: 1; }
 
-.person-card h3 {
-  font-size: 1rem;
-  margin-bottom: 0.25rem;
-}
+/* ---- ADVISORY (compact) ---- */
+.people-page .advisory-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 14px; }
+.people-page .advisor { border: 1px solid #E5E2DC; border-radius: 11px; background: #fff; padding: 14px 16px; display: flex; align-items: center; gap: 14px; }
+.people-page .advisor:hover { border-color: #C4BFB4; }
+.people-page .advisor .photo, .people-page .advisor .avatar-mono { width: 54px; height: 54px; border-radius: 100px; flex: 0 0 auto; }
+.people-page .advisor .photo { object-fit: cover; background: #EAE6DE; display: block; }
+.people-page .advisor h3 { font-size: 16px; margin: 0 0 2px; line-height: 1.2; }
+.people-page .advisor .org { font-size: 13px; line-height: 1.4; color: #6C6A64; margin: 0; }
+.people-page .avatar-mono { background: #EDE7DA; color: #8A6D2F; display: flex; align-items: center; justify-content: center; font-family: 'Source Serif 4', serif; font-weight: 600; font-size: 18px; }
 
-.person-role {
-  color: var(--color-text-secondary);
-  font-size: 0.9rem;
-}
+/* ---- CONTACT CTA ---- */
+.people-page .contact-cta { border: 1px dashed #D3CEC4; border-radius: 12px; background: #F7F4EE; padding: 26px 28px; display: flex; align-items: center; justify-content: space-between; gap: 20px; flex-wrap: wrap; margin-top: 48px; }
+.people-page .contact-cta h2 { font-size: 19px; margin: 0 0 4px; }
+.people-page .contact-cta p { font-size: 14px; color: #6C6A64; margin: 0; }
+.people-page .contact-cta .btn { background: var(--accent); color: #fff; padding: 12px 22px; border-radius: 4px; font-weight: 600; font-size: 14.5px; text-decoration: none; white-space: nowrap; }
+.people-page .contact-cta .btn:hover { background: var(--accent-dark); }
 
 /* --- Research / Publications --- */
 .pub-section {
@@ -1377,31 +1364,12 @@ main {
   max-width: 700px;
 }
 
-.placeholder-note {
-  color: var(--color-text-secondary);
-  font-style: italic;
-  padding: 1.5rem 0;
-}
-
-/* ==========================================================================
-   Responsive — Tablet (768px+)
-   ========================================================================== */
-@media (min-width: 768px) {
-  .people-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
 /* ==========================================================================
    Responsive — Desktop (1024px+)
    ========================================================================== */
 @media (min-width: 1024px) {
   .page {
     padding: var(--spacing-lg);
-  }
-
-  .people-grid {
-    grid-template-columns: repeat(3, 1fr);
   }
 }
 
@@ -1492,18 +1460,6 @@ main {
 
   .insight-map-frame {
     height: 560px;
-  }
-
-  .faculty-featured {
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-  }
-
-  .faculty-photo {
-    width: 160px;
-    min-width: 160px;
-    height: 160px;
   }
 }
 
