@@ -1,0 +1,193 @@
+---
+layout: default
+---
+{%- comment -%}
+  Shared layout for the four data-insight map pages. Everything is driven by the
+  page's front matter (see any data-insights/*.md). Order: hero -> conditional
+  stat band -> two-column grid (main content + sticky rail). Header, footer, and
+  nav come from the default layout. DESIGN ONLY — the map embeds themselves are
+  the same iframes the pages already used; here they're wrapped in .map-figure.
+{%- endcomment -%}
+<div class="insight-page">
+
+  <!-- ===== HERO ===== -->
+  <section class="insight-hero">
+    <div class="container">
+      <p class="breadcrumb"><a href="{{ '/data' | relative_url }}">Data &amp; tools</a> <span class="sep">/</span> {{ page.title }}</p>
+      <div class="tags">
+        {% if page.eyebrow %}<span class="tag tag--format">{{ page.eyebrow }}</span>{% endif %}
+        {% if page.topic %}<span class="tag tag--topic">{{ page.topic }}</span>{% endif %}
+      </div>
+      <h1>{{ page.title }}</h1>
+      {% if page.subtitle %}<p class="lead">{{ page.subtitle }}</p>{% endif %}
+      {% if page.authors %}
+      <p class="byline">By {% for a in page.authors %}{%- unless forloop.first %}{% if forloop.last %}{% if page.authors.size > 2 %}, and {% else %} and {% endif %}{% else %}, {% endif %}{% endunless -%}
+        {% if a.url %}<a href="{{ a.url }}">{{ a.name }}</a>{% else %}{{ a.name }}{% endif %}{% endfor %}{% if page.updated %} <span class="sep">&middot;</span> <span class="muted">Updated {{ page.updated }}</span>{% endif %}</p>
+      {% endif %}
+    </div>
+  </section>
+
+  <!-- ===== STAT BAND (only if the page has stats) ===== -->
+  {% if page.stats %}
+  <section class="statband">
+    <div class="container">
+      <div class="stat-grid" style="grid-template-columns: repeat({{ page.stats | size }}, 1fr);">
+        {% for s in page.stats %}
+        <div class="stat-card"><div class="num">{{ s.value }}</div><p>{{ s.label }}</p></div>
+        {% endfor %}
+      </div>
+      {% if page.stats_note %}<p class="stats-note">{{ page.stats_note }}</p>{% endif %}
+    </div>
+  </section>
+  {% endif %}
+
+  <!-- ===== TWO COLUMN ===== -->
+  <section class="container insight-grid">
+
+    <!-- MAIN -->
+    <div class="main">
+      {% if page.intro %}
+      <div class="prose">
+        {% for para in page.intro %}<p>{{ para }}</p>{% endfor %}
+      </div>
+      {% endif %}
+
+      {% for b in page.blocks %}
+        {% case b.type %}
+        {% when 'heading' %}
+      <h2 id="{{ b.id }}">{{ b.text }}</h2>
+        {% when 'para' %}
+      <p class="block-desc">{{ b.text }}</p>
+        {% when 'labelledBullets' %}
+      <div class="labelled">
+        {% for it in b.items %}<div class="row"><p><strong>{{ it.label }}</strong> {{ it.text }}</p></div>{% endfor %}
+      </div>
+        {% when 'map' %}
+      <div class="map-figure" id="{{ b.id }}">
+        <h2>{{ b.heading }}</h2>
+        {% if b.desc %}<p class="block-desc">{{ b.desc }}</p>{% endif %}
+        <div class="map-frame">
+          <div class="map-bar">
+            <span class="dot" style="background:#D8654F;"></span>
+            <span class="dot" style="background:#E2B347;"></span>
+            <span class="dot" style="background:#5AA469;"></span>
+            <span class="file">{{ b.file }}</span>
+            <span class="live">Interactive</span>
+          </div>
+          <div class="map-embed">
+            <iframe {% if b.frame_id %}id="{{ b.frame_id }}" {% endif %}{% if b.autoresize %}data-autoresize {% endif %}src="{{ b.embed | relative_url }}" title="{{ b.title }}" loading="lazy"></iframe>
+          </div>
+        </div>
+      </div>
+        {% endcase %}
+      {% endfor %}
+
+      {% if page.related %}
+      <div class="related">
+        <h2>{{ page.related.heading }}</h2>
+        {% if page.related.lead %}<p class="lead">{{ page.related.lead }}</p>{% endif %}
+        <ul>
+          {% for it in page.related.items %}
+          <li>{% if it.url %}<a href="{{ it.url }}">{{ it.label }}</a>{% else %}<span>{{ it.label }}</span>{% endif %}{% if it.note %} <span class="note">{{ it.note }}</span>{% endif %}</li>
+          {% endfor %}
+        </ul>
+      </div>
+      {% endif %}
+
+      {% if page.sources %}
+      <div class="sources" id="sources">
+        <h3>Sources &amp; notes</h3>
+        <ul>
+          {% for src in page.sources %}<li>{{ src }}</li>{% endfor %}
+        </ul>
+        {% if page.updated %}<p class="last-updated">Last updated: {{ page.updated }}</p>{% endif %}
+      </div>
+      {% endif %}
+    </div>
+
+    <!-- RAIL -->
+    <aside class="rail">
+      {% if page.use_cite %}
+      <div class="rail-card">
+        <h3>{{ page.use_cite.heading }}</h3>
+        <div class="usecite-rows">
+          {% for r in page.use_cite.rows %}<p><strong>{{ r.label }}</strong> {{ r.text }}</p>{% endfor %}
+        </div>
+        {% if page.citation %}
+        <div class="cite-box">
+          <p class="kicker">Suggested citation</p>
+          <p class="cite">{{ page.citation }}</p>
+          <button class="btn-copy" data-cite="{{ page.citation | escape }}"><span>&#10697;</span><span class="lbl">Copy citation</span></button>
+        </div>
+        {% endif %}
+      </div>
+      {% endif %}
+
+      {% if page.download %}
+      <div class="rail-card">
+        <p class="rail-kicker">Download the data</p>
+        <a class="dl-link" href="{{ page.download.url | relative_url }}"><span class="csv">CSV</span>{{ page.download.label }}</a>
+      </div>
+      {% endif %}
+
+      <!-- ON THIS PAGE (built from heading + map blocks) -->
+      <div class="rail-card onthispage">
+        <p class="rail-kicker">On this page</p>
+        <nav>
+          {% assign toc_first = true %}
+          {% for b in page.blocks %}
+            {% if b.type == 'heading' %}<a {% if toc_first %}class="is-active" {% endif %}href="#{{ b.id }}">{{ b.text }}</a>{% assign toc_first = false %}
+            {% elsif b.type == 'map' %}<a {% if toc_first %}class="is-active" {% endif %}href="#{{ b.id }}">{{ b.heading }}</a>{% assign toc_first = false %}
+            {% endif %}
+          {% endfor %}
+          {% if page.sources %}<a href="#sources">Sources &amp; notes</a>{% endif %}
+        </nav>
+      </div>
+
+      {% if page.correction %}
+      <div class="error-note">
+        <p>{{ page.correction }}</p>
+      </div>
+      {% endif %}
+    </aside>
+  </section>
+
+</div>
+
+<!-- ===== COPY-CITATION SCRIPT (generic, from the reference) ===== -->
+<script>
+  (function () {
+    document.querySelectorAll('.btn-copy').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var text = btn.getAttribute('data-cite') || '';
+        if (navigator.clipboard) navigator.clipboard.writeText(text);
+        var lbl = btn.querySelector('.lbl');
+        if (lbl) {
+          var orig = lbl.textContent;
+          lbl.textContent = 'Copied ✓';
+          setTimeout(function () { lbl.textContent = orig; }, 1600);
+        }
+      });
+    });
+  })();
+</script>
+
+<!-- ===== MAP AUTO-RESIZE (preserves the existing NLCD/CDL fit-to-content behavior) ===== -->
+<script>
+  (function () {
+    document.querySelectorAll('iframe[data-autoresize]').forEach(function (frame) {
+      function resize() {
+        try {
+          var doc = frame.contentWindow.document;
+          var h = Math.max(doc.body.scrollHeight, doc.documentElement.scrollHeight);
+          frame.style.height = h + 'px';
+        } catch (e) { /* cross-origin: leave CSS height in place */ }
+      }
+      frame.addEventListener('load', function () {
+        resize();
+        [200, 600, 1500, 3000].forEach(function (t) { setTimeout(resize, t); });
+      });
+      window.addEventListener('resize', resize);
+    });
+  })();
+</script>
