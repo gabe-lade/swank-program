@@ -13,7 +13,9 @@ students:
     department: "Department of Agricultural, Environmental, and Development Economics"
     university: "The Ohio State University"
     photo: "/assets/images/people/jialiang_chen.JPG"
-    website: "https://aede.osu.edu/our-people/jialiang-chen"
+    # website: AEDE removed its per-student profile pages in a 2026 site
+    # restructure (the old our-people/jialiang-chen URL now 404s). Re-add a
+    # link when a personal or new departmental page exists.
     bio: "Jialiang Chen is a Ph.D. student in AEDE at The Ohio State University. His research interests are in agriculture and environmental economics."
 
   - name: "Alexander Ryan"
@@ -29,8 +31,8 @@ students:
     department: "Department of Agricultural, Environmental, and Development Economics"
     university: "The Ohio State University"
     photo: "/assets/images/people/jingke-wu.jpg"
-    website: "https://aede.osu.edu/our-people/jingke-wu"
-    bio: "Jingke Wu Chen is a Ph.D. student in AEDE at The Ohio State University. His research interests are environmental economics, urban and regional economics, and the intersection of land use, housing markets, and environmental policy."
+    website: "https://jingke-wu.github.io/"
+    bio: "Jingke Wu is a Ph.D. student in AEDE at The Ohio State University. His research interests are environmental economics, urban and regional economics, and the intersection of land use, housing markets, and environmental policy."
 
   - name: "Zoey Zhao"
     title: "PhD Student"

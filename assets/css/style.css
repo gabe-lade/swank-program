@@ -378,7 +378,7 @@ main {
 /* ---- HERO ---- */
 .home .hero {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(320px, 100%), 1fr));
   gap: 54px;
   align-items: center;
   padding-top: 62px;
@@ -659,7 +659,7 @@ main {
 .data-tools .featured-wrap { padding-top: 30px; padding-bottom: 8px; }
 .data-tools .featured {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr));
   border: 1px solid #E5E2DC;
   border-radius: 12px;
   overflow: hidden;
@@ -723,7 +723,7 @@ main {
 .data-tools .count { font-size: 13.5px; color: #8A8880; margin: 0 0 18px; }
 .data-tools .tool-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(min(280px, 100%), 1fr));
   gap: 20px;
 }
 .data-tools .tool-card {
@@ -821,7 +821,7 @@ main {
 /* ---- CATEGORY CARDS ---- */
 .outreach-hub .cat-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(320px, 100%), 1fr));
   gap: 20px;
   padding-top: 8px;
   padding-bottom: 10px;
@@ -991,7 +991,7 @@ main {
 .list-page .group-head h2 { font-size: 21px; margin: 0 0 5px; display: flex; align-items: center; gap: 10px; }
 .list-page .group-head .dot { width: 9px; height: 9px; border-radius: 100px; background: var(--page-accent, var(--accent)); display: inline-block; }
 .list-page .group-head .blurb { font-size: 14px; line-height: 1.5; color: #6C6A64; margin: 0; max-width: 74ch; padding-left: 19px; }
-.list-page .item-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(400px, 1fr)); gap: 14px; }
+.list-page .item-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(400px, 100%), 1fr)); gap: 14px; }
 .list-page .item {
   display: flex;
   flex-direction: column;
@@ -1125,7 +1125,7 @@ main {
 .people-page .person-card .grow { flex: 1; }
 
 /* ---- ADVISORY (compact) ---- */
-.people-page .advisory-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 14px; }
+.people-page .advisory-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(280px, 100%), 1fr)); gap: 14px; }
 .people-page .advisor { border: 1px solid #E5E2DC; border-radius: 11px; background: #fff; padding: 14px 16px; display: flex; align-items: center; gap: 14px; }
 .people-page .advisor:hover { border-color: #C4BFB4; }
 .people-page .advisor .photo, .people-page .advisor .avatar-mono { width: 54px; height: 54px; border-radius: 100px; flex: 0 0 auto; }
@@ -1140,6 +1140,13 @@ main {
 .people-page .contact-cta p { font-size: 14px; color: #6C6A64; margin: 0; }
 .people-page .contact-cta .btn { background: var(--accent); color: #fff; padding: 12px 22px; border-radius: 4px; font-weight: 600; font-size: 14.5px; text-decoration: none; white-space: nowrap; }
 .people-page .contact-cta .btn:hover { background: var(--accent-dark); }
+
+/* Stack the faculty feature card on small screens (its fixed 220px photo
+   column plus text otherwise overflows narrow phones). */
+@media (max-width: 700px) {
+  .people-page .faculty-card { grid-template-columns: 1fr; }
+  .people-page .faculty-card .photo { max-width: 280px; }
+}
 
 /* ==========================================================================
    Research page (.research-page) — ported from the design reference. Scoped
