@@ -1,0 +1,119 @@
+---
+layout: default
+title: "Research"
+permalink: /research/
+description: "Working papers and published research on energy, environmental, and agricultural policy from the Swank Program at Ohio State."
+---
+
+<!-- Research page ported from the design reference. Header and footer come from
+     the default layout (the nav's Research link gets .active on /research/). The
+     two groups are driven by _data/publications.yml (working / published); the
+     chip row is built from the distinct topics in the data. Styles are scoped
+     under .research-page in the theme stylesheet. -->
+<div class="research-page">
+
+  <!-- ===== PAGE HEADER ===== -->
+  <section class="page-head container">
+    <p class="eyebrow">Research</p>
+    <h1>Peer-reviewed research on energy, environment &amp; agriculture</h1>
+    <p class="intro">Working papers and published research from the Swank Program on energy, environmental, and agricultural policy &mdash; the evidence base behind our outreach and data tools.</p>
+  </section>
+
+  <!-- ===== FILTER BAR (chips built from distinct topics) ===== -->
+  {% assign all_pubs = site.data.publications.working | concat: site.data.publications.published %}
+  {% assign topics = all_pubs | map: 'topic' | uniq %}
+  <section class="container">
+    <div class="filter-bar" id="filterBar">
+      <span class="filter-label">Filter by topic</span>
+      <button class="chip is-active" data-topic="All">All</button>
+      {% for t in topics %}
+      <button class="chip" data-topic="{{ t | escape }}">{{ t | escape }}</button>
+      {% endfor %}
+    </div>
+    <p class="count" id="count"></p>
+  </section>
+
+  <!-- ===== PUBLICATIONS ===== -->
+  <section class="container" style="padding-top: 22px;">
+
+    <div class="group" data-group>
+      <div class="group-head"><h2><span class="dot"></span>Working papers <span class="n" data-group-count></span></h2></div>
+      <div class="pub-list">
+        {% for pub in site.data.publications.working %}{% include research-pub.html pub=pub %}{% endfor %}
+      </div>
+    </div>
+
+    <div class="group" data-group>
+      <div class="group-head"><h2><span class="dot"></span>Published papers <span class="n" data-group-count></span></h2></div>
+      <div class="pub-list">
+        {% for pub in site.data.publications.published %}{% include research-pub.html pub=pub %}{% endfor %}
+      </div>
+    </div>
+
+    <p class="no-results is-hidden" id="noResults">No papers in this topic. Try a different filter.</p>
+  </section>
+
+  <!-- ===== CV CTA ===== -->
+  <section class="container">
+    <div class="cv-cta">
+      <div>
+        <h2>Looking for the full publication record?</h2>
+        <p>Complete list of published and working papers on Gabe Lade&rsquo;s personal website.</p>
+      </div>
+      <a class="btn" href="https://gabe-lade.github.io">View full CV &rarr;</a>
+    </div>
+  </section>
+
+</div>
+
+<!-- ===== TOPIC FILTER SCRIPT (generic; copied verbatim from the reference) ===== -->
+<script>
+  (function () {
+    var bar = document.getElementById('filterBar');
+    if (!bar) return;
+    var chips = bar.querySelectorAll('.chip');
+    var pubs = Array.prototype.slice.call(document.querySelectorAll('.pub'));
+    var groups = Array.prototype.slice.call(document.querySelectorAll('[data-group]'));
+    var countEl = document.getElementById('count');
+    var noResults = document.getElementById('noResults');
+    var active = 'All';
+
+    // initial per-group counts (unfiltered totals)
+    groups.forEach(function (g) {
+      var n = g.querySelectorAll('.pub').length;
+      var el = g.querySelector('[data-group-count]');
+      if (el) el.textContent = n;
+    });
+
+    function apply() {
+      var total = 0;
+      pubs.forEach(function (p) {
+        var show = active === 'All' || p.getAttribute('data-topic') === active;
+        p.classList.toggle('is-hidden', !show);
+        if (show) total++;
+      });
+      groups.forEach(function (g) {
+        var vis = g.querySelectorAll('.pub:not(.is-hidden)').length;
+        g.classList.toggle('is-hidden', vis === 0);
+        var el = g.querySelector('[data-group-count]');
+        if (el) el.textContent = active === 'All' ? g.querySelectorAll('.pub').length : vis;
+      });
+      if (countEl) {
+        countEl.textContent = active === 'All'
+          ? total + ' papers'
+          : 'Showing ' + total + (total === 1 ? ' paper' : ' papers') + ' in ' + active;
+      }
+      if (noResults) noResults.classList.toggle('is-hidden', total !== 0);
+    }
+
+    chips.forEach(function (chip) {
+      chip.addEventListener('click', function () {
+        chips.forEach(function (c) { c.classList.remove('is-active'); });
+        chip.classList.add('is-active');
+        active = chip.getAttribute('data-topic');
+        apply();
+      });
+    });
+    apply();
+  })();
+</script>

@@ -1,46 +1,44 @@
-working_papers:
+# Publications shown on the Research page (/research/). Two lists: working and
+# published. The chip filter is built from the distinct `topic` values.
+# Fields: title, authors (string — the program author is bolded on the page via
+# a Liquid replace), year, topic, venue, paper (URL), and optional code (URL).
+
+working:
   - title: "Forecasting Credit Supply Demand Balance for the Low-Carbon Fuel Standard Program"
-    authors: "Bushnell, J., G. Lade, A. Smith, J. Witcover, and W. Xiao"
+    authors: "Bushnell, J., G. Lade, A. Smith, J. Witcover, W. Xiao"
     year: 2024
-    url: "https://haas.berkeley.edu/wp-content/uploads/WP340.pdf"
-    ungated: ""
-    code: ""
+    topic: "Biofuels & Fuel Policy"
+    venue: "Energy Institute at Haas, Working Paper 340"
+    paper: "https://haas.berkeley.edu/wp-content/uploads/WP340.pdf"
 
 published:
   - title: "Quantifying Threshold Manipulation Under the Renewable Fuel Standard"
-    authors: "Andarge, T., D. Ghanem, D. Keiser, and G. Lade"
-    journal: "American Economic Review: Insights"
+    authors: "Andarge, T., D. Ghanem, D. Keiser, G. Lade"
     year: 2025
-    url: "https://www.aeaweb.org/articles?id=10.1257/aeri.20240258"
-    ungated: ""
+    topic: "Biofuels & Fuel Policy"
+    venue: "American Economic Review: Insights"
+    paper: "https://www.aeaweb.org/articles?id=10.1257/aeri.20240258"
     code: "https://www.openicpsr.org/openicpsr/project/210045/version/V1/view"
 
   - title: "Biofuels: Past, Present, and Future"
-    authors: "Lade, G., and A. Smith"
-    journal: "Annual Review of Resource Economics"
+    authors: "Lade, G., A. Smith"
     year: 2025
-    url: "https://www.annualreviews.org/content/journals/10.1146/annurev-resource-011724-082950"
-    ungated: ""
-    code: ""
-    
+    topic: "Biofuels & Fuel Policy"
+    venue: "Annual Review of Resource Economics"
+    paper: "https://www.annualreviews.org/content/journals/10.1146/annurev-resource-011724-082950"
+
   - title: "Size-Based Regulations and Environmental Quality: Evidence from the U.S. Livestock Industry"
-    authors: "Chen, C.T., J. Crespi, D. Keiser, and G. Lade"
-    journal: "American Journal of Agricultural Economics."
+    authors: "Chen, C.T., J. Crespi, D. Keiser, G. Lade"
     year: 2025
-    url: "https://onlinelibrary.wiley.com/doi/10.1111/ajae.70006"
-    ungated: ""
+    topic: "Agriculture & Livestock"
+    venue: "American Journal of Agricultural Economics"
+    paper: "https://onlinelibrary.wiley.com/doi/10.1111/ajae.70006"
     code: "https://github.com/chenti-chen/cafos-cwa"
 
   - title: "Improving Rural Drinking Water Quality Testing Programs in the United States: Evidence from a Randomized Trial in Iowa"
-    authors: "Lade, G., D. Keiser, J. Comito, J. Benning, and C. Kling"
-    journal: "Environmental Science and Technology"
+    authors: "Lade, G., D. Keiser, J. Comito, J. Benning, C. Kling"
     year: 2024
-    url: "https://pubs.acs.org/doi/full/10.1021/acs.est.4c02835"
-    ungated: ""
+    topic: "Water Quality"
+    venue: "Environmental Science and Technology"
+    paper: "https://pubs.acs.org/doi/full/10.1021/acs.est.4c02835"
     code: "https://github.com/gabe-lade/rural-dw-survey"
-
-policy_briefs:
-  - title: "Policy Brief Placeholder"
-    authors: "Lade, G."
-    year: 2025
-    url: ""

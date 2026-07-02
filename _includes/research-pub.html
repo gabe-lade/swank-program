@@ -1,0 +1,17 @@
+{% comment %}
+  One publication card for the Research page. Param: include.pub
+  data-topic is what the filter script reads. The program author (G. Lade /
+  Lade, G.) is wrapped in <strong> via a Liquid replace. The Code button only
+  renders when the entry has a `code` URL.
+{% endcomment %}
+{% assign pub = include.pub %}
+<div class="pub" data-topic="{{ pub.topic | escape }}">
+  <div class="pub-top"><span class="pub-topic">{{ pub.topic | escape }}</span><span class="pub-year">{{ pub.year }}</span></div>
+  <h3>{{ pub.title }}</h3>
+  <p class="pub-authors">{{ pub.authors | replace: 'G. Lade', '<strong>G. Lade</strong>' | replace: 'Lade, G.', '<strong>Lade, G.</strong>' }}</p>
+  <p class="pub-venue">{{ pub.venue }}</p>
+  <div class="pub-actions">
+    {% if pub.paper %}<a class="btn-paper" href="{{ pub.paper }}">Paper &rarr;</a>{% endif %}
+    {% if pub.code %}<a class="btn-code" href="{{ pub.code }}">Code</a>{% endif %}
+  </div>
+</div>

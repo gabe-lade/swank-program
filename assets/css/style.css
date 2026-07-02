@@ -1141,84 +1141,67 @@ main {
 .people-page .contact-cta .btn { background: var(--accent); color: #fff; padding: 12px 22px; border-radius: 4px; font-weight: 600; font-size: 14.5px; text-decoration: none; white-space: nowrap; }
 .people-page .contact-cta .btn:hover { background: var(--accent-dark); }
 
-/* --- Research / Publications --- */
-.pub-section {
-  margin-bottom: var(--spacing-lg);
+/* ==========================================================================
+   Research page (.research-page) — ported from the design reference. Scoped
+   under .research-page (like .home / .data-tools / .outreach-hub / .list-page /
+   .people-page) so its generic class names (.chip, .group, .pub, .count …)
+   don't collide with the rest of the site. Fonts load in the layout head.
+   ========================================================================== */
+.research-page {
+  --accent: #BB0000;
+  --accent-dark: #9a0000;
+  font-family: 'Public Sans', system-ui, -apple-system, sans-serif;
+  color: #1A1A19;
+  background: #FBFAF8;
+  -webkit-font-smoothing: antialiased;
 }
+.research-page .container { max-width: 1040px; margin: 0 auto; padding-left: 32px; padding-right: 32px; }
+.research-page h1, .research-page h2, .research-page h3 { font-family: 'Source Serif 4', serif; font-weight: 600; letter-spacing: -0.015em; }
 
-.pub-section h2 {
-  padding-bottom: 0.75rem;
-  border-bottom: 1px solid var(--color-border);
-}
+/* ---- PAGE HEADER ---- */
+.research-page .page-head { padding-top: 56px; padding-bottom: 30px; }
+.research-page .eyebrow { font-size: 12.5px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); margin: 0; }
+.research-page .page-head h1 { font-size: clamp(32px, 3.6vw, 44px); line-height: 1.06; letter-spacing: -0.02em; margin: 14px 0 16px; max-width: 22ch; }
+.research-page .page-head .intro { font-size: 17.5px; line-height: 1.55; color: #46443F; margin: 0; max-width: 66ch; }
 
-.pub-list {
-  margin-top: 1.5rem;
-}
+/* ---- FILTER BAR ---- */
+.research-page .filter-bar { border-top: 1px solid #E8E4DD; padding-top: 20px; display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+.research-page .filter-label { font-size: 12px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: #9A968D; margin-right: 4px; }
+.research-page .chip { font-family: inherit; font-size: 12.5px; font-weight: 600; padding: 6px 13px; border-radius: 100px; cursor: pointer; transition: all 0.15s ease; background: #fff; color: #46443F; border: 1px solid #DCD7CE; }
+.research-page .chip:hover { border-color: #B9B3A8; }
+.research-page .chip.is-active { background: var(--accent); color: #fff; border-color: var(--accent); }
+.research-page .count { font-size: 13px; color: #8A8880; margin: 16px 0 0; }
 
-.pub-entry {
-  padding-bottom: 1.75rem;
-  margin-bottom: 1.75rem;
-  border-bottom: 1px solid var(--color-border);
-}
+/* ---- GROUPS + PUB CARDS ---- */
+.research-page .group { margin-bottom: 34px; }
+.research-page .group-head { margin-bottom: 16px; }
+.research-page .group-head h2 { font-size: 21px; margin: 0; display: flex; align-items: center; gap: 10px; }
+.research-page .group-head .dot { width: 9px; height: 9px; border-radius: 100px; background: var(--accent); display: inline-block; }
+.research-page .group-head .n { font-family: 'Public Sans', sans-serif; font-size: 13px; font-weight: 600; color: #A5A199; }
+.research-page .pub-list { display: flex; flex-direction: column; gap: 14px; }
+.research-page .pub { border: 1px solid #E5E2DC; border-radius: 12px; background: #fff; padding: 22px 24px; display: flex; flex-direction: column; gap: 10px; transition: border-color 0.15s ease, box-shadow 0.15s ease; }
+.research-page .pub:hover { border-color: #C4BFB4; box-shadow: 0 14px 30px -24px rgba(40, 30, 20, 0.3); }
+.research-page .pub-top { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+.research-page .pub-topic { font-size: 10.5px; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; color: var(--accent); background: color-mix(in srgb, var(--accent) 10%, #fff); padding: 3px 9px; border-radius: 100px; }
+.research-page .pub-year { font-size: 12.5px; color: #8A8880; }
+.research-page .pub h3 { font-size: 19px; line-height: 1.28; margin: 0; }
+.research-page .pub-authors { font-size: 14px; line-height: 1.45; color: #5C5A55; margin: 0; }
+.research-page .pub-authors strong { color: #1A1A19; }
+.research-page .pub-venue { font-size: 14px; line-height: 1.4; color: #6C6A64; font-style: italic; margin: 0; }
+.research-page .pub-actions { display: flex; gap: 10px; margin-top: 4px; flex-wrap: wrap; }
+.research-page .btn-paper { display: inline-flex; align-items: center; gap: 6px; font-size: 13.5px; font-weight: 700; color: #fff; background: var(--accent); padding: 8px 15px; border-radius: 5px; text-decoration: none; }
+.research-page .btn-paper:hover { background: var(--accent-dark); }
+.research-page .btn-code { display: inline-flex; align-items: center; gap: 6px; font-size: 13.5px; font-weight: 600; color: #1A1A19; background: #fff; border: 1px solid #CFCBC2; padding: 8px 15px; border-radius: 5px; text-decoration: none; }
+.research-page .btn-code:hover { border-color: #1A1A19; }
+.research-page .is-hidden { display: none !important; }
+.research-page .no-results { font-size: 15px; color: #8A8880; padding: 8px 0 24px; }
 
-.pub-entry:last-child {
-  border-bottom: none;
-  margin-bottom: 0;
-  padding-bottom: 0;
-}
-
-.pub-title {
-  font-weight: 600;
-  margin-bottom: 0.25rem;
-  line-height: 1.4;
-}
-
-.pub-title a {
-  color: var(--color-accent);
-  text-decoration: none;
-}
-
-.pub-title a:hover {
-  color: var(--color-accent-hover);
-  text-decoration: underline;
-}
-
-.pub-authors {
-  color: var(--color-text-secondary);
-  font-size: 0.95rem;
-  margin-bottom: 0.25rem;
-}
-
-.pub-venue {
-  color: var(--color-text-secondary);
-  font-size: 0.9rem;
-  font-style: italic;
-}
-
-.pub-links {
-  margin-top: 0.5rem;
-  display: flex;
-  gap: 0.75rem;
-  flex-wrap: wrap;
-}
-
-.pub-link {
-  display: inline-block;
-  font-size: 0.8rem;
-  font-weight: 600;
-  padding: 0.15rem 0.55rem;
-  border: 1px solid var(--color-border);
-  border-radius: 3px;
-  color: var(--color-accent);
-  text-decoration: none;
-  transition: border-color 0.2s ease, color 0.2s ease;
-}
-
-.pub-link:hover {
-  border-color: var(--color-accent);
-  color: var(--color-accent-hover);
-  text-decoration: none;
-}
+/* ---- CV CTA ---- */
+.research-page .cv-cta { border: 1px dashed #D3CEC4; border-radius: 12px; background: #F7F4EE; padding: 26px 28px; display: flex; align-items: center; justify-content: space-between; gap: 20px; flex-wrap: wrap; }
+.research-page .cv-cta h2 { font-size: 19px; margin: 0 0 4px; }
+.research-page .cv-cta p { font-size: 14px; color: #6C6A64; margin: 0; }
+.research-page .cv-cta .btn { background: var(--accent); color: #fff; padding: 12px 22px; border-radius: 4px; font-weight: 600; font-size: 14.5px; text-decoration: none; white-space: nowrap; }
+.research-page .cv-cta .btn:hover { background: var(--accent-dark); }
 
 /* "Use this / Cite this" box on data tool pages */
 .use-box {
@@ -1451,11 +1434,6 @@ main {
 
   body.nav-open {
     overflow: hidden;
-  }
-
-  .pub-link {
-    padding: 0.4rem 0.75rem;
-    font-size: 0.85rem;
   }
 
   .insight-map-frame {
