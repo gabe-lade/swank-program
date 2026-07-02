@@ -51,7 +51,7 @@ related:
   heading: "Read more"
   items:
     - label: "\"Who Taxes You in Ohio?\" (Substack)"
-      note: "&mdash; link to be added when the post is live."
+      url: "https://gelade1.substack.com/p/who-taxes-you-in-ohio"
 sources:
   - "Tax totals: Ohio Department of Taxation Tax Data Series. Boundaries: U.S. Census TIGER (counties, school districts) and Ohio ODOT/OGRIP (cities, townships)."
   - "The map names general-purpose governments only; special districts (library, parks, transit, etc.) also levy taxes and are not shown."

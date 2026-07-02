@@ -511,7 +511,7 @@ main {
   text-transform: uppercase;
   color: color-mix(in srgb, var(--accent) 58%, #fff);
 }
-.home .tool-card h3 { font-size: 18px; margin: 0; }
+.home .tool-card h3 { font-size: 18px; margin: 0; color: #F3F1ED; } /* explicit: the global h3 color rule otherwise wins over the card's light text */
 .home .tool-card p { font-size: 13.5px; line-height: 1.5; color: #B4B0A8; margin: 0; flex: 1; }
 .home .tool-card .open { font-size: 13.5px; font-weight: 600; color: color-mix(in srgb, var(--accent) 58%, #fff); margin-top: 2px; }
 

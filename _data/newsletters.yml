@@ -1,5 +1,15 @@
 # Substack newsletter posts. Newest first.
 # Fields: title, url, date (display string), topics (slugs from outreach_topics.yml)
+- title: "Who Has Air Conditioning in Ohio?"
+  url: "https://gelade1.substack.com/p/who-has-air-conditioning-in-ohio"
+  date: "June 2026"
+  topics: [rural-urban, energy-land-use]
+
+- title: "Who Taxes You in Ohio?"
+  url: "https://gelade1.substack.com/p/who-taxes-you-in-ohio"
+  date: "June 2026"
+  topics: [property-tax]
+
 - title: "How Much Farmland Is Ohio Losing?"
   url: "https://gelade1.substack.com/p/how-much-farmland-is-ohio-losing"
   date: "June 2026"
