@@ -12,6 +12,14 @@ working:
     paper: "https://haas.berkeley.edu/wp-content/uploads/WP340.pdf"
 
 published:
+  - title: "Size-Based Regulation and Water Quality: Evidence from the Iowa Hog Industry"
+    authors: "Chen, C.T., G. Lade, J. Crespi, D. Keiser"
+    year: 2026
+    topic: "Agriculture & Livestock"
+    venue: "American Journal of Agricultural Economics"
+    paper: "https://onlinelibrary.wiley.com/doi/10.1111/ajae.70006"
+    code: "https://github.com/chenti-chen/cafos-cwa"
+
   - title: "Quantifying Threshold Manipulation in the Presence of Rounding: The Case of Lead Monitoring in U.S. Drinking Water"
     authors: "Andarge, T., D. Ghanem, D. Keiser, G. Lade"
     year: 2025
@@ -26,14 +34,6 @@ published:
     topic: "Biofuels & Fuel Policy"
     venue: "Annual Review of Resource Economics"
     paper: "https://www.annualreviews.org/content/journals/10.1146/annurev-resource-011724-082950"
-
-  - title: "Size-Based Regulation and Water Quality: Evidence from the Iowa Hog Industry"
-    authors: "Chen, C.T., G. Lade, J. Crespi, D. Keiser"
-    year: 2025
-    topic: "Agriculture & Livestock"
-    venue: "American Journal of Agricultural Economics"
-    paper: "https://onlinelibrary.wiley.com/doi/10.1111/ajae.70006"
-    code: "https://github.com/chenti-chen/cafos-cwa"
 
   - title: "Improving Private Well Testing Programs: Experimental Evidence from Iowa"
     authors: "Lade, G., J. Comito, J. Benning, C. Kling, D. Keiser"
