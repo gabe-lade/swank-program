@@ -12,10 +12,10 @@ working:
     paper: "https://haas.berkeley.edu/wp-content/uploads/WP340.pdf"
 
 published:
-  - title: "Quantifying Threshold Manipulation Under the Renewable Fuel Standard"
+  - title: "Quantifying Threshold Manipulation in the Presence of Rounding: The Case of Lead Monitoring in U.S. Drinking Water"
     authors: "Andarge, T., D. Ghanem, D. Keiser, G. Lade"
     year: 2025
-    topic: "Biofuels & Fuel Policy"
+    topic: "Water Quality"
     venue: "American Economic Review: Insights"
     paper: "https://www.aeaweb.org/articles?id=10.1257/aeri.20240258"
     code: "https://www.openicpsr.org/openicpsr/project/210045/version/V1/view"
