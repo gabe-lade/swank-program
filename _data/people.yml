@@ -44,6 +44,10 @@ students:
 
     
 affiliates:
+  - name: "Peggy Kirk Hall"
+    title: "Associate Professor & Field Specialist (Agricultural & Resource Law)"
+    photo: "/assets/images/people/peggy-hall.jpg"
+
   - name: "Alex Hollingsworth"
     title: "Associate Professor (AEDE)"
     photo: "/assets/images/people/alex-hollingsworth.jpg"
