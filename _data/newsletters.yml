@@ -1,5 +1,10 @@
 # Substack newsletter posts. Newest first.
 # Fields: title, url, date (display string), topics (slugs from outreach_topics.yml)
+- title: "What Kinds of Taxes Do We Pay in Ohio?"
+  url: "https://gelade1.substack.com/p/what-kinds-of-taxes-do-we-pay-in"
+  date: "July 2026"
+  topics: [property-tax]
+
 - title: "Who Has Air Conditioning in Ohio?"
   url: "https://gelade1.substack.com/p/who-has-air-conditioning-in-ohio"
   date: "June 2026"

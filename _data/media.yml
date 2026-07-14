@@ -1,5 +1,11 @@
 # News coverage, podcasts, and interviews. Newest first.
 # Fields: title, url, source (outlet), date (display string), topics (slugs)
+- title: "USDA Funds Collaboration To Study, Support Rural Well-Water Users"
+  url: "https://www.cals.iastate.edu/news/2026/usda-funds-collaboration-study-support-rural-well-water-users"
+  source: "Iowa State University CALS News"
+  date: "July 2026"
+  topics: [water-environment, agriculture, rural-urban]
+
 - title: "Farm Office Live Roundtable: Ohio's Data Center Boom"
   url: "https://www.youtube.com/watch?v=N9TmNsmxcGk"
   source: "Farm Office Live, OSU Extension"
