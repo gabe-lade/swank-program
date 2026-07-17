@@ -80,7 +80,12 @@ tool, to `_data/tools.yml`.
   `</body>`, marked `swank patch`); if they are ever regenerated from R,
   those patches must be re-applied. The tax map and the NLCD/CDL explorers
   are hand-written apps edited in place (July 2026: docked/collapsible
-  legends, begin/end year dropdowns).
+  legends, begin/end year dropdowns). The tax explainer's
+  `authority_tax_maps.html` + `data/*.js` are built in the research repo
+  (`06_dissemination/webpage/`, `build_authority_maps.py`) — that repo is
+  canonical and this copy is a deploy artifact: rebuild/edit there first,
+  then re-copy (the website copy carries the docked-panel chrome; re-apply
+  it if the research repo's HTML is re-copied wholesale).
 - **No Liquid tags inside HTML comments.** Jekyll parses `{% %}` even in
   `<!-- -->` (a literal `{% else %}` in a comment once broke the production
   build). Use `{% comment %}` blocks or plain prose.

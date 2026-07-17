@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Ohio Local Taxing Authorities — Who Levies What</title>
+
+<!-- Ohio local taxing authorities — interactive companion map for the
+     Swank Program "Ohio's Taxes, Explained" series (launches with piece 3).
+     One page, four switchable layers (counties, municipalities, school
+     districts, townships). Each layer is shaded by a headline metric;
+     hover/tap any unit to see its name, which taxes it levies, and the
+     relevant rate and/or per-capita collections. Data: Ohio Department of
+     Taxation — county permissive sales/use CY2025 (S-1), municipal income
+     CY2024 (LG-11), school-district income FY2026 (SD-2 Q4), property
+     rates TY2025 (rates25 / 2025-sd-rates incl. the Class I 20-mill Floor
+     Rate column); county population ACS 2019-23; municipal per-resident
+     uses the boundary file's 2010 population (labeled in-panel).
+     Regenerate ./data/authority_layers.js with build_authority_maps.py
+     (research repo is canonical; this copy is a deploy artifact).
+     Self-contained except Leaflet from CDN; loads data as a <script>
+     (not fetch) so it works from a local file:// (the data/ folder must
+     sit next to this file).
+     Layout: the switcher/readout/legend panel docks BESIDE the map (below
+     it under 720px) and can be minimized to a 40px strip — same pattern
+     as who_taxes_you.html. -->
+
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="data/authority_layers.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&family=Public+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; height: 100%; }
+  body { font-family: 'Public Sans', system-ui, -apple-system, sans-serif; color: #1A1A19; background: #F3F0EA; }
+
+  .atm-layout { display: flex; align-items: stretch; height: 100vh; }
+  .atm-map { flex: 1 1 auto; min-width: 0; position: relative; }
+  #map { position: absolute; inset: 0; background: #eaeef2; }
+
+  /* summary chip shown on the map ONLY while the panel is minimized */
+  .atm-chip { position: absolute; right: 14px; top: 12px; z-index: 500; background: rgba(255,255,255,0.94); border: 1px solid #D8D3CA; border-radius: 100px; padding: 7px 14px; font-size: 13px; color: #33302B; box-shadow: 0 1px 4px rgba(0,0,0,0.08); display: none; }
+  .atm-layout.is-min .atm-chip { display: block; }
+
+  /* ---- docked panel ---- */
+  .atm-panel { flex: 0 0 290px; background: #fff; border-left: 1px solid #E5E2DC; display: flex; flex-direction: column; min-height: 0; }
+  .atm-layout.is-min .atm-panel { display: none; }
+  .atm-panel-head { display: flex; align-items: center; justify-content: space-between; padding: 14px 16px 12px; border-bottom: 1px solid #EFECE6; }
+  .atm-kicker { font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: 0.11em; text-transform: uppercase; color: #9A968D; margin: 0; }
+  .atm-minbtn { border: 1px solid #D8D3CA; background: #fff; border-radius: 6px; width: 26px; height: 24px; cursor: pointer; color: #56534D; font-size: 13px; line-height: 1; padding: 0; }
+  .atm-minbtn:hover { background: #F4F1EB; }
+  .atm-body { padding: 12px 16px 14px; overflow-y: auto; flex: 1; }
+
+  /* layer switcher */
+  #switch { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; margin-bottom: 12px; }
+  #switch button { border: 1px solid #D8D3CA; background: #fff; border-radius: 7px; padding: 8px 6px; font-family: inherit; font-size: 12.5px; font-weight: 600; color: #56534D; cursor: pointer; white-space: nowrap; }
+  #switch button.active { color: #fff; border-color: transparent; }
+
+  /* readout */
+  #panel h2 { margin: 0; font-size: 15px; font-weight: 600; display: flex; align-items: center; gap: 8px; }
+  #panel .dot { width: 11px; height: 11px; border-radius: 3px; flex: 0 0 auto; }
+  #panel .ctx { color: #9A968D; font-size: 12px; margin: 3px 0 10px; }
+  #panel .name { font-family: 'Source Serif 4', serif; font-size: 17px; font-weight: 600; color: #33302B; margin: 2px 0 2px; }
+  #panel .lede { color: #56534D; font-size: 12.5px; line-height: 1.5; margin: 0 0 8px; }
+  .row { display: flex; justify-content: space-between; gap: 10px; padding: 6px 0; border-top: 1px solid #F2EFE9; font-size: 13px; }
+  .row .k { color: #6C6A64; }
+  .row .v { font-weight: 600; text-align: right; color: #33302B; }
+  .none { color: #B9B5AC; font-weight: 500; }
+
+  /* legend (docked at the bottom of the panel, not floating on the map) */
+  #legend { border-top: 1px solid #EFECE6; margin-top: 12px; padding-top: 11px; font-size: 12px; }
+  #legend .lt { font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: 0.09em; text-transform: uppercase; color: #9A968D; margin-bottom: 7px; }
+  #legend .bar { height: 11px; border-radius: 3px; margin: 5px 0 3px; }
+  #legend .ends { display: flex; justify-content: space-between; color: #6C6A64; }
+  #legend .note { color: #8A8880; margin-top: 7px; line-height: 1.4; }
+
+  .leaflet-interactive { cursor: crosshair; }
+
+  /* minimized strip */
+  .atm-strip { flex: 0 0 40px; border: 0; border-left: 1px solid #E5E2DC; background: #fff; cursor: pointer; display: none; flex-direction: column; align-items: center; padding: 12px 0; gap: 14px; font-family: inherit; }
+  .atm-strip:hover { background: #F4F1EB; }
+  .atm-strip .arrow { font-size: 13px; color: #56534D; }
+  .atm-strip .vlabel { font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: 0.11em; text-transform: uppercase; color: #9A968D; writing-mode: vertical-rl; }
+  .atm-layout.is-min .atm-strip { display: flex; }
+
+  /* ---- narrow screens: panel docks BELOW the map ---- */
+  @media (max-width: 719px) {
+    .atm-layout { flex-direction: column; }
+    .atm-map { flex: 1 1 auto; min-height: 45%; }
+    .atm-panel { flex: 0 0 auto; max-height: 55%; border-left: 0; border-top: 1px solid #E5E2DC; }
+    .atm-minbtn, .atm-strip, .atm-chip { display: none !important; } /* no minimize needed when stacked */
+  }
+</style>
+</head>
+<body>
+<div class="atm-layout" id="atm-layout">
+
+  <div class="atm-map">
+    <div id="map"></div>
+    <div class="atm-chip" id="atm-chip">Counties</div>
+  </div>
+
+  <aside class="atm-panel" aria-label="Who levies what">
+    <div class="atm-panel-head">
+      <p class="atm-kicker">Who levies what</p>
+      <button class="atm-minbtn" id="atm-min" title="Minimize panel" aria-label="Minimize panel">&raquo;</button>
+    </div>
+    <div class="atm-body" id="panel">
+      <div id="switch"></div>
+      <h2><span class="dot" id="p-dot"></span><span id="p-title">Counties</span></h2>
+      <p class="ctx" id="p-ctx"></p>
+      <div class="name" id="p-name">Hover a unit on the map</div>
+      <p class="lede" id="p-lede"></p>
+      <div id="p-rows"></div>
+      <div id="legend">
+        <div class="lt" id="lg-title"></div>
+        <div class="bar" id="lg-bar"></div>
+        <div class="ends"><span id="lg-lo"></span><span id="lg-hi"></span></div>
+        <div class="note" id="lg-note"></div>
+      </div>
+    </div>
+  </aside>
+
+  <button class="atm-strip" id="atm-strip" title="Show panel" aria-label="Show panel">
+    <span class="arrow">&laquo;</span>
+    <span class="vlabel">Who levies what</span>
+  </button>
+</div>
+
+<script>
+// ---- formatting helpers ----------------------------------------------------
+const money = v => v==null ? null : '$'+Math.round(v).toLocaleString();
+const money1 = v => v==null ? null : '$'+v.toLocaleString(undefined,{maximumFractionDigits:0});
+const mills = v => v==null ? null : v.toFixed(1)+' mills';
+const pct   = v => v==null ? null : v.toFixed(2).replace(/\.?0+$/,'')+'%';
+const pctFromFrac = v => v==null ? null : (v*100).toFixed(2).replace(/\.?0+$/,'')+'%';
+const NONE = '<span class="none">none</span>';
+
+// ---- layer definitions -----------------------------------------------------
+// metric(p): number used to shade the choropleth (null -> grey "no data")
+// rows(p):   [label, value-html] pairs shown in the panel on hover
+const LAYERS = {
+  counties: {
+    title:'Counties', color:'#1f3864',
+    data: OH_AUTHORITIES.counties,
+    ctx: '88 county governments',
+    lede: 'Counties levy a permissive <b>sales &amp; use tax</b> (on top of the 5.75% state rate) and a countywide <b>property-tax</b> millage.',
+    metric: p => p.sales_pc,
+    legend: {title:'County sales/use tax per resident', fmt:v=>'$'+Math.round(v),
+             note:'Sales tax is collected at the place of sale, not where shoppers live — tourist & retail-hub counties read high.'},
+    rows: p => [
+      ['Sales/use tax collected (2025)', money(p.sales)],
+      ['&nbsp;&nbsp;per resident', money1(p.sales_pc)],
+      ['County property millage (gross)', mills(p.cty_mills)],
+      ['&nbsp;&nbsp;effective, residential', mills(p.cty_c1)],
+      ['All property tax charged in county', money(p.prop_charged)],
+      ['&nbsp;&nbsp;per resident (all governments)', money(p.prop_charged_pc)],
+    ],
+  },
+  municipalities: {
+    title:'Municipalities', color:'#bb0000',
+    data: OH_AUTHORITIES.municipalities,
+    ctx: 'Cities &amp; villages',
+    lede: 'Municipalities are the only local governments that levy a <b>municipal income tax</b>. Most also levy a small property millage.',
+    metric: p => p.inc_rate,
+    legend: {title:'Municipal income-tax rate', fmt:v=>v.toFixed(2).replace(/\.?0+$/,'')+'%',
+             note:'Grey = no municipal income tax (most small villages). Income tax is a place-of-work tax.'},
+    rows: p => [
+      ['Income-tax rate', p.inc_rate==null ? NONE : pct(p.inc_rate)],
+      ['Income tax collected (2024)', p.inc_coll==null ? NONE : money(p.inc_coll)],
+      ['&nbsp;&nbsp;per resident (2010 pop.)', p.inc_pc==null ? NONE : money1(p.inc_pc)],
+      ['Property millage (gross)', mills(p.muni_mills)],
+      ['&nbsp;&nbsp;effective, residential', mills(p.muni_c1)],
+    ],
+  },
+  school_districts: {
+    title:'School districts', color:'#ed7d31',
+    data: OH_AUTHORITIES.school_districts,
+    ctx: 'Unified school districts (TIGER)',
+    lede: 'School districts rely mainly on the <b>property tax</b>. About 1 in 3 also levy a voter-approved <b>school-district income tax</b>.',
+    metric: p => p.prop_c1,
+    legend: {title:'Effective residential property rate', fmt:v=>v.toFixed(0)+' mills',
+             note:'Class I (residential/agricultural) effective millage after HB 920 reduction factors. Bold red outline = district is at the 20-mill floor.'},
+    rows: p => [
+      ['Property rate, gross', mills(p.prop_gross)],
+      ['&nbsp;&nbsp;effective, residential (Class I)', mills(p.prop_c1)],
+      ['&nbsp;&nbsp;effective, commercial/industrial (Class II)', mills(p.prop_c2)],
+      ['At the 20-mill floor', p.at_floor==null ? NONE : (p.at_floor ? 'Yes' : 'No')],
+      ['School income-tax rate', p.inc_rate==null ? NONE : pctFromFrac(p.inc_rate)],
+      ['School income tax (FY26 YTD)', p.inc_coll==null ? NONE : money(p.inc_coll)],
+    ],
+  },
+  townships: {
+    title:'Townships', color:'#2e7d32',
+    data: OH_AUTHORITIES.townships,
+    ctx: 'Unincorporated townships',
+    lede: 'Townships levy <b>only the property tax</b> — no income or sales tax (the lone exception is a JEDD revenue-share with a city).',
+    metric: p => p.twp_mills,
+    legend: {title:'Township property millage (gross)', fmt:v=>v.toFixed(0)+' mills',
+             note:'Township’s own levy only (fire, roads, police, etc.) — excludes the county and school millage layered on the same parcel.'},
+    rows: p => [
+      ['Township millage, gross', mills(p.twp_mills)],
+      ['&nbsp;&nbsp;effective, residential (Class I)', mills(p.twp_c1)],
+      ['&nbsp;&nbsp;effective, commercial/industrial (Class II)', mills(p.twp_c2)],
+      ['Income tax', NONE],
+      ['Sales tax', NONE],
+    ],
+  },
+};
+
+// ---- map setup -------------------------------------------------------------
+const map = L.map('map', {minZoom:6, maxZoom:13, preferCanvas:true}).setView([40.25, -82.75], 7);
+L.tileLayer('https://{s}.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{y}{r}.png',
+  {attribution:'&copy; OpenStreetMap &copy; CARTO &middot; data: Ohio Dept. of Taxation', subdomains:'abcd'}).addTo(map);
+
+// sequential ramp (light -> layer colour); quantile-ish via min/max on sqrt for $.
+function ramp(hex){ // returns f(t in 0..1) -> rgb string, blending white->hex
+  const h = hex.replace('#',''); const r=parseInt(h.slice(0,2),16),g=parseInt(h.slice(2,4),16),b=parseInt(h.slice(4,6),16);
+  return t => { t=Math.max(0,Math.min(1,t));
+    const m=(c)=>Math.round(255+(c-255)*(0.15+0.85*t));   // keep a little colour even at t=0
+    return `rgb(${m(r)},${m(g)},${m(b)})`; };
+}
+
+let current = null, gj = null;
+const NODATA = '#d6dbe0';
+
+function quantileScale(vals){
+  const s = vals.filter(v=>v!=null && isFinite(v)).sort((a,b)=>a-b);
+  if(!s.length) return {lo:0,hi:1,at:()=>0};
+  const lo=s[0], hi=s[s.length-1];
+  // rank-based (quantile) position so heavy skew (population, $) still spreads colour
+  return {lo, hi, at:v=>{
+    if(v==null||!isFinite(v)) return null;
+    let i=0; while(i<s.length && s[i]<v) i++;
+    return i/(s.length-1);
+  }};
+}
+
+function draw(key){
+  current = key;
+  const cfg = LAYERS[key];
+  const fc = {type:'FeatureCollection', features: cfg.data};
+  const scale = quantileScale(cfg.data.map(f=>cfg.metric(f.properties)));
+  const ink = ramp(cfg.color);
+
+  if(gj){ map.removeLayer(gj); }
+  gj = L.geoJSON(fc, {
+    style: f => {
+      const t = scale.at(cfg.metric(f.properties));
+      const atFloor = key === 'school_districts' && f.properties.at_floor;
+      return {color: atFloor ? '#c0392b' : '#ffffff', weight: atFloor ? 1.6 : 0.4,
+              fillColor: t==null?NODATA:ink(t), fillOpacity:0.9};
+    },
+    onEachFeature: (f, lyr) => {
+      lyr.on('mouseover', e => { e.target.setStyle({weight:2, color:'#111'}); e.target.bringToFront(); show(f.properties); });
+      lyr.on('mouseout',  e => { gj.resetStyle(e.target); });
+      lyr.on('click',     () => show(f.properties));   // tap support
+    },
+  }).addTo(map);
+
+  // switcher + panel chrome + legend
+  document.querySelectorAll('#switch button').forEach(b=>{
+    const on = b.dataset.k===key;
+    b.classList.toggle('active', on);
+    b.style.background = on ? cfg.color : '#fff';
+  });
+  document.getElementById('p-dot').style.background = cfg.color;
+  document.getElementById('p-title').textContent = cfg.title;
+  document.getElementById('p-ctx').innerHTML = cfg.ctx;
+  document.getElementById('p-name').textContent = 'Hover a unit on the map';
+  document.getElementById('p-lede').innerHTML = '';
+  document.getElementById('p-rows').innerHTML = '';
+  document.getElementById('atm-chip').textContent = cfg.title;
+
+  const lg = cfg.legend;
+  document.getElementById('lg-title').textContent = lg.title;
+  document.getElementById('lg-bar').style.background = `linear-gradient(90deg, ${ink(0)}, ${ink(1)})`;
+  document.getElementById('lg-lo').textContent = lg.fmt(scale.lo);
+  document.getElementById('lg-hi').textContent = lg.fmt(scale.hi);
+  document.getElementById('lg-note').textContent = lg.note;
+}
+
+function show(p){
+  const cfg = LAYERS[current];
+  const label = p.name + (p.county ? '  ·  '+p.county+' Co.' : '');
+  document.getElementById('p-name').textContent = label;
+  document.getElementById('p-lede').innerHTML = cfg.lede;
+  document.getElementById('p-rows').innerHTML = cfg.rows(p)
+    .map(([k,v]) => `<div class="row"><span class="k">${k}</span><span class="v">${v==null?'<span class="none">—</span>':v}</span></div>`)
+    .join('');
+  document.getElementById('atm-chip').textContent = label;
+}
+
+// build switcher buttons
+const sw = document.getElementById('switch');
+Object.entries(LAYERS).forEach(([k,cfg])=>{
+  const b=document.createElement('button'); b.dataset.k=k; b.textContent=cfg.title;
+  b.onclick=()=>draw(k); sw.appendChild(b);
+});
+
+draw('counties');
+
+// minimize toggle: collapse the panel to a 40px strip, then let Leaflet reflow
+const layout = document.getElementById('atm-layout');
+function togglePanel(){
+  layout.classList.toggle('is-min');
+  setTimeout(() => map.invalidateSize(), 50);
+}
+document.getElementById('atm-min').addEventListener('click', togglePanel);
+document.getElementById('atm-strip').addEventListener('click', togglePanel);
+</script>
+</body>
+</html>

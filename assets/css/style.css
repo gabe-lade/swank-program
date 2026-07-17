@@ -1272,6 +1272,7 @@ main {
 .insight-page .map-bar .live { margin-left: auto; font-size: 11.5px; font-weight: 600; color: var(--accent); letter-spacing: 0.04em; text-transform: uppercase; }
 .insight-page .map-embed { position: relative; }
 .insight-page .map-embed iframe { display: block; width: 100%; height: 520px; border: 0; }
+.insight-page .map-embed #authority-frame { height: 620px; } /* denser panel: switcher + readout + legend */
 
 /* ---- RELATED + SOURCES ---- */
 .insight-page .related h2 { font-size: 22px; letter-spacing: -0.015em; margin: 4px 0 8px; }
