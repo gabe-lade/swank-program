@@ -85,6 +85,23 @@
     body.land-mode #yearArrow {
       display:none;
     }
+    body.land-mode #beginYearSelect,
+    body.land-mode #yearSelectArrow {
+      display:none;
+    }
+    .year-readout[hidden] { display:none; }
+    .year-selects { display:flex; align-items:center; gap:7px; margin-bottom:8px; }
+    .year-selects select {
+      border:1px solid var(--line);
+      border-radius:8px;
+      background:#fff;
+      color:var(--ink);
+      font-size:13px;
+      font-weight:600;
+      padding:6px 8px;
+      cursor:pointer;
+    }
+    .year-selects .arrow { color:var(--muted); font-size:13px; }
     .range-wrap { position:relative; height:42px; padding:0 8px; }
     .range-track {
       position:absolute;
@@ -225,7 +242,7 @@
       z-index:500;
       left:18px;
       bottom:18px;
-      max-width:340px;
+      max-width:212px;
       background:rgba(255,255,255,.96);
       border:1px solid var(--line);
       border-radius:8px;
@@ -233,8 +250,42 @@
       font-size:12px;
       box-shadow:0 8px 26px rgba(17,24,39,.12);
     }
+    .legend-min {
+      position:absolute;
+      top:6px;
+      right:6px;
+      width:24px;
+      height:22px;
+      border:1px solid var(--line);
+      border-radius:6px;
+      background:#fff;
+      color:var(--muted);
+      font-size:13px;
+      line-height:1;
+      padding:0;
+      cursor:pointer;
+    }
+    .legend-min:hover { background:#eef2f6; }
+    .legend-pill {
+      display:none;
+      position:absolute;
+      z-index:500;
+      left:18px;
+      bottom:18px;
+      border:1px solid var(--line);
+      border-radius:999px;
+      background:rgba(255,255,255,.96);
+      padding:7px 12px;
+      font-size:12px;
+      color:var(--ink);
+      cursor:pointer;
+      box-shadow:0 8px 26px rgba(17,24,39,.12);
+    }
+    .legend-pill:hover { background:#eef2f6; }
+    body.legend-collapsed .legend { display:none; }
+    body.legend-collapsed .legend-pill { display:block; }
     .legend-row { display:flex; align-items:center; gap:8px; margin:5px 0; }
-    .legend-title { font-weight:760; margin-bottom:5px; }
+    .legend-title { font-weight:760; margin-bottom:5px; padding-right:24px; }
     .side-panel { overflow:visible; background:#fff; padding:18px; }
     .panel-head {
       display:flex;
@@ -304,7 +355,8 @@
       <div class="controls">
         <div>
           <div class="control-label">Years</div>
-          <div class="year-readout"><span id="beginYearLabel">2010</span><span id="yearArrow"> -> </span><span id="endYearLabel">2025</span></div>
+          <div class="year-readout" hidden><span id="beginYearLabel">2010</span><span id="yearArrow"> &rarr; </span><span id="endYearLabel">2025</span></div>
+          <div class="year-selects"><select id="beginYearSelect" aria-label="Begin year"></select><span class="arrow" id="yearSelectArrow">&rarr;</span><select id="endYearSelect" aria-label="End year"></select></div>
           <div class="range-wrap">
             <div class="range-track"></div><div class="range-selected" id="rangeSelected"></div>
             <input id="beginYear" type="range" min="2006" max="2025" step="1" value="2010" aria-label="Begin year">
@@ -329,7 +381,8 @@
       </div>
       <div class="crop-bar" id="cropBar"></div>
       <div id="map"></div>
-      <div class="legend" id="legend"></div>
+      <div class="legend" id="legendBox"><button class="legend-min" id="legendMin" title="Hide legend" aria-label="Hide legend">&raquo;</button><div id="legend"></div></div>
+      <button class="legend-pill" id="legendPill" title="Show legend" aria-label="Show legend">&laquo; Legend</button>
     </section>
     <aside class="side-panel">
       <div class="panel-head">
@@ -550,6 +603,10 @@
       document.getElementById("endYear").value = end;
       document.getElementById("beginYearLabel").textContent = begin;
       document.getElementById("endYearLabel").textContent = end;
+      const beginSelect = document.getElementById("beginYearSelect");
+      const endSelect = document.getElementById("endYearSelect");
+      if (beginSelect) beginSelect.value = String(begin);
+      if (endSelect) endSelect.value = String(end);
       const leftYear = state.mode === "change" ? begin : end;
       const left = ((leftYear - min) / (max - min)) * 100;
       const right = ((end - min) / (max - min)) * 100;
@@ -708,7 +765,7 @@
         const code = [...state.selectedCodes][0];
         const c = cls(code);
         legend.innerHTML = `
-          <div class="legend-title">${c.class_name}: ${state.begin} -> ${state.end}</div>
+          <div class="legend-title">${c.class_name}: ${state.begin} &rarr; ${state.end}</div>
           <div class="legend-row"><span class="mini-swatch" style="background:${c.hex}"></span>Stable selected class</div>
           <div class="legend-row"><span class="mini-swatch" style="background:rgb(${lossColor.join(",")})"></span>Loss from selected class</div>
           <div class="legend-row"><span class="mini-swatch" style="background:rgb(${gainColor.join(",")})"></span>Gain into selected class</div>`;
@@ -716,7 +773,7 @@
       }
       if (state.mode === "change") {
         legend.innerHTML = `
-          <div class="legend-title">Full CDL change: ${state.begin} -> ${state.end}</div>
+          <div class="legend-title">Full CDL change: ${state.begin} &rarr; ${state.end}</div>
           <div class="legend-row"><span class="mini-swatch" style="background:#273f59"></span>Changed cells use end-year class colors</div>
           <div class="legend-row"><span class="mini-swatch" style="background:#d8ddd4"></span>Unchanged cells are faded</div>`;
         return;
@@ -946,6 +1003,15 @@
       fitOhioView(false);
       document.getElementById("beginYear").addEventListener("input", () => { updateYearUi(); renderMapAndPanel(); renderCropButtons(); });
       document.getElementById("endYear").addEventListener("input", () => { updateYearUi(); renderMapAndPanel(); renderCropButtons(); });
+      [["beginYearSelect", "beginYear"], ["endYearSelect", "endYear"]].forEach(([selectId, rangeId]) => {
+        const select = document.getElementById(selectId);
+        const range = document.getElementById(rangeId);
+        for (let y = Number(range.min); y <= Number(range.max); y++) select.add(new Option(y, y));
+        select.value = range.value;
+        select.addEventListener("change", () => { range.value = select.value; range.dispatchEvent(new Event("input")); });
+      });
+      document.getElementById("legendMin").addEventListener("click", () => document.body.classList.add("legend-collapsed"));
+      document.getElementById("legendPill").addEventListener("click", () => document.body.classList.remove("legend-collapsed"));
       document.querySelectorAll("#modeButtons button").forEach(btn => btn.addEventListener("click", () => {
         state.mode = btn.dataset.mode;
         document.querySelectorAll("#modeButtons button").forEach(b => b.classList.toggle("active", b === btn));
