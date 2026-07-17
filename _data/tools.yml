@@ -7,6 +7,19 @@
 # `topics` values must match the filter chips on the data page exactly
 # (Housing, Land use, Agriculture, Taxes, Urbanization).
 
+- name: "Ohio Tax Explainer"
+  title: "Ohio Tax Explainer"
+  tag: "Explainer"
+  format: "Interactive map"
+  topic: "Taxes"
+  topics: [Taxes]
+  description: "How Ohio taxes work — in plain language."
+  blurb: "An interactive guide to the state and local taxes Ohioans pay — and who actually collects them. Hover anywhere in Ohio to see every government that taxes that spot."
+  cta: "Explore the map"
+  url: "/data/insights/ohio-tax-explainer/"
+  image: "/assets/images/tools/tax-explainer.jpg"
+  featured: true
+
 - name: "Ohio Urbanization Explorer"
   title: "Ohio urbanization & the rural-urban fringe"
   tag: "Interactive map"
@@ -18,7 +31,6 @@
   cta: "View the maps"
   url: "/data/insights/ohio-urbanization-rural-urban-fringe/"
   image: "/assets/images/tools/urbanization.jpg"
-  featured: true
 
 - name: "Hilliard Housing Tracker"
   title: "Hilliard Housing Affordability Tracker"
@@ -31,18 +43,6 @@
   cta: "Explore the tracker"
   url: "/data/hilliard-housing-tracker/"
   image: "/assets/images/tools/hilliard-housing.jpg"
-
-- name: "Ohio Tax Explainer"
-  title: "Ohio Tax Explainer"
-  tag: "Explainer"
-  format: "Interactive map"
-  topic: "Taxes"
-  topics: [Taxes]
-  description: "How Ohio taxes work — in plain language."
-  blurb: "An interactive guide to the state and local taxes Ohioans pay — and who actually collects them. Hover anywhere in Ohio to see every government that taxes that spot."
-  cta: "Explore the map"
-  url: "/data/insights/ohio-tax-explainer/"
-  image: "/assets/images/tools/tax-explainer.jpg"
 
 - name: "Agricultural Land Loss"
   title: "Tracking agricultural land loss with NLCD"
