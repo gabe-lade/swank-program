@@ -5,42 +5,104 @@
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 <title>Who Taxes You in Ohio?</title>
 
-<!-- PROTOTYPE (2026-06-18). Hover/move anywhere in Ohio to see every taxing
-     authority over that point. Self-contained except Leaflet + Turf from CDN and
-     the four GeoJSON layers in ./data/ (generated from the project shapefiles).
-     UNTESTED in a browser yet — Gabe: open it locally (the data/ folder must sit
-     next to this file) and tell me what breaks. Next layer: collection amounts. -->
+<!-- Hover/move anywhere in Ohio to see every taxing authority over that point.
+     Self-contained except Leaflet + Turf from CDN and the layer data in ./data/
+     (generated from the project shapefiles; the data/ folder must sit next to
+     this file). Layout: the readout panel docks BESIDE the map (below it under
+     720px) and can be minimized to a 40px strip. -->
 
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script src="https://unpkg.com/@turf/turf@6/turf.min.js"></script>
 <script src="data/oh_layers.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&family=Public+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
-  html,body{margin:0;height:100%;font-family:-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;color:#1f2933}
-  #map{position:absolute;inset:0}
-  #panel{position:absolute;top:14px;right:14px;z-index:1000;width:300px;background:#fff;
-         border-radius:10px;box-shadow:0 2px 12px rgba(0,0,0,.18);padding:14px 16px}
-  #panel h2{margin:0 0 2px;font-size:16px}
-  #panel .sub{color:#6b7280;font-size:12px;margin:0 0 10px}
-  .auth{display:flex;justify-content:space-between;gap:8px;padding:6px 0;border-top:1px solid #f0f0f0;font-size:14px}
-  .auth .k{color:#6b7280}
-  .auth .v{font-weight:600;text-align:right}
-  .badge{display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:6px;vertical-align:middle}
-  #hint{color:#9aa5b1;font-size:12px;margin-top:10px;border-top:1px solid #f0f0f0;padding-top:8px}
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; height: 100%; }
+  body { font-family: 'Public Sans', system-ui, -apple-system, sans-serif; color: #1A1A19; background: #F3F0EA; }
+
+  .wty-layout { display: flex; align-items: stretch; height: 100vh; }
+  .wty-map { flex: 1 1 auto; min-width: 0; position: relative; }
+  #map { position: absolute; inset: 0; }
+
+  /* summary chip shown on the map ONLY while the panel is minimized */
+  .wty-chip { position: absolute; right: 14px; top: 12px; z-index: 500; background: rgba(255,255,255,0.94); border: 1px solid #D8D3CA; border-radius: 100px; padding: 7px 14px; font-size: 13px; color: #33302B; box-shadow: 0 1px 4px rgba(0,0,0,0.08); display: none; }
+  .wty-layout.is-min .wty-chip { display: block; }
+
+  /* ---- docked panel ---- */
+  .wty-panel { flex: 0 0 268px; background: #fff; border-left: 1px solid #E5E2DC; display: flex; flex-direction: column; min-height: 0; }
+  .wty-layout.is-min .wty-panel { display: none; }
+  .wty-panel-head { display: flex; align-items: center; justify-content: space-between; padding: 14px 16px 12px; border-bottom: 1px solid #EFECE6; }
+  .wty-kicker { font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: 0.11em; text-transform: uppercase; color: #9A968D; margin: 0; }
+  .wty-minbtn { border: 1px solid #D8D3CA; background: #fff; border-radius: 6px; width: 26px; height: 24px; cursor: pointer; color: #56534D; font-size: 13px; line-height: 1; padding: 0; }
+  .wty-minbtn:hover { background: #F4F1EB; }
+  .wty-body { padding: 6px 16px 12px; overflow-y: auto; flex: 1; }
+  .wty-hint { font-size: 12.5px; color: #9A968D; margin: 8px 0 12px; }
+  .wty-row { display: flex; flex-direction: column; gap: 2px; padding: 9px 0; border-bottom: 1px solid #F2EFE9; }
+  .wty-row:last-child { border-bottom: 0; }
+  .wty-row .label { font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: 0.09em; text-transform: uppercase; color: #9A968D; }
+  .wty-row .value { font-family: 'Source Serif 4', serif; font-size: 16.5px; font-weight: 600; color: #33302B; }
+  .wty-row .value.empty { color: #B9B5AC; }
+  .wty-row .muted { font-size: 13px; color: #9A968D; font-style: italic; }
+  .wty-about { border-top: 1px solid #EFECE6; padding: 10px 16px 12px; }
+  .wty-about summary { cursor: pointer; list-style: none; font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; letter-spacing: 0.08em; text-transform: uppercase; color: #BB0000; }
+  .wty-about summary::-webkit-details-marker { display: none; }
+  .wty-about summary::before { content: '\25B8  '; }
+  .wty-about[open] summary::before { content: '\25BE  '; }
+  .wty-about p { font-size: 12.5px; line-height: 1.55; color: #56534D; margin: 10px 0 0; }
+  a { color: #BB0000; } a:hover { color: #9a0000; }
+
+  /* minimized strip */
+  .wty-strip { flex: 0 0 40px; border: 0; border-left: 1px solid #E5E2DC; background: #fff; cursor: pointer; display: none; flex-direction: column; align-items: center; padding: 12px 0; gap: 14px; }
+  .wty-strip:hover { background: #F4F1EB; }
+  .wty-strip .arrow { font-size: 13px; color: #56534D; }
+  .wty-strip .vlabel { font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: 0.11em; text-transform: uppercase; color: #9A968D; writing-mode: vertical-rl; }
+  .wty-layout.is-min .wty-strip { display: flex; }
+
+  /* ---- narrow screens: panel docks BELOW the map ---- */
+  @media (max-width: 719px) {
+    .wty-layout { flex-direction: column; }
+    .wty-map { flex: 1 1 auto; min-height: 55%; }
+    .wty-panel { flex: 0 0 auto; max-height: 45%; border-left: 0; border-top: 1px solid #E5E2DC; }
+    .wty-body { display: grid; grid-template-columns: 1fr 1fr; column-gap: 16px; }
+    .wty-hint { grid-column: 1 / -1; }
+    .wty-minbtn, .wty-strip, .wty-chip { display: none !important; } /* no minimize needed when stacked */
+  }
 </style>
 </head>
 <body>
-<div id="map"></div>
-<div id="panel">
-  <h2>Who taxes you in Ohio?</h2>
-  <p class="sub">Move the cursor over the map. Every government below can tax that spot.</p>
-  <div class="auth"><span class="k"><span class="badge" style="background:#6b7280"></span>State</span><span class="v" id="v-state">Ohio</span></div>
-  <div class="auth"><span class="k"><span class="badge" style="background:#1f3864"></span>County</span><span class="v" id="v-county">—</span></div>
-  <div class="auth"><span class="k"><span class="badge" style="background:#bb0000"></span>City / Village</span><span class="v" id="v-city">—</span></div>
-  <div class="auth"><span class="k"><span class="badge" style="background:#2e7d32"></span>Township</span><span class="v" id="v-township">—</span></div>
-  <div class="auth"><span class="k"><span class="badge" style="background:#ed7d31"></span>School district</span><span class="v" id="v-sd">—</span></div>
-  <div class="auth"><span class="k"><span class="badge" style="background:#8a8f99"></span>Special districts</span><span class="v" id="v-special" style="color:#9aa5b1;font-weight:500;font-size:12px">not shown</span></div>
-  <div id="hint">A parcel can fall inside <b>both</b> a city and a township. Whether the township actually taxes you depends on your specific taxing district — some city residents pay their township (e.g. Hilliard/Norwich), others pay none (e.g. Toledo). This map names the general-purpose governments only; <b>special districts</b> — library, parks, JVSD/vocational, zoo, port, ambulance, developmental-disabilities — also tax the parcel but aren't drawn here. For the exact per-parcel stack and rates, see the taxing-district map.</div>
+<div class="wty-layout" id="wty-layout">
+
+  <div class="wty-map">
+    <div id="map"></div>
+    <div class="wty-chip" id="wty-chip">Hover the map</div>
+  </div>
+
+  <aside class="wty-panel" aria-label="Who taxes this spot">
+    <div class="wty-panel-head">
+      <p class="wty-kicker">Who taxes this spot</p>
+      <button class="wty-minbtn" id="wty-min" title="Minimize panel" aria-label="Minimize panel">&raquo;</button>
+    </div>
+    <div class="wty-body">
+      <p class="wty-hint" id="wty-hint">Hover anywhere in Ohio. Every government below can tax that spot.</p>
+      <div class="wty-row"><span class="label">State</span><span class="value" id="wty-state">Ohio</span></div>
+      <div class="wty-row"><span class="label">County</span><span class="value empty" id="wty-county">&mdash;</span></div>
+      <div class="wty-row"><span class="label">City / Village</span><span class="value empty" id="wty-city">&mdash;</span></div>
+      <div class="wty-row"><span class="label">Township</span><span class="value empty" id="wty-twp">&mdash;</span></div>
+      <div class="wty-row"><span class="label">School district</span><span class="value empty" id="wty-school">&mdash;</span></div>
+      <div class="wty-row"><span class="label">Special districts</span><span class="muted">levy taxes too &mdash; not shown</span></div>
+    </div>
+    <details class="wty-about">
+      <summary>About this map</summary>
+      <p>A parcel can fall inside <strong>both</strong> a city and a township. Whether the township actually taxes you depends on your specific taxing district &mdash; some city residents pay their township (e.g. Hilliard/Norwich), others pay none (e.g. Toledo). This map names general-purpose governments only; <strong>special districts</strong> &mdash; library, parks, JVSD/vocational, zoo, port, ambulance, developmental-disabilities &mdash; also tax the parcel but aren&rsquo;t drawn here.</p>
+    </details>
+  </aside>
+
+  <button class="wty-strip" id="wty-strip" title="Show panel" aria-label="Show panel">
+    <span class="arrow">&laquo;</span>
+    <span class="vlabel">Who taxes this spot</span>
+  </button>
 </div>
 
 <script>
@@ -50,10 +112,10 @@ L.tileLayer('https://{s}.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{y}{r}.png
 
 // layer config: id -> {file, panel element id, boundary colour}
 const LAYERS = [
-  {id:'counties',         file:'data/counties.geojson',         el:'v-county',   color:'#1f3864'},
-  {id:'cities',           file:'data/cities.geojson',           el:'v-city',     color:'#bb0000'},
-  {id:'townships',        file:'data/townships.geojson',        el:'v-township', color:'#2e7d32'},
-  {id:'school_districts', file:'data/school_districts.geojson', el:'v-sd',       color:'#ed7d31'},
+  {id:'counties',         file:'data/counties.geojson',         el:'wty-county', color:'#1f3864'},
+  {id:'cities',           file:'data/cities.geojson',           el:'wty-city',   color:'#bb0000'},
+  {id:'townships',        file:'data/townships.geojson',        el:'wty-twp',    color:'#2e7d32'},
+  {id:'school_districts', file:'data/school_districts.geojson', el:'wty-school', color:'#ed7d31'},
 ];
 
 const store = {};        // id -> {features:[{name, bbox, geom}], leaflet:layer}
@@ -83,9 +145,16 @@ function identify(lat, lng){
       if (!inBbox(pt, f.bbox)) continue;                 // cheap pre-filter
       if (turf.booleanPointInPolygon(pt, f.geom)){ hit = f; break; }
     }
-    document.getElementById(cfg.el).textContent = hit ? toTitle(hit.name) : '—';
+    const el = document.getElementById(cfg.el);
+    el.textContent = hit ? toTitle(hit.name) : '—';
+    el.classList.toggle('empty', !hit);
     if (hit) highlight.addData(hit.geom);
   });
+  // keep the minimized-panel chip in sync with the readout
+  const chipVals = ['wty-county','wty-city','wty-school']
+    .map(id => document.getElementById(id).textContent)
+    .filter(s => s && s !== '—');
+  document.getElementById('wty-chip').textContent = chipVals.join(' · ') || 'Hover the map';
 }
 
 // throttle the hover lookups (~12/sec)
@@ -98,6 +167,15 @@ map.on('mousemove', e => {
 });
 // click works too (and pins the highlight on touch devices)
 map.on('click', e => identify(e.latlng.lat, e.latlng.lng));
+
+// minimize toggle: collapse the panel to a 40px strip, then let Leaflet reflow
+const layout = document.getElementById('wty-layout');
+function togglePanel(){
+  layout.classList.toggle('is-min');
+  setTimeout(() => map.invalidateSize(), 50);
+}
+document.getElementById('wty-min').addEventListener('click', togglePanel);
+document.getElementById('wty-strip').addEventListener('click', togglePanel);
 </script>
 </body>
 </html>
