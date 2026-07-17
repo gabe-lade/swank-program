@@ -18,6 +18,10 @@
     .controls { display:grid; grid-template-columns:minmax(320px,1fr) auto auto; gap:18px; align-items:end; padding:14px 18px 12px; background:#fff; border-bottom:1px solid var(--line); }
     .control-label { margin-bottom:8px; }
     .year-readout { font-weight:760; font-size:15px; margin-bottom:8px; }
+    .year-readout[hidden] { display:none; }
+    .year-selects { display:flex; align-items:center; gap:7px; margin-bottom:8px; }
+    .year-selects select { border:1px solid var(--line); border-radius:8px; background:#fff; color:var(--ink); font-size:13px; font-weight:600; padding:6px 8px; cursor:pointer; }
+    .year-selects .arrow { color:var(--muted); font-size:13px; }
     .range-wrap { position:relative; height:42px; padding:0 8px; }
     .range-track { position:absolute; top:12px; left:8px; right:8px; height:4px; border-radius:999px; background:#d8ddd4; }
     .range-selected { position:absolute; top:12px; height:4px; border-radius:999px; background:#2f5d3b; }
@@ -45,6 +49,13 @@
     .metrics .value { font-weight:750; text-align:right; }
     canvas.chart { width:100%; height:180px; border-top:1px solid #eef1f4; }
     .legend { position:absolute; z-index:500; left:18px; bottom:18px; background:rgba(255,255,255,.96); border:1px solid var(--line); border-radius:8px; padding:10px 12px; font-size:12px; box-shadow:0 8px 26px rgba(17,24,39,.12); }
+    .legend #legend { margin-right:22px; }
+    .legend-min { position:absolute; top:6px; right:6px; width:24px; height:22px; border:1px solid var(--line); border-radius:6px; background:#fff; color:var(--muted); font-size:13px; line-height:1; padding:0; cursor:pointer; }
+    .legend-min:hover { background:#eef2f6; }
+    .legend-pill { display:none; position:absolute; z-index:500; left:18px; bottom:18px; border:1px solid var(--line); border-radius:999px; background:rgba(255,255,255,.96); padding:7px 12px; font-size:12px; color:var(--ink); cursor:pointer; box-shadow:0 8px 26px rgba(17,24,39,.12); }
+    .legend-pill:hover { background:#eef2f6; }
+    body.legend-collapsed .legend { display:none; }
+    body.legend-collapsed .legend-pill { display:block; }
     .legend-row { display:flex; align-items:center; gap:8px; margin:5px 0; }
     .swatch { width:14px; height:14px; border:1px solid #c7ccd1; }
     .note { color:var(--muted); font-size:12px; line-height:1.45; }
@@ -57,7 +68,8 @@
       <div class="controls">
         <div>
           <div class="control-label">Comparison years</div>
-          <div class="year-readout"><span id="beginYearLabel">2010</span> -> <span id="endYearLabel">2024</span></div>
+          <div class="year-readout" hidden><span id="beginYearLabel">2010</span> &rarr; <span id="endYearLabel">2024</span></div>
+          <div class="year-selects"><select id="beginYearSelect" aria-label="Begin year"></select><span class="arrow">&rarr;</span><select id="endYearSelect" aria-label="End year"></select></div>
           <div class="range-wrap">
             <div class="range-track"></div><div class="range-selected" id="rangeSelected"></div>
             <input id="beginYear" type="range" min="1985" max="2024" step="1" value="2010" aria-label="Begin year">
@@ -83,7 +95,8 @@
         </div>
       </div>
       <div id="map"></div>
-      <div class="legend" id="legend"></div>
+      <div class="legend" id="legendBox"><button class="legend-min" id="legendMin" title="Hide legend" aria-label="Hide legend">&raquo;</button><div id="legend"></div></div>
+      <button class="legend-pill" id="legendPill" title="Show legend" aria-label="Show legend">&laquo; Legend</button>
     </section>
     <aside class="side-panel">
       <div class="panel-head">
@@ -229,7 +242,7 @@
           const end = min + (max-min) * (i+1) / bins;
           rows.push(`<div class="legend-row"><span class="swatch" style="background:${rampColor((i+0.5)/bins)}"></span>${fmt2.format(start)} - ${fmt2.format(end)}</div>`);
         }
-        el.innerHTML = `<strong>${metricLabels[state.metric]}</strong><br><span class="note">County totals for ${state.begin} -> ${state.end}</span>${rows.join("")}`;
+        el.innerHTML = `<strong>${metricLabels[state.metric]}</strong><br><span class="note">County totals for ${state.begin} &rarr; ${state.end}</span>${rows.join("")}`;
       }
     }
     async function setMode(mode) {
@@ -255,6 +268,10 @@
       state.begin = b; state.end = e;
       document.getElementById("beginYear").value = b; document.getElementById("endYear").value = e;
       document.getElementById("beginYearLabel").textContent = b; document.getElementById("endYearLabel").textContent = e;
+      const beginSelect = document.getElementById("beginYearSelect");
+      const endSelect = document.getElementById("endYearSelect");
+      if (beginSelect) beginSelect.value = String(b);
+      if (endSelect) endSelect.value = String(e);
       const left = ((b-min)/(max-min))*100, right = ((e-min)/(max-min))*100;
       const selected = document.getElementById("rangeSelected");
       selected.style.left = `calc(${left}% + 8px)`; selected.style.width = `calc(${right-left}% - 16px)`;
@@ -373,6 +390,15 @@
       setStatus("app-ready");
       document.getElementById("beginYear").addEventListener("input", () => updateYears().catch(console.error));
       document.getElementById("endYear").addEventListener("input", () => updateYears().catch(console.error));
+      [["beginYearSelect", "beginYear"], ["endYearSelect", "endYear"]].forEach(([selectId, rangeId]) => {
+        const select = document.getElementById(selectId);
+        const range = document.getElementById(rangeId);
+        for (let y = Number(range.min); y <= Number(range.max); y++) select.add(new Option(y, y));
+        select.value = range.value;
+        select.addEventListener("change", () => { range.value = select.value; range.dispatchEvent(new Event("input")); });
+      });
+      document.getElementById("legendMin").addEventListener("click", () => document.body.classList.add("legend-collapsed"));
+      document.getElementById("legendPill").addEventListener("click", () => document.body.classList.remove("legend-collapsed"));
       document.querySelectorAll("#metricButtons button").forEach(btn => btn.addEventListener("click", () => { state.metric=btn.dataset.metric; document.querySelectorAll("#metricButtons button").forEach(b=>b.classList.toggle("active", b===btn)); if (state.mode==="county") renderCounties(); updateLegend(); }));
       document.querySelectorAll("#modeButtons button").forEach(btn => btn.addEventListener("click", () => setMode(btn.dataset.mode).catch(console.error)));
       document.getElementById("resetRegion").addEventListener("click", () => { state.regionId="state:OH"; state.regionName="Ohio"; if (countyLayer) countyLayer.setStyle(countyStyle); updatePanel(); });
