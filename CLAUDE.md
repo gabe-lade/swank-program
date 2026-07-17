@@ -71,8 +71,16 @@ tool, to `_data/tools.yml`.
 
 ## Hard rules
 
-- **Never edit `assets/data-insights/**`** — the interactive map/dashboard
-  asset HTML is generated elsewhere and is content, not site code.
+- **`assets/data-insights/**` is content, not site code** — edit the embed
+  HTML only for UI work Gabe has signed off on, and never touch the `data/`,
+  `lib/`, or `*_files/` assets or any computed numbers. The two urbanization
+  maps (`map1_urban_areas.html`, `map5_CBG_2000-2020.html`) are R htmlwidgets
+  exports that carry hand-patches (legend moved to bottom-left with a width
+  cap, dev-note line removed, collapsible-legend block appended before
+  `</body>`, marked `swank patch`); if they are ever regenerated from R,
+  those patches must be re-applied. The tax map and the NLCD/CDL explorers
+  are hand-written apps edited in place (July 2026: docked/collapsible
+  legends, begin/end year dropdowns).
 - **No Liquid tags inside HTML comments.** Jekyll parses `{% %}` even in
   `<!-- -->` (a literal `{% else %}` in a comment once broke the production
   build). Use `{% comment %}` blocks or plain prose.
