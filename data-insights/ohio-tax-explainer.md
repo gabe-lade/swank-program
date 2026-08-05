@@ -6,18 +6,18 @@ description: "An interactive guide to the state and local taxes Ohioans pay — 
 eyebrow: "Interactive map"
 topic: "Taxes"
 subtitle: "An interactive guide to the state and local taxes Ohioans pay &mdash; and who actually collects them."
-updated: "July 17, 2026"
+updated: "July 31, 2026"
 authors:
   - name: "Gabriel E. Lade"
     url: "https://gabe-lade.github.io/"
   - name: "Alex Ryan"
 stats:
-  - value: "~$70B"
-    label: "Annual state &amp; local tax collections (~$32B state, ~$38B local)"
-  - value: "$25.2B"
-    label: "Annual property tax &mdash; the single largest tax (~$2,140/resident)"
-  - value: "~65%"
-    label: "Share of the property tax that funds public schools"
+  - value: "$72B"
+    label: "Annual state &amp; local tax collections ($33B state, $39B local)"
+  - value: "$22.6B"
+    label: "Annual real property tax &mdash; the single largest tax (~$1,915/resident)"
+  - value: "~67%"
+    label: "Share of the property tax that goes to school districts"
   - value: "10+"
     label: "Governments that typically tax a single Ohio parcel"
   - value: "$0"
@@ -40,7 +40,7 @@ blocks:
     id: "tax-menu"
     text: "2 &middot; The menu &mdash; what kinds of taxes?"
   - type: para
-    text: "Those governments choose from a short menu. The state leans on a <strong>5.75% sales tax</strong> (with local add-ons on top) and a nearly flat <strong>2.75% income tax</strong> on income above ~$26,000, plus a small <strong>0.26% commercial-activity tax</strong> on business receipts. Local governments lean on the <strong>property tax</strong> &mdash; at $25.2B a year, the single largest tax Ohioans pay (the stat band above carries the headline numbers). <a href=\"https://gelade1.substack.com/p/what-kinds-of-taxes-do-we-pay-in\">Read piece 2 &rarr;</a>"
+    text: "Those governments choose from a short menu. The state leans on a <strong>5.75% sales tax</strong> (with local add-ons on top) and a nearly flat <strong>2.75% income tax</strong> on income above ~$26,000, plus a small <strong>0.26% commercial-activity tax</strong> on business receipts. Local governments lean on the <strong>real property tax</strong> &mdash; at $22.6B a year, the single largest tax Ohioans pay (the stat band above carries the headline numbers). <a href=\"https://gelade1.substack.com/p/what-kinds-of-taxes-do-we-pay-in\">Read piece 2 &rarr;</a>"
   - type: heading
     id: "authority-matrix"
     text: "3 &middot; The matrix &mdash; who can levy what?"
@@ -73,7 +73,22 @@ blocks:
     frame_id: "authority-frame"
     title: "Interactive map of which taxes each Ohio local government levies"
   - type: para
-    text: "Two asymmetries do most of the work here. Most local governments can levy <em>only</em> the property tax &mdash; the income and sales taxes belong to a select few. And rates are local decisions that vary enormously: on the school-district layer, 369 of Ohio's 611 districts sit at the state's 20-mill floor for residential property (the red outlines). Piece 3 of the series walks through the full matrix &mdash; link coming when it publishes."
+    text: "Two asymmetries do most of the work here. Most local governments can levy <em>only</em> the property tax &mdash; the income and sales taxes belong to a select few. And rates are local decisions that vary enormously: on the school-district layer, 366 of the 606 districts we can match sit at the state's 20-mill floor for residential property (the red outlines). <a href=\"https://gelade1.substack.com/p/what-can-each-ohio-government-actually\">Read piece 3 &rarr;</a>"
+  - type: heading
+    id: "the-money"
+    text: "4 &middot; The money &mdash; how much, and who gets it?"
+  - type: para
+    text: "Ohio's state and local governments collect about <strong>$72 billion</strong> a year in taxes &mdash; roughly <strong>$33 billion</strong> at the state level and <strong>$39 billion</strong> locally, or about $6,100 per resident. Local government raises more than the state does. The two halves are built differently: the state's total is three-quarters sales and income tax, while <strong>58% of all local tax revenue is the property tax</strong>. Follow that property-tax dollar to the government that receives it and the split is lopsided &mdash; about <strong>67 cents goes to a school district</strong>, another 2 to a joint vocational district, 15 to the county, 7 to a township, 5 to special districts like libraries and parks, and 4 to a municipality."
+  - type: map
+    id: "county-collections"
+    heading: "Where each tax is collected"
+    desc: "County totals for the three biggest local taxes, with a per-resident toggle. Switch layers and the hot spots move: retail hubs light up for sales tax, job centers for municipal income tax, and property tax draws a third map again. Remember that where a tax is <em>collected</em> is not where its burden falls &mdash; sales tax is collected where you shop and municipal income tax where you work, not where you live."
+    file: "ohio_tax_collections.html"
+    embed: "/assets/data-insights/ohio-tax-explainer/ohio_tax_collections.html"
+    frame_id: "collections-frame"
+    title: "Map of Ohio local tax collections by county"
+  - type: para
+    text: "Two scope notes for anyone adding up the counties. The property layer is <strong>real</strong> property only &mdash; the $22.6B the November amendment would target &mdash; so it leaves out the separate $2.6B tax on public-utility equipment. And the sales layer is the <strong>county</strong> permissive piece alone, $3.0B; Ohio's eleven regional transit authorities levy roughly $1.0B more, and because their districts cross county lines there is no honest way to draw them on a county map. The map states both on screen."
 use_cite:
   heading: "Use &amp; cite this tool"
   rows:
@@ -91,10 +106,14 @@ related:
       url: "https://gelade1.substack.com/p/who-taxes-you-in-ohio"
     - label: "\"What Kinds of Taxes Do We Pay in Ohio?\" (Substack)"
       url: "https://gelade1.substack.com/p/what-kinds-of-taxes-do-we-pay-in"
+    - label: "\"What Can Each Ohio Government Actually Tax?\" (Substack)"
+      url: "https://gelade1.substack.com/p/what-can-each-ohio-government-actually"
 sources:
   - "Tax totals: Ohio Department of Taxation Tax Data Series. Boundaries: U.S. Census TIGER (counties, school districts) and Ohio ODOT/OGRIP (cities, townships)."
   - "The map names general-purpose governments only; special districts (library, parks, transit, etc.) also levy taxes and are not shown."
   - "Income tax follows where you work, not only where you live, so it isn't fully captured by a residence map."
   - "Authority-map vintages: property rates TY2025 (incl. the Class I 20-mill Floor Rate column); school-district income FY2026 (SD-2, Q4); municipal income CY2024 (LG-11); county permissive sales/use CY2025 (S-1). County population: ACS 2019&ndash;23; municipal per-resident figures use the boundary file's 2010 population (labeled in the panel)."
+  - "County-collections map vintages: real property taxes charged TY2025 (PD-23, Class I + Class II, net of HB 920 reduction factors); county permissive sales/use CY2025 (S-1); municipal income CY2024 (LG-11); population ACS 2020&ndash;24. The property layer excludes the public-utility tangible personal property tax ($2.6B), and the sales layer excludes the regional transit authorities ($1.0B), which levy across county lines."
+  - "Collections totals are statewide sums across all local governments in a county, not any one government's take, and the three taxes have different bases &mdash; do not compare the layers directly."
 correction: "<strong>Accuracy &amp; corrections.</strong> These maps are our best effort to represent Ohio's taxing jurisdictions and tax data accurately from public sources (Ohio Department of Taxation, U.S. Census/TIGER, Ohio ODOT/OGRIP). With thousands of overlapping governments, some inaccuracies are inevitable. If you find an error, please report it to <a href=\"mailto:lade.10@osu.edu\">lade.10@osu.edu</a> and we'll correct it."
 ---

@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>How Much Does Each Ohio County Collect?</title>
+
+<!-- PROTOTYPE (2026-06-18). County choropleth of local tax collections — switch
+     tax type and toggle per-capita. Self-contained except Leaflet (CDN) and the
+     baked county data in ./data/county_collections.js. Sibling to who_taxes_you.html.
+     Each tax is a DIFFERENT base (see the note in-panel); these are county totals,
+     not one government's take. UNTESTED in a browser — open locally and react. -->
+
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="data/county_collections.js"></script>
+<style>
+  html,body{margin:0;height:100%;font-family:-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;color:#1f2933}
+  #map{position:absolute;inset:0;background:#fff}
+  .card{position:absolute;z-index:1000;background:#fff;border-radius:10px;box-shadow:0 2px 12px rgba(0,0,0,.18)}
+  #controls{top:14px;left:54px;padding:12px 14px;width:250px}
+  #controls h2{margin:0 0 8px;font-size:15px}
+  #controls label{display:block;font-size:14px;margin:3px 0;cursor:pointer}
+  #controls .note{color:#9aa5b1;font-size:11px;margin-top:8px;border-top:1px solid #f0f0f0;padding-top:7px}
+  #info{top:14px;right:14px;padding:12px 14px;width:210px;min-height:40px}
+  #info .c{font-weight:700;font-size:15px}
+  #info .v{font-size:20px;color:#1f3864;margin-top:2px}
+  #info .s{color:#6b7280;font-size:12px}
+  #legend{bottom:20px;right:14px;padding:10px 12px;font-size:12px;line-height:20px}
+  #legend i{display:inline-block;width:16px;height:12px;margin-right:6px;opacity:.85;vertical-align:middle}
+</style>
+</head>
+<body>
+<div id="map"></div>
+
+<div id="controls" class="card">
+  <h2>Ohio local tax collections</h2>
+  <label><input type="radio" name="tax" value="property" checked> Real property tax (all local govts)</label>
+  <label><input type="radio" name="tax" value="sales"> Sales tax (county permissive)</label>
+  <label><input type="radio" name="tax" value="muni_income"> Municipal income tax</label>
+  <label style="margin-top:8px"><input type="checkbox" id="pc"> per capita</label>
+  <div class="note">County totals (all jurisdictions in the county). The three taxes
+    have different bases, so the maps aren't directly comparable. Municipal income
+    tax is assigned to each city's <i>home</i> county, so cross-county cities (e.g.
+    Columbus) load entirely onto one county. See README.
+    <div id="scope" style="margin-top:6px"></div></div>
+</div>
+
+<div id="info" class="card"><div class="c">Hover a county</div><div class="v">&nbsp;</div><div class="s">&nbsp;</div></div>
+<div id="legend" class="card"></div>
+
+<script>
+const map = L.map('map',{minZoom:6,maxZoom:12}).setView([40.2,-82.7],7);
+L.tileLayer('https://{s}.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{y}{r}.png',
+  {attribution:'&copy; OpenStreetMap &copy; CARTO', subdomains:'abcd'}).addTo(map);
+
+const PALETTE = ["#ffffcc","#c7e9b4","#7fcdbb","#41b6c4","#2c7fb8","#253494"];
+const LABEL = {property:"Real property tax charged", sales:"County sales/use tax collected", muni_income:"Municipal income tax"};
+const META = window.OH_COLLECTIONS_META || {};
+
+// Each layer is a defensible subset of its tax, not the whole thing. Say which subset, and how big
+// the excluded piece is, so a reader who sums the counties knows why the total is short of the
+// statewide figure quoted in the newsletter.
+const bn = v => "$" + (v/1e9).toFixed(2) + "B";
+function scopeNote(){
+  let h = "";
+  if (field === "property" && META.property_total)
+    h = "Shows <b>real</b> property only (" + bn(META.property_total) + "), the amendment's target. "
+      + "Excludes the public-utility tangible personal property tax, a separate instrument worth "
+      + bn(META.put_excluded) + " statewide.";
+  if (field === "sales" && META.sales_total)
+    h = "Shows the <b>county</b> permissive tax only (" + bn(META.sales_total) + "). Ohio's 11 regional "
+      + "transit authorities levy a further " + bn(META.transit_excluded) + "; their districts cross "
+      + "county lines, so they can't be mapped to one county.";
+  document.getElementById('scope').innerHTML = h;
+}
+let field = "property", perCap = false, breaks = [];
+
+const val = p => { const v = p[field]; return perCap ? (p.population ? v/p.population : 0) : v; };
+function fmt(v){
+  if (perCap) return "$" + Math.round(v).toLocaleString();
+  if (v >= 1e9) return "$" + (v/1e9).toFixed(2) + "B";
+  if (v >= 1e6) return "$" + Math.round(v/1e6) + "M";
+  return "$" + Math.round(v).toLocaleString();
+}
+function computeBreaks(){
+  const vals = OH_COUNTY_COLLECTIONS.features.map(f => val(f.properties)).filter(v=>v>0).sort((a,b)=>a-b);
+  breaks = [1,2,3,4,5].map(i => vals[Math.floor(i/6*vals.length)]);   // 5 cut points -> 6 bins
+}
+function colorFor(v){
+  if (!(v>0)) return "#eeeeee";
+  let i=0; while (i<breaks.length && v>breaks[i]) i++; return PALETTE[i];
+}
+const style = f => ({fillColor: colorFor(val(f.properties)), weight:0.6, color:"#fff", fillOpacity:0.85});
+
+let layer;
+function draw(){
+  computeBreaks();
+  if (layer) layer.remove();
+  layer = L.geoJSON(OH_COUNTY_COLLECTIONS, {
+    style,
+    onEachFeature: (f,l) => {
+      l.on('mouseover', e => { e.target.setStyle({weight:2,color:'#333'}); e.target.bringToFront(); show(f.properties); });
+      l.on('mouseout',  e => { e.target.setStyle({weight:0.6,color:'#fff'}); });
+    }
+  }).addTo(map);
+  legend();
+  scopeNote();
+}
+function show(p){
+  document.querySelector('#info .c').textContent = p.county + " County";
+  document.querySelector('#info .v').textContent = fmt(val(p));
+  document.querySelector('#info .s').textContent = LABEL[field] + (perCap ? " per capita" : "");
+}
+function legend(){
+  let h = "<b>"+LABEL[field]+(perCap?" / capita":"")+"</b><br>";
+  const lo = [0,...breaks];
+  for (let i=0;i<PALETTE.length;i++){
+    const a = lo[i], b = breaks[i];
+    h += `<i style="background:${PALETTE[i]}"></i>` + fmt(a) + (b!==undefined ? " – " + fmt(b) : "+") + "<br>";
+  }
+  document.getElementById('legend').innerHTML = h;
+}
+
+document.querySelectorAll('input[name=tax]').forEach(r => r.onchange = e => { field = e.target.value; draw(); });
+document.getElementById('pc').onchange = e => { perCap = e.target.checked; draw(); };
+draw();
+</script>
+</body>
+</html>
