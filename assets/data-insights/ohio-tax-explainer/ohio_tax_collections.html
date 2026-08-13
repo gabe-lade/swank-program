@@ -5,49 +5,124 @@
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 <title>How Much Does Each Ohio County Collect?</title>
 
-<!-- PROTOTYPE (2026-06-18). County choropleth of local tax collections — switch
-     tax type and toggle per-capita. Self-contained except Leaflet (CDN) and the
-     baked county data in ./data/county_collections.js. Sibling to who_taxes_you.html.
-     Each tax is a DIFFERENT base (see the note in-panel); these are county totals,
-     not one government's take. UNTESTED in a browser — open locally and react. -->
+<!-- County choropleth of local tax collections — switch tax type and toggle
+     per-resident. Self-contained except Leaflet (CDN) and the baked county
+     data in ./data/county_collections.js. Sibling to who_taxes_you.html and
+     authority_tax_maps.html. Each tax is a DIFFERENT base (see the note
+     in-panel); these are county totals, not one government's take.
+     Layout: the switcher/readout/legend panel docks BESIDE the map (below
+     it under 720px) and can be minimized to a 40px strip — same pattern as
+     the other two maps on this page. -->
 
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script src="data/county_collections.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&family=Public+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
-  html,body{margin:0;height:100%;font-family:-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;color:#1f2933}
-  #map{position:absolute;inset:0;background:#fff}
-  .card{position:absolute;z-index:1000;background:#fff;border-radius:10px;box-shadow:0 2px 12px rgba(0,0,0,.18)}
-  #controls{top:14px;left:54px;padding:12px 14px;width:250px}
-  #controls h2{margin:0 0 8px;font-size:15px}
-  #controls label{display:block;font-size:14px;margin:3px 0;cursor:pointer}
-  #controls .note{color:#9aa5b1;font-size:11px;margin-top:8px;border-top:1px solid #f0f0f0;padding-top:7px}
-  #info{top:14px;right:14px;padding:12px 14px;width:210px;min-height:40px}
-  #info .c{font-weight:700;font-size:15px}
-  #info .v{font-size:20px;color:#1f3864;margin-top:2px}
-  #info .s{color:#6b7280;font-size:12px}
-  #legend{bottom:20px;right:14px;padding:10px 12px;font-size:12px;line-height:20px}
-  #legend i{display:inline-block;width:16px;height:12px;margin-right:6px;opacity:.85;vertical-align:middle}
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; height: 100%; }
+  body { font-family: 'Public Sans', system-ui, -apple-system, sans-serif; color: #1A1A19; background: #F3F0EA; }
+
+  .otc-layout { display: flex; align-items: stretch; height: 100vh; }
+  .otc-map { flex: 1 1 auto; min-width: 0; position: relative; }
+  #map { position: absolute; inset: 0; background: #eaeef2; }
+
+  /* summary chip shown on the map ONLY while the panel is minimized */
+  .otc-chip { position: absolute; right: 14px; top: 12px; z-index: 500; background: rgba(255,255,255,0.94); border: 1px solid #D8D3CA; border-radius: 100px; padding: 7px 14px; font-size: 13px; color: #33302B; box-shadow: 0 1px 4px rgba(0,0,0,0.08); display: none; }
+  .otc-layout.is-min .otc-chip { display: block; }
+
+  /* ---- docked panel ---- */
+  .otc-panel { flex: 0 0 290px; background: #fff; border-left: 1px solid #E5E2DC; display: flex; flex-direction: column; min-height: 0; }
+  .otc-layout.is-min .otc-panel { display: none; }
+  .otc-panel-head { display: flex; align-items: center; justify-content: space-between; padding: 14px 16px 12px; border-bottom: 1px solid #EFECE6; }
+  .otc-kicker { font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: 0.11em; text-transform: uppercase; color: #9A968D; margin: 0; }
+  .otc-minbtn { border: 1px solid #D8D3CA; background: #fff; border-radius: 6px; width: 26px; height: 24px; cursor: pointer; color: #56534D; font-size: 13px; line-height: 1; padding: 0; }
+  .otc-minbtn:hover { background: #F4F1EB; }
+  .otc-body { padding: 12px 16px 14px; overflow-y: auto; flex: 1; }
+
+  /* tax-type switcher */
+  .otc-switch { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; margin-bottom: 10px; }
+  .otc-switch button { border: 1px solid #D8D3CA; background: #fff; border-radius: 7px; padding: 8px 4px; font-family: inherit; font-size: 12px; font-weight: 600; color: #56534D; cursor: pointer; }
+  .otc-switch button.active { color: #fff; border-color: transparent; background: #BB0000; }
+
+  .otc-pc { display: flex; align-items: center; gap: 7px; font-size: 13px; color: #56534D; margin: 2px 0 14px; cursor: pointer; }
+  .otc-pc input { accent-color: #BB0000; cursor: pointer; }
+
+  /* readout */
+  .otc-readout { border-top: 1px solid #EFECE6; padding-top: 12px; }
+  .otc-readout .name { font-family: 'Source Serif 4', serif; font-size: 16.5px; font-weight: 600; color: #33302B; margin: 0 0 4px; }
+  .otc-readout .value { font-family: 'Source Serif 4', serif; font-size: 24px; font-weight: 600; color: #33302B; }
+  .otc-readout .sub { font-size: 12px; color: #9A968D; margin-top: 3px; }
+
+  /* legend (docked at the bottom of the panel, not floating on the map) */
+  #legend { border-top: 1px solid #EFECE6; margin-top: 12px; padding-top: 11px; font-size: 12.5px; }
+  #legend .lt { font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: 0.09em; text-transform: uppercase; color: #9A968D; margin-bottom: 8px; }
+  .lrow { display: flex; align-items: center; gap: 8px; padding: 2px 0; color: #56534D; }
+  .lrow i { display: inline-block; width: 16px; height: 11px; border-radius: 3px; flex: 0 0 auto; }
+
+  /* scope note */
+  .otc-note { border-top: 1px solid #EFECE6; margin-top: 12px; padding-top: 10px; font-size: 12px; line-height: 1.5; color: #8A8880; }
+
+  .leaflet-interactive { cursor: crosshair; }
+
+  /* minimized strip */
+  .otc-strip { flex: 0 0 40px; border: 0; border-left: 1px solid #E5E2DC; background: #fff; cursor: pointer; display: none; flex-direction: column; align-items: center; padding: 12px 0; gap: 14px; font-family: inherit; }
+  .otc-strip:hover { background: #F4F1EB; }
+  .otc-strip .arrow { font-size: 13px; color: #56534D; }
+  .otc-strip .vlabel { font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: 0.11em; text-transform: uppercase; color: #9A968D; writing-mode: vertical-rl; }
+  .otc-layout.is-min .otc-strip { display: flex; }
+
+  /* ---- narrow screens: panel docks BELOW the map ---- */
+  @media (max-width: 719px) {
+    .otc-layout { flex-direction: column; }
+    .otc-map { flex: 1 1 auto; min-height: 45%; }
+    .otc-panel { flex: 0 0 auto; max-height: 55%; border-left: 0; border-top: 1px solid #E5E2DC; }
+    .otc-minbtn, .otc-strip, .otc-chip { display: none !important; } /* no minimize needed when stacked */
+  }
 </style>
 </head>
 <body>
-<div id="map"></div>
+<div class="otc-layout" id="otc-layout">
 
-<div id="controls" class="card">
-  <h2>Ohio local tax collections</h2>
-  <label><input type="radio" name="tax" value="property" checked> Real property tax (all local govts)</label>
-  <label><input type="radio" name="tax" value="sales"> Sales tax (county permissive)</label>
-  <label><input type="radio" name="tax" value="muni_income"> Municipal income tax</label>
-  <label style="margin-top:8px"><input type="checkbox" id="pc"> per capita</label>
-  <div class="note">County totals (all jurisdictions in the county). The three taxes
-    have different bases, so the maps aren't directly comparable. Municipal income
-    tax is assigned to each city's <i>home</i> county, so cross-county cities (e.g.
-    Columbus) load entirely onto one county. See README.
-    <div id="scope" style="margin-top:6px"></div></div>
+  <div class="otc-map">
+    <div id="map"></div>
+    <div class="otc-chip" id="otc-chip">Property tax</div>
+  </div>
+
+  <aside class="otc-panel" aria-label="Local tax collections">
+    <div class="otc-panel-head">
+      <p class="otc-kicker">Local tax collections</p>
+      <button class="otc-minbtn" id="otc-min" title="Minimize panel" aria-label="Minimize panel">&raquo;</button>
+    </div>
+    <div class="otc-body" id="panel">
+      <div class="otc-switch" id="taxswitch">
+        <button data-v="property" class="active">Property</button>
+        <button data-v="sales">Sales</button>
+        <button data-v="muni_income">Muni income</button>
+      </div>
+      <label class="otc-pc"><input type="checkbox" id="pc"> Per resident</label>
+
+      <div class="otc-readout">
+        <div class="name" id="p-name">Hover a county</div>
+        <div class="value" id="p-value">&nbsp;</div>
+        <div class="sub" id="p-sub">&nbsp;</div>
+      </div>
+
+      <div id="legend">
+        <div class="lt" id="lg-title"></div>
+        <div id="lg-rows"></div>
+      </div>
+
+      <div class="otc-note" id="scope"></div>
+    </div>
+  </aside>
+
+  <button class="otc-strip" id="otc-strip" title="Show panel" aria-label="Show panel">
+    <span class="arrow">&laquo;</span>
+    <span class="vlabel">Local tax collections</span>
+  </button>
 </div>
-
-<div id="info" class="card"><div class="c">Hover a county</div><div class="v">&nbsp;</div><div class="s">&nbsp;</div></div>
-<div id="legend" class="card"></div>
 
 <script>
 const map = L.map('map',{minZoom:6,maxZoom:12}).setView([40.2,-82.7],7);
@@ -56,6 +131,7 @@ L.tileLayer('https://{s}.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{y}{r}.png
 
 const PALETTE = ["#ffffcc","#c7e9b4","#7fcdbb","#41b6c4","#2c7fb8","#253494"];
 const LABEL = {property:"Real property tax charged", sales:"County sales/use tax collected", muni_income:"Municipal income tax"};
+const SHORT = {property:"Property tax", sales:"Sales tax", muni_income:"Muni income tax"};
 const META = window.OH_COLLECTIONS_META || {};
 
 // Each layer is a defensible subset of its tax, not the whole thing. Say which subset, and how big
@@ -104,27 +180,45 @@ function draw(){
       l.on('mouseout',  e => { e.target.setStyle({weight:0.6,color:'#fff'}); });
     }
   }).addTo(map);
+
+  document.querySelectorAll('#taxswitch button').forEach(b => b.classList.toggle('active', b.dataset.v === field));
+  document.getElementById('p-name').textContent = 'Hover a county';
+  document.getElementById('p-value').innerHTML = '&nbsp;';
+  document.getElementById('p-sub').innerHTML = '&nbsp;';
+  document.getElementById('otc-chip').textContent = SHORT[field];
+
   legend();
   scopeNote();
 }
 function show(p){
-  document.querySelector('#info .c').textContent = p.county + " County";
-  document.querySelector('#info .v').textContent = fmt(val(p));
-  document.querySelector('#info .s').textContent = LABEL[field] + (perCap ? " per capita" : "");
+  document.getElementById('p-name').textContent = p.county + ' County';
+  document.getElementById('p-value').textContent = fmt(val(p));
+  document.getElementById('p-sub').textContent = LABEL[field] + (perCap ? ' · per resident' : '');
+  document.getElementById('otc-chip').textContent = p.county + ' · ' + fmt(val(p));
 }
 function legend(){
-  let h = "<b>"+LABEL[field]+(perCap?" / capita":"")+"</b><br>";
+  document.getElementById('lg-title').textContent = LABEL[field] + (perCap ? ' / resident' : '');
   const lo = [0,...breaks];
+  let rows = '';
   for (let i=0;i<PALETTE.length;i++){
     const a = lo[i], b = breaks[i];
-    h += `<i style="background:${PALETTE[i]}"></i>` + fmt(a) + (b!==undefined ? " – " + fmt(b) : "+") + "<br>";
+    rows += `<div class="lrow"><i style="background:${PALETTE[i]}"></i><span>${fmt(a)}${b!==undefined ? ' – ' + fmt(b) : '+'}</span></div>`;
   }
-  document.getElementById('legend').innerHTML = h;
+  document.getElementById('lg-rows').innerHTML = rows;
 }
 
-document.querySelectorAll('input[name=tax]').forEach(r => r.onchange = e => { field = e.target.value; draw(); });
-document.getElementById('pc').onchange = e => { perCap = e.target.checked; draw(); };
+document.querySelectorAll('#taxswitch button').forEach(b => b.addEventListener('click', () => { field = b.dataset.v; draw(); }));
+document.getElementById('pc').addEventListener('change', e => { perCap = e.target.checked; draw(); });
 draw();
+
+// minimize toggle: collapse the panel to a 40px strip, then let Leaflet reflow
+const layout = document.getElementById('otc-layout');
+function togglePanel(){
+  layout.classList.toggle('is-min');
+  setTimeout(() => map.invalidateSize(), 50);
+}
+document.getElementById('otc-min').addEventListener('click', togglePanel);
+document.getElementById('otc-strip').addEventListener('click', togglePanel);
 </script>
 </body>
 </html>

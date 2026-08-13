@@ -54,7 +54,12 @@ affiliates:
 
   - name: "Yao Wang"
     title: "Assistant Professor (AEDE)"
-    photo: "/assets/images/people/yao-wang.jpg"    
+    photo: "/assets/images/people/yao-wang.jpg"
+
+  - name: "Joe Lucente"
+    title: "Interim Assistant Director, Community Development; Associate Professor, Ohio Sea Grant College Program"
+    photo: "/assets/images/people/joe-lucente.png"
+    website: "https://ohioseagrant.osu.edu/about/people/joseph-lucente"
 
 advisory_board:
   - name: "Jessica D'Ambrosio "

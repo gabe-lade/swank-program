@@ -1,5 +1,17 @@
 # News coverage, podcasts, and interviews. Newest first.
 # Fields: title, url, source (outlet), date (display string), topics (slugs)
+- title: "Former New York City Mayor Eric Adams Tried to Sell Wisconsin Residents on a Massive Data Center. He Was Met With Boos"
+  url: "https://www.inc.com/georgia-fearn/former-new-york-city-mayor-eric-adams-sell-wisconsin-residents-on-data-center/91383932"
+  source: "Inc."
+  date: "August 2026"
+  topics: [energy-land-use, rural-urban]
+
+- title: "Rural well-water users to be studied"
+  url: "https://agupdate.com/agriview/news/technology/article_03e462d5-5a6d-42be-b242-817c92b79a20.html"
+  source: "Agri-View"
+  date: "July 2026"
+  topics: [water-environment, agriculture, rural-urban]
+
 - title: "USDA Funds Collaboration To Study, Support Rural Well-Water Users"
   url: "https://www.cals.iastate.edu/news/2026/usda-funds-collaboration-study-support-rural-well-water-users"
   source: "Iowa State University CALS News"
