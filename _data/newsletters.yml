@@ -1,5 +1,20 @@
 # Substack newsletter posts. Newest first.
 # Fields: title, url, date (display string), topics (slugs from outreach_topics.yml)
+- title: "What Do Ohio Taxes Buy?"
+  url: "https://gelade1.substack.com/p/what-do-ohio-taxes-buy"
+  date: "August 2026"
+  topics: [property-tax]
+
+- title: "Who Collects Ohio's $72 Billion in Taxes?"
+  url: "https://gelade1.substack.com/p/who-collects-ohios-72-billion-in"
+  date: "August 2026"
+  topics: [property-tax]
+
+- title: "What Can Each Ohio Government Actually Tax?"
+  url: "https://gelade1.substack.com/p/what-can-each-ohio-government-actually"
+  date: "July 2026"
+  topics: [property-tax]
+
 - title: "What Kinds of Taxes Do We Pay in Ohio?"
   url: "https://gelade1.substack.com/p/what-kinds-of-taxes-do-we-pay-in"
   date: "July 2026"
