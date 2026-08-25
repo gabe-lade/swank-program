@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>What Does Ohio's Local Government Spending Buy?</title>
+
+<!-- Self-contained interactive chart (no map). Two toggle views on the same
+     $68.56B of 2022 local-government spending: "By government" (5 stacked
+     bars, segments = service category -- K-12's dominance inside School
+     District is the payoff) and "By service" (categories ranked by total $,
+     segments = government type). Data baked into ./data/spending_2022.js as
+     window.OH_SPENDING (built by build_spending_data.py) so this works from
+     file:// with no fetch(). Sibling to ohio_tax_collections.html, but this
+     is SPENDING (Census GFD 2022, all revenue sources), not tax COLLECTIONS
+     (ODT, TY2025/CY2025/CY2024) -- different concept, different vintage;
+     never sum this total against the collections map's. -->
+
+<script src="data/spending_2022.js"></script>
+<style>
+  html,body{margin:0;min-height:100%;font-family:-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;color:#1f2933;background:#fff}
+  #wrap{max-width:900px;margin:0 auto;padding:18px 20px 26px}
+  h2{margin:0 0 2px;font-size:16px}
+  .sub{color:#6b7280;font-size:12.5px;margin:0 0 14px}
+  #toggle{display:flex;gap:6px;margin-bottom:14px}
+  #toggle button{font:inherit;font-size:13px;padding:6px 14px;border-radius:999px;border:1px solid #d7dbe0;background:#f7f8f9;color:#1f2933;cursor:pointer}
+  #toggle button.active{background:#253494;border-color:#253494;color:#fff}
+  #chart{position:relative}
+  svg{width:100%;height:auto;display:block}
+  .seg{stroke:#fff;stroke-width:1;cursor:pointer}
+  .seg:hover{opacity:.82}
+  .axlabel{font-size:11px;fill:#6b7280}
+  .barlabel{font-size:12.5px;fill:#1f2933;font-weight:600}
+  .totallabel{font-size:12px;fill:#6b7280}
+  #tip{position:absolute;pointer-events:none;background:#1f2933;color:#fff;font-size:12.5px;line-height:1.45;border-radius:8px;padding:8px 10px;box-shadow:0 4px 14px rgba(0,0,0,.22);max-width:230px;opacity:0;transition:opacity .08s;z-index:10}
+  #tip b{display:block;font-size:13px;margin-bottom:2px}
+  #legend{display:flex;flex-wrap:wrap;gap:6px 14px;margin-top:14px;font-size:11.5px;color:#3d4550}
+  #legend .item{display:flex;align-items:center;gap:5px;white-space:nowrap}
+  #legend i{width:11px;height:11px;border-radius:3px;display:inline-block}
+  .note{color:#9aa5b1;font-size:11px;margin-top:12px;border-top:1px solid #f0f0f0;padding-top:8px;line-height:1.5}
+</style>
+</head>
+<body>
+<div id="wrap">
+  <h2>Where Ohio's local governments spend $68.6 billion a year</h2>
+  <p class="sub">2022 spending, all revenue sources &mdash; not just taxes. Hover any segment for the dollar amount and share.</p>
+  <div id="toggle">
+    <button id="btn-govt" class="active">By government</button>
+    <button id="btn-cat">By service</button>
+  </div>
+  <div id="chart"><div id="tip"></div></div>
+  <div id="legend"></div>
+  <div class="note" id="note"></div>
+</div>
+
+<script>
+const D = window.OH_SPENDING;
+const fmtB = v => "$" + (v/1e9).toFixed(v >= 1e9 ? 1 : 2) + "B";
+const fmtPct = v => v.toFixed(1) + "%";
+
+// A fixed, distinguishable palette assigned by first-seen category (view 1)
+// or government (view 2), reused across both views for the same key.
+const PALETTE = ["#253494","#2c7fb8","#41b6c4","#7fcdbb","#c7e9b4","#ffffb2","#fecc5c",
+                  "#fd8d3c","#f03b20","#bd0026","#88419d","#8c96c6","#b3cde3","#d9d9d9"];
+const colorFor = (() => {
+  const seen = new Map();
+  return key => {
+    if (!seen.has(key)) seen.set(key, PALETTE[seen.size % PALETTE.length]);
+    return seen.get(key);
+  };
+})();
+
+const svgNS = "http://www.w3.org/2000/svg";
+const W = 860, LEFT = 150, RIGHT = 70, BARH = 34, GAP = 20, TOP = 6;
+
+function buildGovtView() {
+  // One stacked horizontal bar per government, segments = category, ordered
+  // largest-category-first within each bar for a stable visual rhythm.
+  const rows = D.govt_order.map(g => {
+    const cats = D.category_order
+      .map(c => ({ cat: c, v: D.by_govt[g][c] || 0 }))
+      .filter(d => d.v > 0)
+      .sort((a, b) => b.v - a.v);
+    return { label: g, total: D.govt_totals[g], segs: cats.map(d => ({ key: d.cat, v: d.v })) };
+  });
+  return { rows, segLabel: s => s.key, tipWhat: "of " };
+}
+
+function buildCatView() {
+  const rows = D.category_order.map(c => {
+    const govts = D.govt_order
+      .map(g => ({ govt: g, v: D.by_govt[g][c] || 0 }))
+      .filter(d => d.v > 0)
+      .sort((a, b) => b.v - a.v);
+    return { label: c, total: D.category_totals[c], segs: govts.map(d => ({ key: d.govt, v: d.v })) };
+  });
+  return { rows, segLabel: s => s.key, tipWhat: "spent by " };
+}
+
+function render(view) {
+  const chart = document.getElementById("chart");
+  const tip = document.getElementById("tip");
+  chart.querySelectorAll("svg").forEach(n => n.remove());
+
+  const maxTotal = Math.max(...view.rows.map(r => r.total));
+  const barMaxW = W - LEFT - RIGHT;
+  const H = TOP + view.rows.length * (BARH + GAP);
+
+  const svg = document.createElementNS(svgNS, "svg");
+  svg.setAttribute("viewBox", `0 0 ${W} ${H}`);
+  chart.insertBefore(svg, tip);
+
+  view.rows.forEach((row, i) => {
+    const y = TOP + i * (BARH + GAP);
+    const barW = (row.total / maxTotal) * barMaxW;
+
+    const rowLabel = document.createElementNS(svgNS, "text");
+    rowLabel.setAttribute("x", LEFT - 10);
+    rowLabel.setAttribute("y", y + BARH / 2 + 4);
+    rowLabel.setAttribute("text-anchor", "end");
+    rowLabel.setAttribute("class", "barlabel");
+    rowLabel.textContent = row.label;
+    svg.appendChild(rowLabel);
+
+    let x = LEFT;
+    row.segs.forEach(seg => {
+      const w = (seg.v / row.total) * barW;
+      const rect = document.createElementNS(svgNS, "rect");
+      rect.setAttribute("x", x); rect.setAttribute("y", y);
+      rect.setAttribute("width", Math.max(w, 0.4)); rect.setAttribute("height", BARH);
+      rect.setAttribute("fill", colorFor(seg.key));
+      rect.setAttribute("class", "seg");
+      rect.addEventListener("mousemove", ev => {
+        const rc = chart.getBoundingClientRect();
+        tip.style.opacity = 1;
+        tip.style.left = Math.min(ev.clientX - rc.left + 12, rc.width - 240) + "px";
+        tip.style.top = (ev.clientY - rc.top - 10) + "px";
+        tip.innerHTML = `<b>${seg.key}</b>${fmtB(seg.v)} ${view.tipWhat}${row.label}<br>`
+          + `${fmtPct(seg.v / row.total * 100)} of ${row.label}'s spending &middot; `
+          + `${fmtPct(seg.v / D.grand_total * 100)} of all local spending`;
+      });
+      rect.addEventListener("mouseleave", () => { tip.style.opacity = 0; });
+      svg.appendChild(rect);
+      x += w;
+    });
+
+    const totalLabel = document.createElementNS(svgNS, "text");
+    totalLabel.setAttribute("x", LEFT + barW + 8);
+    totalLabel.setAttribute("y", y + BARH / 2 + 4);
+    totalLabel.setAttribute("class", "totallabel");
+    totalLabel.textContent = fmtB(row.total);
+    svg.appendChild(totalLabel);
+  });
+
+  // Legend: every distinct segment key across this view, in first-seen order.
+  const legend = document.getElementById("legend");
+  legend.innerHTML = "";
+  const keys = [];
+  view.rows.forEach(r => r.segs.forEach(s => { if (!keys.includes(s.key)) keys.push(s.key); }));
+  keys.forEach(k => {
+    const item = document.createElement("span");
+    item.className = "item";
+    item.innerHTML = `<i style="background:${colorFor(k)}"></i>${k}`;
+    legend.appendChild(item);
+  });
+}
+
+const VIEWS = { govt: buildGovtView(), cat: buildCatView() };
+document.getElementById("btn-govt").addEventListener("click", () => {
+  document.getElementById("btn-govt").classList.add("active");
+  document.getElementById("btn-cat").classList.remove("active");
+  render(VIEWS.govt);
+});
+document.getElementById("btn-cat").addEventListener("click", () => {
+  document.getElementById("btn-cat").classList.add("active");
+  document.getElementById("btn-govt").classList.remove("active");
+  render(VIEWS.cat);
+});
+document.getElementById("note").textContent =
+  D.vintage + ". " + D.note;
+
+render(VIEWS.govt);
+</script>
+</body>
+</html>

@@ -8,124 +8,84 @@
 <!-- Ohio local taxing authorities — interactive companion map for the
      Swank Program "Ohio's Taxes, Explained" series (launches with piece 3).
      One page, four switchable layers (counties, municipalities, school
-     districts, townships). Each layer is shaded by a headline metric;
-     hover/tap any unit to see its name, which taxes it levies, and the
-     relevant rate and/or per-capita collections. Data: Ohio Department of
-     Taxation — county permissive sales/use CY2025 (S-1), municipal income
-     CY2024 (LG-11), school-district income FY2026 (SD-2 Q4), property
-     rates TY2025 (rates25 / 2025-sd-rates incl. the Class I 20-mill Floor
-     Rate column); county population ACS 2019-23; municipal per-resident
-     uses the boundary file's 2010 population (labeled in-panel).
-     Regenerate ./data/authority_layers.js with build_authority_maps.py
-     (research repo is canonical; this copy is a deploy artifact).
+     districts, townships). Each layer is shaded by a headline RATE; hover/
+     tap any unit to see its name and the rates it charges. Data: Ohio
+     Department of Taxation — municipal income CY2024 (LG-11), school-
+     district income FY2026 (SD-2 Q4), property rates TY2025 (rates25 /
+     2025-sd-rates incl. the Class I 20-mill Floor Rate column).
+     Regenerate ./data/authority_layers.js with build_authority_maps.py.
      Self-contained except Leaflet from CDN; loads data as a <script>
      (not fetch) so it works from a local file:// (the data/ folder must
      sit next to this file).
-     Layout: the switcher/readout/legend panel docks BESIDE the map (below
-     it under 720px) and can be minimized to a 40px strip — same pattern
-     as who_taxes_you.html. -->
+
+     RATES-ONLY REDESIGN (2026-08-25): this page used to mix rates with
+     collected-$ and per-resident figures; chapter 4 of the explainer page
+     (ohio_tax_collections.html) already owns the "how much is collected"
+     story, so this page now shows ONLY what each government CHARGES. All
+     $-collected and per-capita rows/shading were dropped. `data/
+     authority_layers.js` itself is UNCHANGED (still the shared bundle for
+     property_tax_millage.html / property_tax_exact.html) &#8212; the dropped
+     fields (sales, sales_pc, prop_charged, prop_charged_pc, inc_coll,
+     inc_pc) simply go unused here now.
+       One real data gap surfaced by this redesign: `authority_layers.js`
+     has no per-county PERMISSIVE SALES TAX RATE field, only dollars
+     collected (Table S-1 is a distribution report, not a rate table; the
+     rate itself isn't in any archived source yet). Rather than fabricate a
+     number, the county layer now shades by county PROPERTY millage
+     (effective Class I) instead of sales, and states plainly that the
+     permissive sales rate varies by county and isn't in this dataset. -->
 
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script src="data/authority_layers.js"></script>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&family=Public+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
-  * { box-sizing: border-box; }
-  html, body { margin: 0; padding: 0; height: 100%; }
-  body { font-family: 'Public Sans', system-ui, -apple-system, sans-serif; color: #1A1A19; background: #F3F0EA; }
-
-  .atm-layout { display: flex; align-items: stretch; height: 100vh; }
-  .atm-map { flex: 1 1 auto; min-width: 0; position: relative; }
-  #map { position: absolute; inset: 0; background: #eaeef2; }
-
-  /* summary chip shown on the map ONLY while the panel is minimized */
-  .atm-chip { position: absolute; right: 14px; top: 12px; z-index: 500; background: rgba(255,255,255,0.94); border: 1px solid #D8D3CA; border-radius: 100px; padding: 7px 14px; font-size: 13px; color: #33302B; box-shadow: 0 1px 4px rgba(0,0,0,0.08); display: none; }
-  .atm-layout.is-min .atm-chip { display: block; }
-
-  /* ---- docked panel ---- */
-  .atm-panel { flex: 0 0 290px; background: #fff; border-left: 1px solid #E5E2DC; display: flex; flex-direction: column; min-height: 0; }
-  .atm-layout.is-min .atm-panel { display: none; }
-  .atm-panel-head { display: flex; align-items: center; justify-content: space-between; padding: 14px 16px 12px; border-bottom: 1px solid #EFECE6; }
-  .atm-kicker { font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: 0.11em; text-transform: uppercase; color: #9A968D; margin: 0; }
-  .atm-minbtn { border: 1px solid #D8D3CA; background: #fff; border-radius: 6px; width: 26px; height: 24px; cursor: pointer; color: #56534D; font-size: 13px; line-height: 1; padding: 0; }
-  .atm-minbtn:hover { background: #F4F1EB; }
-  .atm-body { padding: 12px 16px 14px; overflow-y: auto; flex: 1; }
-
-  /* layer switcher */
-  #switch { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; margin-bottom: 12px; }
-  #switch button { border: 1px solid #D8D3CA; background: #fff; border-radius: 7px; padding: 8px 6px; font-family: inherit; font-size: 12.5px; font-weight: 600; color: #56534D; cursor: pointer; white-space: nowrap; }
-  #switch button.active { color: #fff; border-color: transparent; }
-
-  /* readout */
-  #panel h2 { margin: 0; font-size: 15px; font-weight: 600; display: flex; align-items: center; gap: 8px; }
-  #panel .dot { width: 11px; height: 11px; border-radius: 3px; flex: 0 0 auto; }
-  #panel .ctx { color: #9A968D; font-size: 12px; margin: 3px 0 10px; }
-  #panel .name { font-family: 'Source Serif 4', serif; font-size: 17px; font-weight: 600; color: #33302B; margin: 2px 0 2px; }
-  #panel .lede { color: #56534D; font-size: 12.5px; line-height: 1.5; margin: 0 0 8px; }
-  .row { display: flex; justify-content: space-between; gap: 10px; padding: 6px 0; border-top: 1px solid #F2EFE9; font-size: 13px; }
-  .row .k { color: #6C6A64; }
-  .row .v { font-weight: 600; text-align: right; color: #33302B; }
-  .none { color: #B9B5AC; font-weight: 500; }
-
-  /* legend (docked at the bottom of the panel, not floating on the map) */
-  #legend { border-top: 1px solid #EFECE6; margin-top: 12px; padding-top: 11px; font-size: 12px; }
-  #legend .lt { font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: 0.09em; text-transform: uppercase; color: #9A968D; margin-bottom: 7px; }
-  #legend .bar { height: 11px; border-radius: 3px; margin: 5px 0 3px; }
-  #legend .ends { display: flex; justify-content: space-between; color: #6C6A64; }
-  #legend .note { color: #8A8880; margin-top: 7px; line-height: 1.4; }
-
-  .leaflet-interactive { cursor: crosshair; }
-
-  /* minimized strip */
-  .atm-strip { flex: 0 0 40px; border: 0; border-left: 1px solid #E5E2DC; background: #fff; cursor: pointer; display: none; flex-direction: column; align-items: center; padding: 12px 0; gap: 14px; font-family: inherit; }
-  .atm-strip:hover { background: #F4F1EB; }
-  .atm-strip .arrow { font-size: 13px; color: #56534D; }
-  .atm-strip .vlabel { font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: 0.11em; text-transform: uppercase; color: #9A968D; writing-mode: vertical-rl; }
-  .atm-layout.is-min .atm-strip { display: flex; }
-
-  /* ---- narrow screens: panel docks BELOW the map ---- */
-  @media (max-width: 719px) {
-    .atm-layout { flex-direction: column; }
-    .atm-map { flex: 1 1 auto; min-height: 45%; }
-    .atm-panel { flex: 0 0 auto; max-height: 55%; border-left: 0; border-top: 1px solid #E5E2DC; }
-    .atm-minbtn, .atm-strip, .atm-chip { display: none !important; } /* no minimize needed when stacked */
-  }
+  html,body{margin:0;height:100%;font-family:-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;color:#1f2933}
+  #map{position:absolute;inset:0;background:#eaeef2}
+  /* switcher */
+  #switch{position:absolute;top:14px;left:50%;transform:translateX(-50%);z-index:1000;
+          display:flex;gap:0;background:#fff;border-radius:10px;box-shadow:0 2px 12px rgba(0,0,0,.18);overflow:hidden}
+  #switch button{border:0;background:#fff;padding:9px 16px;font-size:13px;font-weight:600;color:#52606d;cursor:pointer;white-space:nowrap}
+  #switch button+button{border-left:1px solid #eef0f2}
+  #switch button.active{color:#fff}
+  /* info panel */
+  #panel{position:absolute;top:14px;right:14px;z-index:1000;width:290px;background:#fff;
+         border-radius:10px;box-shadow:0 2px 12px rgba(0,0,0,.18);padding:14px 16px}
+  #panel h2{margin:0;font-size:16px;display:flex;align-items:center;gap:8px}
+  #panel .dot{width:11px;height:11px;border-radius:3px;flex:0 0 auto}
+  #panel .ctx{color:#9aa5b1;font-size:12px;margin:2px 0 10px}
+  #panel .name{font-size:15px;font-weight:700;margin:2px 0 2px}
+  #panel .lede{color:#6b7280;font-size:12.5px;margin:0 0 8px}
+  .row{display:flex;justify-content:space-between;gap:10px;padding:5px 0;border-top:1px solid #f2f4f6;font-size:13px}
+  .row .k{color:#6b7280}
+  .row .v{font-weight:600;text-align:right}
+  .none{color:#b0b8c1;font-weight:500}
+  #legend{position:absolute;left:14px;bottom:18px;z-index:1000;background:#fff;border-radius:9px;
+          box-shadow:0 2px 12px rgba(0,0,0,.16);padding:10px 12px;font-size:12px;max-width:230px}
+  #legend .lt{font-weight:700;margin-bottom:6px}
+  #legend .bar{height:11px;border-radius:3px;margin:5px 0 3px}
+  #legend .ends{display:flex;justify-content:space-between;color:#6b7280}
+  #legend .note{color:#9aa5b1;margin-top:7px;line-height:1.35}
+  .leaflet-interactive{cursor:crosshair}
 </style>
 </head>
 <body>
-<div class="atm-layout" id="atm-layout">
+<div id="map"></div>
 
-  <div class="atm-map">
-    <div id="map"></div>
-    <div class="atm-chip" id="atm-chip">Counties</div>
-  </div>
+<div id="switch"></div>
 
-  <aside class="atm-panel" aria-label="Who levies what">
-    <div class="atm-panel-head">
-      <p class="atm-kicker">Who levies what</p>
-      <button class="atm-minbtn" id="atm-min" title="Minimize panel" aria-label="Minimize panel">&raquo;</button>
-    </div>
-    <div class="atm-body" id="panel">
-      <div id="switch"></div>
-      <h2><span class="dot" id="p-dot"></span><span id="p-title">Counties</span></h2>
-      <p class="ctx" id="p-ctx"></p>
-      <div class="name" id="p-name">Hover a unit on the map</div>
-      <p class="lede" id="p-lede"></p>
-      <div id="p-rows"></div>
-      <div id="legend">
-        <div class="lt" id="lg-title"></div>
-        <div class="bar" id="lg-bar"></div>
-        <div class="ends"><span id="lg-lo"></span><span id="lg-hi"></span></div>
-        <div class="note" id="lg-note"></div>
-      </div>
-    </div>
-  </aside>
+<div id="panel">
+  <h2><span class="dot" id="p-dot"></span><span id="p-title">Counties</span></h2>
+  <p class="ctx" id="p-ctx"></p>
+  <div class="name" id="p-name">Hover a unit on the map</div>
+  <p class="lede" id="p-lede"></p>
+  <div id="p-rows"></div>
+</div>
 
-  <button class="atm-strip" id="atm-strip" title="Show panel" aria-label="Show panel">
-    <span class="arrow">&laquo;</span>
-    <span class="vlabel">Who levies what</span>
-  </button>
+<div id="legend">
+  <div class="lt" id="lg-title"></div>
+  <div class="bar" id="lg-bar"></div>
+  <div class="ends"><span id="lg-lo"></span><span id="lg-hi"></span></div>
+  <div class="note" id="lg-note"></div>
 </div>
 
 <script>
@@ -140,38 +100,34 @@ const NONE = '<span class="none">none</span>';
 // ---- layer definitions -----------------------------------------------------
 // metric(p): number used to shade the choropleth (null -> grey "no data")
 // rows(p):   [label, value-html] pairs shown in the panel on hover
+const NOT_IN_DATA = '<span class="none">varies by county — not in this dataset</span>';
 const LAYERS = {
   counties: {
     title:'Counties', color:'#1f3864',
     data: OH_AUTHORITIES.counties,
     ctx: '88 county governments',
-    lede: 'Counties levy a permissive <b>sales &amp; use tax</b> (on top of the 5.75% state rate) and a countywide <b>property-tax</b> millage.',
-    metric: p => p.sales_pc,
-    legend: {title:'County sales/use tax per resident', fmt:v=>'$'+Math.round(v),
-             note:'Sales tax is collected at the place of sale, not where shoppers live — tourist & retail-hub counties read high.'},
+    lede: 'Counties levy a permissive <b>sales &amp; use tax</b> (on top of the 5.75% state rate) and a countywide <b>property-tax</b> millage. Property millage applies to <b>assessed value</b> — 35% of a property’s market value in Ohio — so 1 mill = $1 per $1,000 assessed, about $35/yr per $100,000 of home value; the <b>effective</b> rate below is what a homeowner actually pays after HB 920 reduction factors trim the voted (gross) rate.',
+    metric: p => p.cty_c1,
+    legend: {title:'County property millage, effective (residential)', fmt:v=>v.toFixed(0)+' mills',
+             note:'Countywide levy only — excludes the city/township, school, and special-district millage layered on the same parcel. The permissive sales-tax rate isn’t shown: ODT publishes county sales-tax dollars collected (see the collections map below), not the rate itself.'},
     rows: p => [
-      ['Sales/use tax collected (2025)', money(p.sales)],
-      ['&nbsp;&nbsp;per resident', money1(p.sales_pc)],
-      ['County property millage (gross)', mills(p.cty_mills)],
-      ['&nbsp;&nbsp;effective, residential', mills(p.cty_c1)],
-      ['All property tax charged in county', money(p.prop_charged)],
-      ['&nbsp;&nbsp;per resident (all governments)', money(p.prop_charged_pc)],
+      ['County property millage, gross', mills(p.cty_mills)],
+      ['&nbsp;&nbsp;effective, residential (Class I)', mills(p.cty_c1)],
+      ['Sales/use tax rate', NOT_IN_DATA],
     ],
   },
   municipalities: {
     title:'Municipalities', color:'#bb0000',
     data: OH_AUTHORITIES.municipalities,
     ctx: 'Cities &amp; villages',
-    lede: 'Municipalities are the only local governments that levy a <b>municipal income tax</b>. Most also levy a small property millage.',
+    lede: 'Municipalities are the only local governments that levy a <b>municipal income tax</b> — a place-of-work tax, owed where you earn, not where you live. Most also levy a small property millage.',
     metric: p => p.inc_rate,
     legend: {title:'Municipal income-tax rate', fmt:v=>v.toFixed(2).replace(/\.?0+$/,'')+'%',
-             note:'Grey = no municipal income tax (most small villages). Income tax is a place-of-work tax.'},
+             note:'Grey = no municipal income tax (most small villages).'},
     rows: p => [
       ['Income-tax rate', p.inc_rate==null ? NONE : pct(p.inc_rate)],
-      ['Income tax collected (2024)', p.inc_coll==null ? NONE : money(p.inc_coll)],
-      ['&nbsp;&nbsp;per resident (2010 pop.)', p.inc_pc==null ? NONE : money1(p.inc_pc)],
-      ['Property millage (gross)', mills(p.muni_mills)],
-      ['&nbsp;&nbsp;effective, residential', mills(p.muni_c1)],
+      ['Property millage, gross', mills(p.muni_mills)],
+      ['&nbsp;&nbsp;effective, residential (Class I)', mills(p.muni_c1)],
     ],
   },
   school_districts: {
@@ -188,7 +144,6 @@ const LAYERS = {
       ['&nbsp;&nbsp;effective, commercial/industrial (Class II)', mills(p.prop_c2)],
       ['At the 20-mill floor', p.at_floor==null ? NONE : (p.at_floor ? 'Yes' : 'No')],
       ['School income-tax rate', p.inc_rate==null ? NONE : pctFromFrac(p.inc_rate)],
-      ['School income tax (FY26 YTD)', p.inc_coll==null ? NONE : money(p.inc_coll)],
     ],
   },
   townships: {
@@ -271,7 +226,6 @@ function draw(key){
   document.getElementById('p-name').textContent = 'Hover a unit on the map';
   document.getElementById('p-lede').innerHTML = '';
   document.getElementById('p-rows').innerHTML = '';
-  document.getElementById('atm-chip').textContent = cfg.title;
 
   const lg = cfg.legend;
   document.getElementById('lg-title').textContent = lg.title;
@@ -283,13 +237,12 @@ function draw(key){
 
 function show(p){
   const cfg = LAYERS[current];
-  const label = p.name + (p.county ? '  ·  '+p.county+' Co.' : '');
-  document.getElementById('p-name').textContent = label;
+  document.getElementById('p-name').textContent =
+      p.name + (p.county ? '  ·  '+p.county+' Co.' : '');
   document.getElementById('p-lede').innerHTML = cfg.lede;
   document.getElementById('p-rows').innerHTML = cfg.rows(p)
     .map(([k,v]) => `<div class="row"><span class="k">${k}</span><span class="v">${v==null?'<span class="none">—</span>':v}</span></div>`)
     .join('');
-  document.getElementById('atm-chip').textContent = label;
 }
 
 // build switcher buttons
@@ -300,15 +253,6 @@ Object.entries(LAYERS).forEach(([k,cfg])=>{
 });
 
 draw('counties');
-
-// minimize toggle: collapse the panel to a 40px strip, then let Leaflet reflow
-const layout = document.getElementById('atm-layout');
-function togglePanel(){
-  layout.classList.toggle('is-min');
-  setTimeout(() => map.invalidateSize(), 50);
-}
-document.getElementById('atm-min').addEventListener('click', togglePanel);
-document.getElementById('atm-strip').addEventListener('click', togglePanel);
 </script>
 </body>
 </html>
