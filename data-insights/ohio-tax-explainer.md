@@ -95,7 +95,7 @@ blocks:
     id: "what-it-buys"
     text: "5 &middot; What it buys &mdash; where the money goes"
   - type: para
-    text: "Ohio's local governments spent about <strong>$68.6 billion</strong> in 2022 &mdash; a different total than the $39B in local taxes above, because spending also runs on state and federal aid, fees, and charges, not taxes alone. <strong>Education is 43% of it</strong>, $29.6 billion, almost all of that inside school districts. Government administration is next at 12%, then police at 6%. Broken out by government instead of by service, school districts alone account for 42% of all local spending &mdash; more than counties, municipalities, townships, and special districts combined spend on everything they do."
+    text: "Ohio's local governments spent about <strong>$68.6 billion</strong> in 2022 &mdash; a different total than the $39B in local taxes above, because spending also runs on state and federal aid, fees, and charges, not taxes alone. <strong>Education is 43% of it</strong>, $29.6 billion &mdash; almost all inside school districts, and more than the next five services combined. After administration (a catch-all, 12%), the biggest specific services are police and utilities at about 5.5% each. Broken out by government instead of by service, school districts alone account for <strong>42% of all local spending</strong> &mdash; far ahead of municipalities (24%), the next-largest type."
   - type: map
     id: "spending-chart"
     heading: "Where each dollar goes"
@@ -103,6 +103,7 @@ blocks:
     file: "ohio_tax_spending.html"
     embed: "/assets/data-insights/ohio-tax-explainer/ohio_tax_spending.html"
     frame_id: "spending-frame"
+    autoresize: true
     title: "Chart of Ohio local government spending by government type and service category"
   - type: para
     text: "This is spending, not the tax collections shown above &mdash; a different Census survey, a different year (2022), and a wider funding base than taxes alone, so don't add this total to the $72B figure higher on this page. <a href=\"https://gelade1.substack.com/p/what-do-ohio-taxes-buy\">Read piece 5 &rarr;</a>"

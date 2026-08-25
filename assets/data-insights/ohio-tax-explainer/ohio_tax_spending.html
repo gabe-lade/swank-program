@@ -58,6 +58,22 @@ const D = window.OH_SPENDING;
 const fmtB = v => "$" + (v/1e9).toFixed(v >= 1e9 ? 1 : 2) + "B";
 const fmtPct = v => v.toFixed(1) + "%";
 
+// Headline total is written from the data, not hand-typed (house rule: a
+// number that moves upstream must move here too).
+document.querySelector("h2").textContent =
+  `Where Ohio's local governments spend $${(D.grand_total/1e9).toFixed(1)} billion a year`;
+
+// Short display aliases for row labels in the by-service view -- the full
+// Census names ("Utilities (water/electric/transit)") overflow the label
+// gutter and clip against the viewBox edge. Tooltips keep the full name.
+const SHORT = {
+  "Utilities (water/electric/transit)": "Utilities",
+  "Government administration": "Administration",
+  "Housing & community dev": "Housing & comm. dev",
+  "Health & hospitals": "Health & hospitals",
+};
+const shortLabel = k => SHORT[k] || k;
+
 // A fixed, distinguishable palette assigned by first-seen category (view 1)
 // or government (view 2), reused across both views for the same key.
 const PALETTE = ["#253494","#2c7fb8","#41b6c4","#7fcdbb","#c7e9b4","#ffffb2","#fecc5c",
@@ -119,7 +135,7 @@ function render(view) {
     rowLabel.setAttribute("y", y + BARH / 2 + 4);
     rowLabel.setAttribute("text-anchor", "end");
     rowLabel.setAttribute("class", "barlabel");
-    rowLabel.textContent = row.label;
+    rowLabel.textContent = shortLabel(row.label);
     svg.appendChild(rowLabel);
 
     let x = LEFT;
@@ -162,6 +178,22 @@ function render(view) {
     item.className = "item";
     item.innerHTML = `<i style="background:${colorFor(k)}"></i>${k}`;
     legend.appendChild(item);
+  });
+
+  syncFrameHeight();
+}
+
+// When embedded in the explainer page's iframe (same-origin), size the frame
+// to this document -- the parent's data-autoresize only measures at load, and
+// the by-service view is ~2x taller than the by-government view it loads with,
+// so a toggle would otherwise clip or scroll inside a fixed-height frame.
+// No-op when opened standalone (file:// or a tab): frameElement is null.
+function syncFrameHeight() {
+  requestAnimationFrame(() => {
+    try {
+      const fe = window.frameElement;
+      if (fe) fe.style.height = document.documentElement.scrollHeight + "px";
+    } catch (e) { /* cross-origin embed: leave the parent's CSS height alone */ }
   });
 }
 
