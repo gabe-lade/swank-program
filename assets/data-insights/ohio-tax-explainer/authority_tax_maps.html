@@ -106,10 +106,10 @@ const LAYERS = {
     title:'Counties', color:'#1f3864',
     data: OH_AUTHORITIES.counties,
     ctx: '88 county governments',
-    lede: 'Counties levy a permissive <b>sales &amp; use tax</b> (on top of the 5.75% state rate) and a countywide <b>property-tax</b> millage. Property millage applies to <b>assessed value</b> — 35% of a property’s market value in Ohio — so 1 mill = $1 per $1,000 assessed, about $35/yr per $100,000 of home value; the <b>effective</b> rate below is what a homeowner actually pays after HB 920 reduction factors trim the voted (gross) rate.',
+    lede: 'Counties levy a permissive <b>sales &amp; use tax</b> (on top of the 5.75% state rate) and a countywide <b>property-tax</b> millage. One mill &asymp; $35/yr per $100,000 of home value; the page text explains gross vs. effective.',
     metric: p => p.cty_c1,
     legend: {title:'County property millage, effective (residential)', fmt:v=>v.toFixed(0)+' mills',
-             note:'Countywide levy only — excludes the city/township, school, and special-district millage layered on the same parcel. The permissive sales-tax rate isn’t shown: ODT publishes county sales-tax dollars collected (see the collections map below), not the rate itself.'},
+             note:'County’s own levy only — excludes city/township, school, and special-district millage on the same parcel. Sales-tax rate not shown (ODT publishes dollars collected, not rates).'},
     rows: p => [
       ['County property millage, gross', mills(p.cty_mills)],
       ['&nbsp;&nbsp;effective, residential (Class I)', mills(p.cty_c1)],

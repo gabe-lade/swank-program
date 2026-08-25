@@ -18,19 +18,14 @@
 
 <script src="data/spending_2022.js"></script>
 <style>
-  /* Side-card layout to match the sibling pages (ohio_tax_collections.html
-     etc.): all the chrome lives in a floating-style card on the LEFT so
-     nothing overlaps the chart, per the house pattern of keeping info boxes
-     off the visual. */
   html,body{margin:0;min-height:100%;font-family:-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;color:#1f2933;background:#fff}
-  #wrap{display:flex;align-items:flex-start;gap:14px;padding:14px}
-  #side{flex:0 0 auto;width:236px;background:#fff;border-radius:10px;box-shadow:0 2px 12px rgba(0,0,0,.18);padding:12px 14px}
-  h2{margin:0 0 4px;font-size:15px}
-  .sub{color:#6b7280;font-size:12px;margin:0 0 10px;line-height:1.4}
-  #toggle{display:flex;flex-direction:column;gap:6px;margin-bottom:10px}
-  #toggle button{font:inherit;font-size:13px;padding:6px 12px;border-radius:8px;border:1px solid #d7dbe0;background:#f7f8f9;color:#1f2933;cursor:pointer;text-align:left}
+  #wrap{max-width:900px;margin:0 auto;padding:18px 20px 26px}
+  h2{margin:0 0 2px;font-size:16px}
+  .sub{color:#6b7280;font-size:12.5px;margin:0 0 14px}
+  #toggle{display:flex;gap:6px;margin-bottom:14px}
+  #toggle button{font:inherit;font-size:13px;padding:6px 14px;border-radius:999px;border:1px solid #d7dbe0;background:#f7f8f9;color:#1f2933;cursor:pointer}
   #toggle button.active{background:#253494;border-color:#253494;color:#fff}
-  #chart{flex:1;position:relative;min-width:0}
+  #chart{position:relative}
   svg{width:100%;height:auto;display:block}
   .seg{stroke:#fff;stroke-width:1;cursor:pointer}
   .seg:hover{opacity:.82}
@@ -39,26 +34,23 @@
   .totallabel{font-size:12px;fill:#6b7280}
   #tip{position:absolute;pointer-events:none;background:#1f2933;color:#fff;font-size:12.5px;line-height:1.45;border-radius:8px;padding:8px 10px;box-shadow:0 4px 14px rgba(0,0,0,.22);max-width:230px;opacity:0;transition:opacity .08s;z-index:10}
   #tip b{display:block;font-size:13px;margin-bottom:2px}
-  #legend{display:block;margin-top:4px;font-size:11px;color:#3d4550;border-top:1px solid #f0f0f0;padding-top:8px}
-  #legend .item{display:flex;align-items:center;gap:6px;padding:1.5px 0;white-space:nowrap}
-  #legend i{width:11px;height:11px;border-radius:3px;display:inline-block;flex:0 0 auto}
-  .note{color:#9aa5b1;font-size:10.5px;margin-top:8px;border-top:1px solid #f0f0f0;padding-top:7px;line-height:1.45}
-  @media (max-width:640px){#wrap{flex-direction:column}#side{width:auto;align-self:stretch}}
+  #legend{display:flex;flex-wrap:wrap;gap:6px 14px;margin-top:14px;font-size:11.5px;color:#3d4550}
+  #legend .item{display:flex;align-items:center;gap:5px;white-space:nowrap}
+  #legend i{width:11px;height:11px;border-radius:3px;display:inline-block}
+  .note{color:#9aa5b1;font-size:11px;margin-top:12px;border-top:1px solid #f0f0f0;padding-top:8px;line-height:1.5}
 </style>
 </head>
 <body>
 <div id="wrap">
-  <div id="side">
-    <h2>Where Ohio's local governments spend $68.6 billion a year</h2>
-    <p class="sub">2022 spending, all revenue sources &mdash; not just taxes. Hover any segment for the dollar amount and share.</p>
-    <div id="toggle">
-      <button id="btn-govt" class="active">By government</button>
-      <button id="btn-cat">By service</button>
-    </div>
-    <div id="legend"></div>
-    <div class="note" id="note"></div>
+  <h2>Where Ohio's local governments spend $68.6 billion a year</h2>
+  <p class="sub">2022 spending, all revenue sources &mdash; not just taxes. Hover any segment for the dollar amount and share.</p>
+  <div id="toggle">
+    <button id="btn-govt" class="active">By government</button>
+    <button id="btn-cat">By service</button>
   </div>
   <div id="chart"><div id="tip"></div></div>
+  <div id="legend"></div>
+  <div class="note" id="note"></div>
 </div>
 
 <script>
@@ -95,10 +87,7 @@ const colorFor = (() => {
 })();
 
 const svgNS = "http://www.w3.org/2000/svg";
-// Narrower viewBox than the old full-width layout: the chart now shares the
-// frame with the 236px side card, and a wide viewBox scaled down would shrink
-// the label text below legibility.
-const W = 700, LEFT = 150, RIGHT = 64, BARH = 34, GAP = 20, TOP = 6;
+const W = 860, LEFT = 150, RIGHT = 70, BARH = 34, GAP = 20, TOP = 6;
 
 function buildGovtView() {
   // One stacked horizontal bar per government, segments = category, ordered
@@ -129,7 +118,18 @@ function render(view) {
   const tip = document.getElementById("tip");
   chart.querySelectorAll("svg").forEach(n => n.remove());
 
-  const maxTotal = Math.max(...view.rows.map(r => r.total));
+  // OFF-SCALE TREATMENT: in the by-service view, Education ($29.6B) is ~3.7x
+  // the next category, so scaling the axis to it crushes every other bar into
+  // near-invisibility. When the largest row exceeds 2.5x the second-largest,
+  // the axis is scaled to the SECOND-largest instead and the outlier bar runs
+  // the full width with a visible break marker and an explicit "runs off this
+  // scale" label -- which is honest (it literally does) and is itself the
+  // story. Segment WIDTHS inside a truncated bar keep their true composition
+  // shares; only the bar's total length is capped. The by-government view
+  // (max/second = 1.75) is untouched by this rule.
+  const totals = view.rows.map(r => r.total).sort((a, b) => b - a);
+  const useCap = totals.length > 1 && totals[0] / totals[1] > 2.5;
+  const scaleMax = useCap ? totals[1] * 1.15 : totals[0];
   const barMaxW = W - LEFT - RIGHT;
   const H = TOP + view.rows.length * (BARH + GAP);
 
@@ -139,7 +139,9 @@ function render(view) {
 
   view.rows.forEach((row, i) => {
     const y = TOP + i * (BARH + GAP);
-    const barW = (row.total / maxTotal) * barMaxW;
+    const truncated = row.total > scaleMax;
+    const barW = truncated ? barMaxW + RIGHT - 8
+                           : (row.total / scaleMax) * barMaxW;
 
     const rowLabel = document.createElementNS(svgNS, "text");
     rowLabel.setAttribute("x", LEFT - 10);
@@ -160,7 +162,7 @@ function render(view) {
       rect.addEventListener("mousemove", ev => {
         const rc = chart.getBoundingClientRect();
         tip.style.opacity = 1;
-        tip.style.left = Math.max(0, Math.min(ev.clientX - rc.left + 12, rc.width - 240)) + "px";
+        tip.style.left = Math.min(ev.clientX - rc.left + 12, rc.width - 240) + "px";
         tip.style.top = (ev.clientY - rc.top - 10) + "px";
         tip.innerHTML = `<b>${seg.key}</b>${fmtB(seg.v)} ${view.tipWhat}${row.label}<br>`
           + `${fmtPct(seg.v / row.total * 100)} of ${row.label}'s spending &middot; `
@@ -171,12 +173,36 @@ function render(view) {
       x += w;
     });
 
-    const totalLabel = document.createElementNS(svgNS, "text");
-    totalLabel.setAttribute("x", LEFT + barW + 8);
-    totalLabel.setAttribute("y", y + BARH / 2 + 4);
-    totalLabel.setAttribute("class", "totallabel");
-    totalLabel.textContent = fmtB(row.total);
-    svg.appendChild(totalLabel);
+    if (truncated) {
+      // Break marker: a slanted white gap near the right edge, the standard
+      // "this bar continues" glyph.
+      const bx = LEFT + barW - 26;
+      [0, 7].forEach(dx => {
+        const gap = document.createElementNS(svgNS, "rect");
+        gap.setAttribute("x", bx + dx); gap.setAttribute("y", y - 3);
+        gap.setAttribute("width", 3.5); gap.setAttribute("height", BARH + 6);
+        gap.setAttribute("fill", "#ffffff");
+        gap.setAttribute("transform", `rotate(18 ${bx + dx} ${y + BARH / 2})`);
+        svg.appendChild(gap);
+      });
+      // Label INSIDE the bar (white on the dominant dark segment), left of
+      // the break -- there is no room after a full-width bar.
+      const inLabel = document.createElementNS(svgNS, "text");
+      inLabel.setAttribute("x", bx - 10);
+      inLabel.setAttribute("y", y + BARH / 2 + 4);
+      inLabel.setAttribute("text-anchor", "end");
+      inLabel.setAttribute("class", "totallabel");
+      inLabel.setAttribute("style", "fill:#fff;font-weight:600");
+      inLabel.textContent = `${fmtB(row.total)} (${fmtPct(row.total / D.grand_total * 100)}) — runs off this scale`;
+      svg.appendChild(inLabel);
+    } else {
+      const totalLabel = document.createElementNS(svgNS, "text");
+      totalLabel.setAttribute("x", LEFT + barW + 8);
+      totalLabel.setAttribute("y", y + BARH / 2 + 4);
+      totalLabel.setAttribute("class", "totallabel");
+      totalLabel.textContent = fmtB(row.total);
+      svg.appendChild(totalLabel);
+    }
   });
 
   // Legend: every distinct segment key across this view, in first-seen order.
