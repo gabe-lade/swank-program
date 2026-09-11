@@ -80,12 +80,17 @@ tool, to `_data/tools.yml`.
   `</body>`, marked `swank patch`); if they are ever regenerated from R,
   those patches must be re-applied. The tax map and the NLCD/CDL explorers
   are hand-written apps edited in place (July 2026: docked/collapsible
-  legends, begin/end year dropdowns). The tax explainer's
-  `authority_tax_maps.html` + `data/*.js` are built in the research repo
-  (`06_dissemination/webpage/`, `build_authority_maps.py`) — that repo is
-  canonical and this copy is a deploy artifact: rebuild/edit there first,
-  then re-copy (the website copy carries the docked-panel chrome; re-apply
-  it if the research repo's HTML is re-copied wholesale).
+  legends, begin/end year dropdowns; Sept 2026: keyless Esri basemap, all
+  four tax embeds on the same docked-panel chrome).
+- **Tax explainer embeds: this repo owns the HTML, the research repo owns
+  the data.** The four `ohio-tax-explainer/*.html` files are edited here and
+  are canonical. Their `data/*.js` bundles are built by scripts in Gabe's
+  property-tax research repo (OneDrive: `oh-property-tax-reform/06_writing/
+  webpage/`, `build_*.py`) and copied here verbatim — never hand-edit a
+  bundle or its numbers. Nothing on this site depends on that OneDrive
+  folder for routine work; the only sync is a manual copy of regenerated
+  js bundles in, and (courtesy) updated html out, so its standalone maps
+  keep working. Its README says the same.
 - **No Liquid tags inside HTML comments.** Jekyll parses `{% %}` even in
   `<!-- -->` (a literal `{% else %}` in a comment once broke the production
   build). Use `{% comment %}` blocks or plain prose.
