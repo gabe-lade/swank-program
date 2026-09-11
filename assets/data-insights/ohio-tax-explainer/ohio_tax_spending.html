@@ -17,33 +17,36 @@
      never sum this total against the collections map's. -->
 
 <script src="data/spending_2022.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&family=Public+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
-  html,body{margin:0;min-height:100%;font-family:-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;color:#1f2933;background:#fff}
-  #wrap{max-width:900px;margin:0 auto;padding:18px 20px 26px}
-  h2{margin:0 0 2px;font-size:16px}
-  .sub{color:#6b7280;font-size:12.5px;margin:0 0 14px}
-  #toggle{display:flex;gap:6px;margin-bottom:14px}
-  #toggle button{font:inherit;font-size:13px;padding:6px 14px;border-radius:999px;border:1px solid #d7dbe0;background:#f7f8f9;color:#1f2933;cursor:pointer}
-  #toggle button.active{background:#253494;border-color:#253494;color:#fff}
-  #chart{position:relative}
-  svg{width:100%;height:auto;display:block}
-  .seg{stroke:#fff;stroke-width:1;cursor:pointer}
-  .seg:hover{opacity:.82}
-  .axlabel{font-size:11px;fill:#6b7280}
-  .barlabel{font-size:12.5px;fill:#1f2933;font-weight:600}
-  .totallabel{font-size:12px;fill:#6b7280}
-  #tip{position:absolute;pointer-events:none;background:#1f2933;color:#fff;font-size:12.5px;line-height:1.45;border-radius:8px;padding:8px 10px;box-shadow:0 4px 14px rgba(0,0,0,.22);max-width:230px;opacity:0;transition:opacity .08s;z-index:10}
-  #tip b{display:block;font-size:13px;margin-bottom:2px}
-  #legend{display:flex;flex-wrap:wrap;gap:6px 14px;margin-top:14px;font-size:11.5px;color:#3d4550}
-  #legend .item{display:flex;align-items:center;gap:5px;white-space:nowrap}
-  #legend i{width:11px;height:11px;border-radius:3px;display:inline-block}
-  .note{color:#9aa5b1;font-size:11px;margin-top:12px;border-top:1px solid #f0f0f0;padding-top:8px;line-height:1.5}
+  html, body { margin: 0; min-height: 100%; font-family: 'Public Sans', system-ui, -apple-system, sans-serif; color: #1A1A19; background: #fff; }
+  #wrap { max-width: 900px; margin: 0 auto; padding: 22px 24px 20px; }
+  h2 { margin: 0 0 3px; font-family: 'Source Serif 4', serif; font-weight: 600; font-size: 18px; letter-spacing: -0.01em; }
+  .sub { color: #7C786F; font-size: 12.5px; margin: 0 0 14px; }
+  #toggle { display: flex; gap: 6px; margin-bottom: 18px; }
+  #toggle button { font: inherit; font-size: 12.5px; font-weight: 600; padding: 7px 14px; border-radius: 7px; border: 1px solid #D8D3CA; background: #fff; color: #56534D; cursor: pointer; }
+  #toggle button:hover { background: #F4F1EB; }
+  #toggle button.active { background: #BB0000; border-color: #BB0000; color: #fff; }
+  #chart { position: relative; }
+  svg { width: 100%; height: auto; display: block; font-family: 'Public Sans', system-ui, sans-serif; }
+  .seg { stroke: #fff; stroke-width: 1; cursor: pointer; }
+  .seg:hover { opacity: .82; }
+  .axlabel { font-size: 11px; fill: #7C786F; }
+  .barlabel { font-size: 12.5px; fill: #33302B; font-weight: 600; }
+  .totallabel { font-size: 12px; fill: #7C786F; }
+  #tip { position: absolute; pointer-events: none; background: #1A1A19; color: #fff; font-size: 12.5px; line-height: 1.45; border-radius: 8px; padding: 8px 10px; box-shadow: 0 4px 14px rgba(0,0,0,.22); max-width: 230px; opacity: 0; transition: opacity .08s; z-index: 10; }
+  #tip b { display: block; font-size: 13px; margin-bottom: 2px; font-family: 'Source Serif 4', serif; font-weight: 600; }
+  #legend { display: flex; flex-wrap: wrap; gap: 6px 14px; margin-top: 16px; font-size: 11.5px; color: #56534D; }
+  #legend .item { display: flex; align-items: center; gap: 5px; white-space: nowrap; }
+  #legend i { width: 11px; height: 11px; border-radius: 3px; display: inline-block; }
+  .note { color: #9A968D; font-size: 11.5px; margin-top: 14px; border-top: 1px solid #EFECE6; padding-top: 8px; line-height: 1.5; }
 </style>
 </head>
 <body>
 <div id="wrap">
   <h2>Where Ohio's local governments spend $68.6 billion a year</h2>
-  <p class="sub">2022 spending, all revenue sources &mdash; not just taxes. Hover any segment for the dollar amount and share.</p>
+  <p class="sub">2022 spending from all revenue sources, not just taxes. Hover a segment for the dollar amount and share.</p>
   <div id="toggle">
     <button id="btn-govt" class="active">By government</button>
     <button id="btn-cat">By service</button>
@@ -193,7 +196,7 @@ function render(view) {
       inLabel.setAttribute("text-anchor", "end");
       inLabel.setAttribute("class", "totallabel");
       inLabel.setAttribute("style", "fill:#fff;font-weight:600");
-      inLabel.textContent = `${fmtB(row.total)} (${fmtPct(row.total / D.grand_total * 100)}) — runs off this scale`;
+      inLabel.textContent = `${fmtB(row.total)} (${fmtPct(row.total / D.grand_total * 100)}) — off the scale`;
       svg.appendChild(inLabel);
     } else {
       const totalLabel = document.createElementNS(svgNS, "text");

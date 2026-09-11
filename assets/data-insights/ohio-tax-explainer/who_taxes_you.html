@@ -85,7 +85,7 @@
       <button class="wty-minbtn" id="wty-min" title="Minimize panel" aria-label="Minimize panel">&raquo;</button>
     </div>
     <div class="wty-body">
-      <p class="wty-hint" id="wty-hint">Hover anywhere in Ohio. Every government below can tax that spot.</p>
+      <p class="wty-hint" id="wty-hint">Hover anywhere in Ohio to see who taxes that spot.</p>
       <div class="wty-row"><span class="label">State</span><span class="value" id="wty-state">Ohio</span></div>
       <div class="wty-row"><span class="label">County</span><span class="value empty" id="wty-county">&mdash;</span></div>
       <div class="wty-row"><span class="label">City / Village</span><span class="value empty" id="wty-city">&mdash;</span></div>
@@ -106,9 +106,12 @@
 </div>
 
 <script>
-const map = L.map('map', {minZoom:6, maxZoom:14}).setView([40.3, -82.8], 7);
-L.tileLayer('https://{s}.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{y}{r}.png',
-  {attribution:'&copy; OpenStreetMap &copy; CARTO', subdomains:'abcd'}).addTo(map);
+const map = L.map('map', {minZoom:6, maxZoom:16}).setView([40.3, -82.8], 7);
+L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}',
+  { attribution: 'Tiles &copy; Esri &mdash; Esri, HERE, Garmin, OpenStreetMap contributors', maxZoom: 16 }).addTo(map);
+// street/place labels only once zoomed in, so people can find their own street
+L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Reference/MapServer/tile/{z}/{y}/{x}',
+  { minZoom: 10, maxZoom: 16, pane: 'overlayPane' }).addTo(map);
 
 // layer config: id -> {file, panel element id, boundary colour}
 const LAYERS = [

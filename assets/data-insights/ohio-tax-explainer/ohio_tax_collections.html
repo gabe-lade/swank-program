@@ -125,9 +125,9 @@
 </div>
 
 <script>
-const map = L.map('map',{minZoom:6,maxZoom:12}).setView([40.2,-82.7],7);
-L.tileLayer('https://{s}.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{y}{r}.png',
-  {attribution:'&copy; OpenStreetMap &copy; CARTO', subdomains:'abcd'}).addTo(map);
+const map = L.map('map',{minZoom:6,maxZoom:16}).setView([40.2,-82.7],7);
+L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}',
+  { attribution: 'Tiles &copy; Esri &mdash; Esri, HERE, Garmin, OpenStreetMap contributors', maxZoom: 16 }).addTo(map);
 
 const PALETTE = ["#ffffcc","#c7e9b4","#7fcdbb","#41b6c4","#2c7fb8","#253494"];
 const LABEL = {property:"Real property tax charged", sales:"County sales/use tax collected", muni_income:"Municipal income tax"};
