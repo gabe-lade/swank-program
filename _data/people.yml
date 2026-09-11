@@ -43,6 +43,22 @@ students:
     bio: "Zoey Zhao is a Ph.D. student in AEDE at The Ohio State University. Her research interests are in agriculture economics."
 
     
+undergraduates:
+  - name: "Melanie Kessler"
+    title: "Undergraduate Student"
+    university: "The Ohio State University"
+    photo: "/assets/images/people/melanie-kessler.jpg"
+
+  - name: "Achraf Elinani"
+    title: "Undergraduate Student"
+    university: "The Ohio State University"
+    photo: "/assets/images/people/achraf-elinani.jpeg"
+
+  - name: "Shoubhit Pusuluri"
+    title: "Undergraduate Student"
+    university: "The Ohio State University"
+    # photo: none yet — the page shows a monogram avatar until one is added.
+
 affiliates:
   - name: "Peggy Kirk Hall"
     title: "Paul L. Wright Chair in Agricultural Law & Associate Professor"

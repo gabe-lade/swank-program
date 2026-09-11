@@ -2,7 +2,7 @@
 layout: default
 title: "People"
 permalink: /people/
-description: "Faculty, graduate students, and advisory board members of the Swank Program in Rural-Urban Policy at Ohio State."
+description: "Faculty, graduate and undergraduate students, and advisory board members of the Swank Program in Rural-Urban Policy at Ohio State."
 ---
 
 <!-- People page ported from the design reference. Header and footer come from
@@ -16,7 +16,7 @@ description: "Faculty, graduate students, and advisory board members of the Swan
   <section class="page-head container">
     <p class="eyebrow">People</p>
     <h1>The people behind the program</h1>
-    <p class="intro">Faculty, graduate students, affiliated researchers, and an advisory board of Ohio leaders working at the intersection of rural and urban policy.</p>
+    <p class="intro">Faculty, graduate and undergraduate students, affiliated researchers, and an advisory board of Ohio leaders working at the intersection of rural and urban policy.</p>
   </section>
 
   <!-- ===== FACULTY (feature) ===== -->
@@ -43,6 +43,21 @@ description: "Faculty, graduate students, and advisory board members of the Swan
       {% for p in site.data.people.students %}
       <div class="person-card">
         {% if p.photo %}<img class="photo" src="{{ p.photo | relative_url }}" alt="{{ p.name | strip }}">{% endif %}
+        <div class="grow"><h3>{{ p.name | strip }}</h3><p class="role">{{ p.title }}</p></div>
+        {% if p.website %}<a class="link" href="{{ p.website }}">Website &rarr;</a>{% endif %}
+      </div>
+      {% endfor %}
+    </div>
+  </section>
+
+  <!-- ===== UNDERGRADUATE STUDENTS ===== -->
+  <section class="people-section container">
+    <div class="section-head"><h2><span class="dot"></span>Undergraduate students</h2></div>
+    <div class="person-grid">
+      {% for p in site.data.people.undergraduates %}
+      {% assign np = p.name | strip | split: ' ' %}
+      <div class="person-card">
+        {% if p.photo %}<img class="photo" src="{{ p.photo | relative_url }}" alt="{{ p.name | strip }}">{% else %}<div class="avatar-mono">{{ np | first | slice: 0 | upcase }}{{ np | last | slice: 0 | upcase }}</div>{% endif %}
         <div class="grow"><h3>{{ p.name | strip }}</h3><p class="role">{{ p.title }}</p></div>
         {% if p.website %}<a class="link" href="{{ p.website }}">Website &rarr;</a>{% endif %}
       </div>
