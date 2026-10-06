@@ -77,11 +77,13 @@ tool, to `_data/tools.yml`.
   maps (`map1_urban_areas.html`, `map5_CBG_2000-2020.html`) are R htmlwidgets
   exports that carry hand-patches (legend moved to bottom-left with a width
   cap, dev-note line removed, collapsible-legend block appended before
-  `</body>`, marked `swank patch`); if they are ever regenerated from R,
+  `</body>`, marked `swank patch`; basemap `CartoDB.Positron` swapped to
+  `Esri.WorldGrayCanvas` because Carto now requires an API key); if they are ever regenerated from R,
   those patches must be re-applied. The tax map and the NLCD/CDL explorers
   are hand-written apps edited in place (July 2026: docked/collapsible
   legends, begin/end year dropdowns; Sept 2026: keyless Esri basemap, all
-  four tax embeds on the same docked-panel chrome).
+  four tax embeds on the same docked-panel chrome; Oct 2026: NLCD/CDL
+  explorers moved off Carto tiles to the same keyless Esri basemap).
 - **Tax explainer embeds: this repo owns the HTML, the research repo owns
   the data.** The four `ohio-tax-explainer/*.html` files are edited here and
   are canonical. Their `data/*.js` bundles are built by scripts in Gabe's
