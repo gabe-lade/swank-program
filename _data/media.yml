@@ -1,5 +1,23 @@
 # News coverage, podcasts, and interviews. Newest first.
 # Fields: title, url, source (outlet), date (display string), topics (slugs)
+- title: "Ag economist warns red dyed diesel policy could raise the cost for farmers"
+  url: "https://www.brownfieldagnews.com/news/ag-economist-warns-red-dyed-diesel-policy-could-raise-the-cost-for-farmers/"
+  source: "Brownfield Ag News"
+  date: "October 2026"
+  topics: [biofuels, agriculture]
+
+- title: "Western Ohio Ag Outlook Meeting to Provide Updates on Agriculture, Markets and Farm Policy"
+  url: "https://mercercountyoutlook.net/2026/10/01/western-ohio-ag-outlook-meeting-to-provide-updates-on-agriculture-markets-and-farm-policy/"
+  source: "Mercer County Outlook"
+  date: "October 2026"
+  topics: [agriculture]
+
+- title: "Biofuels, Data Centers Shape Ohio's Agriculture Future"
+  url: "https://www.lancasterfarming.com/farming-news/news/biofuels-data-centers-shape-ohio-s-agriculture-future/article_d5a99c7b-4468-4156-aa64-8fbdf9458550.html"
+  source: "Lancaster Farming"
+  date: "September 2026"
+  topics: [biofuels, energy-land-use, agriculture]
+
 - title: "Former New York City Mayor Eric Adams Tried to Sell Wisconsin Residents on a Massive Data Center. He Was Met With Boos"
   url: "https://www.inc.com/georgia-fearn/former-new-york-city-mayor-eric-adams-sell-wisconsin-residents-on-data-center/91383932"
   source: "Inc."
