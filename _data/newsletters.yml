@@ -1,5 +1,20 @@
 # Substack newsletter posts. Newest first.
 # Fields: title, url, date (display string), topics (slugs from outreach_topics.yml)
+- title: "How a Diesel Tax Holiday Could Cost Farmers"
+  url: "https://gelade1.substack.com/p/how-a-diesel-tax-holiday-could-cost"
+  date: "October 2026"
+  topics: [biofuels, agriculture]
+
+- title: "What Would a Gas Tax Holiday Do for Ohio Farmers?"
+  url: "https://gelade1.substack.com/p/what-would-a-gas-tax-holiday-do-for"
+  date: "September 2026"
+  topics: [biofuels, agriculture]
+
+- title: "Who Would Benefit from a Gas Tax Holiday?"
+  url: "https://gelade1.substack.com/p/who-would-benefit-from-a-gas-tax"
+  date: "September 2026"
+  topics: [biofuels]
+
 - title: "What Do Ohio Taxes Buy?"
   url: "https://gelade1.substack.com/p/what-do-ohio-taxes-buy"
   date: "August 2026"
