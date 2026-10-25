@@ -6,7 +6,7 @@ description: "Who taxes you in Ohio, what they charge, and where the money goes 
 eyebrow: "Interactive map"
 topic: "Taxes"
 subtitle: "Who taxes you in Ohio, what they charge, and where the money goes &mdash; in five maps and charts."
-updated: "August 25, 2026"
+updated: "October 25, 2026"
 authors:
   - name: "Gabriel E. Lade"
     url: "https://gabe-lade.github.io/"
@@ -16,8 +16,8 @@ stats:
     label: "State and local taxes collected each year ($33B state, $39B local)"
   - value: "$22.6B"
     label: "Real property tax, the single largest tax (about $1,915 per resident)"
-  - value: "~67%"
-    label: "Share of property tax that goes to school districts"
+  - value: "~61%"
+    label: "Share of property tax that goes to school districts (63% with career-technical districts)"
   - value: "10+"
     label: "Governments that tax a typical Ohio address"
   - value: "$0"
@@ -80,7 +80,7 @@ blocks:
     id: "the-money"
     text: "4 &middot; How much, and who gets it?"
   - type: para
-    text: "Ohio's state and local governments collect about <strong>$72 billion</strong> a year in taxes &mdash; roughly <strong>$33 billion</strong> by the state and <strong>$39 billion</strong> locally, or about $6,100 per resident. Local governments collect more than the state does, and they collect it differently: three-quarters of the state's total is sales and income tax, while <strong>58% of local tax revenue is property tax</strong>. Follow a property-tax dollar and about <strong>67 cents goes to a school district</strong>, 2 to a vocational school district, 15 to the county, 7 to a township, 5 to special districts like libraries and parks, and 4 to a city or village. <strong><a href=\"https://gelade1.substack.com/p/who-collects-ohios-72-billion-in\">Read the full piece: Who collects Ohio's $72 billion in taxes? &rarr;</a></strong>"
+    text: "Ohio's state and local governments collect about <strong>$72 billion</strong> a year in taxes &mdash; roughly <strong>$33 billion</strong> by the state and <strong>$39 billion</strong> locally, or about $6,100 per resident. Local governments collect more than the state does, and they collect it differently: three-quarters of the state's total is sales and income tax, while <strong>58% of local tax revenue is property tax</strong>. Follow a property-tax dollar and about <strong>61 cents goes to a school district</strong>, 3 to a vocational school district, 17 to the county, 7 to a township, 7 to a city or village, and 6 to special districts like libraries and parks (shares rounded). <em>(Corrected October 2026: an earlier version of this page and of the newsletter gave 67 cents to schools. That split divided levies at their voted rates, before HB 920 reductions, and included the separate tax on utility equipment. The figures here use real property taxes actually charged.)</em> <strong><a href=\"https://gelade1.substack.com/p/who-collects-ohios-72-billion-in\">Read the full piece: Who collects Ohio's $72 billion in taxes? &rarr;</a></strong>"
   - type: map
     id: "county-collections"
     heading: "4b &middot; Map: where each tax is collected"
