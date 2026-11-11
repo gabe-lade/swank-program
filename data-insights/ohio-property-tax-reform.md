@@ -23,7 +23,7 @@ stats:
 stats_note: "First two tiles: real property tax charged on homes, farms and businesses in tax year 2025, after the state's reductions that offset rising values (HB 920) and before the state's credits; source: Ohio Department of Taxation Tax Data Series. Third tile: property tax as a share of each type of government's total revenue, U.S. Census Bureau Government Finance Database, 2022. Shares are rounded."
 intro:
   - "Ohio's real property tax is the largest single tax in the state, and it is the one a proposed constitutional amendment would end. This page collects the tools and numbers on it. We take no position on the amendment; everything here is built from public Ohio Department of Taxation data, and we will add to the page over the coming months."
-  - "Start with the estimator: click anywhere in Ohio to see which governments tax that spot and roughly what a home there pays."
+  - "Start with the estimator below."
 blocks:
   - type: heading
     id: "what-it-is"
@@ -68,7 +68,7 @@ use_cite:
     - label: "Best for:"
       text: "Residents, local officials, reporters and researchers."
     - label: "Bill estimator:"
-      text: "Enter a home value and tick the owner-occupancy box if the home is owner-occupied. On wider screens, the &#187; button tucks the panel away for a wider map."
+      text: "Enter a home value and leave the credits box ticked for a 2025 bill on any home. A rental got the 10% part of the credit but not the extra 2.5% for owner-occupied homes, so its credit is a bit smaller than shown; the 10% credit phases out for rentals from 2026, reaching zero by 2029. On wider screens, the &#187; button tucks the panel away for a wider map."
 citation: "Lade, Gabriel E., and Alex Ryan. \"Ohio's Property Tax Explained.\" C. William Swank Program in Rural-Urban Policy, The Ohio State University, 2026."
 related:
   heading: "Read more"
@@ -80,7 +80,7 @@ related:
 sources:
   - "Rates and taxing districts: Ohio Department of Taxation Tax Data Series, Property Tax Rates by Levy (tax year 2025), and PD-23 (the department's table of real property tax charged by county, Class I residential/agricultural plus Class II commercial/industrial, net of HB 920 reduction factors). Taxing-district boundaries: Ohio Department of Taxation and the Ohio Geographically Referenced Information Program (OGRIP) at ODOT, with U.S. Census TIGER for counties and school districts."
   - "Estimator method: each spot is matched to its Ohio Department of Taxation taxing district (4,479 districts). About 97% of the state's area matches (96.7% on a grid we checked); for those spots the rates are that district's own tax year 2025 effective Class I (residential) rates after HB 920, which sum to the department's district rate. The other 3% are flagged approximate and use each government's typical (median) rate across the districts it spans. The estimate applies a flat 10% for the state's credits; on one real Hilliard bill, the resulting estimate came within about 0.8% of the actual bill."
-  - "Credits: the state's 10% and 2.5% (owner-occupancy) credits apply only to levies approved before late 2013, so on a whole owner-occupied bill they come to roughly 10% (the Hilliard bill nets about 9%). Unticked, the estimate is the bill before any state credit. In 2025 rental homes still received the 10% credit, which phases out from 2026."
+  - "Credits: The state's 10% and 2.5% credits apply only to levies approved before late 2013. The 10% covers homes and farmland, and owner-occupied homes get 2.5% more, so across a whole bill they come to roughly 10% (the real Hilliard bill, an owner-occupied home, nets about 9%). The estimate applies a flat 10% to any home's 2025 bill; a rental got the 10% part but not the extra 2.5%, so its credit is a bit smaller than shown. From tax year 2026 the 10% credit phases out over four years, reaching zero for rentals by 2029. Unticked, the estimate is the bill before any state credit."
   - "Revenue shares by government (townships about 60%, school districts about 42%, cities about 7%): U.S. Census Bureau Government Finance Database, 2022, property tax as a share of total revenue. The $18.0B income-tax comparison sums state, city and school-district income taxes, latest year available for each."
   - "Statewide shares of the tax by type of government (60.8% school districts, 2.6% career-technical, 16.5% counties, 7.4% townships, 6.5% cities and villages, 6.1% special districts): Ohio Department of Taxation PD-23 real property tax charged by type of government, tax year 2025."
   - "Real property only; the roughly $2.6B tax on public-utility tangible personal property is not included."

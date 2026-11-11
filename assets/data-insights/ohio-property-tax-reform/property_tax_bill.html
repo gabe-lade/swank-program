@@ -169,14 +169,15 @@
 
       <div class="cut" id="wty-cut">
         <label for="homeval">Home value $<input id="homeval" type="text" inputmode="numeric" value="250,000"/></label>
-        <div class="oo"><input id="oo" type="checkbox" checked/><label for="oo">apply the owner-occupancy credit (roughly 10% of the bill for an owner-occupied home)</label></div>
+        <div class="oo"><input id="oo" type="checkbox" checked/><label for="oo">Apply the state's 2025 credits (roughly 10% of the bill)</label></div>
         <div class="est">Estimated annual property tax <b id="cut">&mdash;</b></div>
         <div class="note" id="cutnote"></div>
       </div>
         <details class="wty-about">
           <summary>About this estimate</summary>
-          <p>An estimate for tax year 2025 bills, paid in 2026. For most spots, the rates are that spot's taxing district's 2025 effective residential rates, after the state's reductions that offset rising values (HB&nbsp;920). For a spot marked approx., it uses each government's typical (median) rate, because the spot could not be matched to one district. The state's 10% and 2.5% (owner-occupancy) credits apply only to levies approved before late 2013, so on a whole owner-occupied bill they come to roughly 10%; the real Hilliard bill nets about 9%. The estimate applies a flat 10%. Unticked, it is the bill before any state credit. In 2025 rental homes still received the 10% credit, which phases out from 2026.</p>
-          <p id="hint"></p>
+          <p>An estimate for tax year 2025 bills, paid in 2026. For most spots, the rates are that spot's taxing district's 2025 effective residential rates, after the state's reductions that offset rising values (HB&nbsp;920). For a spot marked approx., it uses each government's typical (median) rate, because the spot could not be matched to one district. The state's 10% and 2.5% credits apply only to levies approved before late 2013. The 10% covers homes and farmland, and owner-occupied homes get 2.5% more, so across a whole bill they come to roughly 10% (the real Hilliard bill, an owner-occupied home, nets about 9%). The estimate applies a flat 10% to any home's 2025 bill; a rental got the 10% part but not the extra 2.5%, so its credit is a bit smaller than shown. From tax year 2026 the 10% credit phases out over four years, reaching zero for rentals by 2029. Unticked, the estimate is the bill before any state credit.</p>
+          <p>Map tiles &copy; Esri &mdash; Esri, HERE, Garmin, OpenStreetMap contributors. Rates: Ohio Department of Taxation taxing-district rates, tax year 2025.</p>
+      <p id="hint"></p>
         </details>
     </div>
   </aside>
@@ -236,7 +237,8 @@ const NAME_RULES = [
   [/\bJnt\b|\bJt\b/gi, 'Joint'],
   [/\bDist\.?(?=\s|$)/gi, 'District'],
   [/\bFd\b/gi, 'Fire District'],
-  [/\bSd\b/gi, 'School District'],
+  [/\bSd\b|\bS\.D\.?/gi, 'School District'],
+  [/\bFmr\b/gi, 'Former'], [/\bMh\b/gi, 'Mental Health'], [/\bDept\.?/gi, 'Department'],
   [/\bLib\b/gi, 'Library'], [/\bPub\b/gi, 'Public'], [/\bAmb\b/gi, 'Ambulance'], [/\bVil\b/gi, 'Village'],
   [/\bCo\b(?!\.)/g, 'County'], [/\bRec\b/gi, 'Recreation'], [/\bJfd\b/gi, 'Joint Fire District'],
   [/\bVfd\b/gi, 'Volunteer Fire Department'], [/\bLk\b/gi, 'Lake'], [/\bFt\b/gi, 'Fort'], [/\bPk\b/gi, 'Park'],
@@ -246,12 +248,17 @@ const NAME_RULES = [
 ];
 function pretty(name){
   let n = String(name==null?'':name).replace(/\s+/g,' ').trim();
+  n = n.replace(/[-\s]*Rc\s*[0-9.]+\s*$/i, '');   // trailing statute codes, e.g. "-Rc 340.01"
   NAME_RULES.forEach(r => { n = n.replace(r[0], r[1]); });
-  return n.replace(/\s+/g,' ').trim();
+  n = n.replace(/\bexcept (.+?) C$/, 'except $1 City');     // truncated ODT names, e.g. "except Sharonville C"
+  n = n.replace(/\s+/g,' ').trim();
+  // small words stay lowercase unless they open the name
+  return n.replace(/(.)\b(Of|And|The)\b/g, (m, pre, w) => pre + w.toLowerCase());
 }
 // ODT files career-tech centers under "special" in a few districts (e.g. Heartland Tech Education Ctr)
 function unitType(u){
-  if(u.type === 'special' && /career|tech|jvsd|vocational/i.test(u.name||'')) return 'vocational';
+  // career-tech detection comes before the county rule: ODT files e.g. "C-Tec Of Licking County" under county
+  if((u.type === 'special' || u.type === 'county') && /\bc-?tec\b|career|technical|\btech\b|jvsd|vocational/i.test(u.name||'')) return 'vocational';
   return u.type;
 }
 const usd = n => '$' + Math.round(n).toLocaleString('en-US');   // en-US so a German-locale browser still prints $11,467
@@ -270,19 +277,21 @@ function inPoly(pt,g){const x=pt[0],y=pt[1],ps=g.type==='MultiPolygon'?g.coordin
   for(const poly of ps){if(inRing(x,y,poly[0])){let h=false;for(let k=1;k<poly.length;k++)if(inRing(x,y,poly[k])){h=true;break;}if(!h)return true;}}return false;}
 
 // wheel zoom stays off until the map has focus, so scrolling the page past the embed is not trapped
-const map = L.map('map',{minZoom:3,maxZoom:14,zoomSnap:0.25,preferCanvas:true,scrollWheelZoom:false}).setView([40.25,-82.8],7);
+const map = L.map('map',{minZoom:3,maxZoom:14,zoomSnap:0.25,preferCanvas:true,scrollWheelZoom:false,attributionControl:false}).setView([40.25,-82.8],7);
 // Fit all of Ohio at any frame size (fractional zoom), then stop zooming out beyond Ohio plus a margin.
 function fitOhio(){
   map.invalidateSize();
   map.setMinZoom(3);
-  map.fitBounds(OHIO_BOUNDS, {animate:false});
+  map.fitBounds(OHIO_BOUNDS, {animate:false, paddingBottomRight:[0,26]});   // keep the southern tip clear of the credit line
   map.setMinZoom(Math.min(map.getBoundsZoom(PAN_BOUNDS), map.getZoom()));
   map.setMaxBounds(PAN_BOUNDS);
 }
 fitOhio();
 // keyless Esri basemap, same as the other tax embeds (Carto tiles now need an API key)
 L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}',
-  {attribution:'Tiles &copy; Esri &mdash; Esri, HERE, Garmin, OpenStreetMap contributors &middot; ODT taxing-district rates (TY2025)', maxZoom:16}).addTo(map);
+  {attribution:'&copy; Esri, OSM', maxZoom:16}).addTo(map);
+// compact credit on the map; the full credit is in "About this estimate"
+L.control.attribution({prefix:'<a href="https://leafletjs.com">Leaflet</a>'}).addTo(map);
 // street/place labels only once zoomed in, so people can find their own street
 L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Reference/MapServer/tile/{z}/{y}/{x}',
   {minZoom:10, maxZoom:16, pane:'overlayPane'}).addTo(map);
@@ -483,7 +492,7 @@ function updateCut(immediate){
   else if(!pv.ok){ el.textContent = '\u2014'; note.textContent = pv.msg; }
   else {
     let tax = lastTotal/1000 * 0.35 * pv.value;     // effective mills x taxable (35% of market)
-    if(oo) tax *= 0.90;                              // ~10% non-business + owner-occupancy credits
+    if(oo) tax *= 0.90;                              // flat ~10% for the state's 2025 credits (10% rollback plus owner-occupancy 2.5% on pre-2013 levies)
     el.textContent = usd(tax)+' / yr';
   }
   if(immediate !== true) announce(false);
