@@ -67,3 +67,15 @@
   cta: "Explore the map"
   url: "/data/insights/ohio-cdl-crop-change/"
   image: "/assets/images/tools/cdl-crop-change.jpg"
+
+- name: "Ohio's Property Tax Explained"
+  title: "Ohio's Property Tax Explained"
+  tag: "Explainer"
+  format: "Interactive map"
+  topic: "Taxes"
+  topics: [Taxes]
+  description: "What one Ohio property tax bill is made of."
+  blurb: "Click anywhere in Ohio to see which governments share a property tax bill there, each one's 2025 residential rate, and an estimate of the annual tax on a home value you enter."
+  cta: "Estimate a bill"
+  url: "/data/insights/ohio-property-tax-reform/"
+  image: "/assets/images/tools/tax-explainer.jpg"

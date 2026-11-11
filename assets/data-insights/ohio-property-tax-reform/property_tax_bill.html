@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Your Ohio property tax bill, estimated</title>
+
+<!-- Click (or tap) anywhere in Ohio: the spot is matched to its Ohio Department of
+     Taxation taxing district, and the panel lists every government that shares the
+     bill with its TY2025 effective Class I rate, then estimates the annual tax on a
+     home value. It is an estimate: per-unit rates are typical rates, the state
+     credits are a flat share, and spots with no district match are marked approx.
+     Layout copies who_taxes_you.html: the panel docks BESIDE the map (below it under
+     720px) and can be minimized to a 40px strip.
+     Data bundles are shared with the Ohio Tax Explainer maps and are NOT copied here:
+       ../ohio-tax-explainer/data/authority_layers.js   (window.OH_AUTHORITIES)
+       ../ohio-tax-explainer/data/taxing_districts.js   (window.OH_TD)
+     Estimator logic is unchanged from the research-repo prototype
+     property_tax_exact.html (2026-06-19); only markup, style and copy moved.
+     This repo owns the HTML; the research repo owns the data bundles. -->
+
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="../ohio-tax-explainer/data/authority_layers.js"></script>
+<script src="../ohio-tax-explainer/data/taxing_districts.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&family=Public+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; height: 100%; }
+  body { font-family: 'Public Sans', system-ui, -apple-system, sans-serif; color: #1A1A19; background: #F3F0EA; }
+
+  .wty-layout { display: flex; align-items: stretch; height: 100vh; }
+  .wty-map { flex: 1 1 auto; min-width: 0; position: relative; }
+  #map { position: absolute; inset: 0; }
+
+  /* summary chip shown on the map ONLY while the panel is minimized */
+  .wty-chip { position: absolute; right: 14px; top: 12px; z-index: 500; background: rgba(255,255,255,0.94); border: 1px solid #D8D3CA; border-radius: 100px; padding: 7px 14px; font-size: 13px; color: #33302B; box-shadow: 0 1px 4px rgba(0,0,0,0.08); display: none; max-width: calc(100% - 28px); }
+  .wty-layout.is-min .wty-chip { display: block; }
+
+  /* ---- docked panel ---- */
+  .wty-panel { flex: 0 0 330px; background: #fff; border-left: 1px solid #E5E2DC; display: flex; flex-direction: column; min-height: 0; }
+  .wty-layout.is-min .wty-panel { display: none; }
+  .wty-panel-head { display: flex; align-items: center; justify-content: space-between; padding: 14px 16px 12px; border-bottom: 1px solid #EFECE6; }
+  .wty-kicker { font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: 0.11em; text-transform: uppercase; color: #9A968D; margin: 0; }
+  .wty-minbtn { border: 1px solid #D8D3CA; background: #fff; border-radius: 6px; width: 26px; height: 24px; cursor: pointer; color: #56534D; font-size: 13px; line-height: 1; padding: 0; }
+  .wty-minbtn:hover { background: #F4F1EB; }
+  .wty-body { padding: 6px 16px 12px; overflow-y: auto; flex: 1; }
+  .wty-hint { font-size: 12.5px; color: #6E6A62; margin: 8px 0 10px; line-height: 1.45; }
+  .loc { font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: 0.09em; text-transform: uppercase; color: #6E6A62; margin: 4px 0 2px; min-height: 13px; }
+  .dname { font-family: 'Source Serif 4', serif; font-size: 16px; font-weight: 600; color: #33302B; margin: 0 0 8px; line-height: 1.3; }
+  .dname.empty { color: #8A867D; font-weight: 400; font-style: italic; font-size: 14px; }
+  .flag { display: inline-block; font-family: 'Public Sans', sans-serif; font-size: 10.5px; font-weight: 700; padding: 1px 6px; border-radius: 4px; margin-left: 6px; vertical-align: middle; }
+  .flag.matched { background: #E3F0E3; color: #2E6B31; }
+  .flag.approx { background: #FDEEDE; color: #9A540C; }
+
+  .u { display: flex; justify-content: space-between; gap: 8px; padding: 5px 0; border-top: 1px solid #F2EFE9; font-size: 13px; align-items: baseline; }
+  .u .k { color: #33302B; display: flex; align-items: baseline; gap: 7px; }
+  .u .dot { width: 9px; height: 9px; border-radius: 2px; flex: 0 0 auto; position: relative; top: 1px; }
+  .u .ty { color: #6E6A62; font-family: 'IBM Plex Mono', monospace; font-size: 9.5px; text-transform: uppercase; letter-spacing: .06em; }
+  .u .v { font-weight: 600; white-space: nowrap; }
+  .u .in { color: #B3410B; font-size: 10px; font-weight: 600; margin-left: 5px; }
+  .total { display: flex; justify-content: space-between; padding: 9px 0 3px; border-top: 2px solid #1A1A19; margin-top: 4px; font-size: 14.5px; color: #33302B; }
+  .total .v { font-weight: 700; }
+  #bar { display: flex; height: 12px; border-radius: 3px; overflow: hidden; margin: 10px 0 3px; background: #EFECE6; }
+  #bar span { display: block; height: 100%; }
+  #barlab { font-size: 10.5px; color: #6E6A62; text-align: center; margin-bottom: 8px; }
+
+  #io { display: none; margin: 4px 0; padding: 9px 11px; background: #F8F5EF; border-radius: 8px; }
+  .io-title { font-size: 12px; font-weight: 700; color: #33302B; margin-bottom: 7px; }
+  #iobar { display: flex; height: 11px; border-radius: 3px; overflow: hidden; margin-bottom: 8px; background: #EFECE6; }
+  #iobar span { display: block; height: 100%; }
+  .io-row { display: flex; justify-content: space-between; font-size: 12.5px; align-items: baseline; }
+  .io-row .k { display: flex; align-items: center; gap: 6px; color: #33302B; font-weight: 600; }
+  .io-row .sw { width: 9px; height: 9px; border-radius: 2px; }
+  .io-row .iv { font-weight: 700; }
+  .io-sub { font-size: 11px; color: #6E6A62; margin: 1px 0 7px 15px; }
+  .io-sub:last-child { margin-bottom: 0; }
+
+  .cut { background: #F8F5EF; border: 1px solid #EFECE6; border-radius: 8px; padding: 10px 11px; margin-top: 8px; font-size: 12.5px; color: #33302B; }
+  .cut label { color: #56534D; }
+  .cut input[type=text] { width: 120px; padding: 4px 6px; border: 1px solid #D8D3CA; border-radius: 5px; font: inherit; font-size: 13px; margin-left: 6px; background: #fff; color: #1A1A19; }
+  .cut .oo { margin-top: 7px; font-size: 12px; color: #56534D; display: flex; gap: 6px; align-items: flex-start; }
+  .cut .est { margin-top: 9px; font-size: 13px; }
+  .cut .est b { font-family: 'Source Serif 4', serif; font-size: 20px; color: #BB0000; display: block; margin-top: 2px; }
+
+  .wty-about { border-top: 1px solid #EFECE6; padding: 10px 16px 12px; }
+  .wty-about summary { cursor: pointer; list-style: none; font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; letter-spacing: 0.08em; text-transform: uppercase; color: #BB0000; }
+  .wty-about summary::-webkit-details-marker { display: none; }
+  .wty-about summary::before { content: '\25B8  '; }
+  .wty-about[open] summary::before { content: '\25BE  '; }
+  .wty-about p { font-size: 12.5px; line-height: 1.55; color: #56534D; margin: 10px 0 0; }
+  .wty-about { max-height: 38%; overflow-y: auto; }
+  a { color: #BB0000; } a:hover { color: #9a0000; }
+  :focus-visible { outline: 2px solid #BB0000; outline-offset: 2px; }
+
+  /* minimized strip */
+  .wty-strip { flex: 0 0 40px; border: 0; border-left: 1px solid #E5E2DC; background: #fff; cursor: pointer; display: none; flex-direction: column; align-items: center; padding: 12px 0; gap: 14px; }
+  .wty-strip:hover { background: #F4F1EB; }
+  .wty-strip .arrow { font-size: 13px; color: #56534D; }
+  .wty-strip .vlabel { font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: 0.11em; text-transform: uppercase; color: #6E6A62; writing-mode: vertical-rl; }
+  .wty-layout.is-min .wty-strip { display: flex; }
+
+  /* ---- narrow screens: panel docks BELOW the map ---- */
+  @media (max-width: 719px) {
+    .wty-layout { flex-direction: column; }
+    .wty-map { flex: 1 1 auto; min-height: 40%; }
+    .wty-panel { flex: 0 0 auto; max-height: 60%; border-left: 0; border-top: 1px solid #E5E2DC; }
+    .wty-about { max-height: 30%; }
+    .wty-minbtn, .wty-strip, .wty-chip { display: none !important; } /* no minimize needed when stacked */
+  }
+</style>
+</head>
+<body>
+<div class="wty-layout" id="wty-layout">
+
+  <div class="wty-map">
+    <div id="map"></div>
+    <div class="wty-chip" id="wty-chip">Click the map</div>
+  </div>
+
+  <aside class="wty-panel" aria-label="Your property tax bill, estimated">
+    <div class="wty-panel-head">
+      <p class="wty-kicker">Your property tax bill, estimated</p>
+      <button class="wty-minbtn" id="wty-min" title="Minimize panel" aria-label="Minimize panel">&raquo;</button>
+    </div>
+    <div class="wty-body">
+      <p class="wty-hint" id="wty-hint-top">Click anywhere in Ohio. This finds the spot's taxing district and lists every government that shares the bill, with its rate.</p>
+      <div class="loc" id="loc"></div>
+      <div class="dname empty" id="dname">Click a spot on the map</div>
+      <div id="units"></div>
+      <div class="total"><span>Total residential millage</span><span class="v" id="v-total">&mdash;</span></div>
+      <div id="bar" role="img" aria-label="Share of the rate by government"></div>
+      <div id="barlab">share of the rate by government</div>
+
+      <div id="io">
+        <div class="io-title">Does it change when your value rises?</div>
+        <div id="iobar"></div>
+        <div class="io-row"><span class="k"><span class="sw" style="background:#c2410c"></span>Inside &middot; unvoted</span><span class="iv" id="io-in">&mdash;</span></div>
+        <div class="io-sub">fixed rate &mdash; your bill <b>rises</b> with assessed value</div>
+        <div class="io-row"><span class="k"><span class="sw" style="background:#94a3b8"></span>Outside &middot; voted</span><span class="iv" id="io-out">&mdash;</span></div>
+        <div class="io-sub">HB&nbsp;920 trims the rate &mdash; held <b>~flat</b> on a reappraisal</div>
+      </div>
+
+      <div class="cut">
+        <label for="homeval">Home value $<input id="homeval" type="text" inputmode="numeric" value="250,000"/></label>
+        <div class="oo"><input id="oo" type="checkbox" checked/><label for="oo">owner-occupied home (applies the state's credits, about 10%)</label></div>
+        <div class="est">Estimated annual property tax <b id="cut" aria-live="polite">&mdash;</b></div>
+      </div>
+    </div>
+    <details class="wty-about">
+      <summary>About this estimate</summary>
+      <p>An estimate for tax year 2025 bills, paid in 2026. Rates are each government's typical effective residential rate after HB&nbsp;920, not the exact levies on a parcel; spots with no district match are marked approx.</p>
+      <p id="hint"></p>
+    </details>
+  </aside>
+
+  <button class="wty-strip" id="wty-strip" title="Show panel" aria-label="Show panel">
+    <span class="arrow">&laquo;</span>
+    <span class="vlabel">Your property tax bill</span>
+  </button>
+</div>
+
+<script>
+// ---- type styling -----------------------------------------------------------
+const TYPE = {
+  county:      {c:'#1f3864', label:'county'},
+  school:      {c:'#ed7d31', label:'school district'},
+  municipality:{c:'#bb0000', label:'municipality'},
+  township:    {c:'#2e7d32', label:'township'},
+  vocational:  {c:'#7030A0', label:'voc./JVSD'},
+  library:     {c:'#2aa198', label:'library'},
+  special:     {c:'#8a8f99', label:'special district'},
+};
+const norm = s => (s||'').toUpperCase().replace(/[^A-Z0-9 ]/g,'').replace(/\s+/g,' ').trim();
+const esc = s => String(s==null?'':s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+
+// ---- geometry (reuse authority_layers) + plain-JS point-in-polygon ----------
+function bboxOf(g){let a=Infinity,b=Infinity,c=-Infinity,d=-Infinity;
+  (function s(x){if(typeof x[0]==='number'){if(x[0]<a)a=x[0];if(x[0]>c)c=x[0];if(x[1]<b)b=x[1];if(x[1]>d)d=x[1];}else x.forEach(s);})(g.coordinates);
+  return [a,b,c,d];}
+function inRing(x,y,r){let o=false;for(let i=0,j=r.length-1;i<r.length;j=i++){
+  const xi=r[i][0],yi=r[i][1],xj=r[j][0],yj=r[j][1];
+  if(((yi>y)!==(yj>y))&&(x<(xj-xi)*(y-yi)/(yj-yi)+xi))o=!o;}return o;}
+function inPoly(pt,g){const x=pt[0],y=pt[1],ps=g.type==='MultiPolygon'?g.coordinates:[g.coordinates];
+  for(const poly of ps){if(inRing(x,y,poly[0])){let h=false;for(let k=1;k<poly.length;k++)if(inRing(x,y,poly[k])){h=true;break;}if(!h)return true;}}return false;}
+
+const map = L.map('map',{minZoom:6,maxZoom:14,preferCanvas:true}).setView([40.25,-82.8],7);
+// keyless Esri basemap, same as the other tax embeds (Carto tiles now need an API key)
+L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}',
+  {attribution:'Tiles &copy; Esri &mdash; Esri, HERE, Garmin, OpenStreetMap contributors &middot; ODT taxing-district rates (TY2025)', maxZoom:16}).addTo(map);
+// street/place labels only once zoomed in, so people can find their own street
+L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Reference/MapServer/tile/{z}/{y}/{x}',
+  {minZoom:10, maxZoom:16, pane:'overlayPane'}).addTo(map);
+
+const store = {};
+['counties','school_districts','municipalities','townships'].forEach(layerName => {
+  const feats = OH_AUTHORITIES[layerName];
+  store[layerName] = feats.map(f => ({p:f.properties, bbox:bboxOf(f.geometry), geom:f.geometry}));
+});
+// faint orientation layers (counties + school districts)
+L.geoJSON({type:'FeatureCollection',features:OH_AUTHORITIES.counties},
+  {style:{color:'#1f3864',weight:0.6,opacity:0.4,fill:false},interactive:false}).addTo(map);
+L.geoJSON({type:'FeatureCollection',features:OH_AUTHORITIES.school_districts},
+  {style:{color:'#ed7d31',weight:0.4,opacity:0.35,fill:false},interactive:false}).addTo(map);
+
+function find(layer,pt){for(const f of store[layer]){const b=f.bbox;
+  if(pt[0]<b[0]||pt[0]>b[2]||pt[1]<b[1]||pt[1]>b[3])continue;
+  if(inPoly(pt,f.geom))return f.p;}return null;}
+
+// ---- match a point to its taxing district -----------------------------------
+function matchDistrict(co, sd, mu, tw){
+  if(!co || !sd) return null;
+  const base = OH_TD.school_base[sd.name];
+  if(!base) return null;
+  const cands = OH_TD.lookup[norm(co.name)+'|'+base];
+  if(!cands || !cands.length) return null;
+  const cityN = mu ? norm(mu.name) : null;
+  const twpN  = tw ? norm(tw.name) : null;
+  // incorporated -> the district that names this city; else the no-city districts
+  let pool = cityN ? cands.filter(d => d.city === cityN) : cands.filter(d => !d.city);
+  if(!pool.length) pool = cands;
+  if(pool.length > 1 && twpN){
+    const m = pool.filter(d => d.township === twpN);
+    if(m.length) pool = m;
+    else { const nt = pool.filter(d => !d.township); if(nt.length) pool = nt; }
+  } else if(pool.length > 1){
+    const nt = pool.filter(d => !d.township); if(nt.length) pool = nt;
+  }
+  return pool[0] || null;
+}
+
+const highlight = L.geoJSON(null,{style:{color:'#111',weight:2,fill:false}}).addTo(map);
+let lastTotal = null;
+
+function identify(lat,lng){
+  const pt=[lng,lat];
+  const co=find('counties',pt), sd=find('school_districts',pt),
+        mu=find('municipalities',pt), tw=find('townships',pt);
+  highlight.clearLayers();
+  [co,sd].forEach(h => { if(h){ const f=store['counties'].find(x=>x.p===h)||store['school_districts'].find(x=>x.p===h); if(f) highlight.addData(f.geom);} });
+
+  document.getElementById('loc').textContent = co ? (co.name+' County') : 'Outside Ohio';
+  const d = matchDistrict(co, sd, mu, tw);
+
+  let units, total, matched;
+  const dn = document.getElementById('dname');
+  if(d){
+    matched = true;
+    units = d.units.slice().filter(u => u.c1 > 0).sort((a,b)=>b.c1-a.c1);
+    total = d.total_c1;
+    dn.textContent = d.name || (sd? sd.name : '');
+  } else {
+    // fallback: overlay estimate from each unit's own millage (approximate)
+    matched = false;
+    units = [];
+    if(co) units.push({name:co.name+' County', type:'county', c1:co.cty_c1});
+    if(sd) units.push({name:sd.name, type:'school', c1:sd.prop_c1});
+    const inMuni = mu && mu.muni_c1 != null;
+    if(inMuni) units.push({name:mu.name, type:'municipality', c1:mu.muni_c1});
+    else if(tw) units.push({name:tw.name+' Twp', type:'township', c1:tw.twp_c1});
+    units = units.filter(u => u.c1 != null && u.c1 > 0).sort((a,b)=>b.c1-a.c1);
+    total = units.reduce((s,u)=>s+(u.c1||0),0);
+    dn.textContent = (co&&sd) ? 'Approximate stack (no district match)' : 'Click a spot on the map';
+  }
+  dn.classList.toggle('empty', !(co && sd));
+
+  // render unit rows (with the unvoted "inside" portion flagged, matched mode only)
+  document.getElementById('units').innerHTML = units.map(u => {
+    const t = TYPE[u.type] || TYPE.special;
+    const inTag = (u.in && u.in > 0) ? `<span class="in">${u.in.toFixed(1)} inside</span>` : '';
+    return `<div class="u"><span class="k"><span class="dot" style="background:${t.c}"></span>`+
+           `<span><span class="ty">${t.label}</span><br>${esc(u.name)}</span></span>`+
+           `<span class="v">${u.c1.toFixed(1)}${inTag}</span></div>`;
+  }).join('');
+
+  // inside vs outside (only when we have the matched district)
+  const io = document.getElementById('io');
+  if(matched && d && (d.inside != null)){
+    io.style.display = 'block';
+    document.getElementById('io-in').textContent  = d.inside.toFixed(1)+' mills';
+    document.getElementById('io-out').textContent = d.outside.toFixed(1)+' mills';
+    const it = d.inside + d.outside || 1;
+    document.getElementById('iobar').innerHTML =
+      `<span style="width:${100*d.inside/it}%;background:#c2410c"></span>`+
+      `<span style="width:${100*d.outside/it}%;background:#94a3b8"></span>`;
+  } else { io.style.display = 'none'; }
+
+  lastTotal = (co && sd) ? total : null;
+  if(co && sd){
+    dn.innerHTML = esc(dn.textContent) + `<span class="flag ${matched?'matched':'approx'}">${matched?'district match':'approx.'}</span>`;
+  }
+  document.getElementById('v-total').textContent = lastTotal==null ? '—' : total.toFixed(1)+' mills';
+
+  // composition bar
+  const bar=document.getElementById('bar'); bar.innerHTML='';
+  if(lastTotal){ units.forEach(u=>{ const s=document.createElement('span');
+    s.style.width=(100*u.c1/total)+'%'; s.style.background=(TYPE[u.type]||TYPE.special).c; bar.appendChild(s); }); }
+
+  document.getElementById('hint').innerHTML = matched
+    ? 'Rates are <b>effective Class&nbsp;I (residential)</b> after HB&nbsp;920, for the taxing district matched to this spot, with the township and every special district (JVSD, library, parks, port authority) included. <b>Inside</b> mills are the unvoted general-fund levies (10 or fewer combined); they are fixed, so a higher value means a higher bill. <b>Outside</b> (voted) mills are trimmed by HB&nbsp;920 to hold revenue ~flat, unless a school is at the 20-mill floor, where they rise too.'
+    : 'No taxing-district match here, so this falls back to summing each layer’s own millage (county + school + city/township). It omits special districts, the inside/outside split, and the city/township nuance. About 3% of Ohio lands here.';
+  document.getElementById('wty-chip').textContent = lastTotal==null ? 'Click the map' : (matched ? '' : 'Approx. ') + total.toFixed(1) + ' mills · ' + (co ? co.name + ' County' : '');
+  updateCut();
+}
+
+function updateCut(){
+  const raw=(document.getElementById('homeval').value||'').replace(/[^0-9.]/g,'');
+  const val=parseFloat(raw), oo=document.getElementById('oo').checked;
+  const el=document.getElementById('cut');
+  if(lastTotal==null || !isFinite(val) || val<=0){ el.textContent='—'; return; }
+  let tax = lastTotal/1000 * 0.35 * val;          // effective mills x taxable (35% of market)
+  if(oo) tax *= 0.90;                              // ~10% non-business + owner-occupancy credits
+  el.textContent = '$'+Math.round(tax).toLocaleString()+' / yr';
+}
+document.getElementById('homeval').addEventListener('input', updateCut);
+document.getElementById('oo').addEventListener('change', updateCut);
+document.getElementById('homeval').addEventListener('blur', e=>{
+  const n=parseFloat((e.target.value||'').replace(/[^0-9.]/g,'')); if(isFinite(n)) e.target.value=Math.round(n).toLocaleString(); });
+
+// Click only (no hover): the panel is an estimate on a chosen spot, and a tap on a phone
+// fires the same click, so touch works without a separate handler.
+map.on('click', e=>identify(e.latlng.lat,e.latlng.lng));
+
+// minimize toggle: collapse the panel to a 40px strip, then let Leaflet reflow
+const layout = document.getElementById('wty-layout');
+function togglePanel(){
+  layout.classList.toggle('is-min');
+  setTimeout(() => map.invalidateSize(), 50);
+}
+document.getElementById('wty-min').addEventListener('click', togglePanel);
+document.getElementById('wty-strip').addEventListener('click', togglePanel);
+</script>
+</body>
+</html>
