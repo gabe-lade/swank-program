@@ -289,7 +289,7 @@ function fitOhio(){
 fitOhio();
 // keyless Esri basemap, same as the other tax embeds (Carto tiles now need an API key)
 L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}',
-  {attribution:'&copy; Esri, OSM', maxZoom:16}).addTo(map);
+  {attribution:'&copy; Esri &middot; &copy; OpenStreetMap contributors', maxZoom:16}).addTo(map);
 // compact credit on the map; the full credit is in "About this estimate"
 L.control.attribution({prefix:'<a href="https://leafletjs.com">Leaflet</a>'}).addTo(map);
 // street/place labels only once zoomed in, so people can find their own street
