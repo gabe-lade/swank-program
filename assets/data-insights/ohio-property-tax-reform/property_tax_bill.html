@@ -30,7 +30,7 @@
   html, body { margin: 0; padding: 0; height: 100%; }
   body { font-family: 'Public Sans', system-ui, -apple-system, sans-serif; color: #1A1A19; background: #F3F0EA; }
 
-  .wty-layout { display: flex; align-items: stretch; height: 100vh; }
+  .wty-layout { display: flex; align-items: stretch; height: 100vh; overflow: hidden; }
   .wty-map { flex: 1 1 auto; min-width: 0; position: relative; }
   #map { position: absolute; inset: 0; }
 
@@ -42,29 +42,33 @@
   .wty-panel { flex: 0 0 330px; background: #fff; border-left: 1px solid #E5E2DC; display: flex; flex-direction: column; min-height: 0; }
   .wty-layout.is-min .wty-panel { display: none; }
   .wty-panel-head { display: flex; align-items: center; justify-content: space-between; padding: 14px 16px 12px; border-bottom: 1px solid #EFECE6; }
-  .wty-kicker { font-family: 'IBM Plex Mono', monospace; font-size: 10px; font-weight: 400; letter-spacing: 0.11em; text-transform: uppercase; color: #6E6A62; margin: 0; }
+  .wty-kicker { font-family: 'IBM Plex Mono', monospace; font-size: 12px; font-weight: 400; letter-spacing: 0.06em; text-transform: uppercase; color: #6E6A62; margin: 0; line-height: 1.3; }
   .wty-minbtn { border: 1px solid #D8D3CA; background: #fff; border-radius: 6px; width: 32px; height: 32px; cursor: pointer; color: #56534D; font-size: 14px; line-height: 1; padding: 0; }
   .wty-minbtn:hover { background: #F4F1EB; }
-  .wty-body { padding: 6px 16px 12px; overflow-y: auto; flex: 1; }
+  .wty-body { padding: 6px 16px 12px; overflow-y: auto; flex: 1; display: flex; flex-direction: column; min-height: 0; }
+  .wty-body > * { flex-shrink: 0; }
+  .wty-body .wty-hint { order: -3; }
+  .wty-body .cut { order: -2; margin: 4px 0 10px; }   /* value box and estimate sit above the list at every width */
+  .wty-body .wty-about { order: 99; }
   .wty-hint { font-size: 12.5px; color: #6E6A62; margin: 8px 0 10px; line-height: 1.45; }
-  .loc { font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: 0.09em; text-transform: uppercase; color: #6E6A62; margin: 4px 0 2px; min-height: 13px; }
+  .loc { font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.06em; text-transform: uppercase; color: #6E6A62; margin: 4px 0 2px; min-height: 13px; }
   .dname { font-family: 'Source Serif 4', serif; font-size: 16px; font-weight: 600; color: #33302B; margin: 0 0 8px; line-height: 1.3; }
   .dname.empty { color: #6E6A62; font-weight: 400; font-style: italic; font-size: 14px; }
-  .flag { display: inline-block; font-family: 'Public Sans', sans-serif; font-size: 10.5px; font-weight: 700; padding: 1px 6px; border-radius: 4px; margin-left: 6px; vertical-align: middle; }
+  .flag { display: inline-block; font-family: 'Public Sans', sans-serif; font-size: 12px; font-weight: 700; padding: 1px 6px; border-radius: 4px; margin-left: 6px; vertical-align: middle; }
   .flag.matched { background: #E3F0E3; color: #2E6B31; }
   .flag.approx { background: #FDEEDE; color: #9A540C; }
 
   .u { display: flex; justify-content: space-between; gap: 8px; padding: 5px 0; border-top: 1px solid #F2EFE9; font-size: 13px; align-items: baseline; }
   .u .k { color: #33302B; display: flex; align-items: baseline; gap: 7px; }
   .u .dot { width: 9px; height: 9px; border-radius: 2px; flex: 0 0 auto; position: relative; top: 1px; }
-  .u .ty { color: #6E6A62; font-family: 'IBM Plex Mono', monospace; font-size: 9.5px; text-transform: uppercase; letter-spacing: .06em; }
+  .u .ty { color: #6E6A62; font-family: 'IBM Plex Mono', monospace; font-size: 12px; text-transform: uppercase; letter-spacing: .03em; }
   .u .v { font-weight: 600; white-space: nowrap; }
-  .u .in { color: #B3410B; font-size: 10px; font-weight: 600; margin-left: 5px; }
+  .u .in { color: #B3410B; font-size: 12px; font-weight: 600; margin-left: 5px; }
   .total { display: flex; justify-content: space-between; padding: 9px 0 3px; border-top: 2px solid #1A1A19; margin-top: 4px; font-size: 14.5px; color: #33302B; }
   .total .v { font-weight: 700; }
   #bar { display: flex; height: 12px; border-radius: 3px; overflow: hidden; margin: 10px 0 3px; background: #EFECE6; }
   #bar span { display: block; height: 100%; }
-  #barlab { font-size: 10.5px; color: #6E6A62; text-align: center; margin-bottom: 8px; }
+  #barlab { font-size: 12px; color: #6E6A62; text-align: center; margin-bottom: 8px; }
 
   #io { display: none; margin: 4px 0; padding: 9px 11px; background: #F8F5EF; border-radius: 8px; }
   .io-title { font-size: 12px; font-weight: 700; color: #33302B; margin-bottom: 7px; }
@@ -74,7 +78,7 @@
   .io-row .k { display: flex; align-items: center; gap: 6px; color: #33302B; font-weight: 600; }
   .io-row .sw { width: 9px; height: 9px; border-radius: 2px; }
   .io-row .iv { font-weight: 700; }
-  .io-sub { font-size: 11px; color: #6E6A62; margin: 1px 0 7px 15px; }
+  .io-sub { font-size: 12px; color: #6E6A62; margin: 1px 0 7px 15px; }
   .io-sub:last-child { margin-bottom: 0; }
 
   .cut { background: #F8F5EF; border: 1px solid #EFECE6; border-radius: 8px; padding: 10px 11px; margin-top: 8px; font-size: 12.5px; color: #33302B; }
@@ -84,13 +88,16 @@
   .cut .est { margin-top: 9px; font-size: 13px; }
   .cut .est b { font-family: 'Source Serif 4', serif; font-size: 20px; color: #BB0000; display: block; margin-top: 2px; }
 
-  .wty-about { border-top: 1px solid #EFECE6; padding: 10px 16px 12px; }
-  .wty-about summary { cursor: pointer; list-style: none; font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; letter-spacing: 0.08em; text-transform: uppercase; color: #BB0000; }
+  .wty-about { border-top: 1px solid #EFECE6; padding: 10px 0 4px; margin-top: 10px; }
+  .wty-about summary { cursor: pointer; list-style: none; font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: #BB0000; }
   .wty-about summary::-webkit-details-marker { display: none; }
   .wty-about summary::before { content: '\25B8  '; }
   .wty-about[open] summary::before { content: '\25BE  '; }
   .wty-about p { font-size: 12.5px; line-height: 1.55; color: #56534D; margin: 10px 0 0; }
-  .wty-about { max-height: 38%; overflow-y: auto; }
+  .u.note { color: #6E6A62; font-size: 12px; font-style: italic; }
+  .cut .note { margin-top: 6px; font-size: 12px; color: #9A540C; min-height: 0; }
+  .cut .note:empty { display: none; }
+  .io-def { font-size: 12px; color: #6E6A62; margin: 0 0 8px; line-height: 1.4; }
   .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
   .wty-fail { display: none; margin: 12px 0; padding: 10px 12px; background: #FDEEDE; color: #6B3A08; border-radius: 8px; font-size: 13px; line-height: 1.45; }
   /* centre crosshair: keyboard users pan the map under it and press Enter */
@@ -106,19 +113,17 @@
   .wty-strip { flex: 0 0 40px; border: 0; border-left: 1px solid #E5E2DC; background: #fff; cursor: pointer; display: none; flex-direction: column; align-items: center; padding: 12px 0; gap: 14px; }
   .wty-strip:hover { background: #F4F1EB; }
   .wty-strip .arrow { font-size: 13px; color: #56534D; }
-  .wty-strip .vlabel { font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: 0.11em; text-transform: uppercase; color: #6E6A62; writing-mode: vertical-rl; }
+  .wty-strip .vlabel { font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.11em; text-transform: uppercase; color: #6E6A62; writing-mode: vertical-rl; }
   .wty-layout.is-min .wty-strip { display: flex; }
 
   /* ---- narrow screens: panel docks BELOW the map ---- */
   @media (max-width: 719px) {
     .wty-layout { flex-direction: column; }
-    .wty-map { flex: 1 1 auto; min-height: 40%; }
-    .wty-panel { flex: 0 0 auto; max-height: 60%; border-left: 0; border-top: 1px solid #E5E2DC; }
-    .wty-about { max-height: 30%; }
-    .wty-body { display: flex; flex-direction: column; }
-    .wty-body .cut { order: -2; margin-top: 8px; }   /* value box and estimate come first when stacked */
+    .wty-map { flex: 0 0 420px; }   /* about 420px of map, then the panel */
+    .wty-panel { flex: 1 1 0; min-height: 0; border-left: 0; border-top: 1px solid #E5E2DC; }
     .wty-minbtn, .wty-strip, .wty-chip { display: none !important; } /* no minimize needed when stacked */
   }
+  @media (max-width: 719px) and (max-height: 700px) { .wty-map { flex: 0 1 50%; min-height: 200px; } }  /* short frames, e.g. phone landscape */
 </style>
 </head>
 <body>
@@ -137,7 +142,7 @@
     </div>
     <div class="wty-body">
       <div class="wty-fail" id="wty-fail" role="alert"></div>
-      <p class="wty-hint" id="wty-hint-top">Click anywhere in Ohio, or press Enter at the crosshair. This finds the spot's taxing district and lists every government on the bill, each with its 2025 residential rate.</p>
+      <p class="wty-hint" id="wty-hint-top">Click anywhere in Ohio, or pan to the crosshair and press Enter. This finds the spot's taxing district and lists every government on the bill, each with its 2025 residential rate.</p>
       <div class="loc" id="loc"></div>
       <div class="dname empty" id="dname">Click a spot on the map</div>
       <div id="units"></div>
@@ -147,24 +152,26 @@
 
       <div id="io">
         <div class="io-title">Does it change when your value rises?</div>
+        <p class="io-def"><b>Inside</b> mills are the first 10 mills of a bill, levied without a vote. <b>Outside</b> mills were approved by voters.</p>
         <div id="iobar"></div>
         <div class="io-row"><span class="k"><span class="sw" style="background:#c2410c"></span>Inside &middot; unvoted</span><span class="iv" id="io-in">&mdash;</span></div>
-        <div class="io-sub">fixed rate &mdash; your bill <b>rises</b> with assessed value</div>
+        <div class="io-sub">fixed rate, so your bill <b>rises</b> when your value does</div>
         <div class="io-row"><span class="k"><span class="sw" style="background:#94a3b8"></span>Outside &middot; voted</span><span class="iv" id="io-out">&mdash;</span></div>
-        <div class="io-sub">HB&nbsp;920 trims the rate &mdash; held <b>~flat</b> on a reappraisal</div>
+        <div class="io-sub">after a reappraisal, state rules cut the rate so these levies collect <b>about the same dollars</b></div>
       </div>
 
       <div class="cut" id="wty-cut">
         <label for="homeval">Home value $<input id="homeval" type="text" inputmode="numeric" value="250,000"/></label>
-        <div class="oo"><input id="oo" type="checkbox" checked/><label for="oo">apply the state's homestead credits (about 10% for an owner-occupied home)</label></div>
+        <div class="oo"><input id="oo" type="checkbox" checked/><label for="oo">apply the owner-occupancy credit (roughly 10% of the bill for an owner-occupied home)</label></div>
         <div class="est">Estimated annual property tax <b id="cut">&mdash;</b></div>
+        <div class="note" id="cutnote"></div>
       </div>
+        <details class="wty-about">
+          <summary>About this estimate</summary>
+          <p>An estimate for tax year 2025 bills, paid in 2026. For most spots, the rates are that spot's taxing district's 2025 effective residential rates, after the state's reductions that offset rising values (HB&nbsp;920). For a spot marked approx., it uses each government's typical (median) rate, because the spot could not be matched to one district. The state's 10% and 2.5% (owner-occupancy) credits apply only to levies approved before late 2013, so on a whole owner-occupied bill they come to roughly 10%; the real Hilliard bill nets about 9%. The estimate applies a flat 10%. Unticked, it is the bill before any state credit. In 2025 rental homes still received the 10% credit, which phases out from 2026.</p>
+          <p id="hint"></p>
+        </details>
     </div>
-    <details class="wty-about">
-      <summary>About this estimate</summary>
-      <p>An estimate for tax year 2025 bills, paid in 2026. For a matched spot, the rates are that spot's taxing district's 2025 effective residential rates after HB&nbsp;920; for a spot marked approx., each government's typical (median) rate, because the spot could not be matched to one district. The state credits are applied as a flat share (about 10%) rather than levy by levy. Unticked, the estimate is the bill before any state credit. In 2025 rental homes still received the 10% credit, which phases out from 2026.</p>
-      <p id="hint"></p>
-    </details>
   </aside>
   <div class="sr-only" id="wty-status" role="status" aria-live="polite"></div>
 
@@ -200,9 +207,43 @@ const TYPE = {
 };
 const norm = s => (s||'').toUpperCase().replace(/[^A-Z0-9 ]/g,'').replace(/\s+/g,' ').trim();
 const esc = s => String(s==null?'':s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+// ---- display-only name cleanup (ODT labels are abbreviated; the data itself is untouched) ----
+const NAME_RULES = [
+  [/\bPub\.? Lib\.? D(ist)?\.?(?=\s|$)/gi, 'Public Library'],
+  [/\bVn Wrt\b/gi, 'Van Wert'],
+  [/\bCol\.&/g, 'Columbus & '],
+  [/\bCols\.?(?=\s|$)|\bCol\.(?=\s|$)/g, 'Columbus'],
+  [/\bHill?rd\b|\bHilrd\b/gi, 'Hilliard'],
+  [/\bCsd\b/gi, 'City Schools'],
+  [/\bLsd\b/gi, 'Local Schools'],
+  [/\bEvsd\b/gi, 'Exempted Village Schools'],
+  [/\bJvsd\b/gi, 'Career Center'],
+  [/\bTwp\.?(?=\s|$|\)|-|\/)/gi, 'Township'],
+  [/\bExc\.?(?=\s|$)/gi, 'except'],
+  [/\s+Corp\b/gi, ''],
+  [/\bBd Of\b/gi, 'Board of'],
+  [/\bMrdd\b/gi, 'Developmental Disabilities'],
+  [/\bCty\b|\bCo\.(?=\)|\s|$)/g, 'County'],
+  [/\bCtr\b|\bCntr\b/gi, 'Center'],
+  [/\bHts\b/gi, 'Heights'],
+  [/\bJnt\b|\bJt\b/gi, 'Joint'],
+  [/\bDist\.?(?=\s|$)/gi, 'District'],
+  [/\bFd\b/gi, 'Fire District'],
+];
+function pretty(name){
+  let n = String(name==null?'':name).replace(/\s+/g,' ').trim();
+  NAME_RULES.forEach(r => { n = n.replace(r[0], r[1]); });
+  return n.replace(/\s+/g,' ').trim();
+}
+// ODT files career-tech centers under "special" in a few districts (e.g. Heartland Tech Education Ctr)
+function unitType(u){
+  if(u.type === 'special' && /career|tech|jvsd|vocational/i.test(u.name||'')) return 'vocational';
+  return u.type;
+}
 const usd = n => '$' + Math.round(n).toLocaleString('en-US');   // en-US so a German-locale browser still prints $11,467
 const MAX_VALUE = 100000000, MIN_VALUE = 1000;
 const OHIO_BOUNDS = [[38.40,-84.82],[41.98,-80.52]];
+const PAN_BOUNDS = [[37.4,-86.2],[42.9,-79.2]];   // Ohio plus a margin: the map cannot be dragged out to Missouri
 
 // ---- geometry (reuse authority_layers) + plain-JS point-in-polygon ----------
 function bboxOf(g){let a=Infinity,b=Infinity,c=-Infinity,d=-Infinity;
@@ -215,8 +256,15 @@ function inPoly(pt,g){const x=pt[0],y=pt[1],ps=g.type==='MultiPolygon'?g.coordin
   for(const poly of ps){if(inRing(x,y,poly[0])){let h=false;for(let k=1;k<poly.length;k++)if(inRing(x,y,poly[k])){h=true;break;}if(!h)return true;}}return false;}
 
 // wheel zoom stays off until the map has focus, so scrolling the page past the embed is not trapped
-const map = L.map('map',{minZoom:6,maxZoom:14,preferCanvas:true,scrollWheelZoom:false}).setView([40.25,-82.8],7);
-function fitOhio(){ map.fitBounds(OHIO_BOUNDS, {animate:false}); }
+const map = L.map('map',{minZoom:3,maxZoom:14,zoomSnap:0.25,preferCanvas:true,scrollWheelZoom:false}).setView([40.25,-82.8],7);
+// Fit all of Ohio at any frame size (fractional zoom), then stop zooming out beyond Ohio plus a margin.
+function fitOhio(){
+  map.invalidateSize();
+  map.setMinZoom(3);
+  map.fitBounds(OHIO_BOUNDS, {animate:false});
+  map.setMinZoom(Math.min(map.getBoundsZoom(PAN_BOUNDS), map.getZoom()));
+  map.setMaxBounds(PAN_BOUNDS);
+}
 fitOhio();
 // keyless Esri basemap, same as the other tax embeds (Carto tiles now need an API key)
 L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}',
@@ -274,8 +322,8 @@ function announce(immediate){
     if(lastNoSchool){ statusEl.textContent = lastPlace + ', no school district found at this spot; try a nearby point.'; return; }
     if(lastTotal==null){ statusEl.textContent = lastPlace === 'Outside Ohio' ? 'Outside Ohio.' : ''; return; }
     const est = document.getElementById('cut').textContent;
-    const estTxt = /^\$/.test(est) ? 'estimated ' + est.replace(' / yr',' a year') : 'enter a home value for an estimate';
-    statusEl.textContent = [lastPlace, lastName, lastMatched ? 'district match' : 'approximate',
+    const estTxt = /^\$/.test(est) ? 'estimated ' + est.replace(' / yr',' a year') + (document.getElementById('cutnote').textContent ? ', ' + document.getElementById('cutnote').textContent.replace(/\.$/,'') : '') : (document.getElementById('cutnote').textContent || 'enter a home value for an estimate');
+    statusEl.textContent = [lastPlace, lastName, lastMatched ? 'district match' : (/approximate/.test(lastName) ? '' : 'approximate'),
       lastTotal.toFixed(1)+' mills', estTxt].filter(Boolean).join(', ');
   };
   if(immediate) go(); else statusTimer = setTimeout(go, 700);
@@ -299,6 +347,7 @@ function identify(lat,lng){
   [co,sd].forEach(h => { if(h){ const f=store['counties'].find(x=>x.p===h)||store['school_districts'].find(x=>x.p===h); if(f) highlight.addData(f.geom);} });
 
   lastPlace = co ? (co.name+' County') : 'Outside Ohio';
+  const place = mu ? mu.name : (tw ? tw.name+' Township' : (co ? co.name+' County' : ''));
   document.getElementById('loc').textContent = lastPlace;
   lastNoSchool = false;
 
@@ -318,9 +367,9 @@ function identify(lat,lng){
   const dn = document.getElementById('dname');
   if(d){
     matched = true;
-    units = d.units.slice().filter(u => u.c1 > 0).sort((a,b)=>b.c1-a.c1);
+    units = d.units.slice().filter(u => u.c1 > 0).map(u => Object.assign({}, u, {type: unitType(u)})).sort((a,b)=>b.c1-a.c1);
     total = d.total_c1;
-    dn.textContent = d.name || (sd? sd.name : '');
+    dn.textContent = place;   // the roster's own district label is abbreviated; the rows below carry the cleaned unit names
   } else {
     // fallback: overlay estimate from each unit's own millage (approximate)
     matched = false;
@@ -329,10 +378,10 @@ function identify(lat,lng){
     if(sd) units.push({name:sd.name, type:'school', c1:sd.prop_c1});
     const inMuni = mu && mu.muni_c1 != null;
     if(inMuni) units.push({name:mu.name, type:'municipality', c1:mu.muni_c1});
-    else if(tw) units.push({name:tw.name+' Twp', type:'township', c1:tw.twp_c1});
+    else if(tw) units.push({name:tw.name+' Township', type:'township', c1:tw.twp_c1});
     units = units.filter(u => u.c1 != null && u.c1 > 0).sort((a,b)=>b.c1-a.c1);
     total = units.reduce((s,u)=>s+(u.c1||0),0);
-    dn.textContent = (co&&sd) ? 'Approximate stack (no district match)' : 'Click a spot on the map';
+    dn.textContent = (co&&sd) ? place + ' (approximate)' : 'Click a spot on the map';
   }
   dn.classList.toggle('empty', !(co && sd));
   lastName = (co && sd) ? dn.textContent : '';
@@ -343,9 +392,9 @@ function identify(lat,lng){
     const t = TYPE[u.type] || TYPE.special;
     const inTag = (u.in && u.in > 0) ? `<span class="in">${u.in.toFixed(1)} inside</span>` : '';
     return `<div class="u"><span class="k"><span class="dot" style="background:${t.c}"></span>`+
-           `<span><span class="ty">${t.label}</span><br>${esc(u.name)}</span></span>`+
+           `<span><span class="ty">${t.label}</span><br>${esc(pretty(u.name))}</span></span>`+
            `<span class="v">${u.c1.toFixed(1)}${inTag}</span></div>`;
-  }).join('');
+  }).join('') + (matched ? '' : '<div class="u note">Some local levies (library, career center, special districts) are not shown.</div>');
 
   // inside vs outside (only when we have the matched district)
   const io = document.getElementById('io');
@@ -371,30 +420,39 @@ function identify(lat,lng){
     s.style.width=(100*u.c1/total)+'%'; s.style.background=(TYPE[u.type]||TYPE.special).c; bar.appendChild(s); }); }
 
   document.getElementById('hint').innerHTML = !(co && sd) ? '' : matched
-    ? 'Rates are that spot’s taxing district’s 2025 <b>effective Class&nbsp;I (residential)</b> rates after HB&nbsp;920, with the township and every special district (JVSD, library, parks, port authority) included. <b>Inside</b> mills are the unvoted general-fund levies (10 or fewer combined); they are fixed, so a higher value means a higher bill. <b>Outside</b> (voted) mills are trimmed by HB&nbsp;920 to hold revenue ~flat, unless a school is at the 20-mill floor, where they rise with values (since 2025, a state credit holds that growth to about inflation).'
-    : 'No taxing-district match here, so this falls back to summing each government’s typical (median) rate across the districts it spans (county + school + city/township). It omits special districts, the inside/outside split, and the city/township nuance. About 3% of Ohio lands here.';
+    ? 'These are that spot\u2019s taxing district\u2019s 2025 effective residential rates, after the state\u2019s reductions that offset rising values, and they include the township and every special district (career center, library, parks, port authority). <b>Inside</b> mills are the first 10 mills of a bill, levied without a vote; they are fixed, so a higher value means a higher bill. <b>Outside</b> (voted) mills are cut after a reappraisal so they collect about the same dollars, except in a school district at the 20-mill minimum (its rate cannot fall below 20 mills), where they rise with values. Since 2025, a state credit holds that growth to about the rate of inflation.'
+    : 'No taxing-district match here, so this sums each government\u2019s typical (median) rate across the districts it spans (county, school and city or township). It omits the library, career center and other special districts, the inside/outside split, and the city/township nuance. About 3% of Ohio lands here.';
   document.getElementById('wty-chip').textContent = lastTotal==null ? 'Click the map' : (matched ? '' : 'Approx. ') + total.toFixed(1) + ' mills · ' + (co ? co.name + ' County' : '');
   updateCut(true);
   announce(true);
 }
 
 // ---- home value parser -------------------------------------------------------
-// Accepts digits, commas, $, spaces and at most one dot; anything else (1e6, -250000, text) is rejected.
-// Returns {ok, value, msg}. Values above $100,000,000 are capped; under $1,000 is treated as a typo.
+// Accepts digits, commas in proper thousands groups, $, spaces, one dot, and a k or m suffix (250k, 1.2m).
+// Anything else (1e6, -250000, abc, 494400250,000) is rejected with a specific message.
+// Values above $100,000,000 are capped (and flagged); under $1,000 is treated as a typo.
+const MSG_EMPTY = 'Enter a home value', MSG_MIN = 'Enter a home value of at least $1,000',
+      MSG_BAD = 'Enter a home value in dollars, like 250,000';
 function parseValue(str){
-  const t = String(str==null?'':str).trim();
-  if(!t) return {ok:false, msg:'Enter a home value'};
-  if(!/^[0-9,$\s]*\.?[0-9,$\s]*$/.test(t)) return {ok:false, msg:'Enter a home value'};
-  const n = parseFloat(t.replace(/[^0-9.]/g,''));
-  if(!isFinite(n) || n < MIN_VALUE) return {ok:false, msg:'Enter a home value'};
-  return {ok:true, value:Math.min(n, MAX_VALUE)};
+  const t = String(str==null?'':str).replace(/[$\s]/g,'');
+  if(!t) return {ok:false, msg:MSG_EMPTY};
+  const m = t.match(/^([0-9,]*\.?[0-9]*)([kKmM]?)$/);
+  if(!m || !/[0-9]/.test(m[1])) return {ok:false, msg:MSG_BAD};
+  const ns = m[1];
+  if(ns.indexOf(',') >= 0 && !/^[0-9]{1,3}(,[0-9]{3})+(\.[0-9]*)?$/.test(ns)) return {ok:false, msg:'Check the commas in that value'};
+  let n = parseFloat(ns.replace(/,/g,''));
+  if(m[2]) n *= /k/i.test(m[2]) ? 1e3 : 1e6;
+  if(!isFinite(n) || n < MIN_VALUE) return {ok:false, msg:MSG_MIN};
+  if(n > MAX_VALUE) return {ok:true, value:MAX_VALUE, capped:true};
+  return {ok:true, value:n};
 }
 
 function updateCut(immediate){
   const pv = parseValue(document.getElementById('homeval').value), oo=document.getElementById('oo').checked;
-  const el=document.getElementById('cut');
-  if(lastTotal==null){ el.textContent='—'; }
-  else if(!pv.ok){ el.textContent = pv.msg; }
+  const el=document.getElementById('cut'), note=document.getElementById('cutnote');
+  note.textContent = (pv.ok && pv.capped) ? 'Capped at $100 million.' : '';
+  if(lastTotal==null){ el.textContent='\u2014'; if(!pv.ok) note.textContent = pv.msg; }
+  else if(!pv.ok){ el.textContent = '\u2014'; note.textContent = pv.msg; }
   else {
     let tax = lastTotal/1000 * 0.35 * pv.value;     // effective mills x taxable (35% of market)
     if(oo) tax *= 0.90;                              // ~10% non-business + owner-occupancy credits
@@ -406,7 +464,7 @@ document.getElementById('homeval').addEventListener('input', () => updateCut(fal
 document.getElementById('oo').addEventListener('change', () => { updateCut(true); announce(true); });
 document.getElementById('homeval').addEventListener('blur', e=>{
   const pv = parseValue(e.target.value);
-  if(pv.ok) e.target.value = Math.round(pv.value).toLocaleString('en-US');
+  if(pv.ok) e.target.value = Math.round(pv.value).toLocaleString('en-US');   // then recompute below
   updateCut(true); announce(true); });
 
 // ---- inputs: click/tap, and Enter or Space at the crosshair for keyboard users -----
@@ -441,7 +499,7 @@ setTimeout(() => { map.invalidateSize(); fitOhio(); }, 0);
 let resizeT = null;
 window.addEventListener('resize', () => { clearTimeout(resizeT); resizeT = setTimeout(() => { map.invalidateSize(); }, 150); });
 
-window.__wty = {identify, find, store, updateCut, parseValue, matchDistrict, usd};
+window.__wty = {identify, find, store, updateCut, parseValue, matchDistrict, usd, pretty, unitType};
 })();
 </script>
 </body>

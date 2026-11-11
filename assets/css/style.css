@@ -1275,6 +1275,13 @@ main {
 .insight-page .map-embed iframe { display: block; width: 100%; height: 520px; border: 0; }
 .insight-page .map-embed #authority-frame { height: 620px; } /* denser panel: switcher + readout + legend */
 .insight-page .map-embed #collections-frame { height: 620px; } /* denser panel: switcher + readout + legend */
+/* Property-tax bill estimator (this page's frame only). The embed stacks its panel under the map
+   when its own width is under 720px (most widths here), so it needs the extra height: ~420px of map
+   plus the panel. Where the embed sits side by side (wide desktop, or the one-column 817-880px range)
+   600px is enough. */
+.insight-page .map-embed #bill-frame { height: 860px; }
+@media (min-width: 1185px) { .insight-page .map-embed #bill-frame { height: 600px; } }
+@media (min-width: 817px) and (max-width: 880px) { .insight-page .map-embed #bill-frame { height: 600px; } }
 
 /* ---- RELATED + SOURCES ---- */
 .insight-page .related h2 { font-size: 22px; letter-spacing: -0.015em; margin: 4px 0 8px; }
