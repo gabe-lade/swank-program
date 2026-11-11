@@ -29,7 +29,7 @@ blocks:
     id: "what-it-is"
     text: "1 &middot; What the property tax is"
   - type: para
-    text: "Ohio taxes property on 35% of its appraised value (farmland is valued under CAUV, a formula based on what the land earns from farming). Rates are quoted in <strong>mills</strong>, dollars of tax per $1,000 of that taxable value, and a bill is the sum of every levy charged by each overlapping government: county, city or township, school district, career-technical district, library, parks and more. Up to 10 mills are levied without a vote (inside millage) and the rest were approved by voters. A 1976 law (HB 920) keeps most voted levies from collecting more from existing property when values rise, so the rate you pay is often well below the rate voters approved. <strong><a href=\"https://gelade1.substack.com/p/whats-at-stake-if-ohio-votes-to-abolish\">Read the full piece: Ohio may vote to abolish the property tax. What's at stake? &rarr;</a></strong>"
+    text: "Ohio taxes property on 35% of its appraised value (farmland is valued under CAUV, a formula based on what the land earns from farming). Rates are quoted in <strong>mills</strong>: dollars of tax per $1,000 of that taxable value. A bill adds up every levy from each overlapping government: county, city or township, schools, career center, library, parks and more. Up to 10 mills are levied without a vote (inside millage) and the rest were approved by voters. A 1976 law (HB 920) keeps most voted levies from collecting more from existing property when values rise, so the rate you pay is often well below the rate voters approved. <strong><a href=\"https://gelade1.substack.com/p/whats-at-stake-if-ohio-votes-to-abolish\">Read the full piece: Ohio may vote to abolish the property tax. What's at stake? &rarr;</a></strong>"
   - type: map
     id: "bill-estimator"
     heading: "2 &middot; Your property tax bill, estimated"
@@ -59,14 +59,14 @@ blocks:
       - label: "Farmland:"
         text: "a county map of what farmland pays per acre under CAUV."
       - label: "Who pays:"
-        text: "the tax by income, by owner and renter, and who ultimately pays it."
+        text: "the tax by income, and for owners versus renters."
       - label: "The Ohio Tax Model (early 2027):"
         text: "change one tax, choose how to pay for it, see who pays."
 use_cite:
   heading: "Use &amp; cite this tool"
   rows:
     - label: "Best for:"
-      text: "Ohio residents, local officials, journalists, and researchers who want to see what governments share a property tax bill and roughly what a home pays."
+      text: "Residents, local officials, reporters and researchers."
     - label: "Bill estimator:"
       text: "Enter a home value and tick the owner-occupancy box if the home is owner-occupied. On wider screens, the &#187; button tucks the panel away for a wider map."
 citation: "Lade, Gabriel E., and Alex Ryan. \"Ohio's Property Tax Explained.\" C. William Swank Program in Rural-Urban Policy, The Ohio State University, 2026."

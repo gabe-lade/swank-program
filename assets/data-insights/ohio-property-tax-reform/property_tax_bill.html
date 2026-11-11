@@ -94,6 +94,9 @@
   .wty-about summary::before { content: '\25B8  '; }
   .wty-about[open] summary::before { content: '\25BE  '; }
   .wty-about p { font-size: 12.5px; line-height: 1.55; color: #56534D; margin: 10px 0 0; }
+  .dnote { font-size: 12.5px; line-height: 1.45; color: #56534D; margin: -2px 0 8px; }
+  .dnote:empty { display: none; }
+  .inkey { font-size: 12px; line-height: 1.4; color: #6E6A62; margin: 6px 0 0; }
   .u.note { color: #6E6A62; font-size: 12px; font-style: italic; }
   .cut .note { margin-top: 6px; font-size: 12px; color: #9A540C; min-height: 0; }
   .cut .note:empty { display: none; }
@@ -120,9 +123,11 @@
   @media (max-width: 719px) {
     .wty-layout { flex-direction: column; }
     .wty-map { flex: 0 0 420px; }   /* about 420px of map, then the panel */
+    .wty-body .wty-hint { order: 50; }   /* stacked: value and estimate first, the instructions after the list */
     .wty-panel { flex: 1 1 0; min-height: 0; border-left: 0; border-top: 1px solid #E5E2DC; }
     .wty-minbtn, .wty-strip, .wty-chip { display: none !important; } /* no minimize needed when stacked */
   }
+  @media (max-width: 480px) { .wty-map { flex-basis: 340px; } }   /* phones: still all of Ohio, more room for the panel */
   @media (max-width: 719px) and (max-height: 700px) { .wty-map { flex: 0 1 50%; min-height: 200px; } }  /* short frames, e.g. phone landscape */
 </style>
 </head>
@@ -145,7 +150,9 @@
       <p class="wty-hint" id="wty-hint-top">Click anywhere in Ohio, or pan to the crosshair and press Enter. This finds the spot's taxing district and lists every government on the bill, each with its 2025 residential rate.</p>
       <div class="loc" id="loc"></div>
       <div class="dname empty" id="dname">Click a spot on the map</div>
+      <p class="dnote" id="dnote"></p>
       <div id="units"></div>
+      <p class="inkey" id="inkey" hidden><b>Inside</b> numbers are mills levied without a vote; they don't shrink as values rise.</p>
       <div class="total"><span>Total effective residential rate (mills)</span><span class="v" id="v-total">&mdash;</span></div>
       <div id="bar" aria-hidden="true"></div>
       <div id="barlab" aria-hidden="true">share of the rate by government</div>
@@ -229,6 +236,13 @@ const NAME_RULES = [
   [/\bJnt\b|\bJt\b/gi, 'Joint'],
   [/\bDist\.?(?=\s|$)/gi, 'District'],
   [/\bFd\b/gi, 'Fire District'],
+  [/\bSd\b/gi, 'School District'],
+  [/\bLib\b/gi, 'Library'], [/\bPub\b/gi, 'Public'], [/\bAmb\b/gi, 'Ambulance'], [/\bVil\b/gi, 'Village'],
+  [/\bCo\b(?!\.)/g, 'County'], [/\bRec\b/gi, 'Recreation'], [/\bJfd\b/gi, 'Joint Fire District'],
+  [/\bVfd\b/gi, 'Volunteer Fire Department'], [/\bLk\b/gi, 'Lake'], [/\bFt\b/gi, 'Fort'], [/\bPk\b/gi, 'Park'],
+  [/\bMem\b/gi, 'Memorial'], [/\bSch\b/gi, 'School'],
+  [/\bDist\.?$/gi, 'District'],
+  [/\s+D$/g, ' District'],
 ];
 function pretty(name){
   let n = String(name==null?'':name).replace(/\s+/g,' ').trim();
@@ -334,12 +348,16 @@ function clearReadout(msg){
   document.getElementById('io').style.display = 'none';
   document.getElementById('bar').innerHTML = '';
   document.getElementById('hint').innerHTML = '';
+  document.getElementById('dnote').textContent = '';
+  document.getElementById('inkey').hidden = true;
   document.getElementById('v-total').textContent = '—';
   const dn = document.getElementById('dname');
   dn.textContent = msg; dn.classList.add('empty');
 }
 
+let lastPt = null;
 function identify(lat,lng){
+  lastPt = [lat,lng];
   const pt=[lng,lat];
   const co=find('counties',pt), sd=find('school_districts',pt),
         mu=find('municipalities',pt), tw=find('townships',pt);
@@ -395,6 +413,16 @@ function identify(lat,lng){
            `<span><span class="ty">${t.label}</span><br>${esc(pretty(u.name))}</span></span>`+
            `<span class="v">${u.c1.toFixed(1)}${inTag}</span></div>`;
   }).join('') + (matched ? '' : '<div class="u note">Some local levies (library, career center, special districts) are not shown.</div>');
+
+  // matched city/village that also carries a township row: say why (ODT: annexed land still pays township levies)
+  const cityU = units.find(u => u.type === 'municipality'), twpU = units.find(u => u.type === 'township');
+  const dnote = document.getElementById('dnote');
+  if(matched && cityU && twpU){
+    const cityN = pretty(cityU.name).replace(/^(City|Village) of /i,'').replace(/ (City|Village)$/i,'');
+    const twpN = pretty(twpU.name).replace(/ except .*$/i,'');
+    dnote.textContent = 'This part of ' + cityN + ' is still in ' + twpN + ', so it pays township levies too.';
+  } else dnote.textContent = '';
+  document.getElementById('inkey').hidden = !(matched && units.some(u => u.in && u.in > 0));
 
   // inside vs outside (only when we have the matched district)
   const io = document.getElementById('io');
@@ -470,11 +498,20 @@ document.getElementById('homeval').addEventListener('blur', e=>{
 // ---- inputs: click/tap, and Enter or Space at the crosshair for keyboard users -----
 map.on('click', e=>identify(e.latlng.lat,e.latlng.lng));
 const mapEl = map.getContainer();
+// Leaflet animates keyboard pans, and a second arrow press restarts from mid-animation. Estimate at the
+// crosshair only once the map has settled, so Down+Enter or Right+Right+Enter use the final centre.
+let moving = false;
+map.on('movestart', () => { moving = true; });
+map.on('moveend',   () => { moving = false; });
+function estimateAtCenter(){ const c = map.getCenter(); identify(c.lat, c.lng); }
 mapEl.addEventListener('keydown', e => {
   if(e.key === 'Enter' || e.key === ' ' || e.key === 'Spacebar'){
     e.preventDefault();
-    const c = map.getCenter();
-    identify(c.lat, c.lng);
+    if(!(moving || (map._panAnim && map._panAnim._inProgress))){ estimateAtCenter(); return; }
+    let done = false;
+    const go = () => { if(done) return; done = true; estimateAtCenter(); };
+    map.once('moveend', go);
+    setTimeout(go, window.__wtySafety || 2500);      // safety net if no moveend arrives
   }
 });
 mapEl.addEventListener('focus', () => map.scrollWheelZoom.enable());
@@ -499,7 +536,7 @@ setTimeout(() => { map.invalidateSize(); fitOhio(); }, 0);
 let resizeT = null;
 window.addEventListener('resize', () => { clearTimeout(resizeT); resizeT = setTimeout(() => { map.invalidateSize(); }, 150); });
 
-window.__wty = {identify, find, store, updateCut, parseValue, matchDistrict, usd, pretty, unitType};
+window.__wty = {map, getLast: () => lastPt, identify, find, store, updateCut, parseValue, matchDistrict, usd, pretty, unitType};
 })();
 </script>
 </body>
