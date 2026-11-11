@@ -1,5 +1,17 @@
 # News coverage, podcasts, and interviews. Newest first.
 # Fields: title, url, source (outlet), date (display string), topics (slugs)
+- title: "OSU Extensions Host Western Ohio Ag Outlook Meeting"
+  url: "https://www.dailyadvocate.com/2026/11/03/osu-extensions-host-western-ohio-ag-outlook-meeting-4/"
+  source: "Daily Advocate"
+  date: "November 2026"
+  topics: [agriculture]
+
+- title: "Ohio truckers see some relief in diesel costs"
+  url: "https://spectrumnews1.com/oh/columbus/news/2026/10/26/diesel-relief-impact-on-ohio-truckers-"
+  source: "Spectrum News 1"
+  date: "October 2026"
+  topics: [biofuels]
+
 - title: "Ag economist warns red dyed diesel policy could raise the cost for farmers"
   url: "https://www.brownfieldagnews.com/news/ag-economist-warns-red-dyed-diesel-policy-could-raise-the-cost-for-farmers/"
   source: "Brownfield Ag News"

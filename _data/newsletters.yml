@@ -1,5 +1,20 @@
 # Substack newsletter posts. Newest first.
 # Fields: title, url, date (display string), topics (slugs from outreach_topics.yml)
+- title: "Data Centers: An Election Update"
+  url: "https://gelade1.substack.com/p/data-centers-an-election-update"
+  date: "November 2026"
+  topics: [energy-land-use, rural-urban]
+
+- title: "What's at Stake if Ohio Votes to Abolish Property Taxes in 2027?"
+  url: "https://gelade1.substack.com/p/whats-at-stake-if-ohio-votes-to-abolish"
+  date: "November 2026"
+  topics: [property-tax]
+
+- title: "Data Centers: What's Here and What's Coming"
+  url: "https://gelade1.substack.com/p/data-centers-whats-here-and-whats"
+  date: "October 2026"
+  topics: [energy-land-use, rural-urban, water-environment]
+
 - title: "How a Diesel Tax Holiday Could Cost Farmers"
   url: "https://gelade1.substack.com/p/how-a-diesel-tax-holiday-could-cost"
   date: "October 2026"
