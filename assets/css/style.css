@@ -461,7 +461,7 @@ main {
 /* ---- CARD GRIDS ---- */
 .home .grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(230px, 100%), 1fr));
   gap: 18px;
 }
 
@@ -488,7 +488,7 @@ main {
 .home .tools .section-head a { color: color-mix(in srgb, var(--accent) 60%, #fff); }
 .home .tool-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(230px, 100%), 1fr));
   gap: 16px;
   margin-top: 26px;
 }
@@ -763,7 +763,7 @@ main {
 .data-tools .dev-head h2 { font-size: 22px; margin: 0; }
 .data-tools .dev-head .aside { font-size: 13px; color: #8A8880; }
 .data-tools .dev-head .aside a { color: var(--accent); font-weight: 600; text-decoration: none; }
-.data-tools .dev-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 14px; margin-top: 18px; }
+.data-tools .dev-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(240px, 100%), 1fr)); gap: 14px; margin-top: 18px; }
 .data-tools .dev-card { background: #fff; border: 1px solid #E9E5DE; border-radius: 9px; padding: 16px 18px; }
 .data-tools .dev-status { display: flex; align-items: center; gap: 8px; margin-bottom: 7px; }
 .data-tools .dev-dot { width: 7px; height: 7px; border-radius: 100px; background: #C7A94A; display: inline-block; }
@@ -1114,7 +1114,7 @@ main {
 .people-page .faculty-card .link:hover { gap: 10px; }
 
 /* ---- PERSON CARDS (grad, affiliates) ---- */
-.people-page .person-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(210px, 1fr)); gap: 18px; }
+.people-page .person-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(210px, 100%), 1fr)); gap: 18px; }
 .people-page .person-card { border: 1px solid #E5E2DC; border-radius: 12px; background: #fff; padding: 22px 20px; display: flex; flex-direction: column; gap: 12px; }
 .people-page .person-card:hover { border-color: #C4BFB4; box-shadow: 0 14px 30px -24px rgba(40, 30, 20, 0.32); }
 .people-page .person-card .photo { width: 84px; height: 84px; object-fit: cover; border-radius: 100px; background: #EAE6DE; display: block; }

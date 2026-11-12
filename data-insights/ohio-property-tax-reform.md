@@ -44,7 +44,7 @@ blocks:
     id: "where-it-goes"
     text: "3 &middot; Where the money goes"
   - type: para
-    text: "Of every dollar of real property tax charged statewide in tax year 2025, about <strong>60.8 cents</strong> goes to school districts, <strong>2.6 cents</strong> to career-technical districts (<strong>63.4 cents</strong> together), <strong>16.5 cents</strong> to counties, <strong>7.4 cents</strong> to townships, <strong>6.5 cents</strong> to cities and villages, and <strong>6.1 cents</strong> to special districts such as libraries and parks. These are rounded to a tenth of a cent, so they add to 99.9 rather than 100. Townships draw about 60% of their revenue from the property tax, school districts about 42%, and cities about 7%, because cities can levy an income tax (U.S. Census Bureau Government Finance Database, 2022). The shares are after the state's rate reductions and before its credits. See the <a href=\"/swank-program/data/insights/ohio-tax-explainer/#the-money\">Ohio Tax Explainer</a> for every tax."
+    text: "Of every dollar of real property tax charged statewide in tax year 2025, about <strong>60.8 cents</strong> goes to school districts, <strong>2.6 cents</strong> to career-technical districts (<strong>63.4 cents</strong> together), <strong>16.5 cents</strong> to counties, <strong>7.4 cents</strong> to townships, <strong>6.5 cents</strong> to cities and villages, and <strong>6.1 cents</strong> to special districts such as libraries and parks. These are rounded to a tenth of a cent, so they add to 99.9 rather than 100. Townships draw about 60% of their revenue from the property tax, school districts about 42%, and cities about 7%, because cities can levy an income tax (U.S. Census Bureau Government Finance Database, 2022). The shares are after the state's rate reductions and before its credits. See the <a href=\"../ohio-tax-explainer/#the-money\">Ohio Tax Explainer</a> for every tax."
   - type: heading
     id: "coming"
     text: "4 &middot; Coming to this page"
@@ -76,7 +76,7 @@ related:
     - label: "\"Ohio May Vote to Abolish the Property Tax. What's at Stake?\" (Substack)"
       url: "https://gelade1.substack.com/p/whats-at-stake-if-ohio-votes-to-abolish"
     - label: "Ohio Tax Explainer"
-      url: "/swank-program/data/insights/ohio-tax-explainer/"
+      url: "../ohio-tax-explainer/"
 sources:
   - "Rates and taxing districts: Ohio Department of Taxation Tax Data Series, Property Tax Rates by Levy (tax year 2025), and PD-23 (the department's table of real property tax charged by county, Class I residential/agricultural plus Class II commercial/industrial, net of HB 920 reduction factors). Taxing-district boundaries: Ohio Department of Taxation and the Ohio Geographically Referenced Information Program (OGRIP) at ODOT, with U.S. Census TIGER for counties and school districts."
   - "Estimator method: each spot is matched to its Ohio Department of Taxation taxing district (4,479 districts). About 97% of the state's area matches (96.7% on a grid we checked); for those spots the rates are that district's own tax year 2025 effective Class I (residential) rates after HB 920, which sum to the department's district rate. The other 3% are flagged approximate and use each government's typical (median) rate across the districts it spans. The estimate applies a flat 10% for the state's credits; on one real Hilliard bill, the resulting estimate came within about 0.8% of the actual bill."

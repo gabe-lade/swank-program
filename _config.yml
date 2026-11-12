@@ -29,6 +29,8 @@ exclude:
   - README.md
   - LICENSE.md
   - CLAUDE.md
+  - AGENTS.md
+  - "preview-*.html"
 
 keep_files:
   - .nojekyll
