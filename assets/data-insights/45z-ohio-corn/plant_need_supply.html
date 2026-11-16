@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Documented corn each ethanol plant would need for one 45Z step, and how much grows nearby</title>
+
+<!-- Embed for the Swank site page data-insights/45z-ohio-corn.md (block "plant-need-supply").
+     One chart: for each Ohio plant and the three Indiana plants near the border, the documented
+     no-till corn one full 5-point step would take (orange) against the qualifying corn within
+     50 miles the plant could call its own, counted in no-till-bushel equivalents (blue), with two
+     assumption toggles (corn no-till share; cover crops on no-till corn), the table, and the
+     value-by-practice table in disclosures. The page supplies the heading, description and
+     sources. Data: ./data/45z_plants_data.js (code/09_plant_page_data.R). Same-origin only:
+     sizes its own iframe. -->
+
+<script src="data/45z_plants_data.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&family=Public+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body { font-family: 'Public Sans', system-ui, -apple-system, sans-serif; color: #1A1A19; background: #fff; -webkit-font-smoothing: antialiased; font-size: 14px; line-height: 1.5; }
+  .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
+  #wrap { max-width: 900px; margin: 0 auto; padding: 20px 24px 18px; }
+  .note { font-size: 12.5px; line-height: 1.5; color: #6C6A64; margin: 10px 0 0; }
+  .note a, .sub a { color: #BB0000; font-weight: 600; }
+  p.sub { font-size: 12.5px; color: #6C6A64; margin: 6px 0 10px; }
+  .muted { color: #6C6A64; }
+  button:focus-visible, a:focus-visible, summary:focus-visible, [tabindex]:focus-visible { outline: 2px solid #BB0000; outline-offset: 2px; }
+  .ctl { display: flex; flex-wrap: wrap; gap: 10px 22px; align-items: start; margin: 8px 0 6px; }
+  .field .lbl { display: block; font-size: 12px; font-weight: 600; color: #56534D; margin: 0 0 4px; }
+  .switch { display: inline-grid; grid-auto-flow: column; gap: 6px; }
+  .switch button { border: 1px solid #D8D3CA; background: #fff; border-radius: 7px; padding: 7px 10px; min-height: 36px; font-family: inherit; font-size: 12.5px; font-weight: 600; color: #56534D; cursor: pointer; }
+  .switch button[aria-pressed="true"] { color: #fff; border-color: transparent; background: #BB0000; }
+  .switch button:hover:not([aria-pressed="true"]) { background: #F4F1EB; }
+  .legend { display: flex; flex-wrap: wrap; gap: 6px 16px; font-size: 12.5px; color: #56534D; margin: 0 0 12px; }
+  .legend span { display: inline-flex; align-items: center; gap: 6px; }
+  .legend i { display: inline-block; width: 14px; height: 10px; border-radius: 3px; flex: 0 0 auto; }
+  .legend i.half { background: linear-gradient(90deg, #2c7fb8 0 50%, #A9CBE6 50% 100%); }
+
+  .rows { display: grid; gap: 10px; overflow-x: clip; }   /* a label can never widen the frame */
+  .row { display: grid; grid-template-columns: 190px 1fr; gap: 12px; align-items: center; }
+  .row .lab { font-size: 13px; color: #33302B; line-height: 1.3; }
+  .row .lab b { font-family: 'Source Serif 4', serif; font-size: 15.5px; font-weight: 600; display: block; }
+  .row .lab .m { color: #6C6A64; font-size: 12px; }
+  .grp { font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; letter-spacing: 0.08em; text-transform: uppercase; color: #75726B; border-top: 1px solid #E5E2DC; padding-top: 8px; margin-top: 2px; }
+  .axis { display: grid; grid-template-columns: 190px 1fr; gap: 12px; font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; color: #75726B; }
+  .axis .ticks { position: relative; min-height: 34px; }
+  .axis .ticks span { position: absolute; transform: translateX(-50%); white-space: nowrap; }
+  .axis .ticks .ax-title { display: block; position: static; transform: none; padding-top: 16px; white-space: normal; text-align: center; }   /* wraps instead of overflowing the frame */
+
+  .bars2 { display: grid; gap: 0; }
+  .track { position: relative; height: 24px; }
+  .fill { position: absolute; left: 0; top: 5px; height: 14px; border-radius: 0 4px 4px 0; transition: width 0.25s; }
+  .fill.need { background: #c9531f; }
+  .fill.sup { background: #A9CBE6; }
+  .fill.sup2 { background: #2c7fb8; }
+  .track:hover .fill, .track:focus-visible .fill { filter: brightness(1.08); }
+  .track:focus-visible { outline-offset: -2px; }   /* .rows clips horizontally, so keep the ring inside */
+  .val { position: absolute; top: 4px; left: calc(var(--x) + 1%); font-size: 12px; color: #33302B; white-space: nowrap; font-weight: 500; }
+  .val.in { left: auto; right: calc(100% - var(--x) + 5px); }   /* placeLabels(): no room after the bar, so the label sits inside its light part */
+  .val .half-l { color: #6C6A64; font-weight: 400; }
+  .val .half-l.hide { display: none; }
+  .gridline { position: absolute; top: 0; bottom: 0; width: 1px; background: #EFECE6; }
+
+  .takeaway { background: #F7F4EE; border-radius: 8px; padding: 9px 11px; font-size: 13px; line-height: 1.5; color: #33302B; margin: 12px 0 0; }
+  .tooltip { position: fixed; pointer-events: none; background: #fff; border: 1px solid #D8D3CA; box-shadow: 0 2px 10px rgba(0,0,0,0.10); border-radius: 8px; padding: 8px 11px; font-size: 12.5px; max-width: 320px; opacity: 0; transition: opacity 0.08s; z-index: 5; }
+  .tooltip strong { display: block; font-family: 'Source Serif 4', serif; font-size: 14.5px; color: #33302B; }
+  .tooltip .muted { color: #6C6A64; }
+
+  details { margin: 12px 0 0; }
+  summary { cursor: pointer; font-size: 13px; font-weight: 600; color: #56534D; }
+  table { border-collapse: collapse; width: 100%; font-size: 13px; margin: 10px 0 0; }
+  .cap { font-size: 13px; font-weight: 600; color: #33302B; margin: 8px 0 0; }
+  th, td { text-align: left; padding: 6px 6px; border-bottom: 1px solid #F2EFE9; vertical-align: top; }
+  th { font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: 0.04em; text-transform: uppercase; color: #75726B; font-weight: 500; border-bottom: 1px solid #E5E2DC; }
+  th:first-child, td:first-child { position: sticky; left: 0; background: #fff; z-index: 1; }
+  th.wide { min-width: 150px; }
+  td.n, th.n { text-align: right; font-variant-numeric: tabular-nums; }
+  td.n { white-space: nowrap; }
+  th { vertical-align: bottom; min-width: 48px; }   /* headers wrap; numbers do not */
+  /* narrow frames: each row becomes a block of label/value lines, so the table never scrolls sideways */
+  @media (max-width: 640px) {
+    table.cards, table.cards tbody { display: block; }
+    table.cards thead { display: none; }
+    table.cards tr { display: block; border-bottom: 1px solid #E5E2DC; padding: 8px 0; }
+    table.cards td { display: flex; justify-content: flex-start; gap: 12px; border: 0; padding: 2px 0; text-align: left; white-space: normal; position: static; min-width: 0; max-width: none; }
+    table.cards td::before { content: attr(data-l); color: #75726B; font-size: 11.5px; line-height: 1.4; flex: 0 0 auto; max-width: 46%; }
+    table.cards td:first-child { display: block; padding-bottom: 4px; }
+    table.cards td:first-child::before { content: none; }
+  }
+  .tablewrap { overflow-x: auto; }
+
+  @media (max-width: 700px) {
+    #wrap { padding: 16px 14px 14px; }
+    .row, .axis { grid-template-columns: 1fr; gap: 4px; }
+    .axis > div:first-child { display: none; }
+    .val .half-l { display: none; }
+  }
+</style>
+</head>
+<body>
+<div id="wrap">
+  <div class="legend" aria-hidden="true">
+    <span><i style="background:#c9531f"></i>Documented no-till corn needed for one full step</span>
+    <span><i class="half"></i>Qualifying corn nearby, this plant's share, in no-till-bushel equivalents (a no-till bushel with a cover crop counts 1.6; darker part: if only half of growers document)</span>
+  </div>
+  <div class="rows" id="bars"></div>
+  <div class="axis" aria-hidden="true"><div></div><div class="ticks" id="buaxis"></div></div>
+  <p class="takeaway" id="bartake"></p>
+  <p class="note">Need is in documented no-till bushels at 0.95 lb of nitrogen per bushel harvested (about 180 lb on a 190-bushel crop), at the carbon cut of the no-till corn in each plant's area. Supply is the no-till and cover-crop corn within 50 miles from the 2022 Census, shared among overlapping plants, assuming every qualifying grower documents and the corn reaches the plant, counted by the carbon it cuts (a no-till bushel is 1, with a cover crop about 1.6, a cover crop alone about 0.7). The blue label shows how many steps that corn could cover. Tap, hover or tab to a bar for the figures.</p>
+
+  <details class="d"><summary>What if fewer fields are no-tilled, or more no-till growers added a cover crop? <span class="muted" id="legr"></span></summary>
+    <p class="sub" style="margin-top:8px">A no-till bushel with a cover crop counts for about 1.6 no-till bushels. Adding a cover crop is the one thing a grower can do that moves these bars. Both switches move only the blue supply bars.</p>
+    <div class="ctl">
+      <div class="field"><span class="lbl" id="lr">How much corn is no-tilled</span>
+        <div class="switch" role="group" aria-labelledby="lr" id="rsw"><button data-r="r0.5" aria-pressed="false">Half the all-crop rate</button><button data-r="r0.75" aria-pressed="true">Three quarters (used on this page)</button></div></div>
+      <div class="field"><span class="lbl" id="lc">If cover crops were added to more no-till corn</span>
+        <div class="switch" role="group" aria-labelledby="lc" id="csw"><button data-c="census" aria-pressed="true">As today (about 1 in 12 fields)</button><button data-c="q25" aria-pressed="false">1 in 4</button><button data-c="q50" aria-pressed="false">1 in 2</button></div></div>
+    </div>
+    <p class="sub">The Ag Census counts no-till across all crops, and corn is no-tilled less than beans. It also counts no-till and cover crops separately and does not say how many fields have both; taking the two as unrelated gives about 1 in 12 no-till corn acres with a cover crop today. The 1 in 4 and 1 in 2 options add cover crops beyond what the Census counts (roughly 1.6 and 2.5 times today's cover-crop acres), so they are what-if scenarios, not a different reading of the Census. Where a cover crop sits barely changes the total, because it cuts about as much carbon on a no-till field as on a tilled one. EQIP and H2Ohio cost-share can help pay for one.</p>
+  </details>
+
+  <details class="d"><summary>Show as a table</summary>
+    <div class="tablewrap"><table id="bartable" class="cards">
+      <thead><tr><th>Plant</th><th class="n">Corn used (M bu/yr)</th><th class="n">One step is worth to the plant ($/yr)</th><th class="n">Documented no-till corn for a step (M bu)</th><th class="n">Nearby corn, no-till basis (M bu)</th><th class="n">Steps nearby corn could cover (all growers document)</th><th class="n">Same, if half document</th><th class="wide">Other companies' plants within 100 mi (their 50-mile circles overlap this plant's)</th></tr></thead>
+      <tbody></tbody>
+    </table></div>
+  </details>
+
+  <details class="d"><summary>What a documented bushel is worth in each plant's area</summary>
+    <div class="ctl">
+      <div class="field"><span class="lbl" id="lu">Show</span>
+        <div class="switch" role="group" aria-labelledby="lu" id="usw"><button data-u="bu" aria-pressed="true">$ per bushel</button><button data-u="ac" aria-pressed="false">$ per acre of corn</button></div></div>
+    </div>
+    <p class="cap">Average credit to the plant per documented bushel (or acre of corn), 2026 rate, averaged over the Ohio corn within 50 miles of each plant. The plant's credit, not a premium offered to growers.</p>
+    <div class="tablewrap"><table id="valtable" class="cards"><thead></thead><tbody></tbody></table></div>
+    <p class="note">At the same practice, each 0.1 lb less nitrogen per bushel harvested is worth about 10 cents more per bushel to a plant. Counties in the same USDA soil region score alike, so plant areas differ little; your own nitrogen rate matters more. Indiana counties are not scored, so for Greenville and the Indiana plants the averages cover the Ohio part of the circle. For your own fields, use the <a href="https://ohiocornandwheat.org/about-us/corn-marketing-program/#45z-calculator" target="_top" rel="noopener">Ohio Corn &amp; Wheat 45Z calculator</a>; its figures come out about 10 cents lower because it measures against your own conventional field rather than USDA's default for undocumented corn.</p>
+  </details>
+</div>
+<div class="tooltip" id="tip" aria-hidden="true"></div>
+<p class="sr-only" id="sr" aria-live="polite"></p>
+<noscript><p style="padding:16px">The chart needs JavaScript.</p></noscript>
+
+<script>
+(function () {
+  const P = window.DATA_45Z_PLANTS;
+  const $ = (id) => document.getElementById(id);
+  if (!P) { $("bars").innerHTML = "<p>The plant data didn't load. Please refresh the page.</p>"; return; }
+  const M = (v) => (v / 1e6).toFixed(1);
+  const fmtM = (v) => M(v) + "M";
+  const fmtUSD = (v) => "$" + (v / 1e6).toFixed(1) + "M";
+  const pct = (v) => Math.round(v * 100) + "%";
+  const esc = (s) => String(s == null ? "" : s).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+  const RLAB = { "r0.5": "half", "r0.75": "three quarters" };
+  const CLAB = { census: "about 1 in 12", q25: "1 in 4", q50: "1 in 2" };
+  const STATE = { OH: "Ohio", IN: "Indiana", MI: "Michigan" };
+  const state = { r: "r0.75", c: "census", u: "bu" };
+  function fitFrame() {
+    // Measure the content, not the viewport: documentElement.scrollHeight is never less than the
+    // iframe's own height, so it would let the frame grow but never shrink (closing a details block).
+    try { if (window.frameElement) window.frameElement.style.height = (Math.ceil(document.getElementById("wrap").getBoundingClientRect().height) + 2) + "px"; } catch (e) {}
+  }
+
+  const tip = $("tip");
+  function tipOn(el, html) {
+    const show = (ev) => {
+      tip.innerHTML = html; tip.style.opacity = 1;
+      const x = Math.max(0, Math.min(ev.clientX + 14, window.innerWidth - 330)), y = Math.min(ev.clientY + 14, window.innerHeight - tip.offsetHeight - 8);
+      tip.style.left = x + "px"; tip.style.top = Math.max(0, y) + "px";
+    };
+    el.addEventListener("mousemove", show);
+    el.addEventListener("mouseleave", () => { tip.style.opacity = 0; });
+    el.addEventListener("focus", () => { const r = el.getBoundingClientRect(); show({ clientX: r.left + 20, clientY: r.bottom }); });
+    el.addEventListener("blur", () => { tip.style.opacity = 0; });
+  }
+
+  // Data order: Ohio plants by capacity, then the Indiana plants near the border by capacity
+  const plants = P.plants;
+  const firstIN = plants.findIndex(p => p.state !== "OH");
+  const ccKeys = Object.keys(P.cc_on_nt_options || { census: 1 });
+  const supOf = (p, r, c) => (p.supply[r].cc && p.supply[r].cc[c]) || { nteq_bu: p.supply[r].alloc_qual_bu, S_all: p.supply[r].S_full_all, S_half: p.supply[r].S_full_half, both_bu: 0 };
+
+  // One axis for every toggle option, so switching moves only the supply bars
+  const MAXV = Math.max(...plants.flatMap(p => [p.need.bu_nt, ...P.r_corn_options.flatMap(r => ccKeys.map(c => supOf(p, "r" + r, c).nteq_bu))])) * 1.2;   // headroom for the "1.3× a step" label; placeLabels() handles the rest
+
+  function renderBars() {
+    const r = state.r, c = state.c;
+    $("legr").textContent = `Now: ${RLAB[r]} of the all-crop no-till rate; cover crops on ${CLAB[c]} of no-till corn.`;
+    const x = (v) => v / MAXV * 100;
+    const grid = [10, 20, 30, 40, 50, 60, 70, 80].filter(g => g * 1e6 < MAXV);
+    const lab = (v, text) => `<span class="val" style="--x:${x(v)}%">${text || fmtM(v)}</span>`;
+    const supLab = (k) => `${k.S_all.toFixed(1)}× a step <span class="half-l">(${k.S_half.toFixed(1)}× if half document)</span>`;
+    $("bars").innerHTML = plants.map((p, i) => {
+      const s = p.supply[r], n = p.need, k = supOf(p, r, c);
+      const gl = grid.map(g => `<div class="gridline" style="left:${x(g * 1e6)}%"></div>`).join("");
+      const head = i === firstIN ? `<div class="grp">Indiana plants close enough to buy Ohio corn</div>` : "";
+      return head + `<div class="row"><div class="lab"><b>${esc(p.name)}</b>${esc(p.company)} · ${p.capacity_mgy} million gal<br><span class="m">one step ≈ ${fmtUSD(p.step_value_usd)} a year to the plant</span></div>` +
+        `<div class="bars2">` +
+        `<div class="track" tabindex="0" role="img" data-k="n-${esc(p.name)}" aria-label="${esc(p.name)}: needs ${fmtM(n.bu_nt)} bushels of documented no-till corn for a full step, half that if it is halfway to its next line.">${gl}<div class="fill need" style="width:${x(n.bu_nt)}%"></div>${lab(n.bu_nt)}</div>` +
+        `<div class="track" tabindex="0" role="img" data-k="s-${esc(p.name)}" aria-label="${esc(p.name)}: qualifying corn within 50 miles after sharing with other plants is worth ${fmtM(k.nteq_bu)} no-till bushels, ${k.S_all.toFixed(2)} times a full step if every grower documents and ${k.S_half.toFixed(2)} times if half do.">${gl}<div class="fill sup" style="width:${x(k.nteq_bu)}%"></div><div class="fill sup2" style="width:${x(k.nteq_bu / 2)}%"></div>${lab(k.nteq_bu, supLab(k))}</div>` +
+        `</div></div>`;
+    }).join("");
+    $("buaxis").innerHTML = [0, ...grid].map(g => `<span style="left:${x(g * 1e6)}%">${g ? g + "M" : "0"}</span>`).join("") +
+      `<span class="ax-title" style="left:50%;top:16px;color:#6C6A64">Million bushels a year, in no-till equivalents</span>`;
+    plants.forEach(p => {
+      const s = p.supply[r], n = p.need, k = supOf(p, r, c);
+      const ohio = p.state !== "OH" && p.ohio_share != null ? ` About ${pct(p.ohio_share)} of the corn within 50 miles of this plant is in Ohio.` : "";
+      tipOn(document.querySelector(`.track[data-k="${CSS.escape("n-" + p.name)}"]`),
+        `<strong>${esc(p.name)}: what a step takes</strong>Uses about ${fmtM(p.intake_bu)} bu a year at capacity. A full 5-point step needs about <b>${fmtM(n.bu_nt)} bu</b> of documented no-till corn (${n.pct_intake_nt}% of intake), at about ${(n.g_nt / 1000).toFixed(1)} kg cut per bushel in this area; ${fmtM(n.bu_ntcc)} bu if the corn also had a cover crop. A plant halfway to its next line needs half as much.<br><span class="muted">The step is worth ${fmtUSD(p.step_value_usd)} a year to the plant: ${Math.round(n.per_gal * 100)}¢ a gallon, ${Math.round(n.per_intake_bu * 100)}¢ on every bushel it uses, or $${n.per_nt_bu.toFixed(2)} per documented no-till bushel over a full step.</span>`);
+      tipOn(document.querySelector(`.track[data-k="${CSS.escape("s-" + p.name)}"]`),
+        `<strong>${esc(p.name)}: qualifying corn nearby</strong>About ${fmtM(s.gross_qual_bu)} bu of the ${fmtM(s.gross_corn_bu)} bu grown within 50 miles come from no-till or cover-crop fields (2022 Census, corn no-till at ${RLAB[r]} the all-crop rate). After sharing with the other plants whose circles overlap this one, this plant's share is <b>${fmtM(s.alloc_qual_bu)} bu</b>: ${fmtM(s.nt_bu)} bu no-till, of which ${fmtM(k.both_bu)} bu also has a cover crop under this assumption, and ${fmtM(s.cc_only_bu)} bu with a cover crop only. By the carbon it cuts, that equals <b>${fmtM(k.nteq_bu)} no-till bushels</b>: ${k.S_all.toFixed(2)}× a full step if every qualifying grower documented, ${k.S_half.toFixed(2)}× if half did.${ohio}`);
+    });
+    const S = (p) => supOf(p, r, c);
+    const short = plants.filter(p => S(p).S_half < 1).map(p => p.name);
+    const ok = plants.filter(p => S(p).S_all >= 1).length;
+    const notShort = plants.filter(p => !short.includes(p.name)).map(p => p.name);
+    const lift = plants.reduce((a, p) => a + S(p).nteq_bu / supOf(p, r, "census").nteq_bu, 0) / plants.length - 1;
+    $("bartake").innerHTML = `<b>What this shows.</b> With every qualifying grower documenting, nearby corn would cover a full step at ${ok === plants.length ? "every plant" : ok + " of " + plants.length + " plants"}. With half documenting, it would fall short at ${short.length === plants.length ? "every plant" : short.length === 0 ? "none" : short.length >= plants.length - 2 ? "every plant but " + notShort.join(" and ") : short.join(", ")}. ${c !== "census" ? `Adding a cover crop to ${CLAB[c]} of the no-till corn would add about ${Math.round(lift * 100)}% to supply, because those bushels cut about two-thirds more carbon. ` : ""}${ok === plants.length ? "Most of this corn already exists; the limit is how many growers keep the records 45Z requires." : `Even with everyone documenting, ${plants.filter(p => S(p).S_all < 1).map(p => p.name).join(", ")} would need to reach beyond the qualifying corn near them; records decide the rest.`}`;
+    $("bartable").querySelector("tbody").innerHTML = plants.map(p => { const s = p.supply[r], n = p.need, k = supOf(p, r, c);
+      const oth = p.competitors.filter(o => !o.same_company);
+      const others = oth.length ? `${p.n_other_companies} ${p.n_other_companies === 1 ? "company" : "companies"}; nearest ${oth.slice(0, 2).map(o => `${o.name} (${o.company}, ${o.miles} mi)`).join(", ")}` : "none";
+      return `<tr><td><b>${esc(p.name)}</b>${p.state !== "OH" ? `<br><span class="muted">${STATE[p.state]}</span>` : ""}</td><td class="n">${M(p.intake_bu)}</td><td class="n">${fmtUSD(p.step_value_usd)}</td><td class="n">${M(n.bu_nt)}</td><td class="n">${M(k.nteq_bu)}</td><td class="n">${k.S_all.toFixed(2)}</td><td class="n">${k.S_half.toFixed(2)}</td><td>${esc(others)}</td></tr>`; }).join("");
+    labelCells($("bartable")); placeLabels(); fitFrame();
+  }
+  // Card layout on narrow frames reads each cell's header from data-l
+  function labelCells(t) {
+    const H = [...t.querySelectorAll("thead th")].map(th => th.textContent.trim());
+    t.querySelectorAll("tbody tr").forEach(tr => [...tr.children].forEach((td, i) => td.setAttribute("data-l", H[i] || "")));
+  }
+  function placeLabels() {
+    // A long label past a long bar overflowed the frame (scrollbars, and the bars narrowed). Try the
+    // full label; then without the "(… if half document)" part; then inside the bar's light half.
+    document.querySelectorAll(".track").forEach(tr => {
+      const v = tr.querySelector(".val"); if (!v) return;
+      const half = v.querySelector(".half-l");
+      v.classList.remove("in"); if (half) half.classList.remove("hide");
+      const fits = () => v.getBoundingClientRect().right <= tr.getBoundingClientRect().right + 1;
+      if (fits()) return;
+      if (half) { half.classList.add("hide"); if (fits()) return; }
+      v.classList.add("in");
+    });
+  }
+  $("rsw").addEventListener("click", e => { const b = e.target.closest("button"); if (!b) return; state.r = b.dataset.r;
+    [...$("rsw").children].forEach(x => x.setAttribute("aria-pressed", x === b)); renderBars(); $("sr").textContent = "Supply bars updated: corn no-till at " + b.textContent.toLowerCase() + " the Census rate"; });
+  $("csw").addEventListener("click", e => { const b = e.target.closest("button"); if (!b) return; state.c = b.dataset.c;
+    [...$("csw").children].forEach(x => x.setAttribute("aria-pressed", x === b)); renderBars(); $("sr").textContent = "Supply bars updated: cover crops on " + CLAB[state.c] + " of the no-till corn"; });
+
+  function renderVals() {
+    const unit = state.u, n = "0.95 lb/bu";
+    $("valtable").querySelector("thead").innerHTML = `<tr><th>Plant area</th>${P.practices.map(pr => `<th class="n">${esc(pr === "Records only" ? "Conventional, documented" : pr)}</th>`).join("")}</tr>`;
+    $("valtable").querySelector("tbody").innerHTML = plants.map(p => `<tr><td><b>${esc(p.name)}</b>${p.share_outside_ohio >= 0.1 ? `<br><span class="muted">Ohio part of the circle (${pct(1 - p.share_outside_ohio)} of its corn)</span>` : ""}</td>` +
+      P.practices.map(pr => { const v = p.values[n][pr]; return `<td class="n">${v && v.bu != null ? (unit === "bu" ? "$" + v.bu.toFixed(2) : "$" + v.ac) : "—"}</td>`; }).join("") + `</tr>`).join("");
+    labelCells($("valtable")); fitFrame();
+  }
+  $("usw").addEventListener("click", e => { const b = e.target.closest("button"); if (!b) return; state.u = b.dataset.u;
+    [...$("usw").children].forEach(x => x.setAttribute("aria-pressed", x === b)); renderVals(); $("sr").textContent = "Table now shows " + (state.u === "bu" ? "dollars per bushel" : "dollars per acre of corn"); });
+
+  document.addEventListener("keydown", e => { if (e.key === "Escape") tip.style.opacity = 0; });
+  document.addEventListener("pointerdown", e => { if (!e.target.closest(".track")) tip.style.opacity = 0; });
+  window.addEventListener("scroll", () => { tip.style.opacity = 0; }, { passive: true });
+  document.querySelectorAll("details.d").forEach(d => d.addEventListener("toggle", fitFrame));
+  window.addEventListener("resize", () => { placeLabels(); fitFrame(); });
+  window.addEventListener("load", () => { placeLabels(); fitFrame(); });
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(() => { placeLabels(); fitFrame(); });
+  if (window.ResizeObserver) new ResizeObserver(() => { placeLabels(); fitFrame(); }).observe(document.body);
+  renderBars(); renderVals();
+})();
+</script>
+</body>
+</html>

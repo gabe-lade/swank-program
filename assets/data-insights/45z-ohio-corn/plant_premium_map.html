@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Where growers with good records could benefit: Ohio counties by nearby plants' supply and competition</title>
+
+<!-- Embed for the Swank site page data-insights/45z-ohio-corn.md (block "plant-premium-map").
+     One chart: Ohio counties shaded by two tests (nearby plants short of documented corn for a
+     full step if half of growers document; more than one company buying), with a legend and the
+     county table in a disclosure. The same tiers as the county map's "Will plants compete?" view
+     (county_values.html), shown on their own so the plant section can point at them. The page
+     supplies the heading, description and sources. Data: ./data/45z_values_data.js
+     (code/07_web_data.R). Same-origin only: sizes its own iframe. -->
+
+<script src="data/45z_values_data.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&family=Public+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body { font-family: 'Public Sans', system-ui, -apple-system, sans-serif; color: #1A1A19; background: #fff; -webkit-font-smoothing: antialiased; font-size: 14px; line-height: 1.5; }
+  .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
+  #wrap { max-width: 900px; margin: 0 auto; padding: 20px 24px 18px; }
+  .note { font-size: 12.5px; line-height: 1.5; color: #6C6A64; margin: 10px 0 0; }
+  .muted { color: #6C6A64; }
+  button:focus-visible, a:focus-visible, summary:focus-visible, [tabindex]:focus-visible { outline: 2px solid #BB0000; outline-offset: 2px; }
+
+  .maplay { display: grid; grid-template-columns: 1fr 260px; gap: 18px; align-items: start; }
+  .mapbox { position: relative; }
+  #map { width: 100%; height: auto; max-height: 520px; display: block; }
+  .county { stroke: #fff; stroke-width: 0.8; }
+  .county:hover { stroke: #1A1A19; stroke-width: 1.8; }
+  .county:focus { outline: none; }
+  .county:focus-visible { stroke: #1A1A19; stroke-width: 2.6; }
+  .plant { fill: #fff; stroke: #1A1A19; stroke-width: 1.6; pointer-events: none; }
+  .plantlabel { font-size: var(--lf, 11px); fill: #1A1A19; paint-order: stroke; stroke: rgba(255,255,255,0.95); stroke-width: var(--ls, 3px); pointer-events: none; }   /* --lf, --ls, --if are set by fitLabels() so labels stay about 10 px on screen at any map scale */
+  .instate { font-family: 'IBM Plex Mono', monospace; font-size: var(--if, 10px); letter-spacing: 0.1em; fill: #6C6A64; }
+  .lt { font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: 0.09em; text-transform: uppercase; color: #75726B; margin: 4px 0 8px; line-height: 1.5; }
+  .lrow { display: flex; align-items: center; gap: 8px; padding: 3px 0; font-size: 12.5px; color: #56534D; }
+  .lrow i, .lrow svg { display: inline-block; width: 16px; height: 11px; border-radius: 3px; flex: 0 0 auto; }
+  .lrow i { border: 1px solid rgba(0,0,0,0.06); }
+  .count { font-size: 12.5px; color: #56534D; margin: 10px 0 0; border-top: 1px solid #EFECE6; padding-top: 10px; }
+  .count b { font-family: 'Source Serif 4', serif; font-size: 18px; font-weight: 600; color: #33302B; display: block; }
+
+  .tooltip { position: absolute; width: max-content; pointer-events: none; background: #fff; border: 1px solid #D8D3CA; box-shadow: 0 2px 10px rgba(0,0,0,0.10); border-radius: 8px; padding: 8px 11px; font-size: 12.5px; max-width: 300px; opacity: 0; transition: opacity 0.08s; z-index: 5; }
+  .tooltip strong { display: block; font-family: 'Source Serif 4', serif; font-size: 14.5px; color: #33302B; }
+
+  details { margin: 12px 0 0; }
+  summary { cursor: pointer; font-size: 13px; font-weight: 600; color: #56534D; }
+  table { border-collapse: collapse; width: 100%; font-size: 13px; margin: 10px 0 0; }
+  th, td { text-align: left; padding: 7px 10px; border-bottom: 1px solid #F2EFE9; vertical-align: top; }
+  th { font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; letter-spacing: 0.08em; text-transform: uppercase; color: #75726B; font-weight: 500; border-bottom: 1px solid #E5E2DC; }
+  td.n, th.n { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
+  .tablewrap { overflow-x: auto; }
+
+  @media (max-width: 700px) {
+    #wrap { padding: 16px 14px 14px; }
+    .maplay { grid-template-columns: 1fr; gap: 10px; }
+    #map { max-height: 420px; }
+  }
+</style>
+</head>
+<body>
+<div id="wrap">
+  <div class="maplay">
+    <div class="mapbox">
+      <svg id="map" role="group" aria-label="Map of Ohio counties shaded by whether nearby plants may compete for documented corn. Tab through the counties, or open the table below." preserveAspectRatio="xMidYMid meet"></svg>
+      <div class="tooltip" id="tip" aria-hidden="true"></div>
+    </div>
+    <div>
+      <p class="lt">Where plants may pay extra · an illustration, not a forecast</p>
+      <div id="legend"></div>
+      <p class="count" id="count"></p>
+    </div>
+  </div>
+  <p class="note">Two tests, from the same arithmetic as the bars above: the plants whose 50-mile circles cover the county would fall short of a full step from the documented corn around them if half of qualifying growers document (corn no-till at three quarters of the Census rate, cover crops as in the central case), and more than one company buys corn there. Plants owned by the same company count as one buyer; Indiana and Michigan plants within 100 miles of Ohio are included. Hatched counties are mostly more than 50 miles from any plant; under USDA's rules for tracking documented grain their documented corn counts only if it reaches a plant through buyers that keep records. Section 1's map shows the same view with your county's details.</p>
+  <details id="tbl"><summary>Show counties as a table</summary>
+    <div class="tablewrap"><table id="maptable"><thead><tr><th>County</th><th>Result</th><th class="n">Buying companies within 50 mi</th><th>Plants within 50 mi</th><th class="n">Nearby documented corn as % of a full step (half of growers documenting)</th></tr></thead><tbody></tbody></table></div>
+  </details>
+</div>
+<noscript><p style="padding:16px">The map needs JavaScript.</p></noscript>
+
+<script>
+(function () {
+  const D = window.DATA_45Z;
+  const $ = (id) => document.getElementById(id);
+  if (!D) { $("wrap").innerHTML = "<p>The county data didn't load. Please refresh the page.</p>"; return; }
+  const esc = (s) => String(s == null ? "" : s).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+  function fitFrame() {
+    try {
+      fitLabels();
+      if (window.frameElement) window.frameElement.style.height = (Math.ceil($("wrap").getBoundingClientRect().height) + 2) + "px";
+    } catch (e) {}
+  }
+  function fitLabels() {
+    // SVG text scales with the map: at 430 px wide an 11-unit label renders 6 px. Size labels in map
+    // units so they come out about 10 px on screen, capped so they cannot collide on a small map.
+    const m = $("map"), r = m.getBoundingClientRect(); if (!r.width || !r.height) return;
+    const vb = (m.getAttribute("viewBox") || "").split(/\s+/).map(Number); if (vb.length !== 4 || !vb[2] || !vb[3]) return;
+    const k = 1 / Math.min(r.width / vb[2], r.height / vb[3]);   // map units per screen px; the map can be height-limited (max-height), so use the binding side
+    const fs = Math.min(10 * k, 16);
+    m.style.setProperty("--lf", fs.toFixed(2) + "px");
+    m.style.setProperty("--ls", (fs * 0.28).toFixed(2) + "px");
+    m.style.setProperty("--if", Math.min(9 * k, 14).toFixed(2) + "px");
+  }
+
+  // Same tier strings, labels and fills as county_values.html
+  const TIERS = ["Both: plants short, competing buyers", "One of the two", "Neither", "Mostly beyond 50 mi of a plant"];
+  const LABEL = ["Short supply and several buyers: nearby plants may fall short of documented corn, and more than one company buys", "One of the two", "Neither: nearby plants likely have enough documented corn, and one company buys; a plant may still pay, but has less reason to", "Mostly more than 50 miles from a plant: your corn can still count if your elevator passes the records on"];
+  const SHORT = ["Short supply and several buyers", "One of the two", "Neither", "Beyond 50 miles"];
+  const FILLS = ["#253494", "#41b6c4", "#c7e9b4", "url(#hatch)"];
+  const tierIdx = (c) => Math.max(0, TIERS.indexOf(c.tier));
+
+  const tip = $("tip"), box = tip.parentElement;
+  function showTip(ev, c, keyboard) {
+    const t = tierIdx(c);
+    tip.innerHTML = `<strong>${esc(c.name)} County</strong><b>${SHORT[t]}</b><br><span class="muted">${c.n_buyers} buying ${c.n_buyers === 1 ? "company" : "companies"} within 50 miles` +
+      (c.S_full != null && t < 3 ? `; nearby documented corn would cover about ${Math.round(c.S_full * 100)}% of a full step for those plants if half of qualifying growers document` : "") +
+      (c.plants && c.plants.length ? `.<br>Plants: ${c.plants.map(esc).join(", ")}` : "") + `</span>`;
+    const wrap = box.getBoundingClientRect();
+    let x, y;
+    if (keyboard) { const b = ev.target.getBoundingClientRect(); x = b.left - wrap.left + b.width / 2; y = b.bottom - wrap.top + 6; }
+    else { x = ev.clientX - wrap.left + 14; y = ev.clientY - wrap.top + 14; }
+    tip.style.left = "0px"; tip.style.top = "0px";   // measure at full width, not squeezed against the last position
+    tip.style.opacity = 1;
+    x = Math.max(0, Math.min(x, wrap.width - tip.offsetWidth - 4)); y = Math.max(0, Math.min(y, wrap.height - tip.offsetHeight - 4));
+    tip.style.left = x + "px"; tip.style.top = y + "px";
+  }
+  const hideTip = () => { tip.style.opacity = 0; };
+
+  const svg = $("map"), NS = "http://www.w3.org/2000/svg";
+  const PAD_L = D.pad_l || 115, PAD_T = D.pad_t || 8;
+  svg.setAttribute("viewBox", `${-PAD_L} ${-PAD_T} ${D.view_w + PAD_L + 12} ${D.view_h + PAD_T + 8}`);
+  const el = (t, a) => { const e = document.createElementNS(NS, t); for (const k in a) e.setAttribute(k, a[k]); return e; };
+  const defs = el("defs", {});
+  const pat = el("pattern", { id: "hatch", width: 6, height: 6, patternUnits: "userSpaceOnUse", patternTransform: "rotate(45)" });
+  pat.append(el("rect", { width: 6, height: 6, fill: "#EDE9E2" }), el("line", { x1: 0, y1: 0, x2: 0, y2: 6, stroke: "#CFCAC0", "stroke-width": 1.5 }));
+  defs.append(pat); svg.append(defs);
+  const gC = el("g", {}), gP = el("g", { "aria-hidden": "true" }); svg.append(gC, gP);
+  const inLabel = el("text", { x: -PAD_L + 4, y: 200, class: "instate", "aria-hidden": "true" }); inLabel.textContent = "INDIANA";
+  const miLabel = el("text", { x: 40, y: 12, class: "instate", "aria-hidden": "true" }); miLabel.textContent = "MICHIGAN";
+  svg.append(inLabel, miLabel);
+  D.counties.forEach(c => {
+    const t = tierIdx(c);
+    const p = el("path", { d: c.d, class: "county", fill: FILLS[t], tabindex: 0, role: "img",
+      "aria-label": `${c.name} County: ${SHORT[t]}, ${c.n_buyers} buying ${c.n_buyers === 1 ? "company" : "companies"} within 50 miles` });
+    p.addEventListener("mousemove", ev => showTip(ev, c));
+    p.addEventListener("mouseleave", hideTip);
+    p.addEventListener("focus", ev => showTip(ev, c, true));
+    p.addEventListener("blur", hideTip);
+    gC.append(p);
+  });
+  // Label offsets in map units (dx, dy, anchor). Border plants go left over Indiana; Portland sits lower
+  // and Union City higher so neither touches Marion IN or Alexandria; Alexandria goes under its marker
+  // (left of it would run past the map's edge). Everything else is to the right of its marker.
+  const LABEL_POS = { "Leipsic": [-9, 4, "end"], "Union City IN": [-9, -2, "end"], "Portland IN": [-9, 12, "end"], "Bluffton IN": [-9, 4, "end"],
+                      "Albion MI": [-9, 4, "end"], "Alexandria IN": [0, 28, "middle"] };   // Alexandria well below its marker, clear of Union City's label
+  const bareName = (s) => s.replace(/ (IN|MI)$/, "");
+  const mapName = (p) => D.plants.some(q => q !== p && bareName(q.name) === bareName(p.name)) ? p.name : bareName(p.name);
+  D.plants.forEach(p => {
+    const s = p.state === "OH" ? el("circle", { cx: p.x, cy: p.y, r: 5.5, class: "plant" })
+      : el("path", { d: `M${p.x},${p.y - 6.5}L${p.x + 6},${p.y + 4.5}L${p.x - 6},${p.y + 4.5}Z`, class: "plant" });
+    // The marker shape and the state name carry the state, so "IN"/"MI" is dropped from the map label
+    // unless the bare name repeats (Marion).
+    const [dx, dy, anchor] = LABEL_POS[p.name] || [8, 4, "start"];
+    const t = el("text", { x: p.x + dx, y: p.y + dy, class: "plantlabel", "text-anchor": anchor });
+    t.textContent = mapName(p); gP.append(s, t);
+  });
+
+  document.body.insertAdjacentHTML("beforeend", '<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs><pattern id="hatch-l" width="5" height="5" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="5" height="5" fill="#EDE9E2"/><line x1="0" y1="0" x2="0" y2="5" stroke="#CFCAC0" stroke-width="1.5"/></pattern></defs></svg>');
+  $("legend").innerHTML = LABEL.map((l, i) => `<div class="lrow">${FILLS[i].startsWith("url") ? '<svg viewBox="0 0 16 11" aria-hidden="true"><rect width="16" height="11" rx="3" fill="url(#hatch-l)"/></svg>' : `<i style="background:${FILLS[i]}"></i>`}${l}</div>`).join("") +
+    `<div class="lrow"><svg viewBox="0 0 12 12" aria-hidden="true" style="width:12px;height:12px"><circle cx="6" cy="6" r="4.5" fill="#fff" stroke="#1A1A19" stroke-width="1.5"/></svg>Ohio plant&nbsp;&nbsp;<svg viewBox="0 0 12 12" aria-hidden="true" style="width:12px;height:12px"><path d="M6,1L11,10L1,10Z" fill="#fff" stroke="#1A1A19" stroke-width="1.5"/></svg>Indiana or Michigan plant</div>`;
+  const nBoth = D.counties.filter(c => tierIdx(c) === 0).length, nOne = D.counties.filter(c => tierIdx(c) === 1).length;
+  $("count").innerHTML = `<b>${nBoth} of ${D.counties.length} counties</b> meet both conditions; ${nOne} meet one. Each shading is about the plants near a county, not the county's own corn.`;
+
+  const sorted = [...D.counties].sort((a, b) => a.name.localeCompare(b.name));
+  $("maptable").querySelector("tbody").innerHTML = sorted.map(c => { const t = tierIdx(c);
+    return `<tr><td>${esc(c.name)}</td><td>${SHORT[t]}</td><td class="n">${c.n_buyers}</td><td>${(c.plants || []).map(esc).join(", ") || "—"}</td><td class="n">${c.S_full != null && t < 3 ? Math.round(c.S_full * 100) + "%" : "—"}</td></tr>`; }).join("");
+
+  document.addEventListener("keydown", e => { if (e.key === "Escape") hideTip(); });
+  document.addEventListener("pointerdown", e => { if (!e.target.closest(".county")) hideTip(); });
+  $("tbl").addEventListener("toggle", fitFrame);
+  window.addEventListener("resize", fitFrame);
+  window.addEventListener("load", fitFrame);
+  if (window.ResizeObserver) new ResizeObserver(() => requestAnimationFrame(fitFrame)).observe(document.body);
+  fitFrame();
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Where each ethanol plant near Ohio corn likely stands on the 45Z steps</title>
+
+<!-- Embed for the Swank site page data-insights/45z-ohio-corn.md (block "plant-positions").
+     One chart: the likely 2026 position of each Ohio plant, and of the three Indiana plants
+     near the border that buy Ohio corn, on the 45Z carbon-score steps, from public evidence,
+     with the evidence table in a disclosure. The page supplies the heading,
+     description and sources. Data: ./data/45z_plants_data.js (code/09_plant_page_data.R).
+     Same-origin only: sizes its own iframe. -->
+
+<script src="data/45z_plants_data.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&family=Public+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body { font-family: 'Public Sans', system-ui, -apple-system, sans-serif; color: #1A1A19; background: #fff; -webkit-font-smoothing: antialiased; font-size: 14px; line-height: 1.5; }
+  .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
+  #wrap { max-width: 900px; margin: 0 auto; padding: 20px 24px 18px; }
+  .note { font-size: 12.5px; line-height: 1.5; color: #6C6A64; margin: 10px 0 0; }
+  .note a, .sub a { color: #BB0000; font-weight: 600; }
+  button:focus-visible, a:focus-visible, summary:focus-visible, [tabindex]:focus-visible { outline: 2px solid #BB0000; outline-offset: 2px; }
+
+  .rows { display: grid; gap: 10px; }
+  .row { display: grid; grid-template-columns: 190px 1fr; gap: 12px; align-items: center; }
+  .row .lab { font-size: 13px; color: #33302B; line-height: 1.3; }
+  .row .lab b { font-family: 'Source Serif 4', serif; font-size: 15.5px; font-weight: 600; display: block; }
+  .row .lab .m { color: #6C6A64; font-size: 12px; }
+  .grp { font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; letter-spacing: 0.08em; text-transform: uppercase; color: #75726B; border-top: 1px solid #E5E2DC; padding-top: 8px; margin-top: 2px; }
+  .muted { color: #6C6A64; }
+  .note a { color: #BB0000; font-weight: 600; }
+  .axis { display: grid; grid-template-columns: 190px 1fr; gap: 12px; font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; color: #75726B; }
+  .axis .ticks { position: relative; min-height: 34px; }
+  .axis .ticks span { position: absolute; transform: translateX(-50%); white-space: nowrap; }
+  .axis .ticks .ax-title { display: block; position: static; transform: none; padding-top: 16px; white-space: normal; text-align: center; }   /* wraps instead of overflowing the frame */
+  .bandlab { display: grid; grid-template-columns: 190px 1fr; gap: 12px; margin: 0 0 4px; }
+  .bandlab .ticks { position: relative; height: 18px; font-size: 11px; color: #6C6A64; }
+  .bandlab .ticks span { position: absolute; transform: translateX(-50%); white-space: nowrap; font-weight: 600; }
+  .bandlab-m { display: none; font-size: 12px; color: #6C6A64; margin: 0 0 6px; }
+
+  .ladder { position: relative; height: 34px; background: #F7F4EE; border-radius: 6px; }
+  .ladder .band { position: absolute; top: 0; bottom: 0; }
+  .ladder .band.b0 { background: #F1EDE5; }
+  .ladder .band.b1 { background: #EAF3F9; }
+  .ladder .band.b2 { background: #D3E6F2; }
+  .ladder .band.b3 { background: #B9D8EA; }
+  .ladder .step { position: absolute; top: 0; bottom: 0; width: 1px; background: #B5AFA3; }
+  .ladder .range { position: absolute; top: 10px; height: 14px; background: #56534D; border-radius: 4px; }
+  .ladder .range.open { background: linear-gradient(90deg, #56534D 0%, #56534D 50%, rgba(86,83,77,0) 100%); border-radius: 4px 0 0 4px; }
+  .ladder .none { position: absolute; left: 10px; top: 8px; font-size: 12px; color: #6C6A64; font-style: italic; }
+  .ladder:hover { outline: 1px solid #D8D3CA; }
+  .legend { display: flex; flex-wrap: wrap; gap: 6px 16px; font-size: 12.5px; color: #56534D; margin: 0 0 10px; }
+  .takeaway { background: #F7F4EE; border-radius: 8px; padding: 9px 11px; font-size: 13px; line-height: 1.5; color: #33302B; margin: 12px 0 0; }
+  .legend span { display: inline-flex; align-items: center; gap: 6px; }
+  .legend i { display: inline-block; width: 18px; height: 10px; border-radius: 3px; background: #56534D; }
+  .legend i.open { background: linear-gradient(90deg, #56534D 0%, #56534D 40%, rgba(86,83,77,0) 100%); border-radius: 3px 0 0 3px; }
+
+  .tooltip { position: fixed; pointer-events: none; background: #fff; border: 1px solid #D8D3CA; box-shadow: 0 2px 10px rgba(0,0,0,0.10); border-radius: 8px; padding: 8px 11px; font-size: 12.5px; max-width: 300px; opacity: 0; transition: opacity 0.08s; z-index: 5; }
+  .tooltip strong { display: block; font-family: 'Source Serif 4', serif; font-size: 14.5px; color: #33302B; }
+  .tooltip .muted { color: #6C6A64; }
+
+  details { margin: 12px 0 0; }
+  summary { cursor: pointer; font-size: 13px; font-weight: 600; color: #56534D; }
+  table { border-collapse: collapse; width: 100%; font-size: 13px; margin: 10px 0 0; }
+  th, td { text-align: left; padding: 6px 6px; border-bottom: 1px solid #F2EFE9; vertical-align: top; }
+  th { font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: 0.04em; text-transform: uppercase; color: #75726B; font-weight: 500; border-bottom: 1px solid #E5E2DC; }
+  th:first-child, td:first-child { position: sticky; left: 0; background: #fff; z-index: 1; }
+  td.n, th.n { text-align: right; font-variant-numeric: tabular-nums; }
+  td.n { white-space: nowrap; }
+  th { vertical-align: bottom; min-width: 48px; }   /* headers wrap; numbers do not */
+  /* narrow frames: each row becomes a block of label/value lines, so the table never scrolls sideways */
+  @media (max-width: 640px) {
+    table.cards, table.cards tbody { display: block; }
+    table.cards thead { display: none; }
+    table.cards tr { display: block; border-bottom: 1px solid #E5E2DC; padding: 8px 0; }
+    table.cards td { display: flex; justify-content: flex-start; gap: 12px; border: 0; padding: 2px 0; text-align: left; white-space: normal; position: static; min-width: 0; max-width: none; }
+    table.cards td::before { content: attr(data-l); color: #75726B; font-size: 11.5px; line-height: 1.4; flex: 0 0 auto; max-width: 46%; }
+    table.cards td:first-child { display: block; padding-bottom: 4px; }
+    table.cards td:first-child::before { content: none; }
+  }
+  td.ev { min-width: 200px; max-width: 380px; font-size: 12.5px; line-height: 1.45; color: #56534D; }
+  td.ccs { min-width: 180px; font-size: 12.5px; line-height: 1.45; }
+  #evtable td:nth-child(3) { min-width: 120px; }
+  .tablewrap { overflow-x: auto; }
+
+  @media (max-width: 700px) {
+    #wrap { padding: 16px 14px 14px; }
+    .row, .axis { grid-template-columns: 1fr; gap: 4px; }
+    .bandlab { display: none; }
+    .bandlab-m { display: block; }
+    .axis > div:first-child { display: none; }
+  }
+</style>
+</head>
+<body>
+<div id="wrap">
+  <div class="legend" aria-hidden="true"><span><i></i>Steps the public evidence supports</span><span><i class="open"></i>Faded end: the plant may be further along than the bar shows</span></div>
+  <div class="bandlab" aria-hidden="true"><div></div><div class="ticks" id="bandticks"></div></div>
+  <p class="bandlab-m" aria-hidden="true">Fuel carbon score, left to right: no credit (above 47.5) · earning 1 step · 2 steps · 3 steps · 4 steps</p>
+  <div class="rows" id="ladder"></div>
+  <div class="axis" aria-hidden="true"><div></div><div class="ticks" id="ciaxis"></div></div>
+  <p class="takeaway" id="postake"><b>What this shows.</b> Every plant shown is probably already earning the credit or close to it, so every one has a reason to want its next step. How close each is to that step is not public. That is the question for your grain desk.</p>
+  <p class="note">Bars span the steps the public evidence supports; a faded end means the plant may be further along than the bar shows. No plant publishes its score, and the two owners that report (The Andersons, Valero) report fleet averages. Tap, hover or tab to a bar for the evidence.</p>
+  <details id="evd"><summary>Show the evidence by plant</summary>
+    <div class="tablewrap"><table id="evtable" class="cards">
+      <thead><tr><th>Plant</th><th class="n">Capacity (million gal/yr, EIA)</th><th>Likely 2026 position, confidence</th><th>CO2 capture or storage</th><th class="ev">What the evidence is</th></tr></thead>
+      <tbody></tbody>
+    </table></div>
+    <p class="note" id="evnote">Capacity is nameplate capacity from <a href="https://www.eia.gov/petroleum/ethanolcapacity/" target="_blank" rel="noopener">EIA's annual plant list</a> (as of January 1, 2025), the only plant-level figure EIA publishes; the corn a plant uses is that capacity at 2.9 gallons per bushel. The evidence comes from owners' earnings reports, California fuel-pathway filings, EPA emissions reports and EPA efficient-producer letters. None is a 45Z score; they show how plants compare with each other. For the POET plants, a model-based conversion of their California scores would put them near the 47.5 line; only the comparison with the owners that report suggests a step or more, which is why their confidence is low. Filing details, fleet arithmetic and sources: notes/plant_ci_evidence.md in the project repository.</p>
+  </details>
+</div>
+<div class="tooltip" id="tip" aria-hidden="true"></div>
+<noscript><p style="padding:16px">The chart needs JavaScript.</p></noscript>
+
+<script>
+(function () {
+  const P = window.DATA_45Z_PLANTS;
+  const $ = (id) => document.getElementById(id);
+  if (!P) { $("ladder").innerHTML = "<p>The plant data didn't load. Please refresh the page.</p>"; return; }
+  const esc = (s) => String(s == null ? "" : s).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+  function fitFrame() {
+    // Measure the content, not the viewport: documentElement.scrollHeight is never less than the
+    // iframe's own height, so it would let the frame grow but never shrink (closing a details block).
+    try { if (window.frameElement) window.frameElement.style.height = (Math.ceil(document.getElementById("wrap").getBoundingClientRect().height) + 2) + "px"; } catch (e) {}
+  }
+
+  const tip = $("tip");
+  function tipOn(el, html) {
+    const show = (ev) => {
+      tip.innerHTML = html; tip.style.opacity = 1;
+      const x = Math.max(0, Math.min(ev.clientX + 14, window.innerWidth - 310)), y = Math.min(ev.clientY + 14, window.innerHeight - tip.offsetHeight - 8);
+      tip.style.left = x + "px"; tip.style.top = Math.max(0, y) + "px";
+    };
+    el.addEventListener("mousemove", show);
+    el.addEventListener("mouseleave", () => { tip.style.opacity = 0; });
+    el.addEventListener("focus", () => { const r = el.getBoundingClientRect(); show({ clientX: r.left + 20, clientY: r.bottom }); });
+    el.addEventListener("blur", () => { tip.style.opacity = 0; });
+  }
+
+  // Data order: Ohio plants by capacity, then the Indiana plants near the border by capacity
+  const plants = P.plants;
+  const firstIN = plants.findIndex(p => p.state !== "OH");
+  const STATE = { OH: "Ohio", IN: "Indiana", MI: "Michigan" };
+  const CI_L = 55, CI_R = 30;
+  // Score range behind a plant's band, for the label: the axis sits under the last plant, so the numbers travel with each row
+  const scoreTxt = (c) => c.band_hi == null ? "" : c.band_lo == null ? ` (score below ${c.band_hi})` : ` (score ${c.band_lo}–${c.band_hi}${c.open_low ? ", maybe lower" : ""})`;
+  const xci = (ci) => (CI_L - ci) / (CI_L - CI_R) * 100;
+  const bands = [[55, 47.5, "No credit", "b0"], [47.5, 42.5, "Earning 1 step", "b1"], [42.5, 37.5, "2 steps", "b2"], [37.5, 32.5, "3 steps", "b3"], [32.5, 30, "4 steps", "b3"]];
+  $("bandticks").innerHTML = bands.filter(b => b[2]).map(b => `<span style="${b[1] <= CI_R ? "right:0;transform:none" : "left:" + (xci(b[0]) + xci(b[1])) / 2 + "%"}">${b[2]}</span>`).join("");   // the last band is only 2.5 points wide, so its label hugs the right edge
+  $("ciaxis").innerHTML = [55, 50, 47.5, 42.5, 37.5, 32.5].map(t => `<span style="left:${xci(t)}%">${t}</span>`).join("") +
+    `<span class="ax-title" style="left:50%;top:16px;color:#6C6A64">Fuel carbon score. Lower is better and is to the right; the credit starts below 47.5.</span>`;
+  $("ladder").innerHTML = plants.map((p, i) => {
+    const c = p.ci;
+    const bandsHtml = bands.map(b => `<div class="band ${b[3]}" style="left:${xci(b[0])}%;width:${xci(b[1]) - xci(b[0])}%"></div>`).join("") +
+      [47.5, 42.5, 37.5, 32.5].map(s => `<div class="step" style="left:${xci(s)}%"></div>`).join("");
+    let range;
+    if (c.band_hi == null) range = `<span class="none">No public evidence on this plant's score</span>`;
+    else {
+      const lo = c.open_low ? Math.max(37.5, (c.band_lo == null ? 42.5 : c.band_lo) - 5) : c.band_lo;
+      const left = xci(Math.min(c.band_hi, CI_L)), right = xci(lo);
+      range = `<div class="range${c.open_low ? " open" : ""}" style="left:${left}%;width:${right - left}%"></div>`;
+    }
+    const head = i === firstIN ? `<div class="grp">Indiana plants close enough to buy Ohio corn</div>` : "";
+    return head + `<div class="row"><div class="lab"><b>${esc(p.name)}</b>${esc(p.company)} · ${p.capacity_mgy} million gal/yr<br><span class="m">${esc(c.label)}${scoreTxt(c)} · confidence ${esc(c.confidence)}</span></div>` +
+           `<div class="ladder" tabindex="0" role="img" aria-label="${esc(p.name)}: ${esc(c.label)}${scoreTxt(c)}. Confidence ${esc(c.confidence)}." data-k="${esc(p.name)}">${bandsHtml}${range}</div></div>`;
+  }).join("");
+  plants.forEach(p => tipOn(document.querySelector(`.ladder[data-k="${CSS.escape(p.name)}"]`),
+    `<strong>${esc(p.plant)}</strong><b>${esc(p.ci.label)}</b>${scoreTxt(p.ci)} · confidence ${esc(p.ci.confidence)}<br><span class="muted">${esc(p.ci.basis_plain || p.ci.basis)}${p.state !== "OH" && p.ohio_share != null ? ` About ${Math.round(p.ohio_share * 100)}% of the corn within 50 miles of this plant is in Ohio.` : ""}</span>`));
+  $("evtable").querySelector("tbody").innerHTML = plants.map(p => `<tr><td><b>${esc(p.name)}</b><br><span class="muted">${esc(p.company)}${p.state !== "OH" ? ", " + STATE[p.state] : ""}</span></td>` +
+    `<td class="n">${p.capacity_mgy}</td><td><span>${esc(p.ci.label)}${scoreTxt(p.ci)}<br><span class="muted">confidence ${esc(p.ci.confidence)}</span></span></td>` +
+    `<td class="ccs">${esc(p.ci.ccs)}</td><td class="ev">${esc(p.ci.basis_plain || p.ci.basis)}</td></tr>`).join("");
+  // Card layout on narrow frames reads each cell's header from data-l
+  function labelCells(t) {
+    const H = [...t.querySelectorAll("thead th")].map(th => th.textContent.trim());
+    t.querySelectorAll("tbody tr").forEach(tr => [...tr.children].forEach((td, i) => td.setAttribute("data-l", H[i] || "")));
+  }
+  labelCells($("evtable"));
+
+  document.addEventListener("keydown", e => { if (e.key === "Escape") tip.style.opacity = 0; });
+  document.addEventListener("pointerdown", e => { if (!e.target.closest(".ladder")) tip.style.opacity = 0; });
+  window.addEventListener("scroll", () => { tip.style.opacity = 0; }, { passive: true });
+  $("evd").addEventListener("toggle", fitFrame);
+  window.addEventListener("resize", fitFrame);
+  window.addEventListener("load", fitFrame);
+  if (window.ResizeObserver) new ResizeObserver(() => requestAnimationFrame(fitFrame)).observe(document.body);
+  fitFrame();
+})();
+</script>
+</body>
+</html>

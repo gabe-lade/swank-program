@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>What Low-Carbon Corn Is Worth to Ohio Ethanol Plants, by County</title>
+
+<!-- County map of the 45Z credit value of a documented low-carbon bushel, and of
+     where plants are likely to compete for it. Embedded in
+     data-insights/45z-ohio-corn.md; also works on its own. Self-contained except
+     Google Fonts and the baked data in ./data/45z_values_data.js (built by
+     code/07_web_data.R in the ohio-ethanol-45z repo). Layout follows the Ohio tax
+     explainer maps: the panel (controls, county readout, legend) docks BESIDE the
+     map, and below it under 640px. When embedded same-origin, it sizes its own
+     iframe and reads and writes share links on the parent page's URL. -->
+
+<script src="data/45z_values_data.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&family=Public+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body { font-family: 'Public Sans', system-ui, -apple-system, sans-serif; color: #1A1A19; background: #F3F0EA; -webkit-font-smoothing: antialiased; }
+  .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
+
+  .zc-layout { display: flex; align-items: stretch; height: 600px; position: relative; overflow: hidden; }   /* height is reset by fitLayout() to the map's size at the current width (440–600 px); overflow hidden so nothing (tooltip, labels) can stretch the document and so the iframe */
+  .zc-map { flex: 1 1 auto; min-width: 0; position: relative; display: flex; flex-direction: column; padding: 14px 10px 8px 14px; }
+  .zc-maptitle { font-family: 'Source Serif 4', serif; font-size: 16px; font-weight: 600; color: #33302B; margin: 0; }
+  .zc-mapsub { font-size: 12.5px; line-height: 1.45; color: #6C6A64; margin: 3px 0 6px; max-width: 70ch; }
+  .zc-svgwrap { flex: 1 1 auto; min-height: 0; }
+  /* colour key under the map, so the colours have a visible key without scrolling the panel */
+  .zc-key { display: flex; flex-wrap: wrap; gap: 3px 12px; font-size: 11.5px; line-height: 1.3; color: #56534D; padding: 6px 0 0; }
+  .zc-key span { display: inline-flex; align-items: center; gap: 5px; white-space: nowrap; }
+  .zc-key i, .zc-key svg { display: inline-block; width: 14px; height: 10px; border-radius: 3px; flex: 0 0 auto; }
+  .zc-key i { border: 1px solid rgba(0,0,0,0.06); }
+  #map { width: 100%; height: 100%; display: block; }
+  .county { stroke: #F3F0EA; stroke-width: 0.8; cursor: pointer; }
+  .county:hover, .county.sel { stroke: #1A1A19; stroke-width: 1.8; }
+  .county:focus { outline: none; }
+  .county:focus-visible { stroke: #1A1A19; stroke-width: 2.6; }
+  .plant { fill: #fff; stroke: #1A1A19; stroke-width: 1.6; pointer-events: none; }
+  .plantlabel { font-size: var(--lf, 11px); fill: #1A1A19; paint-order: stroke; stroke: rgba(243,240,234,0.95); stroke-width: var(--ls, 3px); pointer-events: none; }   /* --lf, --ls, --if are set by fitLabels() so labels stay about 10 px on screen at any map scale */
+  .instate { font-family: 'IBM Plex Mono', monospace; font-size: var(--if, 10px); letter-spacing: 0.1em; fill: #6C6A64; }
+
+  .tooltip { position: absolute; width: max-content; max-width: 300px; pointer-events: none; background: #fff; border: 1px solid #D8D3CA;
+             box-shadow: 0 2px 10px rgba(0,0,0,0.10); border-radius: 8px; padding: 8px 11px; font-size: 12.5px;
+             min-width: 180px; opacity: 0; transition: opacity 0.08s; z-index: 5; }
+  .tooltip strong { display: block; font-family: 'Source Serif 4', serif; font-size: 14.5px; color: #33302B; }
+  .tooltip .big { font-family: 'Source Serif 4', serif; font-size: 19px; font-weight: 600; color: #33302B; }
+  .tooltip .sub { color: #8A8880; }
+
+  /* ---- docked panel ---- */
+  .zc-panel { flex: 0 0 284px; background: #fff; border-left: 1px solid #E5E2DC; display: flex; flex-direction: column; min-height: 0; }
+  .zc-panel-head { padding: 14px 16px 12px; border-bottom: 1px solid #EFECE6; }
+  .zc-kicker { font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: 0.11em; text-transform: uppercase; color: #9A968D; margin: 0; }
+  .zc-body { padding: 12px 16px 16px; overflow-y: auto; flex: 1; }
+
+  .zc-field { margin: 0 0 10px; }
+  .zc-field label, .zc-field .lbl { display: block; font-size: 12px; font-weight: 600; color: #56534D; margin: 0 0 4px; }
+  select { width: 100%; font: inherit; font-size: 13.5px; color: #33302B; padding: 7px 8px; min-height: 36px; border: 1px solid #D8D3CA; border-radius: 7px; background: #fff; }
+  .zc-switch { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
+  .zc-switch button { border: 1px solid #D8D3CA; background: #fff; border-radius: 7px; padding: 8px 6px; min-height: 36px; font-family: inherit; font-size: 12px; font-weight: 600; color: #56534D; cursor: pointer; }
+  .zc-switch button[aria-pressed="true"] { color: #fff; border-color: transparent; background: #BB0000; }
+  .zc-switch button:hover:not([aria-pressed="true"]) { background: #F4F1EB; }
+  .zc-row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+  .is-off { display: none; }
+  button:focus-visible, select:focus-visible, a:focus-visible { outline: 2px solid #BB0000; outline-offset: 2px; }
+
+  /* readout */
+  .zc-readout { border-top: 1px solid #EFECE6; margin-top: 4px; padding-top: 12px; }
+  .zc-readout .name { font-family: 'Source Serif 4', serif; font-size: 18px; font-weight: 600; color: #33302B; margin: 0; }
+  .zc-readout .meta { font-size: 12px; color: #9A968D; margin: 2px 0 10px; }
+  .takeaway { background: #F7F4EE; border-radius: 8px; padding: 9px 11px; font-size: 13px; line-height: 1.5; color: #33302B; margin: 0 0 12px; }
+  .zc-h { font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: 0.09em; text-transform: uppercase; color: #9A968D; margin: 14px 0 7px; }
+  .bars { display: grid; gap: 7px; }
+  .bar .lab { display: flex; justify-content: space-between; gap: 8px; font-size: 12.5px; color: #56534D; }
+  .bar .lab b { color: #33302B; white-space: nowrap; }
+  .bar .lab .ac { color: #9A968D; font-weight: 400; }
+  .bar .track { height: 7px; background: #F0ECE4; border-radius: 4px; overflow: hidden; margin-top: 2px; }
+  .bar .fill { height: 100%; background: #41b6c4; border-radius: 4px; }
+  .bar.cur .fill { background: #253494; }
+  .zc-readout ul { margin: 0; padding-left: 17px; font-size: 12.5px; line-height: 1.5; color: #46443F; }
+  .note { font-size: 12px; line-height: 1.5; color: #8A8880; margin: 8px 0 0; }
+  .note a { color: #BB0000; font-weight: 600; }
+  .linkbtn { border: 1px solid #D8D3CA; background: #fff; border-radius: 6px; padding: 6px 10px; font: inherit; font-size: 12px; font-weight: 600; color: #56534D; cursor: pointer; margin-top: 10px; }
+  .linkbtn:hover { background: #F4F1EB; }
+
+  /* legend (docked in the panel, not floating on the map) */
+  #legend { border-top: 1px solid #EFECE6; margin-top: 14px; padding-top: 11px; font-size: 12.5px; }
+  #legend .lt { font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: 0.09em; text-transform: uppercase; color: #9A968D; margin-bottom: 8px; line-height: 1.5; }
+  .lrow { display: flex; align-items: center; gap: 8px; padding: 2px 0; color: #56534D; }
+  .lrow i, .lrow svg { display: inline-block; width: 16px; height: 11px; border-radius: 3px; flex: 0 0 auto; }
+  .lrow i { border: 1px solid rgba(0,0,0,0.06); }
+  .zc-note { border-top: 1px solid #EFECE6; margin-top: 12px; padding-top: 10px; font-size: 12px; line-height: 1.5; color: #8A8880; }
+
+  /* ---- mid widths: a narrower panel keeps the map beside it ---- */
+  @media (max-width: 900px) { .zc-panel { flex-basis: 250px; } }
+  /* ---- narrow screens: panel docks BELOW the map, page grows ---- */
+  @media (max-width: 639px) {
+    .zc-layout { flex-direction: column; height: auto !important; }
+    .zc-svgwrap { height: auto; }
+    #map { height: auto; max-height: 380px; }   /* cap the stacked map so the box is not two screens tall */
+    .zc-panel { flex: 0 0 auto; border-left: 0; border-top: 1px solid #E5E2DC; }
+    .zc-panel { max-height: 460px; }          /* stacked: the panel scrolls instead of making the box two screens tall */
+    .zc-body { overflow-y: auto; }
+  }
+</style>
+</head>
+<body>
+<div class="zc-layout" id="zc-layout">
+
+  <div class="zc-map">
+    <p class="zc-maptitle" id="maptitle"></p>
+    <p class="zc-mapsub" id="mapsub"></p>
+    <div class="zc-svgwrap">
+      <svg id="map" role="group" aria-label="Map of Ohio counties. Choose a county from the list in the panel, or select one on the map." preserveAspectRatio="xMidYMid meet"></svg>
+    </div>
+    <div class="zc-key" id="key" aria-hidden="true"></div>
+    <div class="tooltip" id="tip" aria-hidden="true"></div>
+  </div>
+
+  <aside class="zc-panel" aria-label="Map controls and county details">
+    <div class="zc-panel-head"><p class="zc-kicker">45Z value of documented corn</p></div>
+    <div class="zc-body">
+      <div class="zc-field">
+        <label for="county">Find your county</label>
+        <select id="county"><option value="">Choose a county…</option></select>
+      </div>
+      <div class="zc-field">
+        <span class="lbl" id="lv">Map</span>
+        <div class="zc-switch" role="group" aria-labelledby="lv" id="view">
+          <button data-v="value" aria-pressed="true">What it's worth</button>
+          <button data-v="premium" aria-pressed="false">Will plants compete?</button>
+        </div>
+      </div>
+      <div id="value-ctls">
+        <div class="zc-field">
+          <label for="practice">Practice</label>
+          <select id="practice"></select>
+        </div>
+        <div class="zc-field">
+          <label for="nscen">Your nitrogen</label>
+          <select id="nscen"></select>
+        </div>
+        <div class="zc-field">
+          <span class="lbl" id="lu">Show</span>
+          <div class="zc-switch" role="group" aria-labelledby="lu" id="units">
+            <button data-u="bu" aria-pressed="true">$ per bushel</button>
+            <button data-u="ac" aria-pressed="false">$ per acre</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="zc-readout" id="panel" aria-label="County details"></div>
+
+      <div id="legend"></div>
+      <div class="zc-note">Values are the plant's 45Z credit at the 2026 rate, not prices offered to growers. Draft: may change with Treasury's final rule.</div>
+    </div>
+  </aside>
+</div>
+<p class="sr-only" id="sr" aria-live="polite"></p>
+<noscript><p style="padding:16px">The interactive map needs JavaScript.</p></noscript>
+
+<script>
+(function () {
+  const D = window.DATA_45Z;
+  const $ = (id) => document.getElementById(id);
+  if (!D) {
+    $("zc-layout").innerHTML = '<p style="padding:20px">The map data didn\'t load. Please refresh the page.</p>';
+    return;
+  }
+
+  // Same-origin embed: read and write share links on the host page and size the iframe.
+  let host = window;
+  try { if (window.parent !== window && window.parent.location.href) host = window.parent; } catch (e) { host = window; }
+  const layoutEl = $("zc-layout"), svgWrap = document.querySelector(".zc-svgwrap");
+  function fitLayout() {
+    // Side-by-side layouts: size the box to the map at the current width (440–600 px) instead of a
+    // fixed height, so a narrow window does not leave a tall half-empty box (440–640 px). The panel scrolls inside.
+    const stacked = window.matchMedia ? window.matchMedia("(max-width: 639px)").matches : window.innerWidth < 640;   // same test as the CSS breakpoint
+    if (stacked) { layoutEl.style.height = ""; return; }
+    const vb = (svg.getAttribute("viewBox") || "").split(/\s+/).map(Number);
+    const aspect = vb.length === 4 && vb[2] > 0 ? vb[3] / vb[2] : 1;
+    const hdr = svgWrap.getBoundingClientRect().top - layoutEl.getBoundingClientRect().top + 8;
+    const ftr = $("key").offsetHeight + 8;   // the colour key under the map
+    layoutEl.style.height = Math.round(Math.max(440, Math.min(640, svgWrap.clientWidth * aspect + hdr + ftr))) + "px";
+  }
+  function fitLabels() {
+    // SVG text scales with the map: at 430 px wide an 11-unit label renders 6 px. Size labels in map
+    // units so they come out about 10 px on screen, capped so they cannot collide on a small map.
+    const m = $("map"), r = m.getBoundingClientRect(); if (!r.width || !r.height) return;
+    const vb = (m.getAttribute("viewBox") || "").split(/\s+/).map(Number); if (vb.length !== 4 || !vb[2] || !vb[3]) return;
+    const k = 1 / Math.min(r.width / vb[2], r.height / vb[3]);   // map units per screen px; the map can be height-limited (max-height), so use the binding side
+    const fs = Math.min(10 * k, 16);
+    m.style.setProperty("--lf", fs.toFixed(2) + "px");
+    m.style.setProperty("--ls", (fs * 0.28).toFixed(2) + "px");
+    m.style.setProperty("--if", Math.min(9 * k, 14).toFixed(2) + "px");
+  }
+
+  function fitFrame() {
+    // Measure the layout box, not documentElement.scrollHeight: that is never less than the iframe's
+    // own height, so the frame could grow (a tooltip poking out) but never shrink back.
+    try {
+      fitLayout(); fitLabels();
+      if (window.frameElement) window.frameElement.style.height = (Math.ceil(layoutEl.getBoundingClientRect().height) + 1) + "px";
+    } catch (e) {}
+  }
+
+  // YlGnBu, matching the Ohio tax explainer maps
+  const RAMP = ["#ffffcc", "#a1dab4", "#41b6c4", "#2c7fb8", "#253494"];
+  const NODATA = "#E4E0D8";
+  const SCALES = {
+    bu: { breaks: [0.4, 0.6, 0.8, 1.0], labels: ["Under $0.40", "$0.40–0.60", "$0.60–0.80", "$0.80–1.00", "$1.00+"] },
+    ac: { breaks: [50, 100, 150, 200],  labels: ["Under $50", "$50–100", "$100–150", "$150–200", "$200+"] }
+  };
+  // Tier strings come from the data (06_supply_need.R); display labels are friendlier.
+  const TIERS = ["Both: plants short, competing buyers", "One of the two", "Neither", "Mostly beyond 50 mi of a plant"];
+  const TIER_LABEL = ["Short supply and several buyers: nearby plants may fall short of documented corn, and more than one company buys",
+                      "One of the two", "Neither: nearby plants likely have enough documented corn, and one company buys; a plant may still pay, but has less reason to",
+                      "Mostly more than 50 miles from a plant: your corn can still count if your elevator passes the records on"];
+  const TIER_SHORT = ["Short supply and several buyers", "One of the two", "Neither", "Beyond 50 miles"];
+  const TIER_FILLS = ["#253494", "#41b6c4", "#c7e9b4", "url(#hatch)"];
+  const PRACTICE_LABEL = { "Records only": "Conventional, documented" };
+  const plabel = (p) => PRACTICE_LABEL[p] || p;
+  const N_LABEL = { "150 lb/ac": "150 lb N per acre", "180 lb/ac": "180 lb N per acre", "210 lb/ac": "210 lb N per acre",
+                    "0.8 lb/bu": "0.8 lb N per bushel (150 lb on 190 bu)", "0.95 lb/bu": "0.95 lb N per bushel (180 lb on 190 bu)" };
+  const N_ORDER = ["150 lb/ac", "180 lb/ac", "210 lb/ac", "0.8 lb/bu", "0.95 lb/bu"];
+
+  const state = { view: "value", practice: "No-till", units: "bu", n: "180 lb/ac", sel: null };
+  const fmt$ = (v) => v == null ? "—" : "$" + v.toFixed(2);
+  const fmt5 = (v) => "$" + (Math.round(v / 0.05) * 0.05).toFixed(2);   // statewide range to the nearest 5 cents, matching the page text
+  const fmtAc = (v) => v == null ? "—" : "$" + Math.round(v);
+  const val = (c, p, n) => c.usd[n || state.n][p || state.practice];
+  const perAc = (c, p, n) => c.usd_ac[n || state.n][p || state.practice];   // built from unrounded $/bu × yield in 07_web_data.R
+  const bin = (v, br) => { let i = 0; while (i < br.length && v >= br[i]) i++; return i; };
+  const tierIdx = (c) => Math.max(0, TIERS.indexOf(c.tier));
+
+  // ---- Controls ----
+  [...D.counties].sort((a, b) => a.name.localeCompare(b.name))
+    .forEach(c => $("county").add(new Option(c.name + " County", c.fips)));
+  D.practices.forEach(p => $("practice").add(new Option(plabel(p), p)));
+  N_ORDER.filter(n => D.n_scenarios.includes(n)).forEach(n => $("nscen").add(new Option(N_LABEL[n] || n, n)));
+  function seg(id, key, attr) {
+    $(id).addEventListener("click", e => {
+      const b = e.target.closest("button"); if (!b) return;
+      state[key] = b.dataset[attr]; render();
+      if (key === "view" && state.sel) scrollToPanel();   // show the county's result for the new view, not only the recoloured map
+    });
+  }
+  seg("view", "view", "v"); seg("units", "units", "u");
+  $("practice").addEventListener("change", e => { state.practice = e.target.value; render(); });
+  $("nscen").addEventListener("change", e => { state.n = e.target.value; render(); });
+  $("county").addEventListener("change", e => {
+    const c = D.counties.find(x => x.fips === e.target.value);
+    if (c) select(c, true);
+  });
+
+  // ---- Map ----
+  const svg = $("map"), NS = "http://www.w3.org/2000/svg";
+  const PAD_L = D.pad_l || 115, PAD_T = D.pad_t || 8;   // room for nearby Indiana and Michigan plants
+  svg.setAttribute("viewBox", `${-PAD_L} ${-PAD_T} ${D.view_w + PAD_L + 12} ${D.view_h + PAD_T + 8}`);
+  const el = (t, a) => { const e = document.createElementNS(NS, t); for (const k in a) e.setAttribute(k, a[k]); return e; };
+  // Hatch for "beyond 50 miles", so it never reads as a value
+  const defs = el("defs", {});
+  const pat = el("pattern", { id: "hatch", width: 6, height: 6, patternUnits: "userSpaceOnUse", patternTransform: "rotate(45)" });
+  pat.append(el("rect", { width: 6, height: 6, fill: "#EDE9E2" }), el("line", { x1: 0, y1: 0, x2: 0, y2: 6, stroke: "#CFCAC0", "stroke-width": 1.5 }));
+  defs.append(pat); svg.append(defs);
+  const gC = el("g", {}), gP = el("g", { "aria-hidden": "true" });
+  svg.append(gC, gP);
+  const inLabel = el("text", { x: -PAD_L + 4, y: 200, class: "instate", "aria-hidden": "true" }); inLabel.textContent = "INDIANA";
+  const miLabel = el("text", { x: 40, y: 12, class: "instate", "aria-hidden": "true" }); miLabel.textContent = "MICHIGAN";
+  svg.append(inLabel, miLabel);
+
+  const paths = D.counties.map(c => {
+    const p = el("path", { d: c.d, class: "county", tabindex: 0, role: "button" });
+    p.addEventListener("mousemove", ev => showTip(ev, c));
+    p.addEventListener("mouseleave", hideTip);
+    p.addEventListener("focus", ev => showTip(ev, c, true));
+    p.addEventListener("blur", hideTip);
+    p.addEventListener("click", () => select(c, true));
+    p.addEventListener("keydown", ev => { if (ev.key === "Enter" || ev.key === " ") { ev.preventDefault(); select(c, true); } });
+    gC.append(p); return p;
+  });
+  // Label offsets in map units (dx, dy, anchor). Border plants go left over Indiana; Portland sits lower
+  // and Union City higher so neither touches Marion IN or Alexandria; Alexandria goes under its marker
+  // (left of it would run past the map's edge). Everything else is to the right of its marker.
+  const LABEL_POS = { "Leipsic": [-9, 4, "end"], "Union City IN": [-9, -2, "end"], "Portland IN": [-9, 12, "end"], "Bluffton IN": [-9, 4, "end"],
+                      "Albion MI": [-9, 4, "end"], "Alexandria IN": [0, 28, "middle"] };   // Alexandria well below its marker, clear of Union City's label
+  const bareName = (s) => s.replace(/ (IN|MI)$/, "");
+  const mapName = (p) => D.plants.some(q => q !== p && bareName(q.name) === bareName(p.name)) ? p.name : bareName(p.name);
+  D.plants.forEach(p => {
+    const s = p.state === "OH"
+      ? el("circle", { cx: p.x, cy: p.y, r: 5.5, class: "plant" })
+      : el("path", { d: `M${p.x},${p.y - 6.5}L${p.x + 6},${p.y + 4.5}L${p.x - 6},${p.y + 4.5}Z`, class: "plant" });
+    // The marker shape and the state name carry the state, so "IN"/"MI" is dropped from the map label
+    // unless the bare name repeats (Marion).
+    const [dx, dy, anchor] = LABEL_POS[p.name] || [8, 4, "start"];
+    const t = el("text", { x: p.x + dx, y: p.y + dy, class: "plantlabel", "text-anchor": anchor });
+    t.textContent = mapName(p);
+    gP.append(s, t);
+  });
+  document.addEventListener("keydown", e => { if (e.key === "Escape") hideTip(); });
+
+  function fillFor(c) {
+    if (state.view === "premium") return TIER_FILLS[tierIdx(c)];
+    const v = state.units === "bu" ? val(c) : perAc(c);
+    if (v == null || v <= 0) return NODATA;
+    return RAMP[bin(v, SCALES[state.units].breaks)];
+  }
+  function shortText(c) {
+    if (state.view === "premium") return TIER_SHORT[tierIdx(c)];
+    const v = val(c);
+    if (!v) return "no value at this nitrogen rate";
+    return state.units === "bu" ? `${fmt$(v)} per bushel to a plant` : `${fmtAc(perAc(c))} per acre to a plant`;
+  }
+
+  function legend() {
+    const sw = (fill) => fill.startsWith("url")
+      ? `<svg viewBox="0 0 16 11" aria-hidden="true"><rect width="16" height="11" rx="3" fill="url(#hatch-l)"/></svg>`
+      : `<i style="background:${fill}"></i>`;
+    const marks = [`<svg viewBox="0 0 12 12" aria-hidden="true" style="width:12px;height:12px"><circle cx="6" cy="6" r="4.5" fill="#fff" stroke="#1A1A19" stroke-width="1.5"/></svg>Ohio plant`,
+                   `<svg viewBox="0 0 12 12" aria-hidden="true" style="width:12px;height:12px"><path d="M6,1L11,10L1,10Z" fill="#fff" stroke="#1A1A19" stroke-width="1.5"/></svg>Indiana or Michigan plant`];
+    // Colour key under the map, always in view (the panel's copy scrolled out of sight)
+    let items;
+    if (state.view === "premium") items = TIER_SHORT.map((l, i) => sw(TIER_FILLS[i]) + l);
+    else {
+      items = [state.units === "bu" ? "Per bushel to a plant:" : "Per acre to a plant:"].concat(SCALES[state.units].labels.map((l, i) => sw(RAMP[i]) + l));
+      if (D.counties.some(c => !(val(c) > 0))) items.push(sw(NODATA) + "No value at this N rate");
+    }
+    $("key").innerHTML = items.concat(marks).map(s => `<span>${s}</span>`).join("");
+    // The panel explains the classes only in the compete view, where the short labels need it
+    const L = $("legend"); L.innerHTML = "";
+    L.hidden = state.view !== "premium";
+    if (state.view === "premium") {
+      const t = document.createElement("div"); t.className = "lt";
+      t.textContent = "Where plants may pay extra · an illustration, not a forecast"; L.append(t);
+      TIER_LABEL.forEach((l, i) => { const d = document.createElement("div"); d.className = "lrow"; d.innerHTML = sw(TIER_FILLS[i]) + l; L.append(d); });
+    }
+  }
+  // legend hatch needs its own pattern (the map's lives in another SVG)
+  document.body.insertAdjacentHTML("beforeend", '<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs><pattern id="hatch-l" width="5" height="5" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="5" height="5" fill="#EDE9E2"/><line x1="0" y1="0" x2="0" y2="5" stroke="#CFCAC0" stroke-width="1.5"/></pattern></defs></svg>');
+
+  function titles() {
+    if (state.view === "premium") {
+      $("maptitle").textContent = "Will plants compete for documented corn near you?";
+      $("mapsub").textContent = "Darkest where plants within 50 miles might not get enough documented corn nearby to drop a full step (if half of qualifying growers document) and more than one company buys corn.";
+    } else {
+      $("maptitle").textContent = `What a documented ${state.units === "ac" ? "acre" : "bushel"} is worth to a plant: ${plabel(state.practice).toLowerCase()}`;
+      $("mapsub").textContent = `The plant's 45Z credit at the 2026 rate if it passes all of it through, assuming ${N_LABEL[state.n]}. Not a price.`;
+    }
+  }
+
+  // ---- Tooltip ----
+  const tip = $("tip");
+  function showTip(ev, c, keyboard) {
+    let body;
+    if (state.view === "premium") {
+      body = `<span class="big">${TIER_SHORT[tierIdx(c)]}</span><br><span class="sub">${c.n_buyers} buying ${c.n_buyers === 1 ? "company" : "companies"} within 50 miles</span>`;
+    } else {
+      const v = val(c);
+      body = v
+        ? `<span class="big">${state.units === "bu" ? fmt$(v) : fmtAc(perAc(c))}</span> ${state.units === "bu" ? "per bu" : "per acre"} to a plant<br><span class="sub">${plabel(state.practice)} · ${c.yield} bu/ac${c.yield_imputed ? " (estimated)" : ""}</span>`
+        : `<span class="sub">No value at this nitrogen rate</span>`;
+    }
+    tip.innerHTML = `<strong>${c.name} County</strong>${body}`;
+    const wrap = tip.parentElement.getBoundingClientRect();
+    let x, y;
+    if (keyboard) { const r = ev.target.getBoundingClientRect(); x = r.right - wrap.left + 8; y = r.top - wrap.top; }
+    else { x = ev.clientX - wrap.left + 14; y = ev.clientY - wrap.top + 14; }
+    x = Math.max(4, Math.min(x, wrap.width - 200));
+    tip.style.left = "0px"; tip.style.top = "0px";   // measure at full width, not squeezed against the last position
+    x = Math.max(0, Math.min(x, wrap.width - tip.offsetWidth - 4)); y = Math.max(0, Math.min(y, wrap.height - tip.offsetHeight - 4));
+    tip.style.left = x + "px"; tip.style.top = y + "px"; tip.style.opacity = 1;
+  }
+  function hideTip() { tip.style.opacity = 0; }
+
+  // ---- County readout ----
+  function statewide() {
+    // Percentiles weighted by corn production, so the range describes most bushels, not most counties
+    const vs = D.counties.map(c => [val(c, "No-till") || 0, c.corn_bu || 0]).sort((a, b) => a[0] - b[0]);
+    const tot = vs.reduce((s, x) => s + x[1], 0);
+    const q = (p) => { let cum = 0; for (const [v, w] of vs) { cum += w; if (cum >= p * tot) return v; } return vs[vs.length - 1][0]; };
+    $("panel").innerHTML =
+      `<p class="name">Pick your county</p><p class="meta">Use the list above, or select it on the map.</p>` +
+      `<p class="takeaway">Statewide, a documented no-till bushel is worth about <b>${fmt5(q(0.1))}–${fmt5(q(0.9))}</b> to a plant for 80% of Ohio's corn bushels, assuming ${N_LABEL[state.n]}. That's the plant's credit, not a price.</p>`;
+  }
+  function select(c, announce) {
+    state.sel = c;
+    $("county").value = c.fips;
+    paths.forEach((p, i) => { p.classList.toggle("sel", D.counties[i] === c); p.setAttribute("aria-pressed", D.counties[i] === c); });
+    const max = Math.max(1.3, ...D.practices.map(p => val(c, p) || 0));
+    const bars = D.practices.map(p => {
+      const v = val(c, p), cur = p === state.practice && state.view === "value";
+      const amt = v ? `${fmt$(v)} <span class="ac">· ${fmtAc(perAc(c, p))}/ac</span>` : `<span class="ac">No value at this N rate</span>`;
+      return `<div class="bar${cur ? " cur" : ""}"><div class="lab"><span>${plabel(p)}${cur ? " (on map)" : ""}</span><b>${amt}</b></div>` +
+             `<div class="track"><div class="fill" style="width:${Math.max(0, (v || 0) / max * 100)}%"></div></div></div>`;
+    }).join("");
+    const nt = val(c, "No-till");
+    const near = c.plants.length
+      ? `<ul>${c.plants.map(n => { const p = D.plants.find(q => q.name === n);
+          return `<li>${n} (${p.company}, ${p.capacity_mgy} million gal/yr)</li>`; }).join("")}</ul>`
+      : `<p class="note">No ethanol plant within 50 miles. Documented corn has to reach a plant to count.</p>`;
+    const ti = tierIdx(c), hasTier = !!c.tier && ti < 3;
+    const competeTxt = hasTier
+      ? `${c.n_buyers} buying ${c.n_buyers === 1 ? "company" : "companies"} within 50 miles` +
+        (c.S_full != null ? `; nearby documented corn would cover about ${Math.round(c.S_full * 100)}% of what those plants need for a full step (if half of qualifying growers document).` : ".")
+      : "";
+    const compete = hasTier ? `<p class="note"><b>Will plants compete? ${TIER_SHORT[ti]}.</b> ${competeTxt}</p>` : "";
+    const TIER_MEANS = ["Plants nearby may have reason to pay for documented corn.",
+                        "Only one of the two holds (short nearby supply, or more than one buyer), so a premium is possible but less likely.",
+                        "Nearby plants likely have enough documented corn and one company buys, so a plant has less reason to pay."];
+    const competeTake = hasTier
+      ? `<b>${c.name} County: ${TIER_SHORT[ti].toLowerCase()}.</b> ${competeTxt} ${TIER_MEANS[ti]}`
+      : `<b>${c.name} County</b> is mostly more than 50 miles from a plant. Documented corn here still counts if the elevator that buys it passes the records on to a plant.`;
+    const premium = state.view === "premium";
+    const takeaway = nt >= 0.15
+      ? `<b>${c.name} County:</b> documented no-till could be worth about <b>${fmt$(nt)}/bu (${fmtAc(perAc(c, "No-till"))}/acre)</b> to a nearby plant. You'd get a share of that, minus paperwork costs, if a plant offers to pay for it.`
+      : `<b>${c.name} County:</b> at ${N_LABEL[state.n]}, documented no-till corn here scores near the default for undocumented corn (worth ${nt ? "about " + fmt$(nt) + "/bu" : "nothing"} to a plant). Fewer pounds of nitrogen per bushel harvested would raise that; try the nitrogen menu.`;
+    $("panel").innerHTML =
+      `<p class="name">${c.name} County</p>` +
+      `<p class="meta">2022 corn yield ${c.yield} bu/ac${c.yield_imputed ? " (estimated)" : ""} · ${N_LABEL[state.n]}</p>` +
+      `<p class="takeaway">${premium ? competeTake : takeaway}</p>` +
+      (premium ? `<p class="zc-h">Ethanol plants within 50 miles</p>${near}` : "") +
+      `<p class="zc-h">Credit value to a plant (not a price offered to you)</p><div class="bars">${bars}</div>` +
+      (premium ? "" : `<p class="zc-h">Ethanol plants within 50 miles</p>${near}${compete}`) +
+      `<p class="note">For your own fields, use the <a href="https://ohiocornandwheat.org/about-us/corn-marketing-program/#45z-calculator" target="_blank" rel="noopener">OCW calculator<span class="sr-only"> (opens in a new tab)</span></a>.</p>` +
+      `<button class="linkbtn" id="copylink" type="button">Copy link to this county</button> <span class="note" id="copied"></span>`;
+    $("copylink").addEventListener("click", () => {
+      const url = host.location.href;
+      navigator.clipboard && navigator.clipboard.writeText(url).then(() => { $("copied").textContent = "Copied"; });
+    });
+    if (announce) $("sr").textContent = `${c.name} County selected. ${nt ? `No-till ${fmt$(nt)} per bushel to a plant.` : "Little value at this nitrogen rate."}`;
+    writeUrl(); fitFrame();
+    if (announce) scrollToPanel();
+  }
+  function scrollToPanel() {   // the controls fill the panel's first screen; bring the county's figures into view
+    const b = document.querySelector(".zc-body");
+    b.scrollTop += $("panel").getBoundingClientRect().top - b.getBoundingClientRect().top - 6;
+  }
+
+  function writeUrl() {
+    const q = new URLSearchParams(host.location.search);
+    ["view", "practice", "n", "units", "county"].forEach(k => q.delete(k));
+    if (state.view !== "value") q.set("view", state.view);
+    if (state.practice !== "No-till") q.set("practice", state.practice);
+    if (state.n !== "180 lb/ac") q.set("n", state.n);
+    if (state.units !== "bu") q.set("units", state.units);
+    if (state.sel) q.set("county", state.sel.fips);
+    try { host.history.replaceState(null, "", host.location.pathname + (q.toString() ? "?" + q : "") + host.location.hash); } catch (e) {}
+  }
+
+  function render() {
+    $("value-ctls").classList.toggle("is-off", state.view !== "value");
+    [...$("view").children].forEach(b => b.setAttribute("aria-pressed", b.dataset.v === state.view));
+    [...$("units").children].forEach(b => b.setAttribute("aria-pressed", b.dataset.u === state.units));
+    $("practice").value = state.practice; $("nscen").value = state.n;
+    paths.forEach((p, i) => {
+      const c = D.counties[i];
+      p.setAttribute("fill", fillFor(c));
+      p.setAttribute("aria-label", `${c.name} County, ${shortText(c)}`);
+    });
+    titles(); legend();
+    if (state.sel) select(state.sel, false); else { statewide(); writeUrl(); fitFrame(); }
+  }
+
+  // Shareable state: ?view=premium&practice=No-till&n=180%20lb/ac&units=ac&county=39137
+  const q = new URLSearchParams(host.location.search);
+  if (["premium", "scarcity"].includes(q.get("view"))) state.view = "premium";
+  if (D.practices.includes(q.get("practice"))) state.practice = q.get("practice");
+  if (D.n_scenarios.includes(q.get("n"))) state.n = q.get("n");
+  if (q.get("units") === "ac") state.units = "ac";
+  const qc = D.counties.find(c => c.fips === q.get("county"));
+  if (qc) state.sel = qc;
+
+  render();
+  window.addEventListener("resize", fitFrame);
+  window.addEventListener("load", fitFrame);   // fonts and the stacked panel can change the height after the first fit
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(fitFrame);
+  if (window.ResizeObserver) new ResizeObserver(() => requestAnimationFrame(fitFrame)).observe($("zc-layout"));
+})();
+</script>
+</body>
+</html>
