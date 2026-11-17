@@ -22,6 +22,15 @@ defaults:
       type: "pages"
     values:
       layout: "page"
+  # Unlisted previews: keep their embed files out of sitemap.xml too (jekyll-sitemap lists static .html files).
+  - scope:
+      path: "assets/data-insights/ohio-tax-model"
+    values:
+      sitemap: false
+  - scope:
+      path: "assets/data-insights/45z-ohio-corn"
+    values:
+      sitemap: false
 
 exclude:
   - Gemfile
