@@ -5,8 +5,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 <title>What Low-Carbon Corn Is Worth to Ohio Ethanol Plants, by County</title>
 
-<!-- County map of the 45Z credit value of a documented low-carbon bushel, and of
-     where plants are likely to compete for it. Embedded in
+<!-- County map of the 45Z credit value of a documented low-carbon bushel. (Its
+     "Will plants compete?" view moved to plant_premium_map.html, section 4c, on
+     2026-11-16, so the first map does one job.) Embedded in
      data-insights/45z-ohio-corn.md; also works on its own. Self-contained except
      Google Fonts and the baked data in ./data/45z_values_data.js (built by
      code/07_web_data.R in the ohio-ethanol-45z repo). Layout follows the Ohio tax
@@ -63,7 +64,6 @@
   .zc-switch button[aria-pressed="true"] { color: #fff; border-color: transparent; background: #BB0000; }
   .zc-switch button:hover:not([aria-pressed="true"]) { background: #F4F1EB; }
   .zc-row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
-  .is-off { display: none; }
   button:focus-visible, select:focus-visible, a:focus-visible { outline: 2px solid #BB0000; outline-offset: 2px; }
 
   /* readout */
@@ -85,12 +85,6 @@
   .linkbtn { border: 1px solid #D8D3CA; background: #fff; border-radius: 6px; padding: 6px 10px; font: inherit; font-size: 12px; font-weight: 600; color: #56534D; cursor: pointer; margin-top: 10px; }
   .linkbtn:hover { background: #F4F1EB; }
 
-  /* legend (docked in the panel, not floating on the map) */
-  #legend { border-top: 1px solid #EFECE6; margin-top: 14px; padding-top: 11px; font-size: 12.5px; }
-  #legend .lt { font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: 0.09em; text-transform: uppercase; color: #9A968D; margin-bottom: 8px; line-height: 1.5; }
-  .lrow { display: flex; align-items: center; gap: 8px; padding: 2px 0; color: #56534D; }
-  .lrow i, .lrow svg { display: inline-block; width: 16px; height: 11px; border-radius: 3px; flex: 0 0 auto; }
-  .lrow i { border: 1px solid rgba(0,0,0,0.06); }
   .zc-note { border-top: 1px solid #EFECE6; margin-top: 12px; padding-top: 10px; font-size: 12px; line-height: 1.5; color: #8A8880; }
 
   /* ---- mid widths: a narrower panel keeps the map beside it ---- */
@@ -126,13 +120,6 @@
         <label for="county">Find your county</label>
         <select id="county"><option value="">Choose a county…</option></select>
       </div>
-      <div class="zc-field">
-        <span class="lbl" id="lv">Map</span>
-        <div class="zc-switch" role="group" aria-labelledby="lv" id="view">
-          <button data-v="value" aria-pressed="true">What it's worth</button>
-          <button data-v="premium" aria-pressed="false">Will plants compete?</button>
-        </div>
-      </div>
       <div id="value-ctls">
         <div class="zc-field">
           <label for="practice">Practice</label>
@@ -153,7 +140,6 @@
 
       <div class="zc-readout" id="panel" aria-label="County details"></div>
 
-      <div id="legend"></div>
       <div class="zc-note">Values are the plant's 45Z credit at the 2026 rate, not prices offered to growers. Draft: may change with Treasury's final rule.</div>
     </div>
   </aside>
@@ -213,27 +199,20 @@
     bu: { breaks: [0.4, 0.6, 0.8, 1.0], labels: ["Under $0.40", "$0.40–0.60", "$0.60–0.80", "$0.80–1.00", "$1.00+"] },
     ac: { breaks: [50, 100, 150, 200],  labels: ["Under $50", "$50–100", "$100–150", "$150–200", "$200+"] }
   };
-  // Tier strings come from the data (06_supply_need.R); display labels are friendlier.
-  const TIERS = ["Both: plants short, competing buyers", "One of the two", "Neither", "Mostly beyond 50 mi of a plant"];
-  const TIER_LABEL = ["Short supply and several buyers: nearby plants may fall short of documented corn, and more than one company buys",
-                      "One of the two", "Neither: nearby plants likely have enough documented corn, and one company buys; a plant may still pay, but has less reason to",
-                      "Mostly more than 50 miles from a plant: your corn can still count if your elevator passes the records on"];
-  const TIER_SHORT = ["Short supply and several buyers", "One of the two", "Neither", "Beyond 50 miles"];
-  const TIER_FILLS = ["#253494", "#41b6c4", "#c7e9b4", "url(#hatch)"];
+  // The data file also carries each county's compete tier (tier, n_buyers, S_full); plant_premium_map.html (4c) reads those.
   const PRACTICE_LABEL = { "Records only": "Conventional, documented" };
   const plabel = (p) => PRACTICE_LABEL[p] || p;
   const N_LABEL = { "150 lb/ac": "150 lb N per acre", "180 lb/ac": "180 lb N per acre", "210 lb/ac": "210 lb N per acre",
                     "0.8 lb/bu": "0.8 lb N per bushel (150 lb on 190 bu)", "0.95 lb/bu": "0.95 lb N per bushel (180 lb on 190 bu)" };
   const N_ORDER = ["150 lb/ac", "180 lb/ac", "210 lb/ac", "0.8 lb/bu", "0.95 lb/bu"];
 
-  const state = { view: "value", practice: "No-till", units: "bu", n: "180 lb/ac", sel: null };
+  const state = { practice: "No-till", units: "bu", n: "180 lb/ac", sel: null };
   const fmt$ = (v) => v == null ? "—" : "$" + v.toFixed(2);
   const fmt5 = (v) => "$" + (Math.round(v / 0.05) * 0.05).toFixed(2);   // statewide range to the nearest 5 cents, matching the page text
   const fmtAc = (v) => v == null ? "—" : "$" + Math.round(v);
   const val = (c, p, n) => c.usd[n || state.n][p || state.practice];
   const perAc = (c, p, n) => c.usd_ac[n || state.n][p || state.practice];   // built from unrounded $/bu × yield in 07_web_data.R
   const bin = (v, br) => { let i = 0; while (i < br.length && v >= br[i]) i++; return i; };
-  const tierIdx = (c) => Math.max(0, TIERS.indexOf(c.tier));
 
   // ---- Controls ----
   [...D.counties].sort((a, b) => a.name.localeCompare(b.name))
@@ -244,10 +223,9 @@
     $(id).addEventListener("click", e => {
       const b = e.target.closest("button"); if (!b) return;
       state[key] = b.dataset[attr]; render();
-      if (key === "view" && state.sel) scrollToPanel();   // show the county's result for the new view, not only the recoloured map
     });
   }
-  seg("view", "view", "v"); seg("units", "units", "u");
+  seg("units", "units", "u");
   $("practice").addEventListener("change", e => { state.practice = e.target.value; render(); });
   $("nscen").addEventListener("change", e => { state.n = e.target.value; render(); });
   $("county").addEventListener("change", e => {
@@ -260,11 +238,6 @@
   const PAD_L = D.pad_l || 115, PAD_T = D.pad_t || 8;   // room for nearby Indiana and Michigan plants
   svg.setAttribute("viewBox", `${-PAD_L} ${-PAD_T} ${D.view_w + PAD_L + 12} ${D.view_h + PAD_T + 8}`);
   const el = (t, a) => { const e = document.createElementNS(NS, t); for (const k in a) e.setAttribute(k, a[k]); return e; };
-  // Hatch for "beyond 50 miles", so it never reads as a value
-  const defs = el("defs", {});
-  const pat = el("pattern", { id: "hatch", width: 6, height: 6, patternUnits: "userSpaceOnUse", patternTransform: "rotate(45)" });
-  pat.append(el("rect", { width: 6, height: 6, fill: "#EDE9E2" }), el("line", { x1: 0, y1: 0, x2: 0, y2: 6, stroke: "#CFCAC0", "stroke-width": 1.5 }));
-  defs.append(pat); svg.append(defs);
   const gC = el("g", {}), gP = el("g", { "aria-hidden": "true" });
   svg.append(gC, gP);
   const inLabel = el("text", { x: -PAD_L + 4, y: 200, class: "instate", "aria-hidden": "true" }); inLabel.textContent = "INDIANA";
@@ -302,66 +275,38 @@
   document.addEventListener("keydown", e => { if (e.key === "Escape") hideTip(); });
 
   function fillFor(c) {
-    if (state.view === "premium") return TIER_FILLS[tierIdx(c)];
     const v = state.units === "bu" ? val(c) : perAc(c);
     if (v == null || v <= 0) return NODATA;
     return RAMP[bin(v, SCALES[state.units].breaks)];
   }
   function shortText(c) {
-    if (state.view === "premium") return TIER_SHORT[tierIdx(c)];
     const v = val(c);
     if (!v) return "no value at this nitrogen rate";
     return state.units === "bu" ? `${fmt$(v)} per bushel to a plant` : `${fmtAc(perAc(c))} per acre to a plant`;
   }
 
   function legend() {
-    const sw = (fill) => fill.startsWith("url")
-      ? `<svg viewBox="0 0 16 11" aria-hidden="true"><rect width="16" height="11" rx="3" fill="url(#hatch-l)"/></svg>`
-      : `<i style="background:${fill}"></i>`;
+    const sw = (fill) => `<i style="background:${fill}"></i>`;
     const marks = [`<svg viewBox="0 0 12 12" aria-hidden="true" style="width:12px;height:12px"><circle cx="6" cy="6" r="4.5" fill="#fff" stroke="#1A1A19" stroke-width="1.5"/></svg>Ohio plant`,
                    `<svg viewBox="0 0 12 12" aria-hidden="true" style="width:12px;height:12px"><path d="M6,1L11,10L1,10Z" fill="#fff" stroke="#1A1A19" stroke-width="1.5"/></svg>Indiana or Michigan plant`];
     // Colour key under the map, always in view (the panel's copy scrolled out of sight)
-    let items;
-    if (state.view === "premium") items = TIER_SHORT.map((l, i) => sw(TIER_FILLS[i]) + l);
-    else {
-      items = [state.units === "bu" ? "Per bushel to a plant:" : "Per acre to a plant:"].concat(SCALES[state.units].labels.map((l, i) => sw(RAMP[i]) + l));
-      if (D.counties.some(c => !(val(c) > 0))) items.push(sw(NODATA) + "No value at this N rate");
-    }
+    const items = [state.units === "bu" ? "Per bushel to a plant:" : "Per acre to a plant:"].concat(SCALES[state.units].labels.map((l, i) => sw(RAMP[i]) + l));
+    if (D.counties.some(c => !(val(c) > 0))) items.push(sw(NODATA) + "No value at this N rate");
     $("key").innerHTML = items.concat(marks).map(s => `<span>${s}</span>`).join("");
-    // The panel explains the classes only in the compete view, where the short labels need it
-    const L = $("legend"); L.innerHTML = "";
-    L.hidden = state.view !== "premium";
-    if (state.view === "premium") {
-      const t = document.createElement("div"); t.className = "lt";
-      t.textContent = "Where plants may pay extra · an illustration, not a forecast"; L.append(t);
-      TIER_LABEL.forEach((l, i) => { const d = document.createElement("div"); d.className = "lrow"; d.innerHTML = sw(TIER_FILLS[i]) + l; L.append(d); });
-    }
   }
-  // legend hatch needs its own pattern (the map's lives in another SVG)
-  document.body.insertAdjacentHTML("beforeend", '<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs><pattern id="hatch-l" width="5" height="5" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="5" height="5" fill="#EDE9E2"/><line x1="0" y1="0" x2="0" y2="5" stroke="#CFCAC0" stroke-width="1.5"/></pattern></defs></svg>');
 
   function titles() {
-    if (state.view === "premium") {
-      $("maptitle").textContent = "Will plants compete for documented corn near you?";
-      $("mapsub").textContent = "Darkest where plants within 50 miles might not get enough documented corn nearby to drop a full step (if half of qualifying growers document) and more than one company buys corn.";
-    } else {
-      $("maptitle").textContent = `What a documented ${state.units === "ac" ? "acre" : "bushel"} is worth to a plant: ${plabel(state.practice).toLowerCase()}`;
-      $("mapsub").textContent = `The plant's 45Z credit at the 2026 rate if it passes all of it through, assuming ${N_LABEL[state.n]}. Not a price.`;
-    }
+    $("maptitle").textContent = `What a documented ${state.units === "ac" ? "acre" : "bushel"} is worth to a plant: ${plabel(state.practice).toLowerCase()}`;
+    $("mapsub").textContent = `The plant's 45Z credit at the 2026 rate if it passes all of it through, assuming ${N_LABEL[state.n]}. Not a price.`;
   }
 
   // ---- Tooltip ----
   const tip = $("tip");
   function showTip(ev, c, keyboard) {
-    let body;
-    if (state.view === "premium") {
-      body = `<span class="big">${TIER_SHORT[tierIdx(c)]}</span><br><span class="sub">${c.n_buyers} buying ${c.n_buyers === 1 ? "company" : "companies"} within 50 miles</span>`;
-    } else {
-      const v = val(c);
-      body = v
-        ? `<span class="big">${state.units === "bu" ? fmt$(v) : fmtAc(perAc(c))}</span> ${state.units === "bu" ? "per bu" : "per acre"} to a plant<br><span class="sub">${plabel(state.practice)} · ${c.yield} bu/ac${c.yield_imputed ? " (estimated)" : ""}</span>`
-        : `<span class="sub">No value at this nitrogen rate</span>`;
-    }
+    const v = val(c);
+    const body = v
+      ? `<span class="big">${state.units === "bu" ? fmt$(v) : fmtAc(perAc(c))}</span> ${state.units === "bu" ? "per bu" : "per acre"} to a plant<br><span class="sub">${plabel(state.practice)} · ${c.yield} bu/ac${c.yield_imputed ? " (estimated)" : ""}</span>`
+      : `<span class="sub">No value at this nitrogen rate</span>`;
     tip.innerHTML = `<strong>${c.name} County</strong>${body}`;
     const wrap = tip.parentElement.getBoundingClientRect();
     let x, y;
@@ -390,7 +335,7 @@
     paths.forEach((p, i) => { p.classList.toggle("sel", D.counties[i] === c); p.setAttribute("aria-pressed", D.counties[i] === c); });
     const max = Math.max(1.3, ...D.practices.map(p => val(c, p) || 0));
     const bars = D.practices.map(p => {
-      const v = val(c, p), cur = p === state.practice && state.view === "value";
+      const v = val(c, p), cur = p === state.practice;
       const amt = v ? `${fmt$(v)} <span class="ac">· ${fmtAc(perAc(c, p))}/ac</span>` : `<span class="ac">No value at this N rate</span>`;
       return `<div class="bar${cur ? " cur" : ""}"><div class="lab"><span>${plabel(p)}${cur ? " (on map)" : ""}</span><b>${amt}</b></div>` +
              `<div class="track"><div class="fill" style="width:${Math.max(0, (v || 0) / max * 100)}%"></div></div></div>`;
@@ -400,29 +345,17 @@
       ? `<ul>${c.plants.map(n => { const p = D.plants.find(q => q.name === n);
           return `<li>${n} (${p.company}, ${p.capacity_mgy} million gal/yr)</li>`; }).join("")}</ul>`
       : `<p class="note">No ethanol plant within 50 miles. Documented corn has to reach a plant to count.</p>`;
-    const ti = tierIdx(c), hasTier = !!c.tier && ti < 3;
-    const competeTxt = hasTier
-      ? `${c.n_buyers} buying ${c.n_buyers === 1 ? "company" : "companies"} within 50 miles` +
-        (c.S_full != null ? `; nearby documented corn would cover about ${Math.round(c.S_full * 100)}% of what those plants need for a full step (if half of qualifying growers document).` : ".")
-      : "";
-    const compete = hasTier ? `<p class="note"><b>Will plants compete? ${TIER_SHORT[ti]}.</b> ${competeTxt}</p>` : "";
-    const TIER_MEANS = ["Plants nearby may have reason to pay for documented corn.",
-                        "Only one of the two holds (short nearby supply, or more than one buyer), so a premium is possible but less likely.",
-                        "Nearby plants likely have enough documented corn and one company buys, so a plant has less reason to pay."];
-    const competeTake = hasTier
-      ? `<b>${c.name} County: ${TIER_SHORT[ti].toLowerCase()}.</b> ${competeTxt} ${TIER_MEANS[ti]}`
-      : `<b>${c.name} County</b> is mostly more than 50 miles from a plant. Documented corn here still counts if the elevator that buys it passes the records on to a plant.`;
-    const premium = state.view === "premium";
+    // Whether these plants may compete for documented corn is section 4c's question (plant_premium_map.html)
+    const compete = c.plants.length ? `<p class="note">Whether these plants may compete for documented corn is in section 4c.</p>` : "";
     const takeaway = nt >= 0.15
       ? `<b>${c.name} County:</b> documented no-till could be worth about <b>${fmt$(nt)}/bu (${fmtAc(perAc(c, "No-till"))}/acre)</b> to a nearby plant. You'd get a share of that, minus paperwork costs, if a plant offers to pay for it.`
       : `<b>${c.name} County:</b> at ${N_LABEL[state.n]}, documented no-till corn here scores near the default for undocumented corn (worth ${nt ? "about " + fmt$(nt) + "/bu" : "nothing"} to a plant). Fewer pounds of nitrogen per bushel harvested would raise that; try the nitrogen menu.`;
     $("panel").innerHTML =
       `<p class="name">${c.name} County</p>` +
       `<p class="meta">2022 corn yield ${c.yield} bu/ac${c.yield_imputed ? " (estimated)" : ""} · ${N_LABEL[state.n]}</p>` +
-      `<p class="takeaway">${premium ? competeTake : takeaway}</p>` +
-      (premium ? `<p class="zc-h">Ethanol plants within 50 miles</p>${near}` : "") +
+      `<p class="takeaway">${takeaway}</p>` +
       `<p class="zc-h">Credit value to a plant (not a price offered to you)</p><div class="bars">${bars}</div>` +
-      (premium ? "" : `<p class="zc-h">Ethanol plants within 50 miles</p>${near}${compete}`) +
+      `<p class="zc-h">Ethanol plants within 50 miles</p>${near}${compete}` +
       `<p class="note">For your own fields, use the <a href="https://ohiocornandwheat.org/about-us/corn-marketing-program/#45z-calculator" target="_blank" rel="noopener">OCW calculator<span class="sr-only"> (opens in a new tab)</span></a>.</p>` +
       `<button class="linkbtn" id="copylink" type="button">Copy link to this county</button> <span class="note" id="copied"></span>`;
     $("copylink").addEventListener("click", () => {
@@ -440,8 +373,7 @@
 
   function writeUrl() {
     const q = new URLSearchParams(host.location.search);
-    ["view", "practice", "n", "units", "county"].forEach(k => q.delete(k));
-    if (state.view !== "value") q.set("view", state.view);
+    ["view", "practice", "n", "units", "county"].forEach(k => q.delete(k));   // "view" was the compete switch, dropped 2026-11-16; old links still clean up
     if (state.practice !== "No-till") q.set("practice", state.practice);
     if (state.n !== "180 lb/ac") q.set("n", state.n);
     if (state.units !== "bu") q.set("units", state.units);
@@ -450,8 +382,6 @@
   }
 
   function render() {
-    $("value-ctls").classList.toggle("is-off", state.view !== "value");
-    [...$("view").children].forEach(b => b.setAttribute("aria-pressed", b.dataset.v === state.view));
     [...$("units").children].forEach(b => b.setAttribute("aria-pressed", b.dataset.u === state.units));
     $("practice").value = state.practice; $("nscen").value = state.n;
     paths.forEach((p, i) => {
@@ -463,9 +393,8 @@
     if (state.sel) select(state.sel, false); else { statewide(); writeUrl(); fitFrame(); }
   }
 
-  // Shareable state: ?view=premium&practice=No-till&n=180%20lb/ac&units=ac&county=39137
+  // Shareable state: ?practice=No-till&n=180%20lb/ac&units=ac&county=39137
   const q = new URLSearchParams(host.location.search);
-  if (["premium", "scarcity"].includes(q.get("view"))) state.view = "premium";
   if (D.practices.includes(q.get("practice"))) state.practice = q.get("practice");
   if (D.n_scenarios.includes(q.get("n"))) state.n = q.get("n");
   if (q.get("units") === "ac") state.units = "ac";
