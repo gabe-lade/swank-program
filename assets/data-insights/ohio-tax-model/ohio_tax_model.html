@@ -688,7 +688,7 @@
     <p>Funding provided by the Ohio Corn and Wheat Growers Association, the Ohio Farm Bureau Federation, and the C. William Swank Program in Rural-Urban Policy at The Ohio State University.</p>
     <div id="osblock">
     <h3>Open source</h3>
-    <p>The code, data, and documentation behind this tool are open source. Code is released under the MIT License; data, text, and figures under Creative Commons Attribution 4.0 (CC BY 4.0). Repository: [URL TO BE ADDED]. Every number on this page comes from one model run (code version, data vintage, scenario settings); the stamp is under "Download these numbers", at the end of "How we calculate this," and in the downloaded file.</p>
+    <p>The code, data, and documentation behind this tool will be open source: code under the MIT License; data, text, and figures under Creative Commons Attribution 4.0 (CC BY 4.0). The repository will be public with the full release; until then, the code is available on request from <a href="mailto:lade.10@osu.edu">lade.10@osu.edu</a>. Every number on this page comes from one model run (code version, data vintage, scenario settings); the stamp is under "Download these numbers", at the end of "How we calculate this," and in the downloaded file.</p>
     <p id="citeline"></p>
     </div>
     <h3>Educational use and limits <span class="draftmark">Draft, pending OSU review</span></h3>
@@ -2253,7 +2253,7 @@
   function afterPrint() { if (printAll) printAll.forEach(function (x) { x[0].open = x[1]; }); printAll = null; }
 
   // ---- links, CSV, address ------------------------------------------------------------------------------------------------
-  function citeText() { return "Suggested citation: C. William Swank Program in Rural-Urban Policy, The Ohio State University, Ohio Tax Model, model " + K.meta.model_version + ", 2026. [URL TO BE ADDED]"; }
+  function citeText() { return "Suggested citation: C. William Swank Program in Rural-Urban Policy, The Ohio State University, Ohio Tax Model, model " + K.meta.model_version + ", 2026. https://gabe-lade.github.io/swank-program/data/insights/ohio-tax-model/"; }
   // Which sections are open, written only when it differs from what a first visit shows (so a plain link stays plain).
   function openParam() {
     var cur = SEC_IDS.filter(isOpen).map(function (id) { return id.replace("sec-", ""); });
