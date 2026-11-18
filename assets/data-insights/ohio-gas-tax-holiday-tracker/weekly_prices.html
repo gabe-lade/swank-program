@@ -6,10 +6,15 @@
 <title>Ohio and neighboring-state fuel prices by week during Ohio's gas tax holiday</title>
 
 <!-- Embed for the Swank site page data-insights/ohio-gas-tax-holiday-tracker.md
-     (block "weekly-prices"). Two stacked panels with a gasoline/diesel switch:
-     (1) weekly average price, Ohio vs. the average of IN, MI, PA, KY, WV;
-     (2) Ohio minus the neighbor average, relative to Sep 4-Oct 3, against the
-     full tax cut. Hover, tap, or tab to a week for details; "Show as a table" gives
+     (block "weekly-prices"). Controls: gasoline/diesel switch and a "Compare
+     Ohio with" menu (the five-neighbor average, all but Indiana, or one
+     neighbor). For the chosen comparison: a row of holiday-to-date summary
+     numbers with a caveat note; a strip showing the share of the tax at the
+     pump under every comparison (the sensitivity); then two panels:
+     (1) weekly average price, Ohio vs. the comparison;
+     (2) Ohio minus the comparison, relative to Sep 4-Oct 3, against the full
+     tax cut. The page's stat band always uses the five-neighbor average.
+     State is kept in the URL (?fuel=diesel&compare=KY; #diesel also works). Hover, tap, or tab to a week for details; "Show as a table" gives
      the same numbers. The page supplies the heading, description, stat band,
      and sources. Data: ./data/tracker.js as window.GTH_TRACKER, built by
      ex-post-exploration/tracker/build_tracker.R in the gas-tax-holiday project
@@ -35,6 +40,44 @@
   .switch button { border: 1px solid #D8D3CA; background: #fff; border-radius: 7px; padding: 7px 12px; min-height: 36px; font-family: inherit; font-size: 12.5px; font-weight: 600; color: #56534D; cursor: pointer; }
   .switch button[aria-pressed="true"] { color: #fff; border-color: transparent; background: #BB0000; }
   .switch button:hover:not([aria-pressed="true"]) { background: #F4F1EB; }
+  select { max-width: 100%; font: inherit; font-size: 13px; color: #33302B; padding: 7px 8px; min-height: 36px; border: 1px solid #D8D3CA; border-radius: 7px; background: #fff; }
+  select:focus-visible { outline: 2px solid #BB0000; outline-offset: 2px; }
+  .fields { display: flex; flex-wrap: wrap; gap: 10px 18px; align-items: end; min-width: 0; max-width: 100%; }
+  .field { min-width: 0; max-width: 100%; }
+  .summary { border: 1px solid #E5E2DC; border-radius: 11px; padding: 12px 14px 12px; margin: 4px 0 14px; background: #fff; }
+  .kick { font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; letter-spacing: 0.06em; text-transform: uppercase; color: #75726B; margin: 0 0 8px; }
+  .mini { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; }
+  .mini .num { font-family: 'Source Serif 4', serif; font-weight: 600; font-size: 24px; line-height: 1.05; letter-spacing: -0.02em; color: #BB0000; }
+  .mini p { font-size: 12px; line-height: 1.35; color: #6C6A64; margin: 4px 0 0; }
+  .mini .ref { display: block; color: #56534D; font-size: 12px; margin-top: 3px; }
+  @media (max-width: 620px) { .mini { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  .takeaway { background: #F7F4EE; border-radius: 8px; padding: 8px 11px; font-size: 12.5px; line-height: 1.5; color: #33302B; margin: 10px 0 0; }
+  .strip { display: grid; gap: 2px; margin: 4px 0 6px; }
+  .sh { font-family: 'Source Serif 4', serif; font-weight: 600; font-size: 16px; letter-spacing: -0.01em; color: #1A1A19; margin: 6px 0 2px; }
+  .srow { display: grid; grid-template-columns: 170px 1fr 44px; gap: 10px; align-items: center; width: 100%; min-height: 34px; border: 0; background: none; padding: 3px 6px; border-radius: 6px; font: inherit; text-align: left; cursor: pointer; color: #33302B; }
+  .srow:hover { background: #F7F4EE; }
+  .srow[aria-checked="true"] { background: #F4F1EB; box-shadow: inset 3px 0 #33302B; }
+  .srow .nm { font-size: 12.5px; line-height: 1.25; }
+  .srow .nm small { display: block; font-size: 11px; color: #6C6A64; }
+  .srow[aria-checked="true"] .nm, .srow[aria-checked="true"] .v { font-weight: 700; }
+  .sgrp { font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase; color: #75726B; border-top: 1px solid #E5E2DC; padding: 7px 6px 1px; margin-top: 3px; }
+  .srow .band { position: absolute; top: 3px; height: 10px; background: #EFECE6; border-radius: 5px; }
+  @media (pointer: coarse) { .srow { min-height: 42px; } }
+  .srow .tr { position: relative; height: 16px; }
+  .srow .base { position: absolute; left: 0; right: 0; top: 7px; height: 2px; background: #EFECE6; }
+  .srow .ln { position: absolute; left: 0; top: 7px; height: 2px; background: #CFCBC2; }
+  .srow .dot { position: absolute; top: 2px; width: 12px; height: 12px; margin-left: -6px; border-radius: 50%; background: #7C786F; border: 2px solid #fff; box-sizing: border-box; }
+  .srow[aria-checked="true"] .ln { background: #9A968D; }
+  .srow[aria-checked="true"] .dot { background: #33302B; }
+  .srow.est .dot { background: #BB0000; }
+  .srow .full { position: absolute; top: -3px; bottom: -3px; border-left: 1.5px dashed #BB0000; }
+  .srow .v { font-size: 12.5px; text-align: right; font-variant-numeric: tabular-nums; }
+  .saxis { display: grid; grid-template-columns: 150px 1fr 44px; gap: 10px; padding: 0 4px; font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; color: #75726B; }
+  .saxis .tk { position: relative; height: 14px; }
+  .saxis .tk span { position: absolute; transform: translateX(-50%); white-space: nowrap; }
+  .saxis .tk span.full { color: #BB0000; }
+  .saxis { grid-template-columns: 170px 1fr 44px; padding: 0 6px; }
+  @media (max-width: 520px) { .srow, .saxis { grid-template-columns: 112px 1fr 38px; gap: 6px; } .saxis .tk span.mid { display: none; } }
   .asof { font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; letter-spacing: 0.06em; text-transform: uppercase; color: #75726B; }
   .cap { font-size: 13.5px; font-weight: 600; color: #33302B; margin: 14px 0 2px; }
   p.sub { font-size: 12.5px; color: #6C6A64; margin: 0 0 6px; }
@@ -75,21 +118,39 @@
 <body>
 <div id="wrap">
   <div class="ctl">
-    <div class="field">
-      <span class="lbl" id="fuel-lbl">Fuel</span>
-      <div class="switch" role="group" aria-labelledby="fuel-lbl">
-        <button type="button" data-fuel="regular" aria-pressed="true">Regular gasoline</button>
-        <button type="button" data-fuel="diesel" aria-pressed="false">Diesel</button>
+    <div class="fields">
+      <div class="field">
+        <span class="lbl" id="fuel-lbl">Fuel</span>
+        <div class="switch" role="group" aria-labelledby="fuel-lbl">
+          <button type="button" data-fuel="regular" aria-pressed="true">Regular gasoline</button>
+          <button type="button" data-fuel="diesel" aria-pressed="false">Diesel</button>
+        </div>
+      </div>
+      <div class="field">
+        <label class="lbl" for="compare">Compare Ohio with</label>
+        <select id="compare"></select>
       </div>
     </div>
     <span class="asof" id="asof"></span>
   </div>
 
+  <h2 class="sh" id="strip-cap">Does the answer depend on which states we compare with?</h2>
+  <p class="sub" id="strip-sub"></p>
+  <div class="saxis" aria-hidden="true"><span></span><div class="tk" id="saxis"></div><span></span></div>
+  <div class="strip" id="strip" role="radiogroup" aria-labelledby="strip-cap"></div>
+  <p class="sub" id="strip-foot"></p>
+
+  <section class="summary" id="summary" aria-labelledby="sum-kick" hidden>
+    <p class="kick" id="sum-kick"></p>
+    <div class="mini" id="mini"></div>
+    <p class="takeaway" id="cmp-note"></p>
+  </section>
+
   <div class="chart" id="chart">
     <p class="cap">Average price per gallon, by week</p>
     <div class="legend" aria-hidden="true">
       <span><i class="line" style="background:#BB0000"></i>Ohio</span>
-      <span><i class="line" style="background:#7C786F"></i>Neighbor average</span>
+      <span><i class="line" style="background:#7C786F"></i><span id="lg-nb">Neighbor average</span></span>
       <span><i class="box" style="background:#FBF0EE;border:1px solid #F1D9D4"></i>Holiday</span>
     </div>
     <div id="levels"></div>
@@ -117,12 +178,22 @@
 <script>
 const D = window.GTH_TRACKER;
 const RED = "#BB0000", GRAY = "#7C786F", PRE = "#CFCBC2", SHADE = "#FBF0EE";
-const pct = v => Math.round(100 * v) + "%";
+const pct = v => (v < 0 ? "−" : "") + Math.abs(Math.round(100 * v)) + "%";
 const signedCents = v => (v < 0 ? "−" : "+") + Math.abs(Math.round(100 * v)) + "¢";
 const usd = v => "$" + v.toFixed(2);
 const taxC = t => (Math.round(t * 1000) / 10).toString() + "¢";   // 0.385 -> "38.5¢"
 const FUEL = { regular: { name: "gasoline", tax: D.holiday.tax_gas_cents / 100 },
                diesel:  { name: "diesel",   tax: D.holiday.tax_dsl_cents / 100 } };
+
+const CMP = Object.fromEntries(D.comparisons.map(c => [c.key, c]));
+const state = { fuel: "regular", cmp: "all5" };
+const C = () => CMP[state.cmp];
+// How to name the comparison in running text, legends and the price chart's end label
+const nbPhrase = c => c.key === "all5" ? "the neighbor average" : c.key === "exIN" ? "the average of its neighbors except Indiana" : c.label;
+const nbLegend = c => c.key === "all5" ? "Neighbor average" : c.key === "exIN" ? "Neighbors except Indiana" : c.label;
+const nbShort = c => c.key === "all5" ? "neighbors" : c.key === "exIN" ? "neighbors except Indiana" : c.label;
+const flagged = (c, fuel) => c.flag && !(c.key === "IN" && fuel === "diesel");   // Indiana's suspension is gasoline only
+const usd0 = v => "$" + Math.round(v);
 
 document.getElementById("asof").textContent = `Data through ${D.data_through.replace(/, \d{4}$/, "")} · updated weekly`;
 
@@ -135,8 +206,8 @@ function fitFrame() {
 const tip = document.getElementById("tip");
 function tipHTML(w, fuel) {
   return `<strong>${w.range}${w.partial ? ` <span class="part">(${w.n_days} days so far)</span>` : ""}</strong>` +
-    `Ohio: ${usd(w.ohio)} · Neighbor average: ${usd(w.neighbors)}<br>` +
-    `Ohio vs. neighbors, compared with before the holiday: <b>${signedCents(w.gap_rel)}</b>` +
+    `Ohio: ${usd(w.ohio)} · ${nbLegend(C())}: ${usd(w.neighbors)}<br>` +
+    `Ohio vs. ${nbShort(C())}, compared with before the holiday: <b>${signedCents(w.gap_rel)}</b>` +
     (w.holiday ? `<br><span class="em">Share of the ${taxC(FUEL[fuel].tax)} tax cut at the pump this week: ${pct(w.share_of_tax)}</span>` : "");
 }
 function placeTip(x, y) {
@@ -156,7 +227,7 @@ const el = (tag, attrs, parent) => { const e = document.createElementNS(svgNS, t
 const txt = (parent, attrs, s) => { const t = el("text", attrs, parent); t.textContent = s; return t; };
 
 function draw(fuel) {
-  const weeks = D.prices[fuel], tax = FUEL[fuel].tax;
+  const weeks = C().prices[fuel], tax = FUEL[fuel].tax;
   W = Math.max(320, Math.min(860, Math.round(document.getElementById("levels").clientWidth || 860)));
   const narrow = W < 600;
   R = narrow ? 64 : 96; L = narrow ? 44 : 52;
@@ -189,7 +260,9 @@ function draw(fuel) {
   let yo = y1(weeks[n - 1].ohio) + 4, yn = y1(weeks[n - 1].neighbors) + 4;
   if (Math.abs(yo - yn) < 14) { const m = (yo + yn) / 2, s = yo <= yn ? -1 : 1; yo = m + 7 * s; yn = m - 7 * s; }
   txt(s1, { x: xc(n - 1) + 10, y: yo, class: "endlabel" }, "Ohio");
-  txt(s1, { x: xc(n - 1) + 10, y: yn, class: "endlabel" }, "Neighbors");
+  // Narrow screens: the end label must fit in the right margin, so use a short form
+  const endName = !narrow ? C().short : C().states.length > 1 ? "Neighbors" : C().states[0];
+  txt(s1, { x: xc(n - 1) + 10, y: yn, class: "endlabel" }, endName);
   weeks.forEach((w, i) => { if (showTick(i))
     txt(s1, { x: xc(i), y: H1 - 6, "text-anchor": "middle", class: "axlabel" }, w.label); });
 
@@ -235,7 +308,7 @@ function draw(fuel) {
     const hit = el("rect", { x: L + step * i, y: T, width: step, height: H - T - B, class: "hit" }, s);
     if (p === 1) {   // keyboard: one stop per week, on the gap panel
       hit.setAttribute("tabindex", "0"); hit.setAttribute("role", "img");
-      hit.setAttribute("aria-label", `${w.range}: Ohio ${usd(w.ohio)}, neighbors ${usd(w.neighbors)}, ${signedCents(w.gap_rel)} compared with before the holiday` +
+      hit.setAttribute("aria-label", `${w.range}: Ohio ${usd(w.ohio)}, ${nbShort(C())} ${usd(w.neighbors)}, ${signedCents(w.gap_rel)} compared with before the holiday` +
         (w.holiday ? `, ${pct(w.share_of_tax)} of the tax cut at the pump` : ""));
       hit.addEventListener("focus", () => { on(); const b = hit.getBoundingClientRect(); placeTip(b.right, b.top); });
       hit.addEventListener("blur", hideTip);
@@ -250,38 +323,135 @@ function draw(fuel) {
   document.getElementById("levels").replaceChildren(s1);
   document.getElementById("gaps").replaceChildren(s2);
   document.getElementById("gap-sub").textContent =
-    `Ohio's ${FUEL[fuel].name} price minus the neighbor average, compared with the month before the holiday (Sept. 4 to Oct. 3). ` +
+    `Ohio's ${FUEL[fuel].name} price minus ${nbPhrase(C())}, compared with the month before the holiday (Sept. 4 to Oct. 3). ` +
     `If the full ${taxC(tax)} tax cut reached the pump, the red bars would reach the dashed line. Hover or tap a week for details.`;
   document.getElementById("lg-tax").textContent = `Full tax cut (${taxC(tax)})`;
+  document.getElementById("lg-nb").textContent = nbLegend(C());
+  document.getElementById("gap-cap").textContent = `How much cheaper Ohio was than usual, compared with ${C().key === "all5" ? "its neighbors" : nbShort(C())}`;
 
   // Table view: same numbers as the chart
   const tb = document.getElementById("table");
-  tb.querySelector("thead").innerHTML = `<tr><th>Week</th><th class="n">Ohio</th><th class="n">Neighbor average</th>` +
-    `<th class="n">Ohio vs. neighbors, vs. before the holiday</th><th class="n">Share of the tax cut at the pump</th></tr>`;
+  tb.querySelector("thead").innerHTML = `<tr><th>Week</th><th class="n">Ohio</th><th class="n">${nbLegend(C())}</th>` +
+    `<th class="n">Ohio vs. ${nbShort(C())}, vs. before the holiday</th><th class="n">Share of the tax cut at the pump</th></tr>`;
   tb.querySelector("tbody").innerHTML = weeks.slice().reverse().map(w =>
     `<tr class="${w.holiday ? "" : "pre"}"><td>${w.range}${w.partial ? ` (${w.n_days} days so far)` : ""}</td>` +
     `<td class="n">${usd(w.ohio)}</td><td class="n">${usd(w.neighbors)}</td>` +
     `<td class="n">${signedCents(w.gap_rel)}</td><td class="n">${w.holiday ? pct(w.share_of_tax) : "&mdash;"}</td></tr>`).join("");
-  document.querySelector("#table").setAttribute("aria-label", `Weekly ${FUEL[fuel].name} prices, Ohio and neighbor average`);
+  document.querySelector("#table").setAttribute("aria-label", `Weekly ${FUEL[fuel].name} prices, Ohio and ${nbShort(C())}`);
 
   const last = weeks[n - 1];
   document.getElementById("sr").textContent =
-    `Showing ${FUEL[fuel].name}. Latest week, ${last.range}: Ohio ${usd(last.ohio)}, neighbors ${usd(last.neighbors)}, ` +
+    `Showing ${FUEL[fuel].name}, compared with ${nbPhrase(C())}. Latest week, ${last.range}: Ohio ${usd(last.ohio)}, ${nbShort(C())} ${usd(last.neighbors)}, ` +
     `${signedCents(last.gap_rel)} compared with before the holiday.`;
   hideTip();
   requestAnimationFrame(fitFrame);
 }
 
-const btns = document.querySelectorAll(".switch button");
-btns.forEach(b => b.addEventListener("click", () => select(b.dataset.fuel)));
-let current = "regular";
-function select(fuel) {
-  current = fuel;
-  btns.forEach(x => x.setAttribute("aria-pressed", x.dataset.fuel === fuel ? "true" : "false"));
-  draw(fuel);
+// ---------- Summary: shown only when the comparison isn't our estimate ----------
+function drawSummary() {
+  const c = C(), st = c.stats, base = CMP.all5.stats, isBase = c.key === "all5";
+  document.getElementById("summary").hidden = isBase;
+  if (isBase) return;
+  document.getElementById("sum-kick").textContent =
+    `Using ${c.key === "exIN" ? "neighbors except Indiana" : c.label} instead of our estimate · since Oct. 4 (${D.stats.days_elapsed} of 90 days)`;
+  const ref = v => `<span class="ref">Our estimate (five-neighbor average): ${v}</span>`;
+  const cards = [
+    [pct(st.rho_gas), `of the ${taxC(FUEL.regular.tax)} gasoline tax cut showing up at the pump`, ref(pct(base.rho_gas))],
+    [pct(st.rho_dsl), `of the ${taxC(FUEL.diesel.tax)} diesel tax cut showing up at the pump`, ref(pct(base.rho_dsl))],
+    [usd0(st.hh_savings_90d), "projected savings per Ohio household over all 90 days, if the share so far holds (gasoline and diesel together)", ref(usd0(base.hh_savings_90d))],
+    [Math.round(st.hh_cents) + "¢", "of each dollar of tax the state gives up that reaches Ohio households", ref(Math.round(base.hh_cents) + "¢")],
+  ];
+  document.getElementById("mini").innerHTML = cards.map(([n, t, r]) => `<div><div class="num">${n}</div><p>${t}${r}</p></div>`).join("");
+  document.getElementById("cmp-note").textContent = c.note;
 }
-select(location.hash === "#diesel" ? "diesel" : "regular");
-window.addEventListener("hashchange", () => select(location.hash === "#diesel" ? "diesel" : "regular"));
+
+// ---------- Sensitivity strip: share at the pump under every comparison (a radio group) ----------
+function drawStrip() {
+  const fuel = state.fuel, key = fuel === "regular" ? "rho_gas" : "rho_dsl";
+  const vals = D.comparisons.map(c => c.stats[key]);
+  const lo = Math.min(...vals), hi = Math.max(...vals);
+  const max = Math.max(1.1, Math.ceil(hi * 10) / 10 + 0.05);   // keep the 100% line in view
+  const min = Math.min(0, Math.floor(lo * 10) / 10 - 0.05);       // extend left if any share is negative
+  const x = v => ((v - min) / (max - min) * 100).toFixed(2) + "%";
+  document.getElementById("strip-sub").textContent =
+    `Share of the ${taxC(FUEL[fuel].tax)} ${FUEL[fuel].name} tax cut showing up at the pump since Oct. 4, against each comparison. ` +
+    `The dashed line is the full tax cut. Pick a row to see that comparison in the charts below.`;
+  document.getElementById("saxis").innerHTML = [0, 0.25, 0.5, 0.75].map(t => `<span class="${t === 0.25 || t === 0.75 ? "mid" : ""}" style="left:${x(t)}">${Math.round(t * 100)}%</span>`).join("") +
+    `<span class="full" style="left:${x(1)}">100%</span>`;
+  const row = c => {
+    const v = c.stats[key], on = c.key === state.cmp, fl = flagged(c, fuel);
+    const nm = c.key === "all5" ? `All five neighbors<small>Our estimate</small>` : c.label + (fl ? " †" : "");
+    return `<button type="button" role="radio" class="srow${c.key === "all5" ? " est" : ""}" data-cmp="${c.key}" aria-checked="${on}" tabindex="${on ? 0 : -1}" ` +
+      `aria-label="${c.key === "all5" ? "All five neighbors, our estimate" : c.label}: ${pct(v)} of the tax cut at the pump">` +
+      `<span class="nm">${nm}</span>` +
+      `<span class="tr" aria-hidden="true"><span class="base"></span><span class="band" style="left:${x(lo)};width:calc(${x(hi)} - ${x(lo)})"></span><span class="ln" style="left:${x(Math.min(0, v))};width:calc(${x(Math.max(0, v))} - ${x(Math.min(0, v))})"></span>` +
+      `<span class="full" style="left:${x(1)}"></span><span class="dot" style="left:${x(v)}"></span></span>` +
+      `<span class="v">${pct(v)}</span></button>`;
+  };
+  const avgs = D.comparisons.filter(c => c.states.length > 1), singles = D.comparisons.filter(c => c.states.length === 1);
+  const strip = document.getElementById("strip");
+  const hadFocus = strip.contains(document.activeElement);
+  strip.innerHTML = avgs.map(row).join("") + `<div class="sgrp" aria-hidden="true">One state at a time (usually noisier)</div>` + singles.map(row).join("");
+  const radios = [...strip.querySelectorAll(".srow")];
+  radios.forEach((b, k) => {
+    b.addEventListener("click", () => setState({ cmp: b.dataset.cmp }, true, true));
+    b.addEventListener("keydown", e => {
+      const d = { ArrowDown: 1, ArrowRight: 1, ArrowUp: -1, ArrowLeft: -1 }[e.key];
+      if (!d) return;
+      e.preventDefault();
+      setState({ cmp: radios[(k + d + radios.length) % radios.length].dataset.cmp }, true, true);
+    });
+  });
+  if (hadFocus) strip.querySelector('[aria-checked="true"]').focus();
+  const anyFlag = D.comparisons.some(c => flagged(c, fuel));
+  document.getElementById("strip-foot").textContent =
+    `Depending on the comparison, the estimate runs from ${pct(lo)} to ${pct(hi)}; our estimate is ${pct(CMP.all5.stats[key])}. ` +
+    `Even with no tax change, each neighbor's prices drifted against the other four by up to ${pct(D.placebo_max[fuel])} of Ohio's tax over the same weeks, so gaps of that size between rows are within normal noise.` +
+    (anyFlag ? " † Had its own gas tax change before Ohio's holiday; pick it to read more." : "");
+}
+
+// ---------- State, controls, URL ----------
+const btns = document.querySelectorAll(".switch button");
+const sel = document.getElementById("compare");
+const opt = c => `<option value="${c.key}">${c.key === "all5" ? "All five neighbors (our estimate)" : c.key === "exIN" ? "Neighbors except Indiana" : c.label}</option>`;
+sel.innerHTML = `<optgroup label="Averages">${D.comparisons.filter(c => c.states.length > 1).map(opt).join("")}</optgroup>` +
+  `<optgroup label="One state at a time (usually noisier)">${D.comparisons.filter(c => c.states.length === 1).map(opt).join("")}</optgroup>`;
+btns.forEach(b => b.addEventListener("click", () => setState({ fuel: b.dataset.fuel }, true, true)));
+sel.addEventListener("change", () => setState({ cmp: sel.value }, true, true));
+
+// Same-origin embed: read and write share links on the host page (as in the 45Z embeds)
+let host = window;
+try { if (window.parent !== window && window.parent.location.href) host = window.parent; } catch (e) { host = window; }
+
+function writeUrl() {
+  try {
+    const q = new URLSearchParams(host.location.search);
+    if (state.fuel === "diesel") q.set("fuel", "diesel"); else q.delete("fuel");
+    if (state.cmp !== "all5") q.set("compare", state.cmp); else q.delete("compare");
+    const qs = q.toString();
+    host.history.replaceState(null, "", host.location.pathname + (qs ? "?" + qs : "") + host.location.hash);
+  } catch (e) {}
+}
+function readUrl() {
+  const q = new URLSearchParams(host.location.search);
+  const fuel = q.get("fuel") === "diesel" || host.location.hash === "#diesel" || location.hash === "#diesel" ? "diesel" : "regular";
+  const k = q.get("compare"), cmp = Object.prototype.hasOwnProperty.call(CMP, k) ? k : "all5";
+  return { fuel, cmp };
+}
+function setState(patch, write = true, announce = false) {
+  Object.assign(state, patch);
+  btns.forEach(x => x.setAttribute("aria-pressed", x.dataset.fuel === state.fuel ? "true" : "false"));
+  sel.value = state.cmp;
+  drawSummary(); drawStrip(); draw(state.fuel);
+  if (write) writeUrl();
+  if (announce) {
+    const c = C(), k = state.fuel === "regular" ? "rho_gas" : "rho_dsl";
+    document.getElementById("sr").textContent = `${c.key === "all5" ? "All five neighbors, our estimate" : c.label}: ` +
+      `${pct(c.stats[k])} of the ${FUEL[state.fuel].name} tax cut at the pump` + (c.key === "all5" ? "." : `; our estimate is ${pct(CMP.all5.stats[k])}.`);
+  }
+}
+setState(readUrl(), false);
+host.addEventListener("hashchange", () => setState(readUrl(), false));
 
 document.getElementById("note").textContent =
   "Prices are AAA daily state averages, averaged by week (Sunday to Saturday). A lighter bar is the current week, still in progress.";
@@ -290,7 +460,7 @@ document.getElementById("note").textContent =
 let lastW = 0;
 new ResizeObserver(() => {
   const w = Math.round(document.getElementById("levels").clientWidth);
-  if (Math.abs(w - lastW) > 4) { lastW = w; draw(current); } else fitFrame();
+  if (Math.abs(w - lastW) > 4) { lastW = w; draw(state.fuel); } else fitFrame();
 }).observe(document.getElementById("wrap"));
 document.querySelector("details").addEventListener("toggle", fitFrame);
 window.addEventListener("load", fitFrame);
