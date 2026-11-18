@@ -20,6 +20,18 @@
   image: "/assets/images/tools/tax-explainer.jpg"
   featured: true
 
+- name: "Ohio Gas Tax Holiday Tracker"
+  title: "Ohio Gas Tax Holiday Tracker"
+  tag: "Tracker"
+  format: "Interactive chart"
+  topic: "Taxes"
+  topics: [Taxes]
+  description: "Is Ohio's gas tax holiday reaching the pump? Updated weekly."
+  blurb: "Weekly gasoline and diesel prices in Ohio and its neighbors, how much of the 38.5-cent and 47-cent tax cuts is showing up at the pump, and what that has meant for Ohio households. Updated weekly."
+  cta: "See the tracker"
+  url: "/data/insights/ohio-gas-tax-holiday-tracker/"
+  image: "/assets/images/tools/gas-tax-tracker.jpg"
+
 - name: "Ohio Urbanization Explorer"
   title: "Ohio urbanization & the rural-urban fringe"
   tag: "Interactive map"

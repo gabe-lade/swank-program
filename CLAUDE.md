@@ -93,6 +93,14 @@ tool, to `_data/tools.yml`.
   folder for routine work; the only sync is a manual copy of regenerated
   js bundles in, and (courtesy) updated html out, so its standalone maps
   keep working. Its README says the same.
+- **Gas tax holiday tracker: weekly data comes from the gas-tax-holiday
+  project** (OneDrive `outreach/gas-tax-holiday/ex-post-exploration/tracker/`).
+  Its `update_tracker.sh` copies `data/tracker.js` and the CSV into
+  `assets/data-insights/ohio-gas-tax-holiday-tracker/` and rewrites only the
+  `# >>> auto-stats` block and `updated:` in
+  `data-insights/ohio-gas-tax-holiday-tracker.md`. Never hand-edit that block
+  or the bundle. The embed HTML (`weekly_prices.html`) is owned here once
+  published, like the tax-explainer embeds.
 - **No Liquid tags inside HTML comments.** Jekyll parses `{% %}` even in
   `<!-- -->` (a literal `{% else %}` in a comment once broke the production
   build). Use `{% comment %}` blocks or plain prose.

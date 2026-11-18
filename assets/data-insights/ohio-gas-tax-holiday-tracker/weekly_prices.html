@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Ohio and neighboring-state fuel prices by week during Ohio's gas tax holiday</title>
+
+<!-- Embed for the Swank site page data-insights/ohio-gas-tax-holiday-tracker.md
+     (block "weekly-prices"). Two stacked panels with a gasoline/diesel switch:
+     (1) weekly average price, Ohio vs. the average of IN, MI, PA, KY, WV;
+     (2) Ohio minus the neighbor average, relative to Sep 4-Oct 3, against the
+     full tax cut. Hover, tap, or tab to a week for details; "Show as a table" gives
+     the same numbers. The page supplies the heading, description, stat band,
+     and sources. Data: ./data/tracker.js as window.GTH_TRACKER, built by
+     ex-post-exploration/tracker/build_tracker.R in the gas-tax-holiday project
+     and copied here by update_tracker.sh -- never hand-edit the bundle. Every
+     number on screen is read from the bundle. Same-origin only: sizes its
+     own iframe. The SVGs are drawn at the container's width (not
+     scaled from a fixed viewBox) so text stays legible on phones. -->
+
+<script src="data/tracker.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&family=Public+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body { font-family: 'Public Sans', system-ui, -apple-system, sans-serif; color: #1A1A19; background: #fff; -webkit-font-smoothing: antialiased; font-size: 14px; line-height: 1.5; }
+  .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
+  #wrap { max-width: 900px; margin: 0 auto; padding: 20px 24px 18px; }
+  .muted { color: #6C6A64; }
+  button:focus-visible, summary:focus-visible, a:focus-visible, [tabindex]:focus-visible { outline: 2px solid #BB0000; outline-offset: 2px; }
+  .ctl { display: flex; flex-wrap: wrap; gap: 10px 22px; align-items: end; justify-content: space-between; margin: 0 0 10px; }
+  .field .lbl { display: block; font-size: 12px; font-weight: 600; color: #56534D; margin: 0 0 4px; }
+  .switch { display: inline-grid; grid-auto-flow: column; gap: 6px; }
+  .switch button { border: 1px solid #D8D3CA; background: #fff; border-radius: 7px; padding: 7px 12px; min-height: 36px; font-family: inherit; font-size: 12.5px; font-weight: 600; color: #56534D; cursor: pointer; }
+  .switch button[aria-pressed="true"] { color: #fff; border-color: transparent; background: #BB0000; }
+  .switch button:hover:not([aria-pressed="true"]) { background: #F4F1EB; }
+  .asof { font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; letter-spacing: 0.06em; text-transform: uppercase; color: #75726B; }
+  .cap { font-size: 13.5px; font-weight: 600; color: #33302B; margin: 14px 0 2px; }
+  p.sub { font-size: 12.5px; color: #6C6A64; margin: 0 0 6px; }
+  .legend { display: flex; flex-wrap: wrap; gap: 6px 16px; font-size: 12.5px; color: #56534D; margin: 0 0 4px; }
+  .legend span { display: inline-flex; align-items: center; gap: 6px; }
+  .legend i { display: inline-block; flex: 0 0 auto; }
+  .legend i.line { width: 16px; height: 2px; border-radius: 1px; }
+  .legend i.box { width: 12px; height: 12px; border-radius: 3px; }
+  .legend i.dash { width: 16px; height: 0; border-top: 2px dashed #BB0000; }
+  .chart { position: relative; }
+  svg { width: 100%; height: auto; display: block; font-family: 'Public Sans', system-ui, sans-serif; overflow: visible; }
+  .axlabel { font-size: 11px; fill: #75726B; }
+  .grid { stroke: #EFECE6; }
+  .zero { stroke: #B9B5AC; }
+  .endlabel { font-size: 12px; font-weight: 600; fill: #33302B; }
+  .barlabel { font-size: 11px; fill: #33302B; font-weight: 500; }
+  .reflabel { font-size: 11px; fill: #6C6A64; }
+  .hit { fill: transparent; cursor: pointer; }
+  .hit:focus { outline: none; }
+  .hit:focus-visible { stroke: #BB0000; stroke-width: 2; }
+  .hl { fill: #F4F1EB; }
+  .tooltip { position: fixed; pointer-events: none; background: #fff; border: 1px solid #D8D3CA; box-shadow: 0 2px 10px rgba(0,0,0,0.10); border-radius: 8px; padding: 8px 11px; font-size: 12.5px; line-height: 1.5; max-width: 280px; opacity: 0; transition: opacity 0.08s; z-index: 5; }
+  .tooltip strong { display: block; font-family: 'Source Serif 4', serif; font-size: 14.5px; color: #33302B; }
+  .tooltip .em { color: #BB0000; font-weight: 600; }
+  .tooltip .part { font-family: 'Public Sans', sans-serif; font-size: 12px; font-weight: 400; color: #6C6A64; }
+  .note { font-size: 12.5px; line-height: 1.5; color: #6C6A64; margin: 12px 0 0; }
+  details { margin: 12px 0 0; }
+  summary { cursor: pointer; font-size: 13px; font-weight: 600; color: #56534D; }
+  .tablewrap { overflow-x: auto; }
+  table { border-collapse: collapse; width: 100%; font-size: 13px; margin: 10px 0 0; }
+  th, td { text-align: left; padding: 6px 6px; border-bottom: 1px solid #F2EFE9; vertical-align: top; white-space: nowrap; }
+  th { font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: 0.04em; text-transform: uppercase; color: #75726B; font-weight: 500; border-bottom: 1px solid #E5E2DC; white-space: normal; }
+  td.n, th.n { text-align: right; font-variant-numeric: tabular-nums; }
+  tr.pre td { color: #6C6A64; }
+  @media (max-width: 700px) { #wrap { padding: 16px 14px 14px; } }
+</style>
+</head>
+<body>
+<div id="wrap">
+  <div class="ctl">
+    <div class="field">
+      <span class="lbl" id="fuel-lbl">Fuel</span>
+      <div class="switch" role="group" aria-labelledby="fuel-lbl">
+        <button type="button" data-fuel="regular" aria-pressed="true">Regular gasoline</button>
+        <button type="button" data-fuel="diesel" aria-pressed="false">Diesel</button>
+      </div>
+    </div>
+    <span class="asof" id="asof"></span>
+  </div>
+
+  <div class="chart" id="chart">
+    <p class="cap">Average price per gallon, by week</p>
+    <div class="legend" aria-hidden="true">
+      <span><i class="line" style="background:#BB0000"></i>Ohio</span>
+      <span><i class="line" style="background:#7C786F"></i>Neighbor average</span>
+      <span><i class="box" style="background:#FBF0EE;border:1px solid #F1D9D4"></i>Holiday</span>
+    </div>
+    <div id="levels"></div>
+
+    <p class="cap" id="gap-cap">How much cheaper Ohio was than usual, compared with its neighbors</p>
+    <p class="sub" id="gap-sub"></p>
+    <div class="legend" aria-hidden="true">
+      <span><i class="box" style="background:#CFCBC2"></i>Before the holiday</span>
+      <span><i class="box" style="background:#BB0000"></i>During the holiday</span>
+      <span><i class="dash"></i><span id="lg-tax">Full tax cut</span></span>
+    </div>
+    <div id="gaps"></div>
+  </div>
+
+  <p class="note" id="note"></p>
+
+  <details>
+    <summary>Show as a table</summary>
+    <div class="tablewrap"><table id="table"><thead></thead><tbody></tbody></table></div>
+  </details>
+</div>
+<div class="tooltip" id="tip" aria-hidden="true"></div>
+<p class="sr-only" id="sr" aria-live="polite"></p>
+
+<script>
+const D = window.GTH_TRACKER;
+const RED = "#BB0000", GRAY = "#7C786F", PRE = "#CFCBC2", SHADE = "#FBF0EE";
+const pct = v => Math.round(100 * v) + "%";
+const signedCents = v => (v < 0 ? "−" : "+") + Math.abs(Math.round(100 * v)) + "¢";
+const usd = v => "$" + v.toFixed(2);
+const taxC = t => (Math.round(t * 1000) / 10).toString() + "¢";   // 0.385 -> "38.5¢"
+const FUEL = { regular: { name: "gasoline", tax: D.holiday.tax_gas_cents / 100 },
+               diesel:  { name: "diesel",   tax: D.holiday.tax_dsl_cents / 100 } };
+
+document.getElementById("asof").textContent = `Data through ${D.data_through.replace(/, \d{4}$/, "")} · updated weekly`;
+
+// Same-origin: size our own iframe to the content (the page's autoresize also does this).
+function fitFrame() {
+  try { if (window.frameElement) window.frameElement.style.height = (Math.ceil(document.getElementById("wrap").getBoundingClientRect().height) + 2) + "px"; } catch (e) {}
+}
+
+// ---------- Tooltip ----------
+const tip = document.getElementById("tip");
+function tipHTML(w, fuel) {
+  return `<strong>${w.range}${w.partial ? ` <span class="part">(${w.n_days} days so far)</span>` : ""}</strong>` +
+    `Ohio: ${usd(w.ohio)} · Neighbor average: ${usd(w.neighbors)}<br>` +
+    `Ohio vs. neighbors, compared with before the holiday: <b>${signedCents(w.gap_rel)}</b>` +
+    (w.holiday ? `<br><span class="em">Share of the ${taxC(FUEL[fuel].tax)} tax cut at the pump this week: ${pct(w.share_of_tax)}</span>` : "");
+}
+function placeTip(x, y) {
+  const tw = tip.offsetWidth, th = tip.offsetHeight;
+  let left = x + 14, top = y + 14;
+  if (left + tw > window.innerWidth - 6) left = x - tw - 14;
+  if (top + th > window.innerHeight - 6) top = y - th - 14;
+  tip.style.left = Math.max(6, left) + "px"; tip.style.top = Math.max(6, top) + "px";
+}
+function hideTip() { tip.style.opacity = 0; document.querySelectorAll(".hl").forEach(h => h.setAttribute("opacity", 0)); }
+
+// ---------- Charts ----------
+const svgNS = "http://www.w3.org/2000/svg";
+let W = 860, L = 52, R = 96;   // W set from the container width in draw()
+const el = (tag, attrs, parent) => { const e = document.createElementNS(svgNS, tag);
+  for (const k in attrs) e.setAttribute(k, attrs[k]); parent.appendChild(e); return e; };
+const txt = (parent, attrs, s) => { const t = el("text", attrs, parent); t.textContent = s; return t; };
+
+function draw(fuel) {
+  const weeks = D.prices[fuel], tax = FUEL[fuel].tax;
+  W = Math.max(320, Math.min(860, Math.round(document.getElementById("levels").clientWidth || 860)));
+  const narrow = W < 600;
+  R = narrow ? 64 : 96; L = narrow ? 44 : 52;
+  const n = weeks.length, step = (W - L - R) / n, xc = i => L + step * (i + 0.5);
+  const h0 = weeks.findIndex(w => w.holiday);
+  const tickEvery = Math.max(1, Math.ceil(48 / ((W - L - R) / n)));   // ~48px per date label
+  const showTick = i => (i - h0) % tickEvery === 0;     // always label the first holiday week
+
+  // Panel 1: price levels
+  const H1 = narrow ? 200 : 220, T1 = 10, B1 = 24;
+  const vals = weeks.flatMap(w => [w.ohio, w.neighbors]);
+  const lo = Math.floor(Math.min(...vals) * 4) / 4, hi = Math.ceil(Math.max(...vals) * 4) / 4;
+  const y1 = v => T1 + (hi - v) / (hi - lo) * (H1 - T1 - B1);
+  const s1 = document.createElementNS(svgNS, "svg"); s1.setAttribute("viewBox", `0 0 ${W} ${H1}`);
+  s1.setAttribute("aria-hidden", "true");
+  el("rect", { x: L + step * h0, y: T1, width: step * (n - h0), height: H1 - T1 - B1, fill: SHADE }, s1);
+  const hl1 = weeks.map((w, i) => el("rect", { x: L + step * i, y: T1, width: step, height: H1 - T1 - B1, class: "hl", opacity: 0 }, s1));
+  txt(s1, { x: L + step * h0 + 6, y: T1 + 14, class: "reflabel" }, "Holiday begins Oct. 4");
+  for (let v = lo; v <= hi + 1e-9; v += 0.25) {
+    el("line", { x1: L, x2: W - R, y1: y1(v), y2: y1(v), class: "grid" }, s1);
+    txt(s1, { x: L - 8, y: y1(v) + 4, "text-anchor": "end", class: "axlabel" }, "$" + v.toFixed(2));
+  }
+  const ends = [["neighbors", GRAY, "Neighbors"], ["ohio", RED, "Ohio"]];
+  ends.forEach(([k, col]) => {
+    el("polyline", { points: weeks.map((w, i) => `${xc(i)},${y1(w[k])}`).join(" "), fill: "none",
+      stroke: col, "stroke-width": 2, "stroke-linejoin": "round", "stroke-linecap": "round" }, s1);
+    weeks.forEach((w, i) => el("circle", { cx: xc(i), cy: y1(w[k]), r: 4, fill: col, stroke: "#fff", "stroke-width": 2 }, s1));
+  });
+  // End labels, nudged apart if the two lines finish close together
+  let yo = y1(weeks[n - 1].ohio) + 4, yn = y1(weeks[n - 1].neighbors) + 4;
+  if (Math.abs(yo - yn) < 14) { const m = (yo + yn) / 2, s = yo <= yn ? -1 : 1; yo = m + 7 * s; yn = m - 7 * s; }
+  txt(s1, { x: xc(n - 1) + 10, y: yo, class: "endlabel" }, "Ohio");
+  txt(s1, { x: xc(n - 1) + 10, y: yn, class: "endlabel" }, "Neighbors");
+  weeks.forEach((w, i) => { if (showTick(i))
+    txt(s1, { x: xc(i), y: H1 - 6, "text-anchor": "middle", class: "axlabel" }, w.label); });
+
+  // Panel 2: weekly gap vs. before the holiday
+  const H2 = narrow ? 220 : 240, T2 = 14, B2 = 24;
+  const gv = weeks.map(w => w.gap_rel).concat([-tax]);
+  // Axis limits on the 20-cent grid so the zero line is always a tick
+  const glo = Math.min(-0.6, Math.floor(Math.min(...gv) / 0.2 - 1e-9) * 0.2), ghi = Math.max(0.2, Math.ceil(Math.max(...gv) / 0.2 + 1e-9) * 0.2);
+  const y2 = v => T2 + (ghi - v) / (ghi - glo) * (H2 - T2 - B2);
+  const s2 = document.createElementNS(svgNS, "svg"); s2.setAttribute("viewBox", `0 0 ${W} ${H2}`);
+  s2.setAttribute("aria-hidden", "true");
+  const hl2 = weeks.map((w, i) => el("rect", { x: L + step * i, y: T2, width: step, height: H2 - T2 - B2, class: "hl", opacity: 0 }, s2));
+  for (let k = Math.round(glo / 0.2); k <= Math.round(ghi / 0.2); k++) {
+    const v = k * 0.2, z = k === 0;
+    el("line", { x1: L, x2: W - R, y1: y2(v), y2: y2(v), class: z ? "zero" : "grid" }, s2);
+    txt(s2, { x: L - 8, y: y2(v) + 4, "text-anchor": "end", class: "axlabel" }, z ? "0¢" : (v < 0 ? "−" : "+") + Math.abs(Math.round(v * 100)) + "¢");
+  }
+  el("line", { x1: L + step * h0, x2: W - R, y1: y2(-tax), y2: y2(-tax), stroke: RED, "stroke-dasharray": "5 4", "stroke-width": 1.5 }, s2);
+  txt(s2, { x: W - R + 8, y: y2(-tax) - 2, class: "reflabel" }, "Full tax cut");
+  txt(s2, { x: W - R + 8, y: y2(-tax) + 12, class: "reflabel" }, `(−${taxC(tax)})`);
+  const bw = Math.min(step * 0.6, 30);
+  weeks.forEach((w, i) => {
+    const yv = y2(w.gap_rel), yz = y2(0), y = Math.min(yz, yv), h = Math.max(Math.abs(yv - yz), 1);
+    // 4px rounded data end, square at the zero baseline
+    const r = Math.min(4, h / 2), x0 = xc(i) - bw / 2, x1 = x0 + bw;
+    const d = w.gap_rel < 0
+      ? `M${x0},${yz} V${yv - r} Q${x0},${yv} ${x0 + r},${yv} H${x1 - r} Q${x1},${yv} ${x1},${yv - r} V${yz} Z`
+      : `M${x0},${yz} V${yv + r} Q${x0},${yv} ${x0 + r},${yv} H${x1 - r} Q${x1},${yv} ${x1},${yv + r} V${yz} Z`;
+    el("path", { d, fill: w.holiday ? RED : PRE, opacity: w.partial ? 0.55 : 1 }, s2);
+    if (w.holiday && step >= 30) {     // value labels only where they fit; the tooltip and table always have them
+      // Label just past the bar's end; if that lands on the dashed full-tax line, move it beyond the line.
+      const yTax = y2(-tax);
+      let ly = w.gap_rel < 0 ? y + h + 13 : y - 5;
+      if (Math.abs(ly - 4 - yTax) < 9) ly = Math.max(ly, yTax + 15);
+      txt(s2, { x: xc(i), y: ly, "text-anchor": "middle", class: "barlabel" }, signedCents(w.gap_rel));
+    }
+  });
+  weeks.forEach((w, i) => { if (showTick(i))
+    txt(s2, { x: xc(i), y: H2 - 6, "text-anchor": "middle", class: "axlabel" }, w.label); });
+
+  // Hover / keyboard columns spanning both panels
+  [[s1, H1, T1, B1], [s2, H2, T2, B2]].forEach(([s, H, T, B], p) => weeks.forEach((w, i) => {
+    const hit = el("rect", { x: L + step * i, y: T, width: step, height: H - T - B, class: "hit" }, s);
+    if (p === 1) {   // keyboard: one stop per week, on the gap panel
+      hit.setAttribute("tabindex", "0"); hit.setAttribute("role", "img");
+      hit.setAttribute("aria-label", `${w.range}: Ohio ${usd(w.ohio)}, neighbors ${usd(w.neighbors)}, ${signedCents(w.gap_rel)} compared with before the holiday` +
+        (w.holiday ? `, ${pct(w.share_of_tax)} of the tax cut at the pump` : ""));
+      hit.addEventListener("focus", () => { on(); const b = hit.getBoundingClientRect(); placeTip(b.right, b.top); });
+      hit.addEventListener("blur", hideTip);
+    }
+    const on = () => { hideTip(); hl1[i].setAttribute("opacity", 1); hl2[i].setAttribute("opacity", 1);
+      tip.innerHTML = tipHTML(w, fuel); tip.style.opacity = 1; };
+    hit.addEventListener("mousemove", e => { on(); placeTip(e.clientX, e.clientY); });
+    hit.addEventListener("mouseleave", hideTip);
+    hit.addEventListener("click", e => { on(); placeTip(e.clientX, e.clientY); });
+  }));
+
+  document.getElementById("levels").replaceChildren(s1);
+  document.getElementById("gaps").replaceChildren(s2);
+  document.getElementById("gap-sub").textContent =
+    `Ohio's ${FUEL[fuel].name} price minus the neighbor average, compared with the month before the holiday (Sept. 4 to Oct. 3). ` +
+    `If the full ${taxC(tax)} tax cut reached the pump, the red bars would reach the dashed line. Hover or tap a week for details.`;
+  document.getElementById("lg-tax").textContent = `Full tax cut (${taxC(tax)})`;
+
+  // Table view: same numbers as the chart
+  const tb = document.getElementById("table");
+  tb.querySelector("thead").innerHTML = `<tr><th>Week</th><th class="n">Ohio</th><th class="n">Neighbor average</th>` +
+    `<th class="n">Ohio vs. neighbors, vs. before the holiday</th><th class="n">Share of the tax cut at the pump</th></tr>`;
+  tb.querySelector("tbody").innerHTML = weeks.slice().reverse().map(w =>
+    `<tr class="${w.holiday ? "" : "pre"}"><td>${w.range}${w.partial ? ` (${w.n_days} days so far)` : ""}</td>` +
+    `<td class="n">${usd(w.ohio)}</td><td class="n">${usd(w.neighbors)}</td>` +
+    `<td class="n">${signedCents(w.gap_rel)}</td><td class="n">${w.holiday ? pct(w.share_of_tax) : "&mdash;"}</td></tr>`).join("");
+  document.querySelector("#table").setAttribute("aria-label", `Weekly ${FUEL[fuel].name} prices, Ohio and neighbor average`);
+
+  const last = weeks[n - 1];
+  document.getElementById("sr").textContent =
+    `Showing ${FUEL[fuel].name}. Latest week, ${last.range}: Ohio ${usd(last.ohio)}, neighbors ${usd(last.neighbors)}, ` +
+    `${signedCents(last.gap_rel)} compared with before the holiday.`;
+  hideTip();
+  requestAnimationFrame(fitFrame);
+}
+
+const btns = document.querySelectorAll(".switch button");
+btns.forEach(b => b.addEventListener("click", () => select(b.dataset.fuel)));
+let current = "regular";
+function select(fuel) {
+  current = fuel;
+  btns.forEach(x => x.setAttribute("aria-pressed", x.dataset.fuel === fuel ? "true" : "false"));
+  draw(fuel);
+}
+select(location.hash === "#diesel" ? "diesel" : "regular");
+window.addEventListener("hashchange", () => select(location.hash === "#diesel" ? "diesel" : "regular"));
+
+document.getElementById("note").textContent =
+  "Prices are AAA daily state averages, averaged by week (Sunday to Saturday). A lighter bar is the current week, still in progress.";
+
+// Redraw when the width changes (phones rotating, the page's column resizing); refit height otherwise.
+let lastW = 0;
+new ResizeObserver(() => {
+  const w = Math.round(document.getElementById("levels").clientWidth);
+  if (Math.abs(w - lastW) > 4) { lastW = w; draw(current); } else fitFrame();
+}).observe(document.getElementById("wrap"));
+document.querySelector("details").addEventListener("toggle", fitFrame);
+window.addEventListener("load", fitFrame);
+// Touch: a tap outside a week, or Escape, closes the tooltip
+document.addEventListener("pointerdown", e => { if (!e.target.closest || !e.target.closest(".hit")) hideTip(); });
+document.addEventListener("keydown", e => { if (e.key === "Escape") hideTip(); });
+</script>
+</body>
+</html>
