@@ -7,10 +7,10 @@
 
 <!-- Embed for the Swank site page data-insights/45z-ohio-corn.md (block "plant-premium-map").
      One chart: Ohio counties shaded by two tests (nearby plants short of documented corn for a
-     full step if half of growers document; more than one company buying), with a legend and the
+     full step if half of the qualifying corn is documented; more than one company buying), with a legend and the
      county table in a disclosure. Reads tier, n_buyers, S_full and plants from the county data
      file (06_supply_need.R via 07_web_data.R). The county map had the same view until 2026-11-16;
-     it now lives only here, after 4b has shown the need and supply it rests on. The page
+     it now lives only here, after 4c has shown the need and supply it rests on. The page
      supplies the heading, description and sources. Data: ./data/45z_values_data.js
      (code/07_web_data.R). Same-origin only: sizes its own iframe. -->
 
@@ -75,9 +75,9 @@
       <p class="count" id="count"></p>
     </div>
   </div>
-  <p class="note">Two tests, from the same arithmetic as the bars above: the plants whose 50-mile circles cover the county would fall short of a full step from the documented corn around them if half of qualifying growers document (corn no-till at three quarters of the Census rate, cover crops as in the central case), and more than one company buys corn there. Plants owned by the same company count as one buyer; Indiana and Michigan plants within 100 miles of Ohio are included. Hatched counties are mostly more than 50 miles from any plant; under USDA's rules for tracking documented grain their documented corn counts only if it reaches a plant through buyers that keep records. Hover or tap a county for its buyers and coverage; the table lists every county.</p>
+  <p class="note">Two tests, from the same arithmetic as the bars above: the plants whose 50-mile circles cover the county would fall short of a full step from the documented corn around them if half of the qualifying corn is documented (corn no-till at half the Census rate, cover crops as in the central case, and no plant using more documented corn than it buys), and more than one company buys corn there. This assumes each plant needs a full 5-point step; a plant halfway to its next line needs half as much, and then only the counties around Greenville and Marion stay darkest. Plants owned by the same company count as one buyer, and two companies counted in a county may not both be within reach of every farm in it; Indiana and Michigan plants within 100 miles of Ohio are included. Hatched counties are mostly more than 50 miles from any plant; under USDA's rules for tracking documented grain their documented corn counts only if it reaches a plant through buyers that keep records. Hover or tap a county for its buyers and coverage; the table lists every county.</p>
   <details id="tbl"><summary>Show counties as a table</summary>
-    <div class="tablewrap"><table id="maptable"><thead><tr><th>County</th><th>Result</th><th class="n">Buying companies within 50 mi</th><th>Plants within 50 mi</th><th class="n">Nearby documented corn as % of a full step (half of growers documenting)</th></tr></thead><tbody></tbody></table></div>
+    <div class="tablewrap"><table id="maptable"><thead><tr><th>County</th><th>Result</th><th class="n">Buying companies within 50 mi</th><th>Plants within 50 mi</th><th class="n">Nearby documented corn as % of a full step (half of it documented)</th></tr></thead><tbody></tbody></table></div>
   </details>
 </div>
 <noscript><p style="padding:16px">The map needs JavaScript.</p></noscript>
@@ -117,7 +117,7 @@
   function showTip(ev, c, keyboard) {
     const t = tierIdx(c);
     tip.innerHTML = `<strong>${esc(c.name)} County</strong><b>${SHORT[t]}</b><br><span class="muted">${c.n_buyers} buying ${c.n_buyers === 1 ? "company" : "companies"} within 50 miles` +
-      (c.S_full != null && t < 3 ? `; nearby documented corn would cover about ${Math.round(c.S_full * 100)}% of a full step for those plants if half of qualifying growers document` : "") +
+      (c.S_full != null && t < 3 ? `; nearby documented corn would cover about ${Math.round(c.S_full * 100)}% of a full step for those plants if half of the qualifying corn is documented` : "") +
       (c.plants && c.plants.length ? `.<br>Plants: ${c.plants.map(esc).join(", ")}` : "") + `</span>`;
     const wrap = box.getBoundingClientRect();
     let x, y;

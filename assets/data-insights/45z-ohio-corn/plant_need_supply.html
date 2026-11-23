@@ -6,10 +6,11 @@
 <title>Documented corn each ethanol plant would need for one 45Z step, and how much grows nearby</title>
 
 <!-- Embed for the Swank site page data-insights/45z-ohio-corn.md (block "plant-need-supply").
-     One chart: for each Ohio plant and the three Indiana plants near the border, the documented
-     no-till corn one full 5-point step would take (orange) against the qualifying corn within
-     50 miles the plant could call its own, counted in no-till-bushel equivalents (blue), with two
-     assumption toggles (corn no-till share; cover crops on no-till corn), the table, and the
+     One chart: for each Ohio plant and the three Indiana plants near the border, the qualifying
+     corn within 50 miles that falls to the plant after sharing with overlapping plants, measured
+     by the carbon it cuts as a share of one full 5-point step (dark: half of it documented; light:
+     all), against reference lines at half a step and a full step. Bushels a step takes are in each
+     row's label. Two assumption toggles (corn no-till share; cover crops on no-till corn), the table, and the
      value-by-practice table in disclosures. The page supplies the heading, description and
      sources. Data: ./data/45z_plants_data.js (code/09_plant_page_data.R). Same-origin only:
      sizes its own iframe. -->
@@ -40,29 +41,38 @@
   .legend i.half { background: linear-gradient(90deg, #2c7fb8 0 50%, #A9CBE6 50% 100%); }
 
   .rows { display: grid; gap: 10px; overflow-x: clip; }   /* a label can never widen the frame */
-  .row { display: grid; grid-template-columns: 190px 1fr; gap: 12px; align-items: center; }
+  .row { display: grid; grid-template-columns: 190px 1fr 150px; gap: 12px; align-items: center; }
+  .vcol { font-size: 12.5px; line-height: 1.3; color: #33302B; }   /* value labels in their own column: nothing crosses the reference lines */
+  .vcol b { font-weight: 600; font-size: 13.5px; }
+  .vcol .half-l { display: block; color: #6C6A64; }
   .row .lab { font-size: 13px; color: #33302B; line-height: 1.3; }
   .row .lab b { font-family: 'Source Serif 4', serif; font-size: 15.5px; font-weight: 600; display: block; }
   .row .lab .m { color: #6C6A64; font-size: 12px; }
   .grp { font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; letter-spacing: 0.08em; text-transform: uppercase; color: #75726B; border-top: 1px solid #E5E2DC; padding-top: 8px; margin-top: 2px; }
-  .axis { display: grid; grid-template-columns: 190px 1fr; gap: 12px; font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; color: #75726B; }
+  .axis { display: grid; grid-template-columns: 190px 1fr 150px; gap: 12px; font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; color: #75726B; }
   .axis .ticks { position: relative; min-height: 34px; }
   .axis .ticks span { position: absolute; transform: translateX(-50%); white-space: nowrap; }
-  .axis .ticks .ax-title { display: block; position: static; transform: none; padding-top: 16px; white-space: normal; text-align: center; }   /* wraps instead of overflowing the frame */
+  .axis .ticks .ax-title { display: block; position: static; transform: none; padding-top: 44px; white-space: normal; text-align: center; }   /* wraps instead of overflowing the frame */
 
   .bars2 { display: grid; gap: 0; }
-  .track { position: relative; height: 24px; }
-  .fill { position: absolute; left: 0; top: 5px; height: 14px; border-radius: 0 4px 4px 0; transition: width 0.25s; }
+  .track { position: relative; height: 28px; }
+  .fill { position: absolute; left: 0; top: 6px; height: 16px; border-radius: 0 4px 4px 0; transition: width 0.25s; }
   .fill.need { background: #c9531f; }
   .fill.sup { background: #A9CBE6; }
   .fill.sup2 { background: #2c7fb8; }
   .track:hover .fill, .track:focus-visible .fill { filter: brightness(1.08); }
   .track:focus-visible { outline-offset: -2px; }   /* .rows clips horizontally, so keep the ring inside */
-  .val { position: absolute; top: 4px; left: calc(var(--x) + 1%); font-size: 12px; color: #33302B; white-space: nowrap; font-weight: 500; }
+  .val { position: absolute; top: 6px; left: calc(var(--x) + 1%); font-size: 12px; color: #33302B; white-space: nowrap; font-weight: 500; }
   .val.in { left: auto; right: calc(100% - var(--x) + 5px); }   /* placeLabels(): no room after the bar, so the label sits inside its light part */
   .val .half-l { color: #6C6A64; font-weight: 400; }
   .val .half-l.hide { display: none; }
   .gridline { position: absolute; top: 0; bottom: 0; width: 1px; background: #EFECE6; }
+  .refline { position: absolute; top: -3px; bottom: -3px; width: 0; z-index: 2; pointer-events: none; }
+  .refline.half { border-left: 1.5px dashed #8A877F; }
+  .refline.full { border-left: 2px solid #33302B; }
+  .legend i.ref-h { width: 0; height: 12px; border-radius: 0; border-left: 1.5px dashed #8A877F; }
+  .legend i.ref-f { width: 0; height: 12px; border-radius: 0; border-left: 2px solid #33302B; }
+  .axis .ticks .reflab { top: 15px; font-family: 'Public Sans', sans-serif; font-size: 10.5px; color: #56534D; line-height: 1.2; text-align: center; }
 
   .takeaway { background: #F7F4EE; border-radius: 8px; padding: 9px 11px; font-size: 13px; line-height: 1.5; color: #33302B; margin: 12px 0 0; }
   .tooltip { position: fixed; pointer-events: none; background: #fff; border: 1px solid #D8D3CA; box-shadow: 0 2px 10px rgba(0,0,0,0.10); border-radius: 8px; padding: 8px 11px; font-size: 12.5px; max-width: 320px; opacity: 0; transition: opacity 0.08s; z-index: 5; }
@@ -94,7 +104,8 @@
 
   @media (max-width: 700px) {
     #wrap { padding: 16px 14px 14px; }
-    .row, .axis { grid-template-columns: 1fr; gap: 4px; }
+    .row, .axis { grid-template-columns: 1fr 104px; gap: 4px 10px; }
+    .row .lab { grid-column: 1 / -1; }
     .axis > div:first-child { display: none; }
     .val .half-l { display: none; }
   }
@@ -103,19 +114,20 @@
 <body>
 <div id="wrap">
   <div class="legend" aria-hidden="true">
-    <span><i style="background:#c9531f"></i>Documented no-till corn needed for one full step</span>
-    <span><i class="half"></i>Qualifying corn nearby, this plant's share, in no-till-bushel equivalents (a no-till bushel with a cover crop counts 1.6; darker part: if only half of growers document)</span>
+    <span><i class="half"></i>Qualifying corn nearby, this plant's share, as a share of what a full step takes (darker: if half of it is documented; whole bar: if all of it is)</span>
+    <span><i class="ref-h"></i>Enough if the plant is halfway to its next line</span>
+    <span><i class="ref-f"></i>Enough for a full 5-point step</span>
   </div>
   <div class="rows" id="bars"></div>
-  <div class="axis" aria-hidden="true"><div></div><div class="ticks" id="buaxis"></div></div>
+  <div class="axis" aria-hidden="true"><div></div><div class="ticks" id="buaxis"></div><div></div></div>
   <p class="takeaway" id="bartake"></p>
-  <p class="note">Need is in documented no-till bushels at 0.95 lb of nitrogen per bushel harvested (about 180 lb on a 190-bushel crop), at the carbon cut of the no-till corn in each plant's area. Supply is the no-till and cover-crop corn within 50 miles from the 2022 Census, shared among overlapping plants, assuming every qualifying grower documents and the corn reaches the plant, counted by the carbon it cuts (a no-till bushel is 1, with a cover crop about 1.6, a cover crop alone about 0.7). The blue label shows how many steps that corn could cover. Tap, hover or tab to a bar for the figures.</p>
+  <p class="note">Each bar is the no-till and cover-crop corn within 50 miles (2022 Census) that falls to this plant after sharing with overlapping plants, measured by the carbon it cuts against what one full 5-point step takes. A no-till bushel with a cover crop cuts about 1.6 times as much as a no-till bushel, a cover crop alone about 0.7 times. It assumes the corn reaches the plant ahead of feed and export buyers, and that no plant uses more documented corn than it buys in a year: where nearby documented corn would exceed that, the whole bar stops at the plant's intake, so the dark part can be more than half of it. Bushels a step takes are at 0.95 lb of nitrogen per bushel harvested (about 180 lb on a 190-bushel crop). Tap, hover or tab to a bar for the figures.</p>
 
   <details class="d"><summary>What if fewer fields are no-tilled, or more no-till growers added a cover crop? <span class="muted" id="legr"></span></summary>
-    <p class="sub" style="margin-top:8px">A no-till bushel with a cover crop counts for about 1.6 no-till bushels. Adding a cover crop is the one thing a grower can do that moves these bars. Both switches move only the blue supply bars.</p>
+    <p class="sub" style="margin-top:8px">A no-till bushel with a cover crop cuts about 1.6 times as much carbon as a no-till bushel alone. The second switch shows one practice change, adding a cover crop to no-till corn. Both switches move only the blue bars; the reference lines stay put.</p>
     <div class="ctl">
       <div class="field"><span class="lbl" id="lr">How much corn is no-tilled</span>
-        <div class="switch" role="group" aria-labelledby="lr" id="rsw"><button data-r="r0.5" aria-pressed="false">Half the all-crop rate</button><button data-r="r0.75" aria-pressed="true">Three quarters (used on this page)</button></div></div>
+        <div class="switch" role="group" aria-labelledby="lr" id="rsw"><button data-r="r0.5" aria-pressed="true">Half the all-crop rate (used on this page)</button><button data-r="r0.75" aria-pressed="false">Three quarters</button></div></div>
       <div class="field"><span class="lbl" id="lc">If cover crops were added to more no-till corn</span>
         <div class="switch" role="group" aria-labelledby="lc" id="csw"><button data-c="census" aria-pressed="true">As today (about 1 in 12 fields)</button><button data-c="q25" aria-pressed="false">1 in 4</button><button data-c="q50" aria-pressed="false">1 in 2</button></div></div>
     </div>
@@ -124,7 +136,7 @@
 
   <details class="d"><summary>Show as a table</summary>
     <div class="tablewrap"><table id="bartable" class="cards">
-      <thead><tr><th>Plant</th><th class="n">Corn used (M bu/yr)</th><th class="n">One step is worth to the plant ($/yr)</th><th class="n">Documented no-till corn for a step (M bu)</th><th class="n">Nearby corn, no-till basis (M bu)</th><th class="n">Steps nearby corn could cover (all growers document)</th><th class="n">Same, if half document</th><th class="wide">Other companies' plants within 100 mi (their 50-mile circles overlap this plant's)</th></tr></thead>
+      <thead><tr><th>Plant</th><th class="n">Corn used (M bu/yr)</th><th class="n">One step is worth to the plant ($/yr)</th><th class="n">Documented no-till corn for a full step (M bu)</th><th class="n">Share of the corn it uses</th><th class="n">Nearby corn, % of a full step (all of it documented)</th><th class="n">Same, if half is documented</th><th class="wide">Other companies' plants within 100 mi (their 50-mile circles overlap this plant's)</th></tr></thead>
       <tbody></tbody>
     </table></div>
   </details>
@@ -156,7 +168,7 @@
   const RLAB = { "r0.5": "half", "r0.75": "three quarters" };
   const CLAB = { census: "about 1 in 12", q25: "1 in 4", q50: "1 in 2" };
   const STATE = { OH: "Ohio", IN: "Indiana", MI: "Michigan" };
-  const state = { r: "r0.75", c: "census", u: "bu" };
+  const state = { r: "r0.5", c: "census", u: "bu" };
   function fitFrame() {
     // Measure the content, not the viewport: documentElement.scrollHeight is never less than the
     // iframe's own height, so it would let the frame grow but never shrink (closing a details block).
@@ -180,48 +192,50 @@
   const plants = P.plants;
   const firstIN = plants.findIndex(p => p.state !== "OH");
   const ccKeys = Object.keys(P.cc_on_nt_options || { census: 1 });
-  const supOf = (p, r, c) => (p.supply[r].cc && p.supply[r].cc[c]) || { nteq_bu: p.supply[r].alloc_qual_bu, S_all: p.supply[r].S_full_all, S_half: p.supply[r].S_full_half, both_bu: 0 };
+  const supOf = (p, r, c) => p.supply[r].cc[c];   // no fallback: raw qualifying bushels are not no-till equivalents
 
-  // One axis for every toggle option, so switching moves only the supply bars
-  const MAXV = Math.max(...plants.flatMap(p => [p.need.bu_nt, ...P.r_corn_options.flatMap(r => ccKeys.map(c => supOf(p, "r" + r, c).nteq_bu))])) * 1.2;   // headroom for the "1.3× a step" label; placeLabels() handles the rest
+  // One axis for every toggle option, in shares of one full 5-point step, so switching moves only the bars
+  // rounded up to the next 50% tick, so the longest bar always ends under a labeled tick (labels sit in their own column)
+  const MAXS = Math.ceil(Math.max(1.2, ...plants.flatMap(p => P.r_corn_options.flatMap(r => ccKeys.map(c => supOf(p, "r" + r, c).S_all)))) * 1.02 * 2) / 2;
+  const pctS = (v) => Math.round(v * 100) + "%";
+  const list = (a) => a.length <= 2 ? a.join(" and ") : a.slice(0, -1).join(", ") + " and " + a[a.length - 1];
 
   function renderBars() {
     const r = state.r, c = state.c;
     $("legr").textContent = `Now: ${RLAB[r]} of the all-crop no-till rate; cover crops on ${CLAB[c]} of no-till corn.`;
-    const x = (v) => v / MAXV * 100;
-    const grid = [10, 20, 30, 40, 50, 60, 70, 80].filter(g => g * 1e6 < MAXV);
-    const lab = (v, text) => `<span class="val" style="--x:${x(v)}%">${text || fmtM(v)}</span>`;
-    const supLab = (k) => `${k.S_all.toFixed(1)}× a step <span class="half-l">(${k.S_half.toFixed(1)}× if half document)</span>`;
+    const x = (v) => v / MAXS * 100;
+    const grid = [0.5, 1, 1.5, 2, 2.5, 3, 3.5].filter(g => g <= MAXS + 1e-9);
+    const lab = (v, text) => `<span class="val" style="--x:${x(v)}%">${text}</span>`;
+    const supLab = (k) => `${pctS(k.S_all)} of a step <span class="half-l">(${pctS(k.S_half)} if half is documented)</span>`;
+    const refs = `<div class="refline half" style="left:${x(0.5)}%"></div><div class="refline full" style="left:${x(1)}%"></div>`;
     $("bars").innerHTML = plants.map((p, i) => {
-      const s = p.supply[r], n = p.need, k = supOf(p, r, c);
-      const gl = grid.map(g => `<div class="gridline" style="left:${x(g * 1e6)}%"></div>`).join("");
+      const n = p.need, k = supOf(p, r, c);
+      const gl = grid.filter(g => g !== 0.5 && g !== 1).map(g => `<div class="gridline" style="left:${x(g)}%"></div>`).join("");
       const head = i === firstIN ? `<div class="grp">Indiana plants close enough to buy Ohio corn</div>` : "";
-      return head + `<div class="row"><div class="lab"><b>${esc(p.name)}</b>${esc(p.company)} · ${p.capacity_mgy} million gal<br><span class="m">one step ≈ ${fmtUSD(p.step_value_usd)} a year to the plant</span></div>` +
-        `<div class="bars2">` +
-        `<div class="track" tabindex="0" role="img" data-k="n-${esc(p.name)}" aria-label="${esc(p.name)}: needs ${fmtM(n.bu_nt)} bushels of documented no-till corn for a full step, half that if it is halfway to its next line.">${gl}<div class="fill need" style="width:${x(n.bu_nt)}%"></div>${lab(n.bu_nt)}</div>` +
-        `<div class="track" tabindex="0" role="img" data-k="s-${esc(p.name)}" aria-label="${esc(p.name)}: qualifying corn within 50 miles after sharing with other plants is worth ${fmtM(k.nteq_bu)} no-till bushels, ${k.S_all.toFixed(2)} times a full step if every grower documents and ${k.S_half.toFixed(2)} times if half do.">${gl}<div class="fill sup" style="width:${x(k.nteq_bu)}%"></div><div class="fill sup2" style="width:${x(k.nteq_bu / 2)}%"></div>${lab(k.nteq_bu, supLab(k))}</div>` +
-        `</div></div>`;
+      return head + `<div class="row"><div class="lab"><b>${esc(p.name)}</b>${esc(p.company)} · ${p.capacity_mgy} million gal<br><span class="m">a full step: ${fmtM(n.bu_nt)} bu of documented no-till (${n.pct_intake_nt}% of its corn), worth ${fmtUSD(p.step_value_usd)} a year</span></div>` +
+        `<div class="track" tabindex="0" role="img" data-k="s-${esc(p.name)}" aria-label="${esc(p.name)}: the qualifying corn within 50 miles that falls to this plant would cover ${pctS(k.S_all)} of a full step if all of it were documented and ${pctS(k.S_half)} if half were. A full step takes ${fmtM(n.bu_nt)} bushels of documented no-till corn, ${n.pct_intake_nt}% of what the plant uses.">${gl}${refs}<div class="fill sup" style="width:${x(k.S_all)}%"></div><div class="fill sup2" style="width:${x(k.S_half)}%"></div></div>` +
+        `<div class="vcol" aria-hidden="true"><b>${pctS(k.S_all)}</b> of a step<span class="half-l">${pctS(k.S_half)} if half is documented</span></div></div>`;
     }).join("");
-    $("buaxis").innerHTML = [0, ...grid].map(g => `<span style="left:${x(g * 1e6)}%">${g ? g + "M" : "0"}</span>`).join("") +
-      `<span class="ax-title" style="left:50%;top:16px;color:#6C6A64">Million bushels a year, in no-till equivalents</span>`;
+    $("buaxis").innerHTML = [0, ...grid].map(g => `<span style="left:${x(g)}%">${pctS(g)}</span>`).join("") +
+      `<span class="reflab" style="left:${x(0.5)}%">halfway to<br>the next line</span><span class="reflab" style="left:${x(1)}%">a full<br>step</span>` +
+      `<span class="ax-title" style="color:#6C6A64">Nearby qualifying corn, as a share of the carbon cut one full 5-point step takes</span>`;
     plants.forEach(p => {
       const s = p.supply[r], n = p.need, k = supOf(p, r, c);
       const ohio = p.state !== "OH" && p.ohio_share != null ? ` About ${pct(p.ohio_share)} of the corn within 50 miles of this plant is in Ohio.` : "";
-      tipOn(document.querySelector(`.track[data-k="${CSS.escape("n-" + p.name)}"]`),
-        `<strong>${esc(p.name)}: what a step takes</strong>Uses about ${fmtM(p.intake_bu)} bu a year at capacity. A full 5-point step needs about <b>${fmtM(n.bu_nt)} bu</b> of documented no-till corn (${n.pct_intake_nt}% of intake), at about ${(n.g_nt / 1000).toFixed(1)} kg cut per bushel in this area; ${fmtM(n.bu_ntcc)} bu if the corn also had a cover crop. A plant halfway to its next line needs half as much.<br><span class="muted">The step is worth ${fmtUSD(p.step_value_usd)} a year to the plant: ${Math.round(n.per_gal * 100)}¢ a gallon, ${Math.round(n.per_intake_bu * 100)}¢ on every bushel it uses, or $${n.per_nt_bu.toFixed(2)} per documented no-till bushel over a full step.</span>`);
       tipOn(document.querySelector(`.track[data-k="${CSS.escape("s-" + p.name)}"]`),
-        `<strong>${esc(p.name)}: qualifying corn nearby</strong>About ${fmtM(s.gross_qual_bu)} bu of the ${fmtM(s.gross_corn_bu)} bu grown within 50 miles come from no-till or cover-crop fields (2022 Census, corn no-till at ${RLAB[r]} the all-crop rate). After sharing with the other plants whose circles overlap this one, this plant's share is <b>${fmtM(s.alloc_qual_bu)} bu</b>: ${fmtM(s.nt_bu)} bu no-till, of which ${fmtM(k.both_bu)} bu also has a cover crop under this assumption, and ${fmtM(s.cc_only_bu)} bu with a cover crop only. By the carbon it cuts, that equals <b>${fmtM(k.nteq_bu)} no-till bushels</b>: ${k.S_all.toFixed(2)}× a full step if every qualifying grower documented, ${k.S_half.toFixed(2)}× if half did.${ohio}`);
+        `<strong>${esc(p.name)}</strong><b>What a full step takes:</b> about ${fmtM(n.bu_nt)} bu of documented no-till corn a year, ${n.pct_intake_nt}% of the ${fmtM(p.intake_bu)} bu it uses at capacity (each such bushel cuts about ${(n.g_nt / 1000).toFixed(1)} kg CO2e in this area); ${fmtM(n.bu_ntcc)} bu if the corn also had a cover crop. Halfway to its next line, half as much. The step is worth ${fmtUSD(p.step_value_usd)} a year to the plant.<br><b>Nearby:</b> about ${fmtM(s.gross_qual_bu)} bu of the ${fmtM(s.gross_corn_bu)} bu grown within 50 miles is no-till or cover-crop corn (2022 Census, corn no-till at ${RLAB[r]} the all-crop rate). After sharing with overlapping plants, this plant's share is ${fmtM(s.nt_bu + s.cc_only_bu)} bu: ${fmtM(s.nt_bu)} bu no-till (${fmtM(k.both_bu)} bu of it also with a cover crop) and ${fmtM(s.cc_only_bu)} bu with a cover crop only. It would cover <b>${pctS(k.S_all)} of a full step</b> if all of it were documented, ${pctS(k.S_half)} if half were.${k.capped ? ` That is more documented corn than the plant buys in a year, so only its intake counts, the bushels with the largest cut first.` : ""}${ohio}`);
     });
     const S = (p) => supOf(p, r, c);
-    const short = plants.filter(p => S(p).S_half < 1).map(p => p.name);
-    const ok = plants.filter(p => S(p).S_all >= 1).length;
-    const notShort = plants.filter(p => !short.includes(p.name)).map(p => p.name);
-    const lift = plants.reduce((a, p) => a + S(p).nteq_bu / supOf(p, r, "census").nteq_bu, 0) / plants.length - 1;
-    $("bartake").innerHTML = `<b>What this shows.</b> With every qualifying grower documenting, nearby corn would cover a full step at ${ok === plants.length ? "every plant" : ok + " of " + plants.length + " plants"}. With half documenting, it would fall short at ${short.length === plants.length ? "every plant" : short.length === 0 ? "none" : short.length >= plants.length - 2 ? "every plant but " + notShort.join(" and ") : short.join(", ")}. ${c !== "census" ? `Adding a cover crop to ${CLAB[c]} of the no-till corn would add about ${Math.round(lift * 100)}% to supply, because those bushels cut about two-thirds more carbon. ` : ""}${ok === plants.length ? "Most of this corn already exists; the limit is how many growers keep the records 45Z requires." : `Even with everyone documenting, ${plants.filter(p => S(p).S_all < 1).map(p => p.name).join(", ")} would need to reach beyond the qualifying corn near them; records decide the rest.`}`;
-    $("bartable").querySelector("tbody").innerHTML = plants.map(p => { const s = p.supply[r], n = p.need, k = supOf(p, r, c);
+    const nP = plants.length;
+    const cnt = (a) => a.length === nP ? "every plant" : a.length === 0 ? "no plant" : `${a.length} of ${nP} plants`;
+    const not = (a, f) => (a.length < nP && a.length >= nP - 4) ? ` (not ${list(plants.filter(f).map(p => p.name))})` : "";
+    const fullAll = plants.filter(p => S(p).S_all >= 1), fullHalf = plants.filter(p => S(p).S_half >= 1), halfHalf = plants.filter(p => S(p).S_half >= 0.5);
+    const lift = plants.reduce((a, p) => a + S(p).nteq_bu / supOf(p, r, "census").nteq_bu, 0) / nP - 1;
+    $("bartake").innerHTML = `<b>What this shows.</b> If all the qualifying corn near them were documented, it would cover a full step at ${cnt(fullAll)}${not(fullAll, p => S(p).S_all < 1)}. If half of it were, it would cover a full step at ${cnt(fullHalf)}${not(fullHalf, p => S(p).S_half < 1)}, and a plant halfway to its next line at ${cnt(halfHalf)}${not(halfHalf, p => S(p).S_half < 0.5)}. ${c !== "census" ? `Adding a cover crop to ${CLAB[c]} of the no-till corn would add about ${Math.round(lift * 100)}% to supply, because those bushels cut about two-thirds more carbon. ` : ""}No plant's real distance to its next line is public, so read the two lines as cases, not a forecast. Feed and export buyers, which take much of Ohio's corn, aren't counted.`;
+    $("bartable").querySelector("tbody").innerHTML = plants.map(p => { const n = p.need, k = supOf(p, r, c);
       const oth = p.competitors.filter(o => !o.same_company);
       const others = oth.length ? `${p.n_other_companies} ${p.n_other_companies === 1 ? "company" : "companies"}; nearest ${oth.slice(0, 2).map(o => `${o.name} (${o.company}, ${o.miles} mi)`).join(", ")}` : "none";
-      return `<tr><td><b>${esc(p.name)}</b>${p.state !== "OH" ? `<br><span class="muted">${STATE[p.state]}</span>` : ""}</td><td class="n">${M(p.intake_bu)}</td><td class="n">${fmtUSD(p.step_value_usd)}</td><td class="n">${M(n.bu_nt)}</td><td class="n">${M(k.nteq_bu)}</td><td class="n">${k.S_all.toFixed(2)}</td><td class="n">${k.S_half.toFixed(2)}</td><td>${esc(others)}</td></tr>`; }).join("");
+      return `<tr><td><b>${esc(p.name)}</b>${p.state !== "OH" ? `<br><span class="muted">${STATE[p.state]}</span>` : ""}</td><td class="n">${M(p.intake_bu)}</td><td class="n">${fmtUSD(p.step_value_usd)}</td><td class="n">${M(n.bu_nt)}</td><td class="n">${n.pct_intake_nt}%</td><td class="n">${pctS(k.S_all)}</td><td class="n">${pctS(k.S_half)}</td><td>${esc(others)}</td></tr>`; }).join("");
     labelCells($("bartable")); placeLabels(); fitFrame();
   }
   // Card layout on narrow frames reads each cell's header from data-l
@@ -231,7 +245,7 @@
   }
   function placeLabels() {
     // A long label past a long bar overflowed the frame (scrollbars, and the bars narrowed). Try the
-    // full label; then without the "(… if half document)" part; then inside the bar's light half.
+    // full label; then without the "(… if half is documented)" part; then inside the bar's light half.
     document.querySelectorAll(".track").forEach(tr => {
       const v = tr.querySelector(".val"); if (!v) return;
       const half = v.querySelector(".half-l");

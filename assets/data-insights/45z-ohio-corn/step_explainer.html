@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>What a 45Z step is, and how much documented corn moves a plant across one</title>
+
+<!-- Embed for the Swank site page data-insights/45z-ohio-corn.md (block "step-explainer").
+     The 45Z credit per gallon as a staircase in the plant's carbon score. The reader picks a plant
+     and a what-if starting score, then slides the share of the plant's corn that is documented
+     no-till; a marker moves down the staircase and the readout gives bushels, points and dollars.
+     A plant's score is an average over all the corn it grinds, so documenting a share s of its
+     intake at g kg CO2e cut per bushel lowers the score by s × g ÷ (2.9 gal/bu × 0.07633 mmBTU/gal)
+     points. Credit = 2026 rate × 0.1 × steps, one step per 5-point line crossed below 47.5
+     (§45Z rounds (50 − score)/50 to the nearest 0.1). Data: ./data/45z_plants_data.js
+     (code/09_plant_page_data.R): need.g_nt, intake_bu, step_value_usd. Same-origin only: sizes
+     its own iframe. -->
+
+<script src="data/45z_plants_data.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&family=Public+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body { font-family: 'Public Sans', system-ui, -apple-system, sans-serif; color: #1A1A19; background: #fff; -webkit-font-smoothing: antialiased; font-size: 14px; line-height: 1.5; }
+  .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
+  #wrap { max-width: 900px; margin: 0 auto; padding: 20px 24px 18px; }
+  .note { font-size: 12.5px; line-height: 1.5; color: #6C6A64; margin: 10px 0 0; }
+  button:focus-visible, select:focus-visible, input:focus-visible { outline: 2px solid #BB0000; outline-offset: 2px; }
+  .ctl { display: grid; grid-template-columns: minmax(160px, 220px) 1fr 1fr; gap: 12px 22px; align-items: end; margin: 0 0 12px; }
+  .field .lbl { display: block; font-size: 12px; font-weight: 600; color: #56534D; margin: 0 0 4px; }
+  .field .val { font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: #BB0000; font-weight: 500; }
+  select { width: 100%; min-height: 36px; border: 1px solid #D8D3CA; border-radius: 7px; padding: 6px 8px; font-family: inherit; font-size: 13px; color: #33302B; background: #fff; }
+  input[type=range] { width: 100%; accent-color: #BB0000; min-height: 28px; }
+  .presets { display: flex; flex-wrap: wrap; gap: 6px; margin: 4px 0 0; }
+  .presets button { border: 1px solid #D8D3CA; background: #fff; border-radius: 7px; padding: 4px 8px; font-family: inherit; font-size: 11.5px; font-weight: 600; color: #56534D; cursor: pointer; }
+  .presets button:hover { background: #F4F1EB; }
+
+  svg { display: block; width: 100%; height: auto; overflow: visible; }
+  .ax { font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; fill: #75726B; }
+  .ax-t { font-family: 'Public Sans', sans-serif; font-size: 11.5px; fill: #6C6A64; }
+  .grid { stroke: #EFECE6; stroke-width: 1; }
+  .line { stroke: #D8D3CA; stroke-width: 1; stroke-dasharray: 3 3; }
+  .stair { fill: none; stroke: #33302B; stroke-width: 2.2; }
+  .stair-fill { fill: #F4F1EB; }
+  .move { fill: #F8DCD2; }
+  .arrow { stroke: #BB0000; stroke-width: 2; fill: none; }
+  .steplab { font-family: 'IBM Plex Mono', monospace; font-size: 10px; fill: #75726B; }
+
+  .readout { background: #F7F4EE; border-radius: 8px; padding: 10px 12px; font-size: 13.5px; line-height: 1.55; color: #33302B; margin: 10px 0 0; }
+  .readout b { color: #1A1A19; }
+  .kpis { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px 14px; margin: 0 0 8px; }
+  .kpi .k { font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: 0.06em; text-transform: uppercase; color: #75726B; }
+  .kpi .v { font-family: 'Source Serif 4', serif; font-size: 19px; font-weight: 600; color: #1A1A19; line-height: 1.2; }
+  .kpi .s { font-size: 12px; color: #6C6A64; }
+
+  @media (max-width: 700px) {
+    #wrap { padding: 16px 14px 14px; }
+    .ctl { grid-template-columns: 1fr; }
+    .kpis { grid-template-columns: 1fr 1fr; }
+  }
+</style>
+</head>
+<body>
+<div id="wrap">
+  <div class="ctl">
+    <div class="field"><label class="lbl" for="plant">Plant</label><select id="plant"></select></div>
+    <div class="field"><label class="lbl" for="start">Its score before documented corn (what-if): <span class="val" id="startv"></span></label>
+      <input type="range" id="start" min="35" max="52" step="0.1" value="47.4">
+      <div class="presets" role="group" aria-label="Starting score presets"><button data-s="47.4">Just earned a step</button><button data-s="45">Halfway through</button><button data-s="43">Near the next line</button><button data-s="49">Not yet earning</button></div></div>
+    <div class="field"><label class="lbl" for="share">Share of its corn that is documented no-till: <span class="val" id="sharev"></span></label>
+      <input type="range" id="share" min="0" max="100" step="1" value="0"></div>
+  </div>
+  <svg id="chart" viewBox="0 0 860 300" role="img" aria-labelledby="charttitle"><title id="charttitle">The 45Z credit per gallon rises in steps as a plant's carbon score falls</title></svg>
+  <div class="readout" id="readout" aria-live="polite"></div>
+  <p class="note">No plant publishes its score, so the starting score is a what-if (section 4b shows what public evidence suggests for each plant). A documented no-till bushel's carbon cut is the average in each plant's area at 0.95 lb of nitrogen per bushel harvested; a cover crop as well cuts about 1.6 times as much, so fewer bushels do the same job. 2026 credit of $1.09 a gallon at full rate; plants at nameplate capacity, 2.9 gallons per bushel.</p>
+</div>
+<noscript><p style="padding:16px">The chart needs JavaScript.</p></noscript>
+
+<script>
+(function () {
+  const P = window.DATA_45Z_PLANTS;
+  const $ = (id) => document.getElementById(id);
+  if (!P) { $("readout").textContent = "The plant data didn't load. Please refresh the page."; return; }
+  const RATE = P.rate_2026, GAL_BU = P.gal_per_bu, MMBTU = 0.07633;
+  const LINES = [47.5, 42.5, 37.5, 32.5, 27.5, 22.5, 17.5, 12.5, 7.5, 2.5];
+  const X0 = 55, X1 = 20;                         // score axis, left to right (lower is better)
+  const plants = P.plants;
+  const esc = (s) => String(s == null ? "" : s).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+  const fmtM = (v) => (v / 1e6).toFixed(1) + "M";
+  const fmtUSD = (v) => "$" + (v / 1e6).toFixed(1) + "M";
+  const steps = (ci) => LINES.filter(l => ci < l - 1e-9).length;      // one step per line crossed
+  const credit = (ci) => RATE * 0.1 * steps(ci);                      // $ per gallon
+  const nextLine = (ci) => LINES.filter(l => l < ci + 1e-9)[0];       // first line at or below the score
+
+  $("plant").innerHTML = plants.map((p, i) => `<option value="${i}">${esc(p.name)} (${esc(p.company)}, ${p.capacity_mgy}M gal)</option>`).join("");
+  const iMarion = plants.findIndex(p => p.name === "Marion");
+  $("plant").value = String(iMarion >= 0 ? iMarion : 0);
+
+  function fitFrame() {
+    try { if (window.frameElement) window.frameElement.style.height = (Math.ceil(document.getElementById("wrap").getBoundingClientRect().height) + 2) + "px"; } catch (e) {}
+  }
+
+  // SVG geometry. The viewBox follows the chart's real width, so text stays its CSS size on phones
+  // (a fixed 860-wide viewBox scaled down to ~4px text at 390px).
+  let W = 860, H = 300;
+  const L = 58, R = 16, T = 22, B = 52;
+  const sx = (ci) => L + (X0 - ci) / (X0 - X1) * (W - L - R);
+  const YMAX = RATE * 0.1 * 7;
+  const sy = (v) => T + (1 - v / YMAX) * (H - T - B);
+  const size = () => { const w = Math.round($("chart").getBoundingClientRect().width) || 860;
+                       W = Math.max(320, Math.min(860, w)); H = W < 560 ? 270 : 300; };
+
+  function stairPath() {
+    let d = `M${sx(X0)},${sy(0)}`;
+    let ci = X0;
+    for (const l of LINES.filter(l => l < X0 && l > X1)) {
+      d += ` H${sx(l)} V${sy(credit(l - 0.01))}`;
+      ci = l;
+    }
+    return d + ` H${sx(X1)}`;
+  }
+
+  function render() {
+    const p = plants[+$("plant").value];
+    const start = +$("start").value, share = +$("share").value / 100;
+    const ptsFull = p.need.g_nt / 1000 / (GAL_BU * MMBTU);          // score points if all its corn were documented no-till
+    const ci = start - share * ptsFull;
+    const n0 = steps(start), n1 = steps(ci);
+    const bu = share * p.intake_bu;
+    const nl = nextLine(start);
+    const toNext = nl != null ? (start - nl) / ptsFull : null;        // share of intake to reach the next line
+    const fullStep = 5 / ptsFull;                                     // share of intake for a whole 5-point step
+    $("startv").textContent = start.toFixed(1);
+    $("sharev").textContent = Math.round(share * 100) + "% (" + fmtM(bu) + " bu a year)";
+
+    // chart
+    size();
+    $("chart").setAttribute("viewBox", `0 0 ${W} ${H}`);
+    const narrow = W < 560;
+    const ticks = narrow ? [50, 40, 30, 20] : [55, 50, 45, 40, 35, 30, 25, 20];
+    const yt = [0, 1, 2, 3, 4, 5, 6, 7];
+    let s = "";
+    s += yt.map(k => `<line class="grid" x1="${L}" x2="${W - R}" y1="${sy(RATE * 0.1 * k)}" y2="${sy(RATE * 0.1 * k)}"/><text class="ax" x="${L - 8}" y="${sy(RATE * 0.1 * k) + 3.5}" text-anchor="end">${k ? "$" + (RATE * 0.1 * k).toFixed(2) : "$0"}</text>`).join("");
+    s += LINES.filter(l => l < X0 && l > X1).map(l => `<line class="line" x1="${sx(l)}" x2="${sx(l)}" y1="${T - 6}" y2="${H - B}"/><text class="steplab" x="${sx(l)}" y="${T - 9}" text-anchor="middle">${l}</text>`).join("");
+    // shaded span the documented corn moves the plant across
+    if (share > 0) s += `<rect class="move" x="${sx(start)}" y="${T}" width="${Math.max(0, sx(ci) - sx(start))}" height="${H - T - B}"/>`;
+    s += `<path class="stair" d="${stairPath()}"/>`;
+    s += ticks.map(t => `<text class="ax" x="${sx(t)}" y="${H - B + 16}" text-anchor="middle">${t}</text>`).join("");
+    s += `<text class="ax-t" x="${(L + W - R) / 2}" y="${H - 10}" text-anchor="middle">${narrow ? "Plant's carbon score — lower is better →" : "Plant's carbon score (kg CO2e per million BTU) — lower is better →"}</text>`;
+    s += `<text class="ax-t" x="12" y="${T + (H - T - B) / 2}" text-anchor="middle" transform="rotate(-90 12 ${T + (H - T - B) / 2})">Credit per gallon</text>`;
+    s += narrow   // on phones the band before 47.5 is narrow: start the label at the chart's left edge
+      ? `<text class="steplab" x="${sx(X0) + 3}" y="${sy(0) - 34}" text-anchor="start">no credit</text>`
+      : `<text class="steplab" x="${sx(51.25)}" y="${sy(0) - 34}" text-anchor="middle">no credit</text>`;   // above the arrow, which runs 14px over the markers
+    // markers: start (hollow) and after documented corn (filled), with an arrow between
+    const y0 = sy(credit(start)), y1 = sy(credit(ci));
+    if (share > 0) s += `<path class="arrow" d="M${sx(start)},${y0 - 14} H${sx(ci) - 6}" marker-end="url(#ah)"/>`;
+    s += `<circle cx="${sx(start)}" cy="${y0}" r="6" fill="#fff" stroke="#33302B" stroke-width="2"/>`;
+    if (share > 0) s += `<circle cx="${sx(ci)}" cy="${y1}" r="6.5" fill="#BB0000" stroke="#fff" stroke-width="1.5"/>`;
+    $("chart").innerHTML = `<title id="charttitle">The 45Z credit per gallon rises in steps as a plant's carbon score falls</title><defs><marker id="ah" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#BB0000"/></marker></defs>` + s;
+
+    // readout
+    const dSteps = n1 - n0;
+    const gain = dSteps * p.step_value_usd;
+    const k = (label, value, sub) => `<div class="kpi"><div class="k">${label}</div><div class="v">${value}</div><div class="s">${sub}</div></div>`;
+    let html = `<div class="kpis">` +
+      k("Score", `${start.toFixed(1)} → ${ci.toFixed(1)}`, share > 0 ? `${(start - ci).toFixed(1)} points lower` : "slide the share to the right") +
+      k("Credit per gallon", `$${credit(ci).toFixed(2)}`, n1 === n0 ? `${n1} step${n1 === 1 ? "" : "s"}, unchanged` : `${n1} step${n1 === 1 ? "" : "s"}, up from ${n0}`) +
+      k("Extra credit a year", gain > 0 ? fmtUSD(gain) : "$0", gain > 0 ? `${dSteps} more step${dSteps === 1 ? "" : "s"} at ${p.capacity_mgy}M gal` : "until it crosses a line") + `</div>`;
+    // what the slider position does, then what the next line and a whole step take
+    let now = "";
+    if (share > 0) {
+      now = `<b>At ${Math.round(share * 100)}% of its corn (${fmtM(bu)} bushels a year), ${esc(p.name)}'s score falls ${(start - ci).toFixed(1)} points, to ${ci.toFixed(1)}.</b> `;
+      if (dSteps > 0) now += `That crosses ${dSteps === 1 ? "one line" : dSteps + " lines"}: ${dSteps} more step${dSteps === 1 ? "" : "s"}, worth ${fmtUSD(gain)} a year. `;
+      else now += `<b>That is not yet across ${nl}, so it earns the plant nothing extra</b>; it would take about ${Math.max(1, Math.round((toNext - share) * 100))} more percent of its corn. `;
+    }
+    const nlTxt = nl != null && toNext != null
+      ? `From ${start.toFixed(1)}, the next line is ${nl}, ${(start - nl).toFixed(1)} points away: reaching it takes ${Math.round(toNext * 100)}% of ${esc(p.name)}'s corn as documented no-till, about ${fmtM(toNext * p.intake_bu)} bushels a year, and is worth ${fmtUSD(p.step_value_usd)} a year.`
+      : "";
+    html += `${now}${nlTxt} A whole step, from just below one line to just below the next (5 points), takes about ${Math.round(fullStep * 100)}% of its corn, ${fmtM(fullStep * p.intake_bu)} bushels. Every documented no-till bushel lowers the score the same small amount; nothing is paid until the score crosses a line.`;
+    $("readout").innerHTML = html;
+    fitFrame();
+  }
+
+  $("plant").addEventListener("change", render);
+  $("start").addEventListener("input", render);
+  $("share").addEventListener("input", render);
+  document.querySelectorAll(".presets button").forEach(b => b.addEventListener("click", () => { $("start").value = b.dataset.s; render(); }));
+  // Redraw when the chart's width changes (phones, window resizes); otherwise only fit the frame
+  let lastW = 0;
+  const onResize = () => { const w = Math.round($("chart").getBoundingClientRect().width);
+                           if (w && w !== lastW) { lastW = w; render(); } else fitFrame(); };
+  window.addEventListener("resize", onResize);
+  window.addEventListener("load", onResize);
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(fitFrame);
+  if (window.ResizeObserver) new ResizeObserver(onResize).observe($("wrap"));
+  render();
+})();
+</script>
+</body>
+</html>

@@ -6,7 +6,7 @@
 <title>What Low-Carbon Corn Is Worth to Ohio Ethanol Plants, by County</title>
 
 <!-- County map of the 45Z credit value of a documented low-carbon bushel. (Its
-     "Will plants compete?" view moved to plant_premium_map.html, section 4c, on
+     "Will plants compete?" view moved to plant_premium_map.html, section 4d, on
      2026-11-16, so the first map does one job.) Embedded in
      data-insights/45z-ohio-corn.md; also works on its own. Self-contained except
      Google Fonts and the baked data in ./data/45z_values_data.js (built by
@@ -199,7 +199,7 @@
     bu: { breaks: [0.4, 0.6, 0.8, 1.0], labels: ["Under $0.40", "$0.40–0.60", "$0.60–0.80", "$0.80–1.00", "$1.00+"] },
     ac: { breaks: [50, 100, 150, 200],  labels: ["Under $50", "$50–100", "$100–150", "$150–200", "$200+"] }
   };
-  // The data file also carries each county's compete tier (tier, n_buyers, S_full); plant_premium_map.html (4c) reads those.
+  // The data file also carries each county's compete tier (tier, n_buyers, S_full); plant_premium_map.html (4d) reads those.
   const PRACTICE_LABEL = { "Records only": "Conventional, documented" };
   const plabel = (p) => PRACTICE_LABEL[p] || p;
   const N_LABEL = { "150 lb/ac": "150 lb N per acre", "180 lb/ac": "180 lb N per acre", "210 lb/ac": "210 lb N per acre",
@@ -345,8 +345,8 @@
       ? `<ul>${c.plants.map(n => { const p = D.plants.find(q => q.name === n);
           return `<li>${n} (${p.company}, ${p.capacity_mgy} million gal/yr)</li>`; }).join("")}</ul>`
       : `<p class="note">No ethanol plant within 50 miles. Documented corn has to reach a plant to count.</p>`;
-    // Whether these plants may compete for documented corn is section 4c's question (plant_premium_map.html)
-    const compete = c.plants.length ? `<p class="note">Whether these plants may compete for documented corn is in section 4c.</p>` : "";
+    // Whether these plants may compete for documented corn is section 4d's question (plant_premium_map.html)
+    const compete = c.plants.length ? `<p class="note">Whether these plants may compete for documented corn is in section 4d.</p>` : "";
     const takeaway = nt >= 0.15
       ? `<b>${c.name} County:</b> documented no-till could be worth about <b>${fmt$(nt)}/bu (${fmtAc(perAc(c, "No-till"))}/acre)</b> to a nearby plant. You'd get a share of that, minus paperwork costs, if a plant offers to pay for it.`
       : `<b>${c.name} County:</b> at ${N_LABEL[state.n]}, documented no-till corn here scores near the default for undocumented corn (worth ${nt ? "about " + fmt$(nt) + "/bu" : "nothing"} to a plant). Fewer pounds of nitrogen per bushel harvested would raise that; try the nitrogen menu.`;
