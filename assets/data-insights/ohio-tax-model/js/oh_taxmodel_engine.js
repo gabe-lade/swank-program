@@ -56,6 +56,7 @@
       v += cov[packedIndex(j, j)] * b[j] * b[j];
       for (i = 0; i < j; i++) v += 2 * cov[packedIndex(i, j)] * b[i] * b[j];
     }
+    if (!isFinite(v)) return NaN;   // an infeasible solve puts NaN in b: keep it NaN so the cell is hidden, never a clean zero
     return v > 0 ? v : 0;
   }
 
@@ -286,6 +287,7 @@
 
   function cellMode(mean, se, samp, rule) {
     if (samp < rule.min_sampled) return "hidden";
+    if (!isFinite(mean) || !isFinite(se)) return "hidden";   // infeasible solve: print nothing rather than $NaN
     if (se === 0) return "number"; // exactly no change (e.g., no tax is changed): a clean zero
     if (Math.abs(mean) > 0 && se / Math.abs(mean) < rule.max_se_over_mean) return "number";
     if (Math.abs(mean) < rule.interval_z * se) return "about_even";
@@ -593,8 +595,8 @@
                multiplier k / (1 + relief gross-up), the same owner treatment the household averages use (HB 186 schedule for 2029)
        renter  property tax in rent = 12 x monthly rent x share x the landlord pass-through setting. Two building types, as in the model: a house, duplex or small building
                (up to 4 units, input.building "s"): share = p2r x the renter imputation rate x (county rate / state rate); an apartment building (5 or more units, "a", the
-               default): share = the apartment gross rent multiple x the county's Class II rate, which is the model's Class II / GRM path (state Class II rate x GRM) rescaled by
-               county Class II rate / state Class II rate, times the apartment-multiple setting
+               default): share = the apartment gross rent multiple x the apartment rate (Lincoln Institute Columbus apartment rate, PI 2026-11-23) rescaled by county
+               Class II rate / state Class II rate, times the apartment-multiple setting. The small-building p2r is hedonic value / annual CONTRACT rent (2026-11-23)
        new taxes   the average added sales and income tax (and any business-savings price effect) of the income range and tenure in the county's REGION cell, at the
                    page's current response settings; a part of the change left unpaid is not charged to anyone, as in the averages. When that region cell is
                    suppressed (too few surveyed households, the page's own rule) the statewide cell for the same range and tenure stands in, and `fallback` says so
@@ -617,7 +619,10 @@
   function roughEstimate(kernel, res, rate, input) {
     if (!res || !res.coef || !rate || !input || !res.cells.region_tenure_decile) return null;
     var st = res.state, c1 = st.class_split ? st.class_split.c1 : st.cuts.property;
-    if (st.lever === "homestead" || !(c1 !== 0)) return null;
+    // Apartments (5+ units) are Class II, so they take the Class II cut when the classes are split (review 2026-11-20).
+    var aptIn = input.tenure === "r" && input.building !== "s", cut = aptIn && st.class_split ? st.class_split.c2 : c1;
+    // Cuts only (review 2026-11-20): a raise flips every line's sign and the panel's words describe a saving.
+    if (st.lever === "homestead" || !(cut < 0)) return null;
     var rg = ESTIMATE_RANGE[input.tenure], v = +input.amount;
     if (!rg || !isFinite(v) || v < rg.min || v > rg.max) return null;
     var cty = rate.counties.filter(function (x) { return x.fips === input.fips; })[0];
@@ -629,11 +634,11 @@
     if (input.tenure === "o") { mult = rate.meta.owner.multiplier; base = v * cty.rate_market * mult; }
     else {
       var apt = input.building !== "s", gs = kernel.params.apt_full_usd[st.grm === "central" ? "central" : st.grm + "_grm"] / kernel.params.apt_full_usd.central;
-      share = apt ? rate.meta.apartment.grm * rate.meta.apartment.state_rate_market * (cty.rate_market_c2 / rate.meta.apartment.state_rate_market) * gs
+      share = apt ? rate.meta.apartment.grm * (rate.meta.apartment.apartment_rate || rate.meta.apartment.state_rate_market) * (cty.rate_market_c2 / rate.meta.apartment.state_rate_market) * gs
                   : rate.meta.renter.p2r * rate.meta.renter.imputation_rate * (cty.rate_market / rate.meta.state_rate_market);
       base = 12 * v * share * st.pt;
     }
-    var saved = -c1 * base, newTaxes = cell.mean_step2, prices = cell.mean_step1_prices;
+    var saved = -cut * base, newTaxes = cell.mean_step2, prices = cell.mean_step1_prices;
     return { county: cty.name, region_id: cty.region_id, tenure: input.tenure, saved_usd: saved, new_taxes_usd: newTaxes, prices_usd: prices,
              net_usd: newTaxes + prices - saved, fallback: fallback, building: input.tenure === "r" ? (input.building !== "s" ? "a" : "s") : null, rate_market: cty.rate_market, rate_mills: cty.rate_mills, owner_multiplier: mult, renter_share: share };
   }

@@ -420,7 +420,7 @@
   <div id="oldversion" class="banner" hidden>This link was made with an earlier version of the model. The numbers below come from the current version and may differ from what the sender saw.</div>
   <div id="linknote" class="banner" hidden></div>
   <div id="ctlnote" class="banner" hidden role="region" aria-label="Settings in this link" tabindex="-1"><span id="ctltext"></span> <button type="button" class="btn" id="backstd">Back to standard settings</button></div>
-  <div id="presetbad" class="banner" hidden>We did not recognize the starting scenario in this link, so we are showing the standard starting scenario. Pick one of the three cards above, or build your own scenario under them.</div>
+  <div id="presetbad" class="banner" hidden>We did not recognize the starting scenario in this link, so we are showing the standard starting scenario. Pick one of the three cards below, or build your own scenario under them.</div>
   <div id="specialnote" class="banner" hidden>This link uses specialist settings (more than one tax, a homestead exemption, or separate home and business cuts). This version of the page shows one tax at a time, so it shows the first tax in the link and leaves the other settings out.</div>
 
   <div class="caveat intro" id="caveat" role="region" aria-label="About this model">
@@ -537,7 +537,7 @@
         <div class="tiles" id="tiles1"></div>
         <p class="field-note" id="tilesnote">Revenue to governments, not household change.</p>
         <p class="field-note" id="tile3note"></p>
-        <p class="field-note" id="nocounty">This tool shows no figures for any single county or school district. For those, see the <a href="https://gabe-lade.github.io/swank-program/data/insights/ohio-tax-explainer/">Ohio Tax Explainer</a> maps.</p>
+        <p class="field-note" id="nocounty">This tool shows no county or school district averages; the rough estimate on this page uses only your county's typical tax rate. For county and school district maps, see the <a href="https://gabe-lade.github.io/swank-program/data/insights/ohio-tax-explainer/">Ohio Tax Explainer</a> maps.</p>
         <div class="twocol">
           <div class="col">
             <h4 class="ah" id="h-per100"></h4>
@@ -630,7 +630,7 @@
         <ul class="notincl">
           <li>Anything beyond the first year. Households and businesses can change what they buy, where they shop and where they live.</li>
           <li>Where taxes are collected versus where people live. Sales tax is counted where people shop, so money raised in a county is not the same as what that county's residents pay.</li>
-          <li>Changes in home prices. Property-tax changes are partly built into home prices, so the first-year change in a bill is not the same as who gains in the end (Oates 1969; Cellini, Ferreira and Rothstein 2010).</li>
+          <li>Changes in home prices. Ending the tax would push home prices up, while expected changes in local services, which depend on how the state replaces the money, could add to that or offset it. We do not model these effects, but they are key to whether homeowners truly gain (Oates 1969; Cellini, Ferreira and Rothstein 2010).</li>
           <li id="notincl-farm">Farms and farm land on their own. "Other homes and land," under "Where the money goes," is what is left of residential and farm property tax after the bills homeowners report, small rental buildings and the state's credits are taken out. It holds farm land, vacant land, second homes and property whose owners live elsewhere. It is not a measured farm total, and some farm property tax is inside the bills farm households report. None of that remainder is added to any household's bar, so households that own that land may be better off than the charts show. The Current Agricultural Use Value (CAUV) program is not modeled.</li>
           <li>What lawmakers or voters would do. This tool does not forecast it.</li>
           <li>The tax on business equipment. This page covers real property tax only.</li>
@@ -650,7 +650,7 @@
         <h3 class="ah" id="howest">How "Your rough estimate" is built</h3>
         <ul>
           <li><strong>Owners:</strong> the home's market value (the county auditor's value, the one behind your tax bill), times the share of market value that is taxed, times the county's typical residential tax rate (net tax charged over taxable value, tax year 2025, before the state's credits), less the state's homeowner credits as the household averages treat them.</li>
-          <li><strong>Renters:</strong> twelve months of rent, times the share of rent that is property tax, times the share landlords pass on. For a house or small building (up to 4 units) the share comes from the household model's own estimate of the property tax inside rent: a price-to-rent ratio times a residential tax rate. For an apartment building (5 or more units) it comes from the model's apartment estimate: how many years of rent such a building sells for, times the commercial and industrial tax rate. Both are rescaled by how the county's rate compares with the state's.</li>
+          <li><strong>Renters:</strong> twelve months of rent, times the share of rent that is property tax, times the share landlords pass on. For a house or small building (up to 4 units) the share comes from the household model's own estimate of the property tax inside rent: each rented home is valued from comparable owner-occupied homes (size, age, lot and area) and taxed at the residential rate, which on average comes to the value of about 17 years of rent paid to the landlord. For an apartment building (5 or more units) it comes from the model's apartment estimate: how many years of rent such a building sells for, times an apartment tax rate (the Lincoln Institute's estimate for an apartment building in Columbus, one city's rate used statewide). Both are rescaled by how the county's rate compares with the state's.</li>
           <li><strong>New taxes:</strong> the average added sales and income tax for the income range, owners or renters, in the county's region, at the settings you chose. Where too few survey households live in that region, the statewide average stands in.</li>
           <li><strong>Auditor values and survey values differ.</strong> The household averages rest on home values owners report in a survey, which run lower than county auditor market values. A home entered at its auditor value will usually show a larger property tax than the average for the same income range.</li>
         </ul>
@@ -658,7 +658,7 @@
         <div id="vintage"></div>
         <h3 class="ah">Terms used on this page</h3>
         <ul class="glossary">
-          <li id="gl-firstyear"><strong>First-year:</strong> the change in the first year, before people, businesses and home prices adjust. It is not a calendar year. <span id="gl-fy"></span></li>
+          <li id="gl-firstyear"><strong>First-year:</strong> the change in a single year under the assumptions listed, including how much landlords pass on. It is not a calendar year. <span id="gl-fy"></span></li>
           <li id="gl-response"><strong>How much people respond:</strong> how much people change what they buy, or how much they earn or report, when a tax changes. "Typical" is our standard setting; "Strong" assumes people change by more; "None" assumes they change nothing.</li>
           <li id="gl-passthrough"><strong>Pass-through:</strong> the share of a landlord's property-tax change that shows up in rent.</li>
           <li id="gl-jvsd"><strong>JVSD:</strong> a joint vocational school district, a career-tech school district that several districts share.</li>
@@ -691,8 +691,9 @@
     <p>The code, data, and documentation behind this tool will be open source: code under the MIT License; data, text, and figures under Creative Commons Attribution 4.0 (CC BY 4.0). The repository will be public with the full release; until then, the code is available on request from <a href="mailto:lade.10@osu.edu">lade.10@osu.edu</a>. Every number on this page comes from one model run (code version, data vintage, scenario settings); the stamp is under "Download these numbers", at the end of "How we calculate this," and in the downloaded file.</p>
     <p id="citeline"></p>
     </div>
-    <h3>Educational use and limits <span class="draftmark">Draft, pending OSU review</span></h3>
-    <p>This tool is for educational purposes only. It shows scenarios, not predictions: each result is a first-year estimate of who would pay what in a single year under the assumptions listed on the page, before households, businesses, or home prices adjust. It is not tax, legal, investment, or financial advice, it is not an official estimate of any government agency, and it does not predict the effect of any ballot measure or bill. Results depend on survey data, modeling assumptions, and rounded inputs, and may contain errors. The tool is provided "as is," without warranties of any kind. [OSU-APPROVED LIMITATION-OF-LIABILITY SENTENCE TO BE INSERTED HERE.]</p>
+    <h3>Educational use, license, and limits</h3>
+    <p>This tool is for educational purposes only. It shows scenarios, not predictions: each result is an estimate of who would pay what in a single year under the assumptions listed on the page, including how much landlords pass on to renters. It is not tax, legal, investment, or financial advice, it is not an official estimate of any government agency, and it does not predict the effect of any ballot measure or bill. Results depend on survey data, modeling assumptions, and rounded inputs, and may contain errors. Read them as rough, illustrative ranges, not exact figures, and do not rely on them for any personal, business, or voting decision without checking your own tax bills and other sources.</p>
+    <p>The tool, its code, and its data are provided "as is," without warranty of any kind, express or implied, as set out in the MIT and CC BY 4.0 licenses above. The authors are not responsible for errors or omissions in the tool or its results, or for how anyone uses them, and are not liable for any claim, damages, or other loss arising from the tool or its use.</p>
     <p class="printurl" id="printurl"></p>
     <div class="sitefoot" id="sitefoot">
       <p>&copy; 2026 C. William Swank Program in Rural-Urban Policy</p>
@@ -1314,7 +1315,7 @@
   function hhBars() {
     var c = cellFor(ui.hhOwn, ui.hhDec), inst = instrumentsWords(), give = res.gap_usd < 0, rent = ui.hhOwn === "r" && ui.tax === "property";
     var bpOn = res.controls.bp.passed_share > 0, prices = bpOn ? c.mean_step1_prices : 0, own = c.mean_step1 - prices, s2 = c.mean_step2;
-    var numeric = bpOn || c.mode_step1 === "number", a = { label: (cutOf() < 0 ? (rent ? "Property tax in rent no longer paid" : "Property tax no longer paid") : (rent ? "Property tax in rent that is added" : "Property tax that is added")) };
+    var numeric = c.mode_step1 !== "hidden" && (bpOn || c.mode_step1 === "number"), a = { label: (cutOf() < 0 ? (rent ? "Property tax in rent no longer paid" : "Property tax no longer paid") : (rent ? "Property tax in rent that is added" : "Property tax that is added")) };
     if (numeric) { a.bar = own; a.text = "about " + dollars(own, UI.roundHh); a.cls = own < 0 ? "less" : own > 0 ? "more" : ""; if (Math.round(own / UI.roundHh) === 0) a.bar = null; }
     else { a.text = partAmt(c.mean_step1, c.mode_step1, c.se_step1); a.bar = null; }
     var b = { label: !inst ? "New taxes" : (give ? "Lower " + inst : "New " + inst), bar: Math.abs(s2) < UI.roundHh / 2 ? null : s2, text: Math.abs(s2) < UI.roundHh / 2 ? dollars(0) : "about " + dollars(s2, UI.roundHh), cls: s2 < 0 ? "less" : "more" };
@@ -1529,8 +1530,9 @@
     var net = c.mode === "hidden" ? "not shown (too few households surveyed)" : cellText(c) + ", on average";
     // Fix round 1: the scenario and the group are stated once, in the cards and the Summary; the card opens with its own caveat.
     h += '<p class="subt" id="rc-title">' + "An average for this group, not your bill, not your county or region." + "</p>";
-    var part1 = bpOn ? "about " + dollars(own, UI.roundHh) : partAmt(s1, c.mode_step1, c.se_step1);
-    var priceRow = !bpOn ? "" : '<div class="ln part"><span>' + esc("Lower prices from business savings passed on (an assumption)") + "</span><b>" + esc("about " + dollars(prices, UI.roundHh)) + "</b></div>";
+    var bpNum = bpOn && c.mode_step1 !== "hidden";   // the too-few-households rule wins over the business-savings switch (review 2026-11-20)
+    var part1 = bpNum ? "about " + dollars(own, UI.roundHh) : partAmt(s1, c.mode_step1, c.se_step1);
+    var priceRow = !bpNum ? "" : '<div class="ln part"><span>' + esc("Lower prices from business savings passed on (an assumption)") + "</span><b>" + esc("about " + dollars(prices, UI.roundHh)) + "</b></div>";
     // v05: no stamp line or settings line at the top of the box, and no bracket here (it is in the Summary); the box holds the net change, its parts and what is not in it.
     h += '<div class="sumblock" role="group" aria-label="How the change adds up">' +
       '<div class="ln net"><span>Net change, ' + esc(afterWords()) + '</span><b class="' + cls + '">' + esc(net) + "</b></div>" +
@@ -1836,6 +1838,7 @@
     // Replacement rates (these were the Step 2 tiles)
     var which = armKey(), give = res.gap_usd < 0, mix = res.state.mix, respName = armWords();
     function rateTile(lab, bef, aft, stat, f, what, moves) {
+      if (!isFinite(aft)) return tile(lab, f(bef) + " \u2192 not reachable", "No rate this high can raise the amount needed at this response; see the note above.");
       var changed = Math.abs(aft - bef) > 1e-9;
       if (changed) lab += moves ? " (assuming " + respName + ")" : " (before people respond)";
       var sm = !changed ? "No change in this rate." : !moves ? "Set by the scenario chosen." : "";   // v05: the no-response rates are gone from the page; the typical response is named in the intro box
@@ -2086,7 +2089,7 @@
       if (m.income > 0) r.push(incRateName() + " " + pct2(n.income[arm]) + " instead of " + pct2(g.income[arm]));
       // One parenthetical, not two back to back (G24): the rates, the response setting and the coincidence note (F12) share it. With nothing raised the effect is on the amount left unpaid (G13).
       var coin = howCoin(n, arm).replace(/^ \(|\)$/g, ""), inner = r.length ? r.join("; ") + ", assuming " + armWords() : "";
-      $("howcredit").innerHTML = "<strong>The state's credit saving.</strong> Ending the property tax also ends about " + esc(money(nr.credit_saving_usd)) + " a year the state pays toward homeowners' bills. By default the page does not count it: " + (noneRaised() ? "the amount left unpaid is " : "the new taxes are asked to cover ") + esc(money(g.target_usd)) + ". Counted, " + (r.length ? "they are asked to cover " + esc(money(n.target_usd)) + ", and the rates are lower (" + esc(inner) + ")" : res.gap_usd > 0 ? "the amount left unpaid falls from " + esc(money(g.target_usd)) + " to " + esc(money(n.target_usd)) : "they are asked to cover " + esc(money(n.target_usd))) + ". The standard setting leaves the credit saving out because using it to pay for the change takes a separate decision by the legislature; counting it shows the case where households pay less. Switch between the two in step 2 of \u201cBuild your own scenario.\u201d";
+      $("howcredit").innerHTML = "<strong>The state's credit saving.</strong> Ending the property tax also ends about " + esc(money(nr.credit_saving_usd)) + " a year the state pays toward homeowners' bills. By default the page does not count it: " + (noneRaised() ? "the amount left unpaid is " : "the new taxes are asked to cover ") + esc(money(g.target_usd)) + ". Counted, " + (r.length ? "they are asked to cover " + esc(money(n.target_usd)) + ", and the rates are lower (" + esc(inner) + ")" : res.gap_usd > 0 ? "the amount left unpaid falls from " + esc(money(g.target_usd)) + " to " + esc(money(n.target_usd)) : "they are asked to cover " + esc(money(n.target_usd))) + ". The standard setting leaves the credit saving out because using it to pay for the change takes a separate decision by the legislature; counting it shows the case where households pay less. Switch between the two under \u201cAssumptions.\u201d";
     }
     $("howbp").hidden = !(prop && res.controls.bp.applies);
     if (prop && res.controls.bp.applies) $("howbp").innerHTML = "<strong>Business property-tax savings.</strong> About " + esc(money(res.controls.bp.business_saving_usd)) + " of property tax is paid by businesses (not counting apartments). By default the page does not give it to households; the Assumptions row can pass half or all of it into prices, in proportion to what households spend. Keeping it with owners or passing it on are both assumptions; the page offers both so the difference can be seen. The standard setting keeps business property-tax savings with owners because they reach households only if owners pass them on, and some owners are outside Ohio; passing them on shows the case where households pay less. Out-of-state ownership is not modeled: \u201call passed on\u201d assumes every owner passes the saving to Ohio buyers.";
@@ -2132,7 +2135,7 @@
   }
   function renderEstimate() {
     var own = ui.hhOwn === "o";
-    $("estamtlab").textContent = own ? "Your home's market value (from your county auditor or tax bill)" : "Your monthly rent";
+    $("estamtlab").textContent = own ? "Your home's market value (from your county auditor or tax bill)" : "Your monthly rent (what you pay your landlord, not counting utilities you pay separately)";
     $("esthint").textContent = own ? "Use the market value on your tax bill or the county auditor's site, not a sale price or an online estimate." : "Monthly rent for the unit you rent.";
     $("estamt").value = EST.amt[ui.hhOwn]; $("estcounty").value = EST.county;
     $("estbldset").hidden = own; $("bld_a").checked = EST.bld === "a"; $("bld_s").checked = EST.bld === "s";
@@ -2147,13 +2150,16 @@
     var cav = ["One household, using the county's typical tax rate. Your own local tax rates can be higher or lower.",
       e.fallback ? "New taxes are the statewide average for your income range, because too few survey households live in your region; your spending may differ."
         : "New taxes are the average for your income range in your region; your spending may differ."];
-    // The capitalization note is about owners' purchase prices, so renters do not get it (their note is the landlord pass-through line below).
-    if (own) cav.push("Part of the property tax is already built into what people paid for their homes, so not all of the saving is a gain to current owners.");
+    // The home-value note is about owners' asset prices, so renters do not get it (their note is the landlord pass-through line below).
+    // Direction (PI 2026-11-21): the tax cut raises values; expected service changes under the state's replacement can reinforce or offset it.
+    if (own) cav.push("Home values would also move: ending the tax pushes them up, while what people expect for local services, which depends on how the state replaces the money, can add to that or offset it. This tool does not model those price effects, but they matter for whether owners truly come out ahead.");
     if (ui.hhDec === K.decile_bounds.length) cav.push("The average new tax for the top income range is driven by the very highest incomes.");
-    var tail = own ? "Owners: the saving is after the state's homeowner credits as they will be in 2029, as in the averages above. " + '<a href="/swank-program/data/insights/ohio-property-tax-reform/">Find your local rate</a>'
+    var tail = own ? "Owners: the saving is after the state's homeowner credits as they will be in 2029, as in the averages above. " + '<a href="https://gabe-lade.github.io/swank-program/data/insights/ohio-property-tax-reform/">Find your local rate</a>'
       : "Renters: this assumes landlords pass on " + esc(Math.round(S.pt * UI.pct) + "%") + " of a property tax change to renters (the setting now). " + '<a class="chg" href="#ctl-pt" data-open="assumptions" data-target="ctl-pt" aria-label="Change this: the share landlords pass to renters">Change this</a>';
     el.innerHTML = '<p class="estnet"><span class="' + cls + '">' + esc(estimateWords(e)) + "</span></p>" +
-      '<ul class="estparts">' + line(own ? "Property tax on a home like this" : "Property tax built into rent like this" + (S.pt <= 0 ? " (landlords set to pass on none of it)" : ""), Math.abs(e.saved_usd)) + line("New " + inst, Math.abs(e.new_taxes_usd)) +
+      // Short scenario label (the cut and how it is paid for), not the full settings stamp: the panel stays simple (PI 2026-11-21).
+      '<p class="field-note estscen">' + esc("Scenario: " + E.plainStamp(K, S, { phase: "" }).scenario.split("; ").slice(0, 2).join("; ")) + "</p>" +
+      '<ul class="estparts">' + line(own ? "Property tax saved on a home like this" : "Property tax saved through rent like this" + (S.pt <= 0 ? " (landlords set to pass on none of it)" : ""), Math.abs(e.saved_usd)) + line("New " + inst, Math.abs(e.new_taxes_usd)) +
       (Math.abs(e.prices_usd) >= UI.roundHh / 2 ? line("Lower prices from business savings passed on", Math.abs(e.prices_usd)) : "") + "</ul>" +
       '<ul class="estcav">' + cav.map(function (c) { return "<li>" + esc(c) + "</li>"; }).join("") + "<li>" + tail + "</li></ul>";
   }
@@ -2338,18 +2344,20 @@
     if (!zeroState()) csvTotals(rows);
     rows.push(["income_range", "tenure", "before_paying_usd", "before_lo_usd", "before_hi_usd", "before_se_usd", "before_mode", "before_display",
       "after_paying_usd", "after_lo_usd", "after_hi_usd", "after_se_usd", "after_mode", "after_display"]);
+    // Hidden cells (too few households surveyed) export no numbers, the same rule as the page (PI 2026-11-21).
     res.cells.decile_tenure.forEach(function (c) {
-      var b1 = bounds(c.mean_step1, c.lo_step1, c.hi_step1), b2 = bounds(c.mean, c.lo, c.hi);
-      rows.push([decLabel(c.decile), c.tenure === "o" ? "homeowners" : "renters", rd(c.mean_step1), b1[0], b1[1], rd(c.se_step1), c.mode_step1, hhAmount(c.mean_step1, c.mode_step1, c.se_step1),
-        rd(c.mean), b2[0], b2[1], rd(c.se), c.mode, hhAmount(c.mean, c.mode, c.se)]);
+      var h1 = c.mode_step1 === "hidden", h2 = c.mode === "hidden";
+      var b1 = h1 ? ["", ""] : bounds(c.mean_step1, c.lo_step1, c.hi_step1), b2 = h2 ? ["", ""] : bounds(c.mean, c.lo, c.hi);
+      rows.push([decLabel(c.decile), c.tenure === "o" ? "homeowners" : "renters", h1 ? "" : rd(c.mean_step1), b1[0], b1[1], h1 ? "" : rd(c.se_step1), c.mode_step1, hhAmount(c.mean_step1, c.mode_step1, c.se_step1),
+        h2 ? "" : rd(c.mean), b2[0], b2[1], h2 ? "" : rd(c.se), c.mode, hhAmount(c.mean, c.mode, c.se)]);
     });
     if (res.cells.region_tenure) {
       rows.push(["region", "group", "after_paying_usd", "after_lo_usd", "after_hi_usd", "after_se_usd", "after_mode", "after_display", "note"]);
       [statewideRow()].concat(regionRows()).forEach(function (x) {
         REGION_GROUPS.forEach(function (g) {
           var c = x[g[0]];
-          var bb = c ? bounds(c.mean, c.lo, c.hi) : ["", ""];
-          rows.push([x.rg.region_label, g[1], c ? rd(c.mean) : "", bb[0], bb[1], c ? rd(c.se) : "", c ? c.mode : "hidden", c ? hhAmount(c.mean, c.mode, c.se) : "not shown", ui.tax === "property" && nonMetro(x.rg) ? "\u2020 Farm and other land is left out in every region; it matters most in the regions marked \u2020." : ""]);
+          var hc = !c || c.mode === "hidden", bb = hc ? ["", ""] : bounds(c.mean, c.lo, c.hi);
+          rows.push([x.rg.region_label, g[1], hc ? "" : rd(c.mean), bb[0], bb[1], hc ? "" : rd(c.se), c ? c.mode : "hidden", c ? hhAmount(c.mean, c.mode, c.se) : "not shown", ui.tax === "property" && nonMetro(x.rg) ? "\u2020 Farm and other land is left out in every region; it matters most in the regions marked \u2020." : ""]);
         });
       });
     }
@@ -2476,17 +2484,19 @@
       $("specialnote").textContent = "This link uses a homestead exemption. That setting is coming in a later version of this tool, so this page does not show it.";
       $("specialnote").hidden = false;
     }
-    var changed = TAXES.filter(function (t) { return S.cuts[t.id] !== 0; }), tx = changed[0];
+    var changedTaxes = TAXES.filter(function (t) { return S.cuts[t.id] !== 0; }), tx = changedTaxes[0];   // not `changed`: that name is the reader-changed flag above (review 2026-11-20)
     // Fix round 1: the page is about the property tax. A link that changes any other tax (the hidden "which tax" control stays in the engine) gets the "did not recognize"
     // banner and the standard starting scenario, as an old income_half link does.
-    if (changed.some(function (t) { return t.id !== "property"; })) {
-      $("presetbad").hidden = false;
+    if (changedTaxes.some(function (t) { return t.id !== "property"; })) {
+      // One clear banner (review 2026-11-20): say why, rather than the generic "did not recognize" banner.
+      $("specialnote").textContent = "This link changes a tax other than the property tax. This version of the page shows property-tax scenarios only, so it shows the standard starting scenario.";
+      $("specialnote").hidden = false; var otherTaxLink = true;
       var keepSet = { pt: S.pt, beh: S.beh, grm: S.grm, nr: S.nr, bp: S.bp };
       S = E.defaultState(K, "end_property"); S.beh = "central"; Object.keys(keepSet).forEach(function (k) { S[k] = keepSet[k]; });
-      changed = TAXES.filter(function (t) { return S.cuts[t.id] !== 0; }); tx = changed[0];
+      changedTaxes = TAXES.filter(function (t) { return S.cuts[t.id] !== 0; }); tx = changedTaxes[0];
     }
-    if (S.class_split || changed.length > 1) $("specialnote").hidden = false;
-    if (S.class_split || changed.length > 1 || !tx) {
+    if ((S.class_split || changedTaxes.length > 1) && !otherTaxLink) $("specialnote").hidden = false;
+    if (S.class_split || changedTaxes.length > 1 || !tx) {
       TAXES.forEach(function (t) { if (!tx || t.id !== tx.id) S.cuts[t.id] = 0; });
       S.class_split = null;
       if (!tx) { var keepPt = S.pt; S = E.defaultState(K); S.beh = "central"; S.pt = keepPt; }
