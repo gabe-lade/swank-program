@@ -146,9 +146,9 @@
       <div class="field"><span class="lbl" id="lu">Show</span>
         <div class="switch" role="group" aria-labelledby="lu" id="usw"><button data-u="bu" aria-pressed="true">$ per bushel</button><button data-u="ac" aria-pressed="false">$ per acre of corn</button></div></div>
     </div>
-    <p class="cap">Average credit to the plant per documented bushel (or acre of corn), 2026 rate, averaged over the Ohio corn within 50 miles of each plant. The plant's credit, not a premium offered to growers.</p>
+    <p class="cap">Average credit to the plant per documented bushel (or acre of corn), 2026 rate, averaged over the corn within 50 miles of each plant, Indiana included. The plant's credit, not a premium offered to growers.</p>
     <div class="tablewrap"><table id="valtable" class="cards"><thead></thead><tbody></tbody></table></div>
-    <p class="note">At the same practice, each 0.1 lb less nitrogen per bushel harvested is worth about 10 cents more per bushel to a plant. Counties in the same USDA soil region score alike, so plant areas differ little; your own nitrogen rate matters more. Indiana counties are not scored, so for Greenville and the Indiana plants the averages cover the Ohio part of the circle. For your own fields, use the <a href="https://ohiocornandwheat.org/about-us/corn-marketing-program/#45z-calculator" target="_top" rel="noopener">Ohio Corn &amp; Wheat 45Z calculator</a>; its figures come out about 10 cents lower because it measures against your own conventional field rather than USDA's default for undocumented corn.</p>
+    <p class="note">At the same practice, each 0.1 lb less nitrogen per bushel harvested is worth about 10 cents more per bushel to a plant. Counties in the same USDA soil region score alike, so plant areas differ little; your own nitrogen rate matters more. The averages cover every county in each 50-mile circle, Indiana included. For your own fields, use the <a href="https://ohiocornandwheat.org/about-us/corn-marketing-program/#45z-calculator" target="_top" rel="noopener">Ohio Corn &amp; Wheat 45Z calculator</a>; its figures come out about 10 cents lower because it measures against your own conventional field rather than USDA's default for undocumented corn.</p>
   </details>
 </div>
 <div class="tooltip" id="tip" aria-hidden="true"></div>
@@ -264,7 +264,7 @@
   function renderVals() {
     const unit = state.u, n = "0.95 lb/bu";
     $("valtable").querySelector("thead").innerHTML = `<tr><th>Plant area</th>${P.practices.map(pr => `<th class="n">${esc(pr === "Records only" ? "Conventional, documented" : pr)}</th>`).join("")}</tr>`;
-    $("valtable").querySelector("tbody").innerHTML = plants.map(p => `<tr><td><b>${esc(p.name)}</b>${p.share_outside_ohio >= 0.1 ? `<br><span class="muted">Ohio part of the circle (${pct(1 - p.share_outside_ohio)} of its corn)</span>` : ""}</td>` +
+    $("valtable").querySelector("tbody").innerHTML = plants.map(p => `<tr><td><b>${esc(p.name)}</b>${p.share_unscored >= 0.1 ? `<br><span class="muted">Scored part of the circle (${pct(1 - p.share_unscored)} of its corn)</span>` : ""}</td>` +
       P.practices.map(pr => { const v = p.values[n][pr]; return `<td class="n">${v && v.bu != null ? (unit === "bu" ? "$" + v.bu.toFixed(2) : "$" + v.ac) : "—"}</td>`; }).join("") + `</tr>`).join("");
     labelCells($("valtable")); fitFrame();
   }

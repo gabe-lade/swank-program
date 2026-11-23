@@ -41,6 +41,11 @@
   .lrow { display: flex; align-items: center; gap: 8px; padding: 3px 0; font-size: 12.5px; color: #56534D; }
   .lrow i, .lrow svg { display: inline-block; width: 16px; height: 11px; border-radius: 3px; flex: 0 0 auto; }
   .lrow i { border: 1px solid rgba(0,0,0,0.06); }
+  .gapsw .lbl { display: block; font-size: 12px; font-weight: 600; color: #56534D; margin: 0 0 4px; }
+  .switch { display: inline-grid; grid-auto-flow: column; gap: 6px; margin: 0 0 12px; }
+  .switch button { border: 1px solid #D8D3CA; background: #fff; border-radius: 7px; padding: 6px 10px; min-height: 34px; font-family: inherit; font-size: 12.5px; font-weight: 600; color: #56534D; cursor: pointer; }
+  .switch button[aria-pressed="true"] { color: #fff; border-color: transparent; background: #BB0000; }
+  .switch button:hover:not([aria-pressed="true"]) { background: #F4F1EB; }
   .count { font-size: 12.5px; color: #56534D; margin: 10px 0 0; border-top: 1px solid #EFECE6; padding-top: 10px; }
   .count b { font-family: 'Source Serif 4', serif; font-size: 18px; font-weight: 600; color: #33302B; display: block; }
 
@@ -71,13 +76,15 @@
     </div>
     <div>
       <p class="lt">Where plants may pay extra · an illustration, not a forecast</p>
+      <div class="gapsw"><span class="lbl" id="lg">How far plants are from their next line (not public)</span>
+        <div class="switch" role="group" aria-labelledby="lg" id="gsw"><button data-g="full" aria-pressed="true">A full step</button><button data-g="half" aria-pressed="false">Halfway</button></div></div>
       <div id="legend"></div>
       <p class="count" id="count"></p>
     </div>
   </div>
-  <p class="note">Two tests, from the same arithmetic as the bars above: the plants whose 50-mile circles cover the county would fall short of a full step from the documented corn around them if half of the qualifying corn is documented (corn no-till at half the Census rate, cover crops as in the central case, and no plant using more documented corn than it buys), and more than one company buys corn there. This assumes each plant needs a full 5-point step; a plant halfway to its next line needs half as much, and then only the counties around Greenville and Marion stay darkest. Plants owned by the same company count as one buyer, and two companies counted in a county may not both be within reach of every farm in it; Indiana and Michigan plants within 100 miles of Ohio are included. Hatched counties are mostly more than 50 miles from any plant; under USDA's rules for tracking documented grain their documented corn counts only if it reaches a plant through buyers that keep records. Hover or tap a county for its buyers and coverage; the table lists every county.</p>
+  <p class="note">Two tests, from the same arithmetic as the bars above: the plants whose 50-mile circles cover the county would fall short of a full step from the documented corn around them if half of the qualifying corn is documented (corn no-till at half the Census rate, cover crops as in the central case, and no plant using more documented corn than it buys), and more than one company buys corn there. The switch compares plants that need a full 5-point step with plants halfway to their next line, which need half as much; nobody outside a plant knows which is closer to the truth. Plants owned by the same company count as one buyer, and two companies counted in a county may not both be within reach of every farm in it; Indiana and Michigan plants within 100 miles of Ohio are included. Hatched counties are mostly more than 50 miles from any plant; under USDA's rules for tracking documented grain their documented corn counts only if it reaches a plant through buyers that keep records. Hover or tap a county for its buyers and coverage; the table lists every county.</p>
   <details id="tbl"><summary>Show counties as a table</summary>
-    <div class="tablewrap"><table id="maptable"><thead><tr><th>County</th><th>Result</th><th class="n">Buying companies within 50 mi</th><th>Plants within 50 mi</th><th class="n">Nearby documented corn as % of a full step (half of it documented)</th></tr></thead><tbody></tbody></table></div>
+    <div class="tablewrap"><table id="maptable"><thead><tr><th>County</th><th>Result</th><th class="n">Buying companies within 50 mi</th><th>Plants within 50 mi</th><th class="n" id="sth">Nearby documented corn as % of what the plants need (half of it documented)</th></tr></thead><tbody></tbody></table></div>
   </details>
 </div>
 <noscript><p style="padding:16px">The map needs JavaScript.</p></noscript>
@@ -111,13 +118,19 @@
   const LABEL = ["Short supply and several buyers: nearby plants may fall short of documented corn, and more than one company buys", "One of the two", "Neither: nearby plants likely have enough documented corn, and one company buys; a plant may still pay, but has less reason to", "Mostly more than 50 miles from a plant: your corn can still count if your elevator passes the records on"];
   const SHORT = ["Short supply and several buyers", "One of the two", "Neither", "Beyond 50 miles"];
   const FILLS = ["#253494", "#41b6c4", "#c7e9b4", "url(#hatch)"];
-  const tierIdx = (c) => Math.max(0, TIERS.indexOf(c.tier));
+  // gap: "full" = plants need a full 5-point step (tier, S_full); "half" = halfway to the next line (tier_half, S_typical)
+  const state = { gap: "full" };
+  const tierOf = (c) => state.gap === "half" ? c.tier_half : c.tier;
+  const sOf = (c) => state.gap === "half" ? c.S_typical : c.S_full;
+  const needTxt = () => state.gap === "half" ? "of what half a step takes" : "of a full step";
+  // An unknown tier must not show as the strongest category: flag it and draw it as "Neither"
+  const tierIdx = (c) => { const i = TIERS.indexOf(tierOf(c)); if (i < 0) { console.warn("Unknown tier for", c.name, tierOf(c)); return 2; } return i; };
 
   const tip = $("tip"), box = tip.parentElement;
   function showTip(ev, c, keyboard) {
-    const t = tierIdx(c);
+    const t = tierIdx(c), S = sOf(c);
     tip.innerHTML = `<strong>${esc(c.name)} County</strong><b>${SHORT[t]}</b><br><span class="muted">${c.n_buyers} buying ${c.n_buyers === 1 ? "company" : "companies"} within 50 miles` +
-      (c.S_full != null && t < 3 ? `; nearby documented corn would cover about ${Math.round(c.S_full * 100)}% of a full step for those plants if half of the qualifying corn is documented` : "") +
+      (S != null && t < 3 ? `; nearby documented corn would cover about ${Math.round(S * 100)}% ${needTxt()} for those plants if half of the qualifying corn is documented` : "") +
       (c.plants && c.plants.length ? `.<br>Plants: ${c.plants.map(esc).join(", ")}` : "") + `</span>`;
     const wrap = box.getBoundingClientRect();
     let x, y;
@@ -142,10 +155,10 @@
   const inLabel = el("text", { x: -PAD_L + 4, y: 200, class: "instate", "aria-hidden": "true" }); inLabel.textContent = "INDIANA";
   const miLabel = el("text", { x: 40, y: 12, class: "instate", "aria-hidden": "true" }); miLabel.textContent = "MICHIGAN";
   svg.append(inLabel, miLabel);
+  const paths = [];
   D.counties.forEach(c => {
-    const t = tierIdx(c);
-    const p = el("path", { d: c.d, class: "county", fill: FILLS[t], tabindex: 0, role: "img",
-      "aria-label": `${c.name} County: ${SHORT[t]}, ${c.n_buyers} buying ${c.n_buyers === 1 ? "company" : "companies"} within 50 miles` });
+    const p = el("path", { d: c.d, class: "county", tabindex: 0, role: "img" });
+    paths.push([p, c]);
     p.addEventListener("mousemove", ev => showTip(ev, c));
     p.addEventListener("mouseleave", hideTip);
     p.addEventListener("focus", ev => showTip(ev, c, true));
@@ -172,12 +185,20 @@
   document.body.insertAdjacentHTML("beforeend", '<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs><pattern id="hatch-l" width="5" height="5" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="5" height="5" fill="#EDE9E2"/><line x1="0" y1="0" x2="0" y2="5" stroke="#CFCAC0" stroke-width="1.5"/></pattern></defs></svg>');
   $("legend").innerHTML = LABEL.map((l, i) => `<div class="lrow">${FILLS[i].startsWith("url") ? '<svg viewBox="0 0 16 11" aria-hidden="true"><rect width="16" height="11" rx="3" fill="url(#hatch-l)"/></svg>' : `<i style="background:${FILLS[i]}"></i>`}${l}</div>`).join("") +
     `<div class="lrow"><svg viewBox="0 0 12 12" aria-hidden="true" style="width:12px;height:12px"><circle cx="6" cy="6" r="4.5" fill="#fff" stroke="#1A1A19" stroke-width="1.5"/></svg>Ohio plant&nbsp;&nbsp;<svg viewBox="0 0 12 12" aria-hidden="true" style="width:12px;height:12px"><path d="M6,1L11,10L1,10Z" fill="#fff" stroke="#1A1A19" stroke-width="1.5"/></svg>Indiana or Michigan plant</div>`;
-  const nBoth = D.counties.filter(c => tierIdx(c) === 0).length, nOne = D.counties.filter(c => tierIdx(c) === 1).length;
-  $("count").innerHTML = `<b>${nBoth} of ${D.counties.length} counties</b> meet both conditions; ${nOne} meet one. Each shading is about the plants near a county, not the county's own corn.`;
-
   const sorted = [...D.counties].sort((a, b) => a.name.localeCompare(b.name));
-  $("maptable").querySelector("tbody").innerHTML = sorted.map(c => { const t = tierIdx(c);
-    return `<tr><td>${esc(c.name)}</td><td>${SHORT[t]}</td><td class="n">${c.n_buyers}</td><td>${(c.plants || []).map(esc).join(", ") || "—"}</td><td class="n">${c.S_full != null && t < 3 ? Math.round(c.S_full * 100) + "%" : "—"}</td></tr>`; }).join("");
+  function paint() {
+    paths.forEach(([p, c]) => { const t = tierIdx(c);
+      p.setAttribute("fill", FILLS[t]);
+      p.setAttribute("aria-label", `${c.name} County: ${SHORT[t]}, ${c.n_buyers} buying ${c.n_buyers === 1 ? "company" : "companies"} within 50 miles`); });
+    const nBoth = D.counties.filter(c => tierIdx(c) === 0).length, nOne = D.counties.filter(c => tierIdx(c) === 1).length;
+    $("count").innerHTML = `<b>${nBoth} of ${D.counties.length} counties</b> meet both conditions; ${nOne} meet one${state.gap === "half" ? ", if plants are halfway to their next line" : ", if plants need a full step"}. Each shading is about the plants near a county, not the county's own corn.`;
+    $("sth").textContent = `Nearby documented corn as % ${needTxt()} (half of it documented)`;
+    $("maptable").querySelector("tbody").innerHTML = sorted.map(c => { const t = tierIdx(c), S = sOf(c);
+      return `<tr><td>${esc(c.name)}</td><td>${SHORT[t]}</td><td class="n">${c.n_buyers}</td><td>${(c.plants || []).map(esc).join(", ") || "—"}</td><td class="n">${S != null && t < 3 ? Math.round(S * 100) + "%" : "—"}</td></tr>`; }).join("");
+  }
+  $("gsw").addEventListener("click", e => { const b = e.target.closest("button"); if (!b) return; state.gap = b.dataset.g;
+    [...$("gsw").children].forEach(x => x.setAttribute("aria-pressed", x === b)); hideTip(); paint(); fitFrame(); });
+  paint();
 
   document.addEventListener("keydown", e => { if (e.key === "Escape") hideTip(); });
   document.addEventListener("pointerdown", e => { if (!e.target.closest(".county")) hideTip(); });
