@@ -189,5 +189,15 @@ layout: default
       });
       window.addEventListener('resize', resize);
     });
+    // The Ohio Tax Model's step-by-step view posts {type: 'ohtm-step'} when the reader changes steps; bring the frame's top back into view.
+    window.addEventListener('message', function (ev) {
+      var d = ev.data;
+      if (!d || d.type !== 'ohtm-step') return;
+      document.querySelectorAll('iframe[data-autoresize]').forEach(function (frame) {
+        if (frame.contentWindow !== ev.source) return;
+        var top = frame.getBoundingClientRect().top;
+        if (top < 0 || top > window.innerHeight / 2) frame.scrollIntoView({ block: 'start' });
+      });
+    });
   })();
 </script>

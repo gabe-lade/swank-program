@@ -402,6 +402,37 @@
     .tw.stack th[scope=row] { padding: 6px 12px 2px; border-bottom: 0; }
     ul.bars li { grid-template-columns: minmax(84px, 104px) 1fr auto auto; gap: 6px; font-size: 13px; }
   }
+  /* Step-by-step flow (PI 2026-11-23, plan 09_quality_reports/plans/2026-11-23_tax-model-step-flow.md). ?view=full keeps the one-page layout. */
+  body.stepmode .stepoff { display: none !important; }
+  body.stepmode .toc { display: none; }
+  body.stepmode #main { display: flex; flex-direction: column; }
+  body.stepmode #main > * { order: 20; }
+  body.stepmode #main > .srh1, body.stepmode #main > .banner { order: 1; }
+  body.stepmode #stepnav { order: 2; }
+  body.stepmode #estimate { order: 15; }
+  body.stepmode #stepfoot { order: 70; }
+  body.stepmode .fullonly { display: none !important; }
+  .basisln { background: var(--sw-card-bg, #f6f4f0); border-left: 3px solid var(--sw-accent); padding: 8px 12px; margin: 4px 0 12px; font-size: var(--t-small); line-height: 1.5; }
+  .stepnotes { margin-top: 10px; }
+  body.stepmode #main > .howsec { order: 80; }
+  .stepnav { margin: 6px 0 16px; }
+  .stepnav .stepnow { font-size: var(--t-small); color: var(--sw-ink-3); margin: 0 0 8px; }
+  .stepnav ol { list-style: none; display: flex; flex-wrap: wrap; gap: 6px; padding: 0; margin: 0; }
+  .stepnav button { font: inherit; font-size: var(--t-btn); font-weight: 600; min-height: 36px; padding: 6px 12px; border-radius: 999px; border: 1px solid var(--sw-ctl-line); background: var(--sw-white); color: var(--sw-ink-2); cursor: pointer; }
+  .stepnav button:hover { background: var(--sw-panel-2); }
+  .stepnav button[aria-current="step"] { background: var(--sw-accent); border-color: var(--sw-accent); color: #fff; }
+  .stepfoot { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; margin: 26px 0 10px; padding-top: 14px; border-top: 1px solid var(--sw-divider); }
+  .stepfoot .stepalt { margin-left: auto; font-size: var(--t-small); }
+  .btn.primary { background: var(--sw-accent); border-color: var(--sw-accent); color: #fff; }
+  .btn.primary:hover { background: var(--sw-accent-dark); }
+  .stepview { font-size: var(--t-small); margin: 4px 0 10px; }
+  #printsum { display: none; }
+  @media (max-width: 600px) { .stepnav ol { display: none; } }
+  @media print {
+    body.printsum #main > *:not(#printsum) { display: none !important; }
+    body.printsum #printsum { display: block !important; }
+    body.printsum .hero, body.printsum .embed-note { display: none !important; }
+  }
 </style>
 </head>
 <body>
@@ -423,15 +454,21 @@
   <div id="presetbad" class="banner" hidden>We did not recognize the starting scenario in this link, so we are showing the standard starting scenario. Pick one of the three cards below, or build your own scenario under them.</div>
   <div id="specialnote" class="banner" hidden>This link uses specialist settings (more than one tax, a homestead exemption, or separate home and business cuts). This version of the page shows one tax at a time, so it shows the first tax in the link and leaves the other settings out.</div>
 
-  <div class="caveat intro" id="caveat" role="region" aria-label="About this model">
+  <p class="stepview" id="stepview" hidden><a href="?" id="stepviewlink">Go to the step-by-step view</a></p>
+  <nav class="stepnav" id="stepnav" aria-label="Steps" hidden>
+    <p class="stepnow" id="stepnow"></p>
+    <ol id="stepol"></ol>
+  </nav>
+  <h2 id="h-intro" class="steponly" data-step="1" tabindex="-1" hidden>What this is</h2>
+  <div class="caveat intro" id="caveat" role="region" aria-label="About this model" data-step="1">
     <p class="introwhat"><strong>What this is.</strong> This is a short-run model of what would happen if Ohio's property taxes went away. You decide what replaces them and how much. It estimates how the tax burden would shift among Ohio households and, if the money is not fully replaced, which levels of government and which services would be most exposed.</p>
     <p class="introhead"><strong>What we assume</strong></p>
     <ul id="introassume"></ul>
     <p class="introfoot">First-year scenarios, not forecasts. <a href="#notincl" data-open="sec-how" data-target="notincl">What this does not include</a></p>
   </div>
 
-  <section aria-labelledby="who">
-    <h2 id="who" style="margin-top:8px" tabindex="-1">Who</h2>
+  <section aria-labelledby="who" data-step="2">
+    <h2 id="who" style="margin-top:8px" tabindex="-1">About you</h2>
     <fieldset>
       <legend>Do you own or rent your home?</legend>
       <div class="seg" id="ownseg" role="radiogroup" aria-label="Own or rent"></div>
@@ -440,11 +477,28 @@
       <div class="incsel"><label class="lbl" for="incsel">Household income range</label><select id="incsel"></select></div>
       <p class="wholine" id="wholine"></p>
     </fieldset>
+    <div class="estinputs" id="estinputs">
+    <h3 id="h-estin">Your county and home (optional)</h3>
+    <p class="sub">For a rough estimate for one household. Leave these blank to see averages for households like yours.</p>
+    <div class="estin">
+      <div><label class="lbl" for="estcounty">County</label><select id="estcounty" class="estsel"></select></div>
+      <div><label class="lbl" for="estamt" id="estamtlab">Your home's market value (from your county auditor or tax bill)</label><input id="estamt" type="text" inputmode="decimal" autocomplete="off" aria-describedby="esthint estmsg"></div>
+    </div>
+    <fieldset class="estbld" id="estbldset" hidden>
+      <legend>What kind of building do you rent in?</legend>
+      <div class="seg" id="estbld" role="radiogroup" aria-label="Kind of building">
+        <label><input type="radio" name="bld" id="bld_a" value="a"><span>Apartment building (5 or more units)</span></label>
+        <label><input type="radio" name="bld" id="bld_s" value="s"><span>House, duplex or small building (up to 4 units)</span></label>
+      </div>
+    </fieldset>
+    <p class="field-note" id="esthint"></p>
+    <p class="field-note" id="estmsg"></p>
+    </div>
   </section>
 
-  <section aria-labelledby="h-scen">
+  <section aria-labelledby="h-scen" data-step="3">
     <a id="step1"></a>
-    <h2 id="h-scen">Scenario</h2>
+    <h2 id="h-scen" tabindex="-1">Choose a scenario</h2>
     <p class="sub" id="scensub"></p>
     <div class="presetblock">
       <div class="cards" id="presets" role="group" aria-label="Starting scenarios"></div>
@@ -511,11 +565,12 @@
     </details>
   </section>
 
-  <section aria-labelledby="h-res" id="result" tabindex="-1">
+  <section aria-labelledby="h-res" id="result" tabindex="-1" data-step="4">
     <h2 id="h-res">Summary of results</h2>
+    <p class="basisln steponly" id="basisln" data-step="4" hidden></p>
     <div class="sumres" id="sumres"></div>
-    <h3 class="ah detailsh" id="h-details">Details for this group</h3>
-    <article class="rcard" id="rcard" aria-labelledby="rc-title"></article>
+    <h3 class="ah detailsh fullonly" id="h-details">Details for this group</h3>
+    <article class="rcard fullonly" id="rcard" aria-labelledby="rc-title"></article>
     <div id="notices"></div>
 
     <div class="settingsln" id="settingsln">
@@ -525,12 +580,15 @@
     </div>
   </section>
 
-  <section class="layer2" aria-labelledby="h-full">
-    <h2 id="h-full">The full picture</h2>
-    <div class="l2bar"><button type="button" class="btn" id="expandall">Expand all</button><span class="sub" style="margin:0" id="l2hint">Three sections. Each opens to charts, tables and notes on how they are built.</span></div>
+  <section class="layer2" aria-labelledby="h-full" data-step="4 5">
+    <h2 id="h-full" data-step="4">The full picture</h2>
+    <h2 id="h-local" class="steponly" data-step="5" tabindex="-1" hidden>Local governments</h2>
+    <p class="sub steponly" data-step="5" hidden>Where the money goes: which governments lose the most, what they spend it on, and whose tax bills change.</p>
+    <div id="lgstep" class="steponly" data-step="5" hidden></div>
+    <div class="l2bar" data-step="4"><button type="button" class="btn" id="expandall">Expand all</button><span class="sub" style="margin:0" id="l2hint">Three sections. Each opens to charts, tables and notes on how they are built.</span></div>
     <p class="empty" id="l2empty" hidden>Pick a scenario above to fill in these sections.</p>
 
-    <details class="sec" id="sec-money">
+    <details class="sec" id="sec-money" data-step="5">
       <summary><h3>Where the money goes</h3> <span class="sumline" id="sum-money"></span></summary>
       <div class="body" id="body-money">
         <p class="headline" id="s1headline"></p>
@@ -565,7 +623,7 @@
       </div>
     </details>
 
-    <details class="sec" id="sec-income">
+    <details class="sec" id="sec-income" data-step="4">
       <summary><h3>Households by income</h3> <span class="sumline" id="sum-income"></span></summary>
       <div class="body" id="body-income">
         <div class="btn-row subtoggle" role="group" aria-label="Which view" id="viewpicker"></div>
@@ -587,7 +645,7 @@
       </div>
     </details>
 
-    <details class="sec" id="sec-region">
+    <details class="sec" id="sec-region" data-step="4">
       <summary><h3>Where households come out, by region</h3> <span class="sumline" id="sum-region"></span></summary>
       <div class="body" id="body-region">
         <p class="sub" id="regsub"></p>
@@ -603,22 +661,9 @@
     </details>
   </section>
 
-  <section class="estimate" id="estimate" aria-labelledby="h-est">
-    <h2 id="h-est">Your rough estimate</h2>
-    <p class="sub" id="estintro">One household, in one county. It uses the own-or-rent and income choices at the top of the page and the scenario you picked.</p>
-    <div class="estin">
-      <div><label class="lbl" for="estcounty">County</label><select id="estcounty" class="estsel"></select></div>
-      <div><label class="lbl" for="estamt" id="estamtlab">Your home's market value (from your county auditor or tax bill)</label><input id="estamt" type="text" inputmode="decimal" autocomplete="off" aria-describedby="esthint estmsg"></div>
-    </div>
-    <fieldset class="estbld" id="estbldset" hidden>
-      <legend>What kind of building do you rent in?</legend>
-      <div class="seg" id="estbld" role="radiogroup" aria-label="Kind of building">
-        <label><input type="radio" name="bld" id="bld_a" value="a"><span>Apartment building (5 or more units)</span></label>
-        <label><input type="radio" name="bld" id="bld_s" value="s"><span>House, duplex or small building (up to 4 units)</span></label>
-      </div>
-    </fieldset>
-    <p class="field-note" id="esthint"></p>
-    <p class="field-note" id="estmsg"></p>
+  <section class="estimate" id="estimate" aria-labelledby="h-est" data-step="4">
+    <h2 id="h-est" tabindex="-1">Your rough estimate</h2>
+    <p class="sub" id="estintro">One household, in one county. It uses your choices under About you (own or rent, income, county, and home value or rent) and the scenario you picked.</p>
     <div id="estbody" hidden></div>
   </section>
 
@@ -673,12 +718,21 @@
     </details>
   </section>
 
-  <div id="copyarea" class="btn-row">
+  <h2 id="h-take" class="steponly" data-step="6" tabindex="-1" hidden>Take it with you</h2>
+  <p class="sub steponly" data-step="6" hidden>Save a summary of what you chose as a PDF (use your browser's print dialog), download the numbers, or copy a link that opens this scenario.</p>
+  <div id="copyarea" class="btn-row" data-step="6">
+    <button type="button" class="btn" id="printsumbtn">Save a summary (PDF)</button>
     <button type="button" class="btn" id="copylink">Copy link to this scenario</button>
     <button type="button" class="btn" id="download">Download these numbers (CSV)</button>
     <span id="copymsg" class="sub"></span>
   </div>
-  <p class="stamp" id="dlstamp"></p>
+  <p class="stamp" id="dlstamp" data-step="6"></p>
+  <nav class="stepfoot" id="stepfoot" aria-label="Step navigation" hidden>
+    <button type="button" class="btn" id="stepback">Back</button>
+    <button type="button" class="btn primary" id="stepnext">Next</button>
+    <span class="stepalt"><a href="?view=full" id="allview">See everything on one page</a></span>
+  </nav>
+  <div id="printsum"></div>
   <input id="copyfield" readonly hidden aria-label="Link to this scenario">
   </main>
 
@@ -1358,8 +1412,29 @@
     var br = E.bracket(K, S, keyNow());
     if (br) h += '<p class="bracketl">' + esc(bracketLine(br)) + ". " + '<a href="#assumptions" data-open="assumptions" data-target="assumptions">Change the assumptions</a></p>';
     if (leanText()) h += '<p class="leanln">' + esc(leanText()) + "</p>";
-    h += '<p class="estlink">Want a number for one home? <a href="#estimate" data-open="estimate" data-target="estimate">Try your rough estimate below.</a></p></div>';
+    if (STEPMODE) {
+      // Step 4 has no Details card (PI 2026-11-27: it repeated the Summary), so the card's caveats that must travel with a household figure come here.
+      var lc = E.landlordCases(K, S, keyNow()), notes = [];
+      if (lc) notes.push(esc(lc.words) + ".");
+      if (ui.tax === "property") notes.push((cutOf() < 0 ? "Lower" : "Higher") + " property taxes also tend to " + (cutOf() < 0 ? "raise" : "lower") + " home prices over time; that is not counted.");
+      notes.push('<a href="#notincl-dyn" data-open="sec-how" data-target="notincl-dyn">What these numbers leave out</a>');
+      h += '<div class="stepnotes">' + notes.map(function (x) { return '<p class="small">' + x + "</p>"; }).join("") + "</div></div>";
+      el.innerHTML = h; $("lgstep").innerHTML = lgHtml(); renderBasis();
+      return;
+    }
+    h += '<p class="estlink">Want a number for one home? <a href="#estimate" data-open="estimate" data-target="estimate">Add your county and home value or rent.</a></p></div>';
     el.innerHTML = h + lgHtml();
+  }
+  // Step 4 says which number the reader is looking at (PI 2026-11-27): their own rough estimate (county rate and home value or rent) or the statewide average for their group.
+  function renderBasis() {
+    if (!STEPMODE || !res) return;
+    var el = $("basisln"); el.hidden = zeroState();
+    if (zeroState()) { el.innerHTML = ""; return; }
+    var p = estimateParts(), grp = "all Ohio " + tenWord() + " earning " + decWords(ui.hhDec), what = ui.hhOwn === "o" ? "home value" : "rent";
+    el.innerHTML = p.est
+      ? esc("First: your rough estimate for one home in " + p.est.county + " County, using that county's typical tax rate and the " + what + " you entered. Then: the average for " + grp + ", statewide. The average does not use your county or your " + what + ".")
+      : esc("This is the average for " + grp + ", statewide. It is not your bill and does not use your county or your " + what + ". ") +
+        '<a href="#estimate" data-open="estimate" data-target="estimate">Add your county and ' + what + " under About you</a>" + esc(" for a rough estimate for one home.");
   }
   // The one technical stamp for the page body, under "Download these numbers" (the other is at the end of "How we calculate this"); PD-5.
   function renderDlStamp() {
@@ -2144,6 +2219,11 @@
     var isErr = !!p.msg && p.msg !== "Choose a county.";   // a prompt is not an error
     $("estmsg").textContent = isErr ? "Error: " + p.msg : p.msg || ""; $("estmsg").className = isErr ? "field-note err" : "field-note";
     el.hidden = !e;
+    if (STEPMODE) {
+      $("estimate").hidden = $("estimate").hidden || !e;
+      if (e) $("estintro").textContent = "One home in " + e.county + " County: your " + (own ? "home value" : "rent") + " and that county's typical tax rate, under the scenario you picked.";
+      renderBasis();
+    }
     if (!e) { el.innerHTML = ""; return; }
     var inst = instrumentsWords() || "taxes", cls = Math.abs(e.net_usd) < UI.estEven ? "" : e.net_usd < 0 ? "less" : "more";
     var line = function (lab, v) { return "<li><span>" + esc(lab) + "</span><b>" + esc(dollars(v, UI.roundHh)) + "</b></li>"; };
@@ -2236,6 +2316,7 @@
   function openFromTarget(name, scroll) {
     var id = resolveTarget(name), d = id && $(id);
     if (!d) return false;
+    if (STEPMODE && stepReady) { var sn = stepOfTarget(id); if (sn && sn !== curStep) showStep(sn, "push"); }
     if (SEC_IDS.indexOf(id) >= 0) d.open = true;
     if (BUILD_IDS.indexOf(id) >= 0) { $("build").open = true; focusControl(id); }
     if (ASSUMP_IDS.indexOf(id) >= 0) { $("assumptions").open = true; focusControl(id); }
@@ -2251,12 +2332,13 @@
   // Closed <details> do not print. Before printing every one opens (sections, the two control rows, the tables, the caveat) and the charts are drawn; afterward each goes back as it was.
   var printAll = null;
   function beforePrint() {
+    if (STEPMODE) { fillPrintSummary(); setClass(document.body, "printsum", true); return; }
     printAll = Array.prototype.slice.call(document.querySelectorAll("details")).map(function (d) { return [d, !!d.open]; });
     printAll.forEach(function (x) { x[0].open = true; });
     if (res) SEC_IDS.forEach(renderSec);
     $("printurl").textContent = "This scenario: " + standaloneUrl();
   }
-  function afterPrint() { if (printAll) printAll.forEach(function (x) { x[0].open = x[1]; }); printAll = null; }
+  function afterPrint() { setClass(document.body, "printsum", false); if (printAll) printAll.forEach(function (x) { x[0].open = x[1]; }); printAll = null; }
 
   // ---- links, CSV, address ------------------------------------------------------------------------------------------------
   function citeText() { return "Suggested citation: C. William Swank Program in Rural-Urban Policy, The Ohio State University, Ohio Tax Model, model " + K.meta.model_version + ", 2026. https://gabe-lade.github.io/swank-program/data/insights/ohio-tax-model/"; }
@@ -2405,7 +2487,7 @@
   // The address bar and the "Open the full-page tool" link follow every change, and keep the hash and the open sections (SC-C3).
   function syncAddress(hold) {
     $("openfull").href = standaloneUrl();  // always current, so open-in-new-tab and copy-address work without a click (R3-13)
-    if (!EMBEDDED && !hold) { try { history.replaceState(null, "", "?" + addrQuery() + (location.hash || "")); } catch (e) { /* file:// in some browsers */ } }
+    if (!EMBEDDED && !hold) { try { history.replaceState(null, "", "?" + stepQuery(addrQuery()) + (location.hash || "")); } catch (e) { /* file:// in some browsers */ } }
   }
   function syncFrameHeight() {
     if (!EMBEDDED) return;
@@ -2434,6 +2516,7 @@
     Array.prototype.forEach.call($("viewpicker").children, function (b) { b.addEventListener("click", function () { ui.view = b.getAttribute("data-show"); renderIncome(); syncFrameHeight(); }); });
     $("copylink").addEventListener("click", copyLink); $("copylink2").addEventListener("click", copyLink);
     $("download").addEventListener("click", downloadCsv);
+    $("printsumbtn").addEventListener("click", function () { try { window.print(); } catch (e) { /* no print */ } });
     $("backstd").addEventListener("click", restoreStandard);
     $("expandall").addEventListener("click", function () {
       var all = L2_IDS.every(isOpen);
@@ -2457,6 +2540,87 @@
     });
     window.addEventListener("hashchange", function () { var h = String(location.hash || "").replace(/^#/, ""); if (h && openFromTarget(h, true)) syncFrameHeight(); });
     window.addEventListener("beforeprint", beforePrint); window.addEventListener("afterprint", afterPrint);
+  }
+
+  // ---- step-by-step flow (PI 2026-11-23) --------------------------------------------------------------------------------
+  // Six screens over the same page: every section carries data-step and a screen shows only its own. ?view=full is the one-page
+  // layout. The step is kept in the address as st= only when it differs from the link's default (a scenario link opens at 4).
+  var STEP_NAMES = ["What this is", "About you", "Choose a scenario", "What it means for you", "Local governments", "Take it with you"];
+  var STEPMODE = !/(?:^|[?&])view=full(?:&|$)/.test(location.search), curStep = 1, stepReady = false;
+  function setClass(el, c, on) {
+    if (!el) return;
+    var cur = " " + (el.className || "") + " ", has = cur.indexOf(" " + c + " ") >= 0;
+    if (on && !has) el.className = ((el.className || "") + " " + c).trim();
+    else if (!on && has) el.className = cur.replace(" " + c + " ", " ").trim();
+  }
+  function defaultStep(qs) { return /(?:^|[?&])(?:preset|cp|ci|cs)=/.test(qs || "") ? 4 : 1; }
+  function stepFromQuery(qs) { var m = /(?:^|[?&])st=([1-6])(?:&|$)/.exec(qs || ""); return m ? +m[1] : defaultStep(qs); }
+  function stepQuery(base) {
+    if (!STEPMODE) return (base ? base + "&" : "") + "view=full";
+    if (curStep === defaultStep(base)) return base;
+    return (base ? base + "&" : "") + "st=" + curStep;
+  }
+  function stepOfTarget(id) {
+    if (id === "who" || id === "ho_r" || id === "ho_o" || id === "estimate" || id === "estcounty") return 2;
+    if (id === "build" || id === "assumptions" || BUILD_IDS.indexOf(id) >= 0 || ASSUMP_IDS.indexOf(id) >= 0) return 3;
+    if (id === "sec-income" || id === "sec-region" || id === "result") return 4;
+    if (id === "sec-money") return 5;
+    return 0;
+  }
+  function stepHeading(n) { return $(["h-intro", "who", "h-scen", $("estimate").hidden ? "h-res" : "h-est", "h-local", "h-take"][n - 1]); }
+  function showStep(n, how) {
+    curStep = n;
+    Array.prototype.forEach.call(document.querySelectorAll("[data-step]"), function (el) {
+      if (el) setClass(el, "stepoff", String(el.getAttribute("data-step")).split(" ").indexOf(String(n)) < 0);
+    });
+    Array.prototype.forEach.call($("stepol").children || [], function (b, i) {
+      if (b.setAttribute) { if (i + 1 === n) b.setAttribute("aria-current", "step"); else b.removeAttribute && b.removeAttribute("aria-current"); }
+    });
+    $("stepnow").textContent = "Step " + n + " of 6: " + STEP_NAMES[n - 1];
+    $("stepback").hidden = n === 1;
+    $("stepnext").textContent = n === 1 ? "Get started" : n === 6 ? "Start over" : "Next: " + STEP_NAMES[n];
+    if (n === 5 && !$("sec-money").open) $("sec-money").open = true;
+    if (n === 4 && !$("sec-income").open) $("sec-income").open = true;
+    if (how === "init") return;
+    renderMoney(); renderIncome();
+    var url = "?" + stepQuery(addrQuery()) + (location.hash || "");
+    if (!EMBEDDED) { try { if (how === "push" && history.pushState) history.pushState(null, "", url); else history.replaceState(null, "", url); } catch (e) { /* file:// */ } }
+    $("live").textContent = $("stepnow").textContent + ".";
+    var h = stepHeading(n);
+    if (h) { h.setAttribute("tabindex", "-1"); try { h.focus({ preventScroll: true }); } catch (e) { /* ignore */ } }
+    scrollToEl($("stepnav"));
+    try { parent.postMessage({ type: "ohtm-step", step: n }, "*"); } catch (e) { /* no parent */ }
+    syncFrameHeight();
+  }
+  function goStep(n) { showStep(Math.max(1, Math.min(6, n)), "push"); }
+  function fillPrintSummary() {
+    var est = $("estimate").hidden || $("estbody").hidden ? "" : "<h3>Your rough estimate</h3>" + $("estbody").innerHTML;
+    $("printsum").innerHTML = "<h2>Ohio Tax Model: your scenario</h2>" +
+      "<p>" + esc($("paidsum").textContent || "") + " " + esc($("asumtxt").textContent || "") + "</p>" +
+      $("sumres").innerHTML + est + (STEPMODE ? $("lgstep").innerHTML : "") +
+      "<p class=\"stamp\">" + esc($("dlstamp").textContent || "") + "</p>" +
+      "<p class=\"stamp\">This scenario: " + esc(standaloneUrl()) + "</p>" +
+      "<p class=\"stamp\">For educational use. Scenarios, not forecasts: estimates for a single year under the assumptions listed, including how much landlords pass on to renters. Not tax, legal or financial advice.</p>";
+  }
+  function initSteps(first) {
+    if (!STEPMODE) { $("stepview").hidden = false; $("stepviewlink").href = "?" + addrQuery(); return; }
+    setClass(document.body, "stepmode", true);
+    $("stepnav").hidden = false; $("stepfoot").hidden = false;
+    Array.prototype.forEach.call(document.querySelectorAll(".steponly"), function (el) { if (el) el.hidden = false; });
+    $("stepol").innerHTML = STEP_NAMES.map(function (nm, i) {
+      return '<li><button type="button" data-go="' + (i + 1) + '">' + (i + 1) + ". " + esc(nm) + "</button></li>";
+    }).join("");
+    $("stepol").addEventListener("click", function (ev) { var g = ev.target && ev.target.getAttribute && ev.target.getAttribute("data-go"); if (g) goStep(+g); });
+    $("stepback").addEventListener("click", function () { goStep(curStep - 1); });
+    $("stepnext").addEventListener("click", function () { goStep(curStep === 6 ? 1 : curStep + 1); });
+    $("allview").addEventListener("click", function () { this.href = "?" + (addrQuery() ? addrQuery() + "&" : "") + "view=full"; });
+    window.addEventListener("popstate", function () { showStep(stepFromQuery(location.search), "pop"); });
+    $("h-res").textContent = "Households like yours";
+    $("h-full").textContent = "Compare with other households";
+    $("l2hint").textContent = "Every income range and every region, under the same scenario.";
+    showStep(first, "init");
+    stepReady = true;
+    renderBasis();
   }
 
   // ---- init -----------------------------------------------------------------------------------------------------------
@@ -2534,6 +2698,7 @@
   linkSetOff = linkSetOff0;
   update();
   ready = true;
+  initSteps(hashTarget && stepOfTarget(resolveTarget(hashTarget)) ? stepOfTarget(resolveTarget(hashTarget)) : stepFromQuery(q));
   // A link that arrives with settings off the standard is announced and takes focus once (R3-02): a screen-reader reader hears it before the numbers.
   if (linkSetOff0 && !$("ctlnote").hidden) {
     $("live").textContent = $("ctltext").textContent.split(". The result card")[0] + ".";

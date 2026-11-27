@@ -7,19 +7,19 @@ description: "What if Ohio ended the property tax? Choose what replaces it and s
 eyebrow: "Interactive tool"
 topic: "Taxes"
 subtitle: "What if Ohio ended the property tax? Choose what replaces it and see who pays."
-updated: "November 16, 2026"
+updated: "November 27, 2026"
 authors:
   - name: "Gabriel E. Lade"
     url: "https://gabe-lade.github.io/"
   - name: "Alex Ryan"
 intro:
   - "Ohio's real property tax came to about $22.6 billion in tax year 2025, and a proposed constitutional amendment would end it. This tool asks what happens if the state replaced that money with higher sales taxes, income taxes or both. Pick a household group and a scenario to see how much more or less that group would pay in taxes, on average, and how much each type of local government relies on the property tax today."
-  - "<strong>These are first-year scenarios, not forecasts.</strong> The figures are averages for groups of Ohio households, not anyone's actual bill. Near the bottom of the tool, a rough estimate takes your county and your home's value or your rent. We take no position on the amendment."
+  - "<strong>These are first-year scenarios, not forecasts.</strong> The figures are averages for groups of Ohio households, not anyone's actual bill. The tool walks through six short steps. On the second, <em>About you</em>, you can add your county and your home's value or your rent for a rough estimate for one home. We take no position on the amendment."
 blocks:
   - type: map
     id: "tax-model"
     heading: "The Ohio Tax Model"
-    desc: "Start with one of the three scenarios, or open <em>Build your own scenario</em> to set how much of the tax is cut, how much is replaced and with what. <em>How we calculate this</em>, at the end of the tool, lists every assumption and what the numbers leave out."
+    desc: "Use <em>Next</em> to move through the steps, or <em>See everything on one page</em> for the full layout. In <em>Choose a scenario</em>, start with one of the three scenarios, or open <em>Build your own scenario</em> to set how much of the tax is cut, how much is replaced and with what. <em>How we calculate this</em>, at the end of the tool, lists every assumption and what the numbers leave out."
     file: "Ohio Tax Model"
     embed: "/assets/data-insights/ohio-tax-model/ohio_tax_model.html"
     frame_id: "taxmodel-frame"
